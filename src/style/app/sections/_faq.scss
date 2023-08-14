@@ -1,0 +1,105 @@
+#scene-faq {
+  background-color: var(--color-bg);
+
+  .container {
+    @include grid(80px, 1fr 2fr);
+    position: relative;
+
+    .scene-content {
+      // position: sticky;
+      // top: 3em;
+    }
+
+    .faq-list {
+      padding-top: 3em;
+    }
+  }
+}
+
+.faq-item {
+  margin-bottom: 20px;
+
+  &.is-open {
+    .faq-btn {
+      svg {
+        color: var(--color-blue);
+      }
+    }
+
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-btn {
+    @include t();
+    @include font(700);
+    @include flex(18px, flex-start);
+    margin-bottom: 20px;
+    color: var(--color-text);
+    font-size: 1.8rem;
+    padding: 0;
+
+    &:hover {
+      color: var(--color-blue);
+    }
+
+    svg {
+      @include t();
+      width: 32px;
+      font-size: 2.6rem;
+      color: var(--color-text);
+    }
+  }
+
+  .faq-content {
+    @include t(0.15s);
+    overflow: hidden;
+    font-size: 1.4rem;
+    padding-left: 50px;
+
+    p {
+      font-size: 1.4rem;
+      line-height: 1.5em;
+      color: var(--color-text-light);
+
+      &:not(:only-child) {
+        margin-bottom: 10px;
+      }
+
+      a {
+        @include font(700);
+        @include t();
+        height: 36px;
+        line-height: 36px;
+        border: 1px solid var(--color-blue);
+        color: var(--color-blue);
+        border-radius: 5px;
+        @include flex(10px, flex-start, center);
+        display: inline-flex;
+        padding: 0 20px;
+        font-size: 1.2rem;
+        text-decoration: none;
+        margin-top: 5px;
+
+        &:hover {
+          background-color: var(--color-blue);
+          color: var(--color-text-light);
+
+          svg {
+            color: var(--color-text-light);
+          }
+        }
+
+        svg {
+          font-size: 2rem;
+          color: var(--color-blue);
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}

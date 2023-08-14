@@ -1,0 +1,11 @@
+@import "./faq";
+@import "./mission";
+@import "./footer";
+
+.section-wrap {
+  display: block;
+  min-height: 100vh;
+  z-index: 10;
+  position: relative;
+  padding: 6em 0;
+}

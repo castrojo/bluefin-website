@@ -1,0 +1,28 @@
+{
+  "name": "website",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@iconify-prerendered/vue-mdi": "^0.23.1689058119",
+    "@types/marked": "^5.0.1",
+    "@vueuse/components": "^10.3.0",
+    "@vueuse/core": "^10.3.0",
+    "marked": "^7.0.2",
+    "sass": "^1.64.2",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.40.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.46.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vue-tsc": "^1.8.5"
+  }
+}

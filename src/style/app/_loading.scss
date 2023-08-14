@@ -1,0 +1,38 @@
+.page-loading {
+  position: fixed;
+  inset: 0;
+  @include flex(0, center,center);
+
+  
+  img {
+    // width: 156px;
+    position: absolute;
+    left: -100px;
+    top: -350px;
+    transform: rotate(156deg);
+  }
+
+  .wrapper {
+    @include flex(0, flex-start, $w: nowrap);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    @keyframes move {
+      from {   left: 0 }
+      to { left: -100% }
+    }
+  
+    animation: 30s linear 0s infinite move;
+  }
+
+
+  h1 {
+    color: var(--color-white);
+    font-size: 5rem;
+    letter-spacing: 1em;
+    text-transform: uppercase;
+
+  }
+}

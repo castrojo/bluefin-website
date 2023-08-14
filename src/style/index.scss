@@ -1,0 +1,18 @@
+@import "./setup/";
+
+html {
+  @include font(400);
+  font-size: 63.5%;
+  position: relative;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@import "./app/";
+
+@import "./overrides/";

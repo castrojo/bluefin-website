@@ -1,0 +1,47 @@
+<script setup lang='ts'>
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { marked } from 'marked'
+import { IconChevronDown, IconChevronUp } from '@iconify-prerendered/vue-mdi'
+
+const props = defineProps<{
+  question: string
+  answer: string
+  open?: boolean
+}>()
+
+const content = ref<HTMLDivElement>()
+const open = ref(false)
+const contentMaxHeight = ref(0)
+
+watch(open, async (value) => {
+  if (value) {
+    await nextTick()
+    contentMaxHeight.value = content.value?.scrollHeight ?? 0
+  }
+})
+
+onMounted(() => {
+  if (props.open !== undefined)
+    open.value = props.open
+})
+
+// Tweak marked to not turn `` into code blocks
+const renderer = new marked.Renderer()
+renderer.code = code => `<p>${code}</p>`
+
+const renderedContent = computed(() => marked.parse(props.answer, { renderer }))
+</script>
+
+<template>
+  <div class="faq-item" :class="{ 'is-open': open }">
+    <button class="faq-btn" @click="open = !open">
+      <IconChevronUp v-if="open" />
+      <IconChevronDown v-else />
+      {{ props.question }}
+    </button>
+
+    <div ref="content" class="faq-content" :style="{ 'max-height': open ? `${contentMaxHeight}px` : 0 }">
+      <div v-html="renderedContent" />
+    </div>
+  </div>
+</template>

@@ -1,0 +1,14 @@
+// Main app styles
+@import "./scene";
+@import "./navigation";
+@import "./animations";
+@import "./loading";
+@import "./sections/";
+
+h1 {
+  @include font(700);
+  font-size: 10rem;
+  text-transform: uppercase;
+  padding-top: 80px;
+  padding-left: 20px;
+}
