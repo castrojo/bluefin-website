@@ -6,10 +6,10 @@
   width: clamp(720px, 50%, 1024px);
   border: 1px solid var(--color-border-light);
   border-radius: 24px;
-  background-color: rgba(var(--color-bg-rgb), 0.01);
+  background-color: rgba(var(--color-bg-rgb), 0.75);
   backdrop-filter: blur(15px);
   z-index: 100;
-  overflow: hidden;
+  // overflow: hidden;
 
   // One-time animation when page loads
   @keyframes popup {
@@ -77,6 +77,33 @@
           }
         }
       }
+    }
+  }
+
+  .btn-up {
+    @include t();
+    @include flex(0, center);
+    position: absolute;
+    left: calc(100% + 16px);
+    height: 48px;
+    width: 48px;
+    top: 0;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-light);
+    background-color: rgba(var(--color-bg-rgb), 0.75);
+    backdrop-filter: blur(15px);
+
+    &:hover {
+      background-color: rgba(var(--color-blue-rgb), 0.25);
+
+      svg {
+        color: var(--color-text-light);
+      }
+    }
+
+    svg {
+      color: var(--color-text);
+      font-size: 2rem;
     }
   }
 }

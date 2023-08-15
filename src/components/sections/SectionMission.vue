@@ -13,9 +13,17 @@ Bluefin strives to prove it.
 
 <template>
   <section id="scene-mission" class="section-wrap">
-    <!-- <h1>Our Mission</h1> -->
-    <SceneContent tag="About Us" title="Mission Statement" :text="content" />
+    <div class="container">
+      <SceneContent tag="Our Goal" title="Mission Statement" :text="content" />
 
+      <div class="img-wrap">
+        <img src="/characters/nest.png" alt="">
+      </div>
+      <div class="scene-arrow">
+        <span>She's a great mom</span>
+        <img src="/icons/arrow.svg" alt="">
+      </div>
+    </div>
     <SceneVisibilityChecker name="#scene-mission" />
   </section>
 </template>

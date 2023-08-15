@@ -1,7 +1,8 @@
 <script setup lang='ts'>
 import type { Component, WritableComputedRef } from 'vue'
 import { inject, onMounted, ref, watch } from 'vue'
-import { IconCodeBraces, IconControllerClassic, IconFaceManShimmer } from '@iconify-prerendered/vue-mdi'
+import { IconArrowUp, IconCodeBraces, IconControllerClassic, IconFaceManShimmer } from '@iconify-prerendered/vue-mdi'
+import { useEventListener } from '@vueuse/core/index.cjs'
 
 interface Link {
   name: string
@@ -43,6 +44,23 @@ onMounted(() => {
       offset.value = Array.from(el.parentElement?.childNodes ?? []).indexOf(el)
   }, { immediate: true })
 })
+
+//
+// Scroll up stuff
+const showButtonUp = ref(false)
+useEventListener(window, 'scroll', () => {
+  if (window.scrollY >= (document.documentElement.scrollHeight - window.innerHeight - 256))
+    showButtonUp.value = true
+  else if (showButtonUp.value)
+    showButtonUp.value = false
+})
+
+function scrollUp() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+}
 </script>
 
 <template>
@@ -56,8 +74,15 @@ onMounted(() => {
           </a>
         </li>
 
-        <div :class="{ opacity: visibleSection === '' ? 0 : 1 }" class="bg" :style="{ left: `${(offset - 1) * 20}%` }" />
+        <div class="bg" :class="{ opacity: visibleSection === '' ? 0 : 1 }"
+          :style="{ left: `${Math.max(0, (offset - 1) * 20)}%` }" />
       </ul>
     </nav>
+
+    <Transition name="fade">
+      <button v-if="showButtonUp" class="btn-up" @click="scrollUp">
+        <IconArrowUp />
+      </button>
+    </Transition>
   </header>
 </template>

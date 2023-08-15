@@ -1,3 +1,47 @@
 #scene-mission {
   background-color: var(--color-bg);
+  min-height: 75vh;
+
+  .container {
+    position: relative;
+
+    .scene-content {
+      width: 50%;
+      margin-left: auto;
+      z-index: 10;
+    }
+
+    .img-wrap {
+      position: absolute;
+      left: 15%;
+      top: 35%;
+      z-index: -1;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1024px;
+        height: 1024px;
+        background: radial-gradient(
+          circle,
+          rgba(108, 122, 233, 0.1) 0%,
+          rgba(108, 122, 233, 0) 70%
+        );
+      }
+
+      img {
+        position: absolute;
+        z-index: 5;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        width: 1024px;
+      }
+    }
+  }
 }

@@ -18,6 +18,8 @@ const questionOne = {
 const questionTwo = {
   question: 'Where can I find more details on the features?',
   answer: 'You can find detailed information in our Github repository. \n\n [Visit Github](https://github.com/ublue-os/bluefin#readme)',
+  open: true,
+
 }
 
 const questionThree = {

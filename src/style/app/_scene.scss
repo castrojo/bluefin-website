@@ -42,8 +42,10 @@
 
   h2 {
     @include font(700);
-    font-size: 10rem;
-    margin-bottom: 20px;
+    font-size: 8rem;
+    margin-bottom: 30px;
+    margin-left: -4px;
+    text-transform: uppercase;
     color: var(--color-text-light);
   }
 
@@ -61,19 +63,26 @@
     }
 
     &:not(:last-child) {
-      margin-bottom: 40px;
+      margin-bottom: 1em;
     }
   }
 }
 
-.container {
-  display: block;
-  margin: 0 auto;
-  max-width: 1440px;
-  width: 100%;
-  padding: 0 32px;
+.scene-arrow {
+  @include flex(15px, $a: flex-end);
+  position: absolute;
+  bottom: 0;
+  left: 15%;
 
-  &.container-small {
-    max-width: 920px;
+  span {
+    font-size: 1rem;
+    color: var(--color-text);
+    // opacity: 0.5;
+  }
+
+  img {
+    width: 56px;
+    transform: scale(-1, -1) translateY(3px);
+    opacity: 0.25;
   }
 }

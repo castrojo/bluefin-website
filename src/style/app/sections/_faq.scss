@@ -6,8 +6,8 @@
     position: relative;
 
     .scene-content {
-      // position: sticky;
-      // top: 3em;
+      position: sticky;
+      top: 3em;
     }
 
     .faq-list {
@@ -37,8 +37,9 @@
     @include flex(18px, flex-start);
     margin-bottom: 20px;
     color: var(--color-text);
-    font-size: 1.8rem;
+    font-size: 2rem;
     padding: 0;
+    text-align: left;
 
     &:hover {
       color: var(--color-blue);
@@ -59,7 +60,7 @@
     padding-left: 50px;
 
     p {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       line-height: 1.5em;
       color: var(--color-text-light);
 
@@ -74,7 +75,7 @@
         line-height: 36px;
         border: 1px solid var(--color-blue);
         color: var(--color-blue);
-        border-radius: 5px;
+        border-radius: 18px;
         @include flex(10px, flex-start, center);
         display: inline-flex;
         padding: 0 20px;

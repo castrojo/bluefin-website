@@ -19,7 +19,7 @@
   </div>
 
   <div class="scene-backgrounds">
-    <img src="/evening/BlueFinSite_1_Sky-min.png" alt="">
+    <!-- <img src="/evening/BlueFinSite_1_Sky-min.png" alt="">
     <img :style="{}" src="/evening/BlueFinSite_2_Clouds-min.png" alt="">
     <img :style="{}" src="/evening/BlueFinSite_2_Sun-min.png" alt="">
     <img :style="{}" src="/evening/BlueFinSite_3_Clouds-min.png" alt="">
@@ -51,6 +51,6 @@
     }" src="/evening/BlueFinSite_13_ForegroundB-min.png" alt="">
     <img :style="{
       top: '260px;',
-    }" src="/evening/BlueFinSite_14_ForegroundC-min.png" alt="">
+    }" src="/evening/BlueFinSite_14_ForegroundC-min.png" alt=""> -->
   </div>
 </template>
