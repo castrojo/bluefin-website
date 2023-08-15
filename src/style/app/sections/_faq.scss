@@ -49,7 +49,7 @@
       @include t();
       width: 32px;
       font-size: 2.6rem;
-      color: var(--color-text);
+      color: inherit;
     }
   }
 

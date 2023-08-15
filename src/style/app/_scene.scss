@@ -31,6 +31,40 @@
 }
 
 .scene-content {
+  // Initial state
+  strong,
+  h2,
+  & > div > div {
+    transform: translateY(150%);
+  }
+
+  @keyframes slide {
+    from {
+      transform: translateY(150%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  &.visible {
+    strong {
+      animation: slide 0.7s normal 0s forwards cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    h2 {
+      animation: slide 0.7s normal 0.1s forwards cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    & > div > div {
+      animation: slide 0.7s normal 0.2s forwards cubic-bezier(0.76, 0, 0.24, 1);
+    }
+  }
+
+  & > div {
+    overflow: hidden;
+  }
+
   strong {
     @include font(700);
     display: block;

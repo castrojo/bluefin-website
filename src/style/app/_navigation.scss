@@ -3,7 +3,7 @@
   bottom: 1.5em;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(720px, 50%, 1024px);
+  width: clamp(564px, 50%, 888px);
   border: 1px solid var(--color-border-light);
   border-radius: 24px;
   background-color: rgba(var(--color-bg-rgb), 0.75);
@@ -17,7 +17,7 @@
       bottom: -100%;
     }
     to {
-      bottom: 3em;
+      bottom: 1.5em;
     }
   }
 
@@ -26,7 +26,6 @@
   nav {
     ul {
       @include grid(0, 5);
-      // @include flex(0, flex-start);
       width: 100%;
       position: relative;
       z-index: 5;

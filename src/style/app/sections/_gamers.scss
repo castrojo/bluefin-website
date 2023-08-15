@@ -1,0 +1,45 @@
+#scene-gamers {
+  .container {
+    position: relative;
+
+    .scene-content {
+      text-align: center;
+      // justify-content: ce;
+    }
+
+    img {
+      display: block;
+      margin: auto;
+    }
+
+    .gradient-1,
+    .gradient-2 {
+      content: "";
+      display: block;
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+      top: -50%;
+      left: -50%;
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(
+        circle,
+        rgba(196, 27, 97, 0.15) 0%,
+        rgba(108, 122, 233, 0) 70%
+      );
+    }
+
+    .gradient-2 {
+      top: 5%;
+      left: 35%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(
+        circle,
+        rgba(36, 215, 221, 0.15) 0%,
+        rgba(108, 122, 233, 0) 70%
+      );
+    }
+  }
+}

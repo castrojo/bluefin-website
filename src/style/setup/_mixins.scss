@@ -27,7 +27,7 @@
 //
 
 // Adds transition to the element,
-@mixin t($time: 0.1s, $type: ease-in-out) {
+@mixin t($time: 0.1s, $type: cubic-bezier(0.76, 0, 0.24, 1)) {
   -webkit-transition: all $time $type;
   -moz-transition: all $time $type;
   -o-transition: all $time $type;

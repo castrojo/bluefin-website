@@ -45,7 +45,7 @@ const questionSix = {
 
 <template>
   <section id="scene-faq" class="section-wrap">
-    <div class="container small">
+    <div class="container">
       <div>
         <SceneContent tag="Unsure?" title="FAQ" :text="content" />
       </div>

@@ -3,7 +3,7 @@
   min-height: 100vh;
   z-index: 10;
   position: relative;
-  padding: 6em 0;
+  padding: 128px 0;
 }
 
 .container {
@@ -13,7 +13,7 @@
   width: 100%;
   padding: 0 32px;
 
-  &.container-small {
-    max-width: 920px;
+  &.small {
+    max-width: 756px;
   }
 }
