@@ -5,9 +5,14 @@ import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 const content = `
 Bluefin is not just software. She is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
 
-We believe that the desktop needs to change, and creatures like Bluefin will take us there through guidance and mentorship. She acts as our onramp to nurture contributors through their cloud native journey. That technology starts with your local computer, the device that touches your hands -- and that has to be as important as the rest of it.
+We believe that the desktop needs to change. That technology starts with your local computer, the device that touches your hands -- and that *has* to be as important as the rest of it. Bluefin will take us there through guidance and mentorship.
 
-Bluefin strives to prove it.
+By bringing cloud-native patterns to the desktop we hope to provide an open source alternative to Chromebooks while also catering to the next-generation of open source contributor. Bluefin is about sustainability.
+
+> There are two ways of spreading light: to be the candle or the mirror that reflects it. 
+> <cite>[Edith Wharton][1]</cite>
+
+[1]: https://en.wikipedia.org/wiki/Edith_Wharton
 `
 </script>
 

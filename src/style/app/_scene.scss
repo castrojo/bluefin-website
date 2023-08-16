@@ -87,6 +87,11 @@
     font-size: 1.8rem;
     line-height: 1.4em;
 
+    em {
+      @include font(700);
+      font-style: italic;
+    }
+
     a {
       @include font(400);
       color: var(--color-blue);
@@ -100,6 +105,37 @@
       margin-bottom: 1em;
     }
   }
+
+  blockquote {
+    padding-top: 20px;
+    margin-top: 60px;
+    border-top: 1px solid var(--color-border);
+
+    p {
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--color-text-light);
+
+      cite {
+        display: block;
+        padding-top: 15px;
+        float: right;
+        position: relative;
+
+        &:before {
+          content: "”";
+          width: 20px;
+          height: 2px;
+          position: absolute;
+          left: -25px;
+          top: 15px;
+          font-size: 15rem;
+          color: var(--color-text);
+          opacity: 0.2;
+        }
+      }
+    }
+  }
 }
 
 .scene-arrow {
@@ -109,9 +145,16 @@
   left: 15%;
 
   span {
+    @include font(400);
     font-size: 1rem;
+    line-height: 1.2em;
     color: var(--color-text);
     // opacity: 0.5;
+
+    b {
+      @include font(700);
+      font-size: inherit;
+    }
   }
 
   img {

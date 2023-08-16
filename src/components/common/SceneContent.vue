@@ -14,9 +14,7 @@ const wrapper = ref<HTMLDivElement>()
 const isVisible = useElementVisibility(wrapper)
 const fired = ref(false)
 
-watchOnce(isVisible, () => {
-  fired.value = true
-})
+watchOnce(isVisible, () => fired.value = true)
 </script>
 
 <template>
