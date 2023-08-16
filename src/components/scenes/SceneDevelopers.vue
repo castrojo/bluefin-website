@@ -4,13 +4,6 @@ import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 
 const content = `
 Three developer workflows to get you started depending on where you’re coming from: (or bring your own!)
-
-<ul>
-          <li>Local Kubernetes tools for development and associated tooling</li>
-          <li>Cockpit and goodies for local and remote management</li>
-          <li>A collection of well curated monospace fonts</li>
-          <li>Cloud Native Terminal powered by Project Exo and Wolfi</li>
-        </ul>
 `
 </script>
 
