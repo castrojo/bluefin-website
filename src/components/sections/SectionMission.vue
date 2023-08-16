@@ -24,10 +24,10 @@ By bringing cloud-native patterns to the desktop we hope to provide an open sour
       <div class="img-wrap">
         <img src="/characters/nest.png" alt="">
       </div>
-      <div class="scene-arrow">
+      <!-- <div class="scene-arrow">
         <span>She's a great mom</span>
         <img src="/icons/arrow.svg" alt="">
-      </div>
+      </div> -->
     </div>
     <SceneVisibilityChecker name="#scene-mission" />
   </section>
