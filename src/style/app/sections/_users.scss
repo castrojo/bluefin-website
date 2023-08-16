@@ -1,0 +1,57 @@
+#scene-users {
+  min-height: 80vh;
+
+  .container {
+    @include grid(40px, 1fr 1.25fr);
+    align-items: center;
+
+    .scene-content {
+      margin-bottom: 40px;
+    }
+
+    .img-wrap {
+      img {
+        transform: translateX(10%) scale(1.2);
+      }
+    }
+
+    ol {
+      margin-top: 20px;
+      @include grid(16px, 3);
+      counter-reset: list;
+
+      li {
+        @include flex(0, flex-start, flex-start);
+        font-size: 1.4rem;
+        line-height: 1.3em;
+        padding: 16px;
+        border-radius: 12px;
+        text-align: left;
+        background-color: var(--color-bg-light);
+        counter-increment: list;
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 40px;
+        color: var(--color-text-light);
+
+        &:first-child {
+          white-space: nowrap;
+        }
+
+        &:before {
+          @include font(700);
+          content: counter(list);
+          line-height: unset !important;
+          position: absolute;
+          font-size: 7rem;
+          z-index: 1;
+          opacity: 0.1;
+          bottom: 25%;
+          right: 0;
+          color: var(--color-bg-light);
+          -webkit-text-stroke: 1px var(--color-text);
+        }
+      }
+    }
+  }
+}
