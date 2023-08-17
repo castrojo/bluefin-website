@@ -14,8 +14,8 @@ import SectionFooter from './components/sections/SectionFooter.vue'
 const visibleSection = ref<string>('')
 provide('visibleSection', visibleSection)
 
-// TODO: preload all images
 const imageLinks = [
+  // The goldern hour / evening scenes
   '/evening/BlueFinSite_1_Sky-min.png',
   '/evening/BlueFinSite_2_Clouds-min.png',
   '/evening/BlueFinSite_2_Sun-min.png',
@@ -31,6 +31,24 @@ const imageLinks = [
   '/evening/BlueFinSite_12_ForeGroundA-min.png',
   '/evening/BlueFinSite_13_ForegroundB-min.png',
   '/evening/BlueFinSite_14_ForegroundC-min.png',
+  // The night scenes
+  // '/night/BlueFinSite_1_Sky_Stars-min.png',
+  // '/night/BlueFinSite_1_Sky-min.png',
+  // '/night/BlueFinSite_2_Clouds-min.png',
+  // '/night/BlueFinSite_2_Moon-min.png',
+  // '/night/BlueFinSite_3_Clouds-min.png',
+  // '/night/BlueFinSite_3_SunMoon-min.png',
+  // '/night/BlueFinSite_4_Mountains-min.png',
+  // '/night/BlueFinSite_5_FogB-min.png',
+  // '/night/BlueFinSite_6_BackgroundA-min.png',
+  // '/night/BlueFinSite_7_FogB-min.png',
+  // '/night/BlueFinSite_8_BackgroundB-min.png',
+  // '/night/BlueFinSite_9_MidGroundA-min.png',
+  // '/night/BlueFinSite_10_MidgroundB-min.png',
+  // '/night/BlueFinSite_11_MidGroundC-min.png',
+  // '/night/BlueFinSite_12_ForeGroundA-min.png',
+  // '/night/BlueFinSite_13_ForegroundB-min.png',
+  // '/night/BlueFinSite_14_ForegroundC-min.png',
 ]
 
 const isLoading = ref(true)

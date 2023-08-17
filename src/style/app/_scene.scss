@@ -10,26 +10,6 @@
   }
 }
 
-.scene-backgrounds {
-  position: fixed;
-  inset: -10%;
-  top: 0;
-  pointer-events: none;
-  // bottom: unset;
-  z-index: 5;
-  overflow: hidden;
-
-  img {
-    display: block;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    border: none;
-  }
-}
-
 .scene-content {
   // Initial state
   strong,

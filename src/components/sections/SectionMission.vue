@@ -18,6 +18,8 @@ By bringing cloud-native patterns to the desktop we hope to provide an open sour
 
 <template>
   <section id="scene-mission" class="section-wrap">
+    <img src="/layer-transition.png" class="layer-transition" alt="">
+
     <div class="container">
       <SceneContent tag="Our Goal" title="Mission Statement" :text="content" />
 

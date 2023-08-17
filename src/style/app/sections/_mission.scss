@@ -2,6 +2,14 @@
   background-color: var(--color-bg);
   min-height: 75vh;
 
+  .layer-transition {
+    position: absolute;
+    top: -35%;
+    z-index: -1;
+    display: block;
+    width: 100%;
+  }
+
   .container {
     position: relative;
 

@@ -1,0 +1,18 @@
+#scene-landing {
+  @include flex(0, center, $d: column);
+
+  .scene-content {
+    text-align: center;
+
+    strong,
+    h2,
+    p {
+      color: var(--color-bg);
+    }
+
+    h2 {
+      font-size: 12rem;
+      letter-spacing: 0.05em;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+.parallax-wrap {
+  position: fixed;
+  inset: -10%;
+  top: 0;
+  pointer-events: none;
+  // bottom: unset;
+  z-index: 5;
+  overflow: hidden;
+
+  .night-overlay {
+    position: absolute;
+    z-index: 100;
+    inset: 0;
+    opacity: 0;
+
+    background-color: rgba(var(--color-bg-rgb), 0.75);
+    backdrop-filter: hue-rotate(210deg) contrast(1.2);
+    // filter: ();
+
+    &:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(transparent, black);
+      opacity: 0.75;
+    }
+  }
+
+  .parallax-item {
+    position: relative;
+
+    img {
+      display: block;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      border: none;
+    }
+  }
+}

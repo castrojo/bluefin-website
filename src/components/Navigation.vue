@@ -26,7 +26,7 @@ const links: Record<string, Link> = {
   '#scene-users': { name: 'Users', icon: IconFaceManShimmer },
   '#scene-developers': { name: 'Developers', icon: IconCodeBraces },
   '#scene-gamers': { name: 'Gamers', icon: IconControllerClassic },
-  '#scene-mission': { name: 'Mission' },
+  '#scene-mission': { name: 'Our Mission' },
   '#scene-faq': { name: 'FAQ' },
 }
 

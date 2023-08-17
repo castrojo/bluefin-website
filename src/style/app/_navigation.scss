@@ -68,10 +68,10 @@
 
           &:hover,
           &.active {
-            color: var(--color-blue);
+            color: var(--color-text-light);
 
             svg {
-              color: var(--color-blue);
+              color: var(--color-text-light);
             }
           }
         }
