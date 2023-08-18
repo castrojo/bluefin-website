@@ -7,6 +7,14 @@
 
     .scene-content {
       margin-bottom: 40px;
+
+      h2 {
+        color: var(--color-bg-light);
+      }
+
+      p {
+        color: var(--color-bg);
+      }
     }
 
     .img-wrap {

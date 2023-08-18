@@ -74,8 +74,10 @@ function scrollUp() {
           </a>
         </li>
 
-        <div class="bg" :class="{ opacity: visibleSection === '' ? 0 : 1 }"
-          :style="{ left: `${Math.max(0, (offset - 1) * 20)}%` }" />
+        <div class="bg" :style="{
+          left: `${Math.max(0, (offset - 1) * 20)}%`,
+          opacity: visibleSection === 'null' ? 0 : 1,
+        }" />
       </ul>
     </nav>
 

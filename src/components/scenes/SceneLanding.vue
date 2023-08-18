@@ -8,6 +8,6 @@ import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
     <div class="container small">
       <SceneContent tag="Project" title="Bluefin" text="“Evolution is a process of constant branching and expansion”" />
     </div>
-    <SceneVisibilityChecker name="" />
+    <SceneVisibilityChecker name="null" />
   </section>
 </template>

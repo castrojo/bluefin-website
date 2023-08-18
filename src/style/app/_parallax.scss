@@ -7,6 +7,20 @@
   z-index: 5;
   overflow: hidden;
 
+  .vignette {
+    position: absolute;
+    z-index: 200;
+    inset: 0;
+
+    &:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(transparent, var(--color-bg));
+      opacity: 0.5;
+    }
+  }
+
   .night-overlay {
     position: absolute;
     z-index: 100;
@@ -16,14 +30,6 @@
     background-color: rgba(var(--color-bg-rgb), 0.75);
     backdrop-filter: hue-rotate(210deg) contrast(1.2);
     // filter: ();
-
-    &:after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(transparent, black);
-      opacity: 0.75;
-    }
   }
 
   .parallax-item {
