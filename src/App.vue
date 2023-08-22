@@ -2,7 +2,7 @@
 import { onBeforeMount, provide, ref } from 'vue'
 import Navigation from './components/Navigation.vue'
 import PageLoading from './components/PageLoading.vue'
-import SectionSceneWrapper from './components/sections/SectionSceneWrapper.vue'
+import ParallaxWrapper from './components/sections/ParallaxWrapper.vue'
 import SectionMission from './components/sections/SectionMission.vue'
 import SectionQuestions from './components/sections/SectionQuestions.vue'
 import SceneDevelopers from './components/scenes/SceneDevelopers.vue'
@@ -30,24 +30,6 @@ const imageLinks = [
   '/evening/BlueFinSite_12_ForeGroundA-min.png',
   '/evening/BlueFinSite_13_ForegroundB-min.png',
   '/evening/BlueFinSite_14_ForegroundC-min.png',
-  // The night scenes
-  // '/night/BlueFinSite_1_Sky_Stars-min.png',
-  // '/night/BlueFinSite_1_Sky-min.png',
-  // '/night/BlueFinSite_2_Clouds-min.png',
-  // '/night/BlueFinSite_2_Moon-min.png',
-  // '/night/BlueFinSite_3_Clouds-min.png',
-  // '/night/BlueFinSite_3_SunMoon-min.png',
-  // '/night/BlueFinSite_4_Mountains-min.png',
-  // '/night/BlueFinSite_5_FogB-min.png',
-  // '/night/BlueFinSite_6_BackgroundA-min.png',
-  // '/night/BlueFinSite_7_FogB-min.png',
-  // '/night/BlueFinSite_8_BackgroundB-min.png',
-  // '/night/BlueFinSite_9_MidGroundA-min.png',
-  // '/night/BlueFinSite_10_MidgroundB-min.png',
-  // '/night/BlueFinSite_11_MidGroundC-min.png',
-  // '/night/BlueFinSite_12_ForeGroundA-min.png',
-  // '/night/BlueFinSite_13_ForegroundB-min.png',
-  // '/night/BlueFinSite_14_ForegroundC-min.png',
 ]
 
 const isLoading = ref(true)
@@ -76,11 +58,11 @@ onBeforeMount(() => {
     <Transition name="fade">
       <PageLoading v-if="isLoading" />
       <div v-else>
-        <SectionSceneWrapper>
+        <ParallaxWrapper>
           <SceneLanding />
           <SceneUsers />
           <SceneDevelopers />
-        </SectionSceneWrapper>
+        </ParallaxWrapper>
         <SectionMission />
         <SectionQuestions />
         <SectionFooter />

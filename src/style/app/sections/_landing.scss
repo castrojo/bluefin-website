@@ -1,9 +1,20 @@
 #scene-landing {
   @include flex(0, flex-start, $d: column);
-  padding-top: 17%;
+  padding-top: 10%;
+
+  img {
+    // position: absolute;
+    // right: 50%;
+    display: block;
+    width: 680px;
+    margin: 0 auto;
+    transform: translateY(-20%);
+    // top: -10%;
+  }
 
   .scene-content {
     text-align: center;
+    margin-bottom: 0;
 
     strong,
     h2,
@@ -12,7 +23,7 @@
     }
 
     h2 {
-      font-size: 12rem;
+      font-size: 16rem;
       letter-spacing: 0.05em;
     }
   }

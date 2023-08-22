@@ -16,7 +16,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(transparent, var(--color-bg));
+      background: radial-gradient(transparent 60%, var(--color-bg));
       opacity: 0.5;
     }
   }
@@ -34,6 +34,21 @@
 
   .parallax-item {
     position: relative;
+    will-change: transform;
+
+    &:nth-of-type(2) {
+      @keyframes clouds {
+        from {
+          transform: translate3d(-10%, 0, 0);
+        }
+
+        to {
+          transform: translate3d(10%, 0, 0);
+        }
+      }
+
+      animation: clouds 20s linear 0 infinite;
+    }
 
     img {
       display: block;

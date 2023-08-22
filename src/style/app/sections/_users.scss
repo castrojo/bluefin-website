@@ -9,11 +9,11 @@
       margin-bottom: 40px;
 
       h2 {
-        color: var(--color-bg-light);
+        color: var(--color-text-light);
       }
 
       p {
-        color: var(--color-bg);
+        color: var(--color-text-light);
       }
     }
 
@@ -35,7 +35,8 @@
         padding: 16px;
         border-radius: 12px;
         text-align: left;
-        background-color: var(--color-bg-light);
+        // background-color: var(--color-bg-light);
+        border: 1px solid var(--color-bg-light);
         counter-increment: list;
         position: relative;
         overflow: hidden;
