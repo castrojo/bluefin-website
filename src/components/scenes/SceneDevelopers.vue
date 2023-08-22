@@ -42,8 +42,8 @@ Three developer workflows to get you started depending on where you’re coming 
                 <img src="/brands/devbox.svg" alt="">
               </div>
               <div class="icon-wrap">
-                <img src="/brands/fleek.svg" alt="">
-                <img src="/brands/fleek.svg" alt="">
+                <img src="/brands/fleek.png" alt="">
+                <img src="/brands/fleek.png" alt="">
               </div>
             </div>
             <p>Devbox and Fleek - harness the power of nix without the complexity</p>

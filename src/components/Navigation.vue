@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { Component, WritableComputedRef } from 'vue'
 import { inject, onMounted, ref, watch } from 'vue'
-import { IconArrowUp, IconCodeBraces, IconControllerClassic, IconFaceManShimmer } from '@iconify-prerendered/vue-mdi'
+import { IconArrowUp, IconCodeBraces, IconFaceManShimmer } from '@iconify-prerendered/vue-mdi'
 import { useEventListener } from '@vueuse/core/index.cjs'
 
 interface Link {
@@ -25,7 +25,7 @@ function scrollTo(id: string) {
 const links: Record<string, Link> = {
   '#scene-users': { name: 'Users', icon: IconFaceManShimmer },
   '#scene-developers': { name: 'Developers', icon: IconCodeBraces },
-  '#scene-gamers': { name: 'Gamers', icon: IconControllerClassic },
+  // '#scene-gamers': { name: 'Gamers', icon: IconControllerClassic },
   '#scene-mission': { name: 'Our Mission' },
   '#scene-faq': { name: 'FAQ' },
 }
@@ -34,7 +34,7 @@ const visibleSection = inject('visibleSection') as WritableComputedRef<string>
 const offset = ref<number>(0)
 
 onMounted(() => {
-  watch(visibleSection, (section) => {
+  watch(visibleSection, (section: string) => {
     if (!section)
       return
 
@@ -74,10 +74,12 @@ function scrollUp() {
           </a>
         </li>
 
-        <div class="bg" :style="{
-          left: `${Math.max(0, (offset - 1) * 20)}%`,
-          opacity: visibleSection === 'null' ? 0 : 1,
-        }" />
+        <div
+          class="bg" :style="{
+            left: `${Math.max(0, (offset - 1) * 25)}%`,
+            opacity: visibleSection === 'null' ? 0 : 1,
+          }"
+        />
       </ul>
     </nav>
 

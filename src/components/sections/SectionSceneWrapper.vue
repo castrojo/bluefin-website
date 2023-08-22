@@ -1,8 +1,10 @@
 <script setup lang='ts'>
-import { useWindowScroll } from '@vueuse/core'
-import { computed } from 'vue'
+import { refThrottled, useWindowScroll } from '@vueuse/core'
+import { computed, inject } from 'vue'
+import type { WritableComputedRef } from 'vue'
 
-const { y } = useWindowScroll()
+const { y: rawY } = useWindowScroll()
+const y = refThrottled(rawY, 10)
 
 const windowHeight = window.innerHeight * 0.75
 const nightOverlayOpacity = computed(() => {
@@ -12,6 +14,9 @@ const nightOverlayOpacity = computed(() => {
   const actualScroll = y.value - windowHeight
   return Math.min(1, actualScroll / 1000)
 })
+
+const visibleSection = inject('visibleSection') as WritableComputedRef<string>
+const shouldHide = computed(() => ['#scene-mission', '#scene-faq'].includes(visibleSection.value))
 </script>
 
 <!-- eslint-disable vue/first-attribute-linebreak -->
@@ -21,7 +26,7 @@ const nightOverlayOpacity = computed(() => {
     <slot />
   </div>
 
-  <div class="parallax-wrap">
+  <div v-if="!shouldHide" class="parallax-wrap">
     <!-- <div class="vignette" /> -->
     <div class="night-overlay" :style="{ opacity: nightOverlayOpacity }" />
 

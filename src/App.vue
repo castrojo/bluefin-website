@@ -6,7 +6,6 @@ import SectionSceneWrapper from './components/sections/SectionSceneWrapper.vue'
 import SectionMission from './components/sections/SectionMission.vue'
 import SectionQuestions from './components/sections/SectionQuestions.vue'
 import SceneDevelopers from './components/scenes/SceneDevelopers.vue'
-import SceneGamers from './components/scenes/SceneGamers.vue'
 import SceneLanding from './components/scenes/SceneLanding.vue'
 import SceneUsers from './components/scenes/SceneUsers.vue'
 import SectionFooter from './components/sections/SectionFooter.vue'
@@ -81,7 +80,6 @@ onBeforeMount(() => {
           <SceneLanding />
           <SceneUsers />
           <SceneDevelopers />
-          <SceneGamers />
         </SectionSceneWrapper>
         <SectionMission />
         <SectionQuestions />

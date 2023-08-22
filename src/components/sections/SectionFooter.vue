@@ -11,10 +11,10 @@ import { IconFacebook, IconGithubCircle, IconTwitter } from '@iconify-prerendere
         <div class="logo-list">
           <img src="/brands/devpod.svg" alt="">
           <img src="/brands/devbox.svg" alt="">
-          <img src="/brands/dontrememberthisbrand.svg" alt="">
-          <img src="/brands/podman.svg" alt="">
-          <img src="/brands/fedora.svg" alt="">
+          <img src="/brands/podman-logo-dark.png" alt="">
           <img src="/brands/ubuntu.svg" alt="">
+          <img src="/brands/dontrememberthisbrand.svg" alt="">
+          <img src="/brands/fedora.svg" alt="">
         </div>
       </div>
 

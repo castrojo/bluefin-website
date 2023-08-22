@@ -20,8 +20,12 @@ footer {
     }
 
     .logo-list {
-      @include flex(80px, flex-start, flex-start, $w: wrap);
-      width: 80%;
+      @include flex(64px, flex-start, flex-start, $w: wrap);
+      width: 95%;
+
+      img {
+        max-height: 56px;
+      }
     }
   }
 
