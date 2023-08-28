@@ -1,5 +1,6 @@
 #scene-users {
-  min-height: 80vh;
+  min-height: 90vh;
+  z-index: 49;
 
   .container {
     @include grid(40px, 1fr 1.25fr);
@@ -7,6 +8,12 @@
 
     .scene-content {
       margin-bottom: 40px;
+      position: relative;
+
+      h2,
+      p {
+        text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+      }
 
       h2 {
         color: var(--color-text-light);
@@ -23,44 +30,99 @@
       }
     }
 
-    ol {
-      margin-top: 20px;
-      @include grid(16px, 3);
-      counter-reset: list;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      pointer-events: none;
+      width: 1200px;
+      height: 8000px;
+      background: radial-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%);
+    }
 
+    ul {
       li {
-        @include flex(0, flex-start, flex-start);
-        font-size: 1.4rem;
-        line-height: 1.3em;
-        padding: 16px;
-        border-radius: 12px;
-        text-align: left;
-        // background-color: var(--color-bg-light);
-        border: 1px solid var(--color-bg-light);
-        counter-increment: list;
+        display: block;
+        font-size: 1.6rem;
         position: relative;
-        overflow: hidden;
-        padding-bottom: 40px;
+        padding-left: 24px;
+        margin-bottom: 20px;
         color: var(--color-text-light);
+        text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
 
-        &:first-child {
-          white-space: nowrap;
-        }
-
-        &:before {
-          @include font(700);
-          content: counter(list);
-          line-height: unset !important;
+        &:after {
+          content: "";
+          display: block;
           position: absolute;
-          font-size: 7rem;
-          z-index: 1;
-          opacity: 0.1;
-          bottom: 25%;
-          right: 0;
-          color: var(--color-bg-light);
-          -webkit-text-stroke: 1px var(--color-text);
+          left: 0;
+          top: 6px;
+          width: 6px;
+          height: 6px;
+          background-color: var(--color-text-light);
+          box-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.25);
         }
       }
     }
+
+    .brand-grid {
+      grid-template-columns: repeat(3, 1fr);
+
+      .brand-item {
+        @include flex(0, center, center);
+        border: none;
+        border-right: 1px solid var(--color-text);
+        text-align: center;
+        padding: 20px;
+        text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+
+        &:last-child {
+          border-right: 0;
+        }
+      }
+    }
+
+    // ol {
+    //   margin-top: 20px;
+    //   @include grid(16px, 3);
+    //   counter-reset: list;
+
+    //   li {
+    //     @include flex(0, flex-start, flex-start);
+    //     font-size: 1.4rem;
+    //     line-height: 1.3em;
+    //     padding: 16px;
+    //     border-radius: 12px;
+    //     text-align: left;
+    //     // border: 1px solid var(--color-bg-light);
+    //     counter-increment: list;
+    //     position: relative;
+    //     overflow: hidden;
+    //     padding-bottom: 40px;
+    //     color: var(--color-text-light);
+    //     text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+
+    //     &:first-child {
+    //       white-space: nowrap;
+    //     }
+
+    //     &:before {
+    //       @include font(700);
+    //       content: counter(list);
+    //       line-height: unset !important;
+    //       position: absolute;
+    //       font-size: 7rem;
+    //       z-index: 1;
+    //       opacity: 0.25;
+    //       bottom: 25%;
+    //       right: 0;
+    //       color: var(--color-bg-light);
+    //       -webkit-text-stroke: 1px var(--color-text);
+    //     }
+    //   }
+    // }
   }
 }

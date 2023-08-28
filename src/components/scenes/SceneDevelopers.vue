@@ -1,17 +1,14 @@
 <script setup lang='ts'>
+import { LangDevsBoxFour, LangDevsBoxOne, LangDevsBoxThree, LangDevsBoxTwo, LangDevsTag, LangDevsText, LangDevsTitle } from '../../content'
 import SceneContent from '../common/SceneContent.vue'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-
-const content = `
-Three developer workflows to get you started depending on where you’re coming from: (or bring your own!)
-`
 </script>
 
 <template>
   <section id="scene-developers" class="section-wrap">
     <div class="container">
       <div class="img-wrap">
-        <img src="/characters/devs.png" alt="">
+        <img src="/characters/devs.png" alt="Tower character artwork">
       </div>
       <div class="scene-arrow">
         <img src="/icons/arrow.svg" alt="">
@@ -19,54 +16,51 @@ Three developer workflows to get you started depending on where you’re coming 
       </div>
 
       <div class="content">
-        <SceneContent tag="For" title="Developers" :text="content" />
+        <SceneContent :tag="LangDevsTag" :title="LangDevsTitle" :text="LangDevsText" />
 
         <div class="brand-grid">
           <div class="brand-item">
             <div>
               <div class="icon-wrap">
-                <img src="/brands/vscode.svg" alt="">
-                <img src="/brands/vscode.svg" alt="">
+                <img src="/brands/vscode.svg" alt="Visual Studio Code logo blur">
+                <img src="/brands/vscode.svg" alt="Visual Studio Code logo">
               </div>
             </div>
-            <p>
-              Built-in Ubuntu user space integrated with Visual Studio Code. Run any OCI container as your developer
-              environment.
-            </p>
+            <p> {{ LangDevsBoxOne }}</p>
           </div>
 
           <div class="brand-item">
             <div>
               <div class="icon-wrap">
-                <img src="/brands/devbox.svg" alt="">
-                <img src="/brands/devbox.svg" alt="">
+                <img src="/brands/devbox.svg" alt="Devbox logo blur">
+                <img src="/brands/devbox.svg" alt="Devbox logo">
               </div>
               <div class="icon-wrap">
-                <img src="/brands/fleek.png" alt="">
-                <img src="/brands/fleek.png" alt="">
+                <img src="/brands/fleek.png" alt="Fleek logo blur">
+                <img src="/brands/fleek.png" alt="Fleek logo">
               </div>
             </div>
-            <p>Devbox and Fleek - harness the power of nix without the complexity</p>
+            <p>{{ LangDevsBoxTwo }}</p>
           </div>
 
           <div class="brand-item">
             <div>
               <div class="icon-wrap">
-                <img src="/brands/devpod.svg" alt="">
-                <img src="/brands/devpod.svg" alt="">
+                <img src="/brands/devpod.svg" alt="Devpod logo blur">
+                <img src="/brands/devpod.svg" alt="Devpod logo">
               </div>
             </div>
-            <p>Next generation developer tools like Devpod</p>
+            <p>{{ LangDevsBoxThree }}</p>
           </div>
 
           <div class="brand-item">
             <div>
               <div class="icon-wrap">
-                <img src="/brands/homebrew.svg" alt="">
-                <img src="/brands/homebrew.svg" alt="">
+                <img src="/brands/homebrew.svg" alt="Homebrew logo blur">
+                <img src="/brands/homebrew.svg" alt="Homebrew logo">
               </div>
             </div>
-            <p>Built-in Homebrew</p>
+            <p>{{ LangDevsBoxFour }}</p>
           </div>
         </div>
 

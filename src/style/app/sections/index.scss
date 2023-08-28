@@ -5,3 +5,52 @@
 @import "./devs";
 @import "./users";
 @import "./landing";
+
+.brand-grid {
+  @include grid(0, 2);
+  margin-bottom: 20px;
+
+  .brand-item {
+    padding: 40px;
+    border-bottom: 1px solid var(--color-border-light);
+
+    &:nth-child(odd) {
+      border-right: 1px solid var(--color-border-light);
+    }
+
+    &:nth-last-child(1),
+    &:nth-last-child(2) {
+      border-bottom: none;
+    }
+
+    & > div {
+      @include flex(20px);
+      margin-bottom: 20px;
+    }
+
+    .icon-wrap {
+      position: relative;
+
+      img {
+        display: block;
+        height: 32px;
+
+        &:last-child {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+
+          opacity: 0.2;
+          transform: translate(-50%, -50%) scale(200%);
+          filter: blur(20px);
+        }
+      }
+    }
+
+    p {
+      font-size: 1.6rem;
+      line-height: 1.3em;
+      color: var(--color-text-light);
+    }
+  }
+}

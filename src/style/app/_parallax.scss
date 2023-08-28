@@ -29,25 +29,41 @@
 
     background-color: rgba(var(--color-bg-rgb), 0.75);
     backdrop-filter: hue-rotate(210deg) contrast(1.2);
-    // filter: ();
   }
 
   .parallax-item {
     position: relative;
     will-change: transform;
 
-    &:nth-of-type(2) {
-      @keyframes clouds {
-        from {
-          transform: translate3d(-10%, 0, 0);
-        }
-
-        to {
-          transform: translate3d(10%, 0, 0);
-        }
+    @keyframes cloudsRight {
+      0%,
+      100% {
+        transform: translate3d(-5%, 0, 0);
       }
 
-      animation: clouds 20s linear 0 infinite;
+      50% {
+        transform: translate3d(5%, 0, 0);
+      }
+    }
+
+    @keyframes cloudsLeft {
+      0%,
+      100% {
+        transform: translate3d(5%, 0, 0);
+      }
+
+      50% {
+        transform: translate3d(-5%, 0, 0);
+      }
+    }
+
+    &:nth-child(3) {
+      animation: cloudsRight 150s infinite linear;
+      top: -60px;
+    }
+
+    &:nth-child(5) {
+      animation: cloudsLeft 100s infinite linear;
     }
 
     img {

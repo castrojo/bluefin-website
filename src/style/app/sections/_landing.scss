@@ -1,15 +1,31 @@
 #scene-landing {
   @include flex(0, flex-start, $d: column);
   padding-top: 10%;
+  z-index: 50;
 
   img {
-    // position: absolute;
-    // right: 50%;
     display: block;
     width: 680px;
     margin: 0 auto;
     transform: translateY(-20%);
-    // top: -10%;
+    // margin-bottom: -150px;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1024px;
+    height: 1024px;
+    background: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0) 50%
+    );
   }
 
   .scene-content {
@@ -19,12 +35,32 @@
     strong,
     h2,
     p {
-      color: var(--color-bg);
+      color: var(--color-text-light);
+      text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
     }
 
     h2 {
-      font-size: 16rem;
-      letter-spacing: 0.05em;
+      font-size: 14rem;
+      // letter-spacing: 0.05em;
+    }
+  }
+
+  button {
+    @include t(0.3s);
+    @include font(400);
+    @include flex(5px, center, center, column);
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    letter-spacing: 0.1em;
+    text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+
+    &:hover {
+      color: var(--color-blue);
     }
   }
 }

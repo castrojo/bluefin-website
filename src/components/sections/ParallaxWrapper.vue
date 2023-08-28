@@ -28,8 +28,8 @@ const showParallax = computed(() => {
     <slot />
   </div>
 
-  <div v-if="showParallax" class="parallax-wrap">
-    <div class="vignette" />
+  <div v-show="showParallax" class="parallax-wrap">
+    <!-- <div class="vignette" /> -->
     <div class="night-overlay" :style="{ opacity: nightOverlayOpacity }" />
 
     <div class="parallax-item">
@@ -40,7 +40,7 @@ const showParallax = computed(() => {
       <!-- Evening -->
       <img src="/evening/BlueFinSite_2_Clouds-min.png" alt="">
     </div>
-    <div class="parallax-item">
+    <div class="parallax-item" :style="{ top: '-90px', transform: `translate3D(0,${y * 0.05}px,0)` }">
       <!-- Evening -->
       <img src="/evening/BlueFinSite_2_Sun-min.png" alt="">
     </div>

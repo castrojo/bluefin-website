@@ -49,12 +49,10 @@ onBeforeMount(() => {
   )
     .finally(() => isLoading.value = false)
 })
-
-// Set section visibility
 </script>
 
 <template>
-  <div>
+  <main>
     <Transition name="fade">
       <PageLoading v-if="isLoading" />
       <div v-else>
@@ -70,5 +68,5 @@ onBeforeMount(() => {
         <Navigation />
       </div>
     </Transition>
-  </div>
+  </main>
 </template>

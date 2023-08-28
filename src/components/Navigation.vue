@@ -9,13 +9,6 @@ interface Link {
   icon?: Component
 }
 
-/**
- * TODO:
- *
- * 1. Track if users are currently above each section and correctly highlight the buttons
- * 2. Smoothly animate hover element
- */
-
 function scrollTo(id: string) {
   const el = document.querySelector(id)
 
@@ -68,23 +61,22 @@ function scrollUp() {
     <nav aria-label="Navigation">
       <ul>
         <li v-for="(link, key) in links" :key="key" :data-section="key">
-          <a :href="key" :class="{ active: key === visibleSection }" @click.prevent="scrollTo(key)">
+          <a :href="key" :class="{ active: key === visibleSection }" :aria-label="`Section ${link.name}`"
+            @click.prevent="scrollTo(key)">
             <component :is="link.icon" v-if="link.icon" />
             {{ link.name }}
           </a>
         </li>
 
-        <div
-          class="bg" :style="{
-            left: `${Math.max(0, (offset - 1) * 25)}%`,
-            opacity: visibleSection === 'null' ? 0 : 1,
-          }"
-        />
+        <div class="bg" :style="{
+          left: `${Math.max(0, (offset - 1) * 25)}%`,
+          opacity: visibleSection === 'null' ? 0 : 1,
+        }" />
       </ul>
     </nav>
 
     <Transition name="fade">
-      <button v-if="showButtonUp" class="btn-up" @click="scrollUp">
+      <button v-if="showButtonUp" class="btn-up" aria-label="Scroll up button" @click="scrollUp">
         <IconArrowUp />
       </button>
     </Transition>
