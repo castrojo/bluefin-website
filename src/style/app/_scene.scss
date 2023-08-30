@@ -2,6 +2,7 @@
   // SECTION: debug
   z-index: 10;
   position: relative;
+  padding-bottom: 128px;
 
   & > div {
     display: block;
@@ -56,7 +57,7 @@
 
   h2 {
     @include font(700);
-    font-size: 8rem;
+    font-size: 7rem;
     margin-bottom: 30px;
     margin-left: -4px;
     text-transform: uppercase;
@@ -64,8 +65,9 @@
   }
 
   p {
-    font-size: 1.8rem;
-    line-height: 1.4em;
+    font-size: 1.6rem;
+    line-height: 1.6em;
+    color: var(--color-text-light);
 
     em {
       @include font(700);

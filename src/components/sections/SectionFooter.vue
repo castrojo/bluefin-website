@@ -10,12 +10,12 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangSo
         <strong class="footer-title">Powered By</strong>
 
         <div class="logo-list">
-          <img src="/brands/devpod.svg" alt="Devpod logo">
-          <img src="/brands/devbox.svg" alt="Devbox logo">
-          <img src="/brands/podman-logo-dark.png" alt="Podman logo">
-          <img src="/brands/ubuntu.svg" alt="Ubuntu logo">
-          <img src="/brands/dontrememberthisbrand.svg" alt="Logo">
-          <img src="/brands/fedora.svg" alt="Fedora logo">
+          <img src="/brands/fedora.svg" alt="Fedora logo" title="Fedora">
+          <img src="/brands/devpod.svg" alt="Devpod logo" title="Devpod">
+          <img src="/brands/devbox.svg" alt="Devbox logo" title="Devbox">
+          <img src="/brands/podman-logo-dark.png" alt="Podman logo" title="Podman">
+          <img src="/brands/ubuntu.svg" alt="Ubuntu logo" title="Ubuntu">
+          <img src="/brands/dontrememberthisbrand.svg" alt="Logo" title="Logo">
         </div>
       </div>
 

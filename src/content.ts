@@ -12,7 +12,7 @@ export const LangLandingText = '“Evolution is a process of constant branching 
 // Users section
 //
 export const LangUsersTag = 'For'
-export const LangUsersTitle = 'Users'
+export const LangUsersTitle = 'You'
 export const LangUsersText = 'Our system offers the best of both worlds: the reliability and ease of use of a Chromebook, and the performance and versatility of Ubuntu and Fedora combined.'
 export const LangUsersListItems = [
   'An ecosphere of applications provided by Flathub',
@@ -35,8 +35,8 @@ export const LangDevsBoxFour = 'Built-in Homebrew'
 //
 // Mission section
 //
-export const LangMissionTag = 'Our Goal'
-export const LangMissionTitle = 'Mission Statement'
+export const LangMissionTag = 'Our'
+export const LangMissionTitle = 'Mission'
 export const LangMissionText = `
 Bluefin is not just software. She is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
 
