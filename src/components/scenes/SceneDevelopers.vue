@@ -17,7 +17,7 @@ const vis = ref(false)
           </div>
           <div class="scene-arrow">
             <img src="/icons/arrow.svg" alt="">
-            <span>This big boy's <br> name is <b>Tower</b></span>
+            <span><b>Tower</b> over your <br>Backlog!</span>
           </div>
         </div>
       </Transition>
@@ -72,10 +72,10 @@ const vis = ref(false)
         </SceneContent>
 
         <!-- <ul>
-          <li>Local Kubernetes tools for development and associated tooling</li>
-          <li>Cockpit and goodies for local and remote management</li>
+          <li>Local Kubernetes tools</li>
+          <li>KVM and QEMU</li>
+          <li>Cockpit for local and remote management</li>
           <li>A collection of well curated monospace fonts</li>
-          <li>Cloud Native Terminal powered by Project Exo and Wolfi</li>
         </ul> -->
       </div>
     </div>
