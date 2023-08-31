@@ -178,6 +178,6 @@ export const LangPoweredBy: PoweredBy[] = [
   },
   {
     imageUrl: '/brands/dontrememberthisbrand.svg',
-    altText: '<I dont remember the name of this brand sorry, please help me here Jorge>',
+    altText: 'Distrobox',
   },
 ]
