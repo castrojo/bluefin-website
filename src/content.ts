@@ -22,7 +22,7 @@ export const LangUsersListItems = [
   'Zero maintenance',
   'Included GPU drivers',
 ]
-export const LangUsersAppendix = `Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks and combined with native container workflows to provide a generational leap in reliability and composability. 
+export const LangUsersAppendix = `Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks and combined with native container workflows to provide a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
   
 Images are available for your PC, M1/M2 Macs, and Framework laptops.`
 
