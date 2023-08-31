@@ -16,8 +16,8 @@ function scrollTo(id: string) {
 }
 
 const links: Record<string, Link> = {
-  '#scene-users': { name: 'Users', icon: IconFaceManShimmer },
-  '#scene-developers': { name: 'Developers', icon: IconCodeBraces },
+  '#scene-users': { name: 'For You', icon: IconFaceManShimmer },
+  '#scene-developers': { name: 'For Devs', icon: IconCodeBraces },
   // '#scene-gamers': { name: 'Gamers', icon: IconControllerClassic },
   '#scene-mission': { name: 'Our Mission' },
   '#scene-faq': { name: 'FAQ' },

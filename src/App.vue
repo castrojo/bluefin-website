@@ -15,6 +15,11 @@ const visibleSection = ref<string>('')
 provide('visibleSection', visibleSection)
 
 const imageLinks = [
+  // Characters
+  './characters/angry.png',
+  './characters/bluefin-small.png',
+  './characters/devs.png',
+  './characters/nest.png',
   // The goldern hour / evening scenes
   './evening/BlueFinSite_1_Sky-min.png',
   './evening/BlueFinSite_2_Clouds-min.png',

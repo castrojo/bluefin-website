@@ -16,7 +16,7 @@ const contentMaxHeight = ref(0)
 watch(open, async (value) => {
   if (value) {
     await nextTick()
-    contentMaxHeight.value = content.value?.scrollHeight ?? 0
+    contentMaxHeight.value = (content.value?.scrollHeight ?? 0) + 5
   }
 })
 
