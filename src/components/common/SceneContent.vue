@@ -7,7 +7,7 @@ const props = defineProps<{
   tag: string
   title: string
   text: string
-  disableAnimation: boolean
+  disableAnimation?: boolean
 }>()
 
 const emit = defineEmits<{
