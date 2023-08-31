@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
+import { marked } from 'marked'
 import SceneContent from '../common/SceneContent.vue'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 import { LangUsersAppendix, LangUsersBluefinImageURL, LangUsersListItems, LangUsersTag, LangUsersText, LangUsersTitle } from '../../content'
@@ -24,9 +25,7 @@ const vis = ref(false)
             </div>
           </div>
 
-          <p v-if="LangUsersAppendix">
-            {{ LangUsersAppendix }}
-          </p>
+          <div v-if="LangUsersAppendix" v-html="marked.parse(LangUsersAppendix)" />
         </SceneContent>
       </div>
     </div>

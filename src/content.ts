@@ -28,7 +28,7 @@ export const LangUsersListItems = [
 export const LangUsersBluefinImageURL = '/characters/bluefin-small.png'
 export const LangUsersAppendix = `
 Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks and combined with native container workflows to provide a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
-\n\n
+
 Images are available for your PC, M1/M2 Macs, and Framework laptops.
 `
 
@@ -45,6 +45,7 @@ export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix witho
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = '/characters/devs.png'
+export const LangDevsAppendix = 'THIS TEXT GOES BELLOW LIST ITEMS'
 
 //
 //

@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
-import { LangDevsBoxFour, LangDevsBoxOne, LangDevsBoxThree, LangDevsBoxTwo, LangDevsTag, LangDevsText, LangDevsTitle, LangDevsTowerImageURL } from '../../content'
+import { marked } from 'marked'
+import { LangDevsAppendix, LangDevsBoxFour, LangDevsBoxOne, LangDevsBoxThree, LangDevsBoxTwo, LangDevsTag, LangDevsText, LangDevsTitle, LangDevsTowerImageURL } from '../../content'
 import SceneContent from '../common/SceneContent.vue'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 
@@ -69,14 +70,9 @@ const vis = ref(false)
               <p>{{ LangDevsBoxFour }}</p>
             </div>
           </div>
-        </SceneContent>
 
-        <!-- <ul>
-          <li>Local Kubernetes tools</li>
-          <li>KVM and QEMU</li>
-          <li>Cockpit for local and remote management</li>
-          <li>A collection of well curated monospace fonts</li>
-        </ul> -->
+          <div v-if="LangDevsAppendix" v-html="marked.parse(LangDevsAppendix)" />
+        </SceneContent>
       </div>
     </div>
     <SceneVisibilityChecker name="#scene-developers" />

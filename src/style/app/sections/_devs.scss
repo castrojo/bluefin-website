@@ -1,4 +1,6 @@
 #scene-developers {
+  padding-bottom: 212px;
+
   .container {
     .img-wrap {
       position: absolute;
@@ -43,7 +45,11 @@
     }
 
     .brand-grid {
-      margin-top: 80px;
+      margin-top: 40px;
+
+      &:not(:last-child) {
+        margin-bottom: 40px;
+      }
     }
 
     ul {
