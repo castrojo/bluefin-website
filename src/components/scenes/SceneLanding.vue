@@ -30,7 +30,7 @@ onMounted(() => {
             {{ LangLandingText }}
           </blockquote>
           <p class="from">
-            <a href="https://www.brainyquote.com/authors/stephen-jay-gould-quotes" target="_blank">Stephen Jay Gould</a>
+            <a href="https://en.wikipedia.org/wiki/Stephen_Jay_Gould" target="_blank">Stephen Jay Gould</a>
           </p>
 
           <div class="btn-wrap">
