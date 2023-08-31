@@ -8,7 +8,7 @@ export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
 export const LangLandingQuote = {
   text: '“Evolution is a process of constant branching and expansion”',
-  author: 'Stepehn Jay Gould',
+  author: 'Stephen Jay Gould',
   url: 'https://en.wikipedia.org/wiki/Stephen_Jay_Gould',
 }
 export const LangLandingBluefinImageURL = '/characters/angry.png'
