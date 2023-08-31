@@ -108,8 +108,8 @@ export const LangFaqQuestions = [
 // Footer content
 //
 export const LangFooterProjectTitle = 'Project Bluefin'
-export const LangFooterProject = 'Bluefin is built with Universal Blue, a community toolkit designed to consume OStree operating systems. Built for the love of the game. Welcome to Indie Cloud Native.'
-export const LangFooterReferences = 'We frown upon *any usage* of AI in art. Artworks have been drawn by the talented [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) and [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header). The website was designed and implemented by [Jan Dolanský](https://dolansky.dev/).'
+export const LangFooterProject = 'Bluefin is built with Universal Blue, a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to Indie Cloud Native.'
+export const LangFooterReferences = 'All artwork built by humans. [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) (Website and Logos) and [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header) (Bluefin wallpaper). The website was designed and implemented by [Jan Dolanský](https://dolansky.dev/).'
 
 // The icons are taken from here
 // https://icones.js.org/collection/mdi
