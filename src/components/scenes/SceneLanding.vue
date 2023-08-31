@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { IconLinkVariant } from '@iconify-prerendered/vue-mdi'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-import { LangLandingQuote, LangLandingTag, LangLandingTitle } from '../../content'
+import { LangLandingBluefinImageURL, LangLandingQuote, LangLandingTag, LangLandingTitle } from '../../content'
 
 function scrollToUsers() {
   document
@@ -45,7 +45,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="img-wrap">
-          <img src="/characters/angry.png" alt="">
+          <img :src="LangLandingBluefinImageURL" alt="Bluefin">
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
-//
-// Landing section
-
 import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 
+//
+//
+// Landing section
+//
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
 export const LangLandingQuote = {
@@ -10,7 +11,9 @@ export const LangLandingQuote = {
   author: 'Stepehn Jay Gould',
   url: 'https://en.wikipedia.org/wiki/Stephen_Jay_Gould',
 }
+export const LangLandingBluefinImageURL = '/characters/angry.png'
 
+//
 //
 // Users section
 //
@@ -23,7 +26,9 @@ export const LangUsersListItems = [
   'Included GPU drivers',
 ]
 export const LangUsersAppendix = '<THIS TEXT GOES BELLOW LIST ITEMS>'
+export const LangUsersBluefinImageURL = '/characters/bluefin-small.png'
 
+//
 //
 // Developers Section
 //
@@ -35,7 +40,9 @@ export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual
 export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
+export const LangDevsTowerImageURL = '/characters/devs.png'
 
+//
 //
 // Mission section
 //
@@ -56,13 +63,13 @@ Bluefin is about sustainability of the software, the hardware, and the people.
 [1]: https://en.wikipedia.org/wiki/Edith_Wharton
 
 Or she may disembowel us on the way. Clever Girl.
-
 `
+export const LangMissionBluefinImageURL = '/characters/nest.png'
 
+//
 //
 // Post mission section
 //
-
 export const LangAppendixText = `
 Project Bluefin is not a finished product, she is an ongoing passion project. She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. 
 
@@ -74,6 +81,7 @@ Bluefin is built with Universal Blue, a community toolkit designed to reboot the
 // Youtube video > share > embed > copy and paste the text inside the string
 export const LangAppendixYTVideo = '<iframe width="560" height="315" src="https://www.youtube.com/embed/gC7av1uSkoM?si=kaEbsIGtjT0jjRGZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
+//
 //
 // Frequently asked questions
 //
@@ -112,6 +120,7 @@ export const LangFaqQuestions = [
   },
 ]
 
+//
 //
 // Footer content
 //

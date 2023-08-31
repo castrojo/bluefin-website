@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import SceneContent from '../common/SceneContent.vue'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-import { LangMissionTag, LangMissionText, LangMissionTitle } from '../../content'
+import { LangMissionBluefinImageURL, LangMissionTag, LangMissionText, LangMissionTitle } from '../../content'
 
 const vis = ref(false)
 </script>
@@ -16,7 +16,7 @@ const vis = ref(false)
 
       <Transition name="fade">
         <div v-if="vis" class="img-wrap">
-          <img src="/characters/nest.png" alt="Bluefin laying down and chilling">
+          <img :src="LangMissionBluefinImageURL" alt="Bluefin laying down and chilling">
         </div>
       </Transition>
     </div>

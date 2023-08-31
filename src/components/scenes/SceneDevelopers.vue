@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
-import { LangDevsBoxFour, LangDevsBoxOne, LangDevsBoxThree, LangDevsBoxTwo, LangDevsTag, LangDevsText, LangDevsTitle } from '../../content'
+import { LangDevsBoxFour, LangDevsBoxOne, LangDevsBoxThree, LangDevsBoxTwo, LangDevsTag, LangDevsText, LangDevsTitle, LangDevsTowerImageURL } from '../../content'
 import SceneContent from '../common/SceneContent.vue'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 
@@ -13,7 +13,7 @@ const vis = ref(false)
       <Transition name="fade">
         <div v-if="vis">
           <div class="img-wrap">
-            <img src="/characters/devs.png" alt="Tower character artwork">
+            <img :src="LangDevsTowerImageURL" alt="Tower character artwork">
           </div>
           <div class="scene-arrow">
             <img src="/icons/arrow.svg" alt="">

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import SceneContent from '../common/SceneContent.vue'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-import { LangUsersAppendix, LangUsersListItems, LangUsersTag, LangUsersText, LangUsersTitle } from '../../content'
+import { LangUsersAppendix, LangUsersBluefinImageURL, LangUsersListItems, LangUsersTag, LangUsersText, LangUsersTitle } from '../../content'
 
 const vis = ref(false)
 </script>
@@ -12,7 +12,7 @@ const vis = ref(false)
     <div class="container">
       <Transition name="fade">
         <div v-if="vis" class="img-wrap">
-          <img src="/characters/bluefin-small.png" alt="Character bluefin artwork">
+          <img :src="LangUsersBluefinImageURL" alt="Character bluefin artwork">
         </div>
       </Transition>
 
