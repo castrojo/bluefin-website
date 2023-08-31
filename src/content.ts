@@ -49,6 +49,9 @@ Bluefin is about sustainability of the software, the hardware, and the people.
 > <cite>[Edith Wharton][1]</cite>
 
 [1]: https://en.wikipedia.org/wiki/Edith_Wharton
+
+Or she may disembowel us on the way. Clever Girl.
+
 `
 
 //
