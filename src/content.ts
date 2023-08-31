@@ -45,7 +45,7 @@ export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix witho
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = '/characters/devs.png'
-export const LangDevsAppendix = 'The inclusion of a <a href="https://glossary.cncf.io/runtime/>container runtime</a> unlocks your team\'s potential - Bluefin is designed to be forked and extended depending on your requirements, using standard cloud-native tools and techniques.'
+export const LangDevsAppendix = 'The inclusion of a <a href="https://glossary.cncf.io/runtime/">container runtime</a> unlocks your team\'s potential - Bluefin is designed to be forked and extended depending on your requirements, using standard cloud-native tools and techniques.'
 
 //
 //
