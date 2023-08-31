@@ -12,11 +12,11 @@ export const LangLandingText = '“Evolution is a process of constant branching 
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'Our system offers the best of both worlds: the reliability and ease of use of a Chromebook, and the performance and versatility of Ubuntu and Fedora combined.'
+export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, and the performance and versatility of Ubuntu and Fedora.'
 export const LangUsersListItems = [
-  'An ecosphere of applications provided by Flathub',
+  'Application ecosystem provided by Flathub',
   'Zero maintenance',
-  'Included GPU drivers and Flathub gaming experience',
+  'Included GPU drivers',
 ]
 
 //
@@ -28,8 +28,8 @@ export const LangDevsText = 'Three developer workflows to get you started depend
 
 export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual Studio Code. Run any OCI container as your developer environment.'
 export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
-export const LangDevsBoxThree = 'Next generation developer tools like Devpod'
-export const LangDevsBoxFour = 'Built-in Homebrew'
+export const LangDevsBoxThree = 'Devpod - developer environments as code'
+export const LangDevsBoxFour = 'Homebrew on-tap'
 
 //
 // Mission section
