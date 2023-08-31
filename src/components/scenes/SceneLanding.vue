@@ -38,10 +38,10 @@ onMounted(() => {
               Discover
             </button>
 
-            <button class="btn black" @click="scrollToUsers">
+            <a href="https://github.com/ublue-os/bluefin" target="_blank" class="btn black" @click="scrollToUsers">
               Try Out
               <IconLinkVariant />
-            </button>
+            </a>
           </div>
         </div>
         <div class="img-wrap">

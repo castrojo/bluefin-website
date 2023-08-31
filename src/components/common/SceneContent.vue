@@ -7,6 +7,11 @@ const props = defineProps<{
   tag: string
   title: string
   text: string
+  disableAnimation: boolean
+}>()
+
+const emit = defineEmits<{
+  visible: []
 }>()
 
 // Trigger only once
@@ -14,7 +19,16 @@ const wrapper = ref<HTMLDivElement>()
 const isVisible = useElementVisibility(wrapper)
 const fired = ref(false)
 
-watchOnce(isVisible, () => fired.value = true)
+if (props.disableAnimation)
+  fired.value = true
+
+watchOnce(isVisible, () => {
+  fired.value = true
+
+  setTimeout(() => {
+    emit('visible')
+  }, 50)
+})
 </script>
 
 <template>
@@ -30,6 +44,7 @@ watchOnce(isVisible, () => fired.value = true)
     <div>
       <div>
         <div v-html="marked.parse(props.text ?? '')" />
+        <slot />
       </div>
     </div>
   </div>

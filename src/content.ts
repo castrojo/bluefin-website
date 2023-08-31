@@ -3,7 +3,6 @@
 
 import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 
-//
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
 export const LangLandingText = '“Evolution is a process of constant branching and expansion”'
@@ -85,6 +84,7 @@ export const LangFaqQuestions = [
   {
     question: 'Where can I find more details on the features?',
     answer: 'You can find detailed information in our Github repository. \n\n [Visit Github](https://github.com/ublue-os/bluefin#readme)',
+    open: true,
   },
   {
     question: 'What if I want something like KDE or another window manager?',

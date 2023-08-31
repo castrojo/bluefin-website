@@ -9,7 +9,7 @@ import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
   <section id="scene-faq" class="section-wrap">
     <div class="container">
       <div>
-        <SceneContent :tag="LangFaqTag" :title="LangFaqTitle" :text="LangFaqText" />
+        <SceneContent :tag="LangFaqTag" :title="LangFaqTitle" :text="LangFaqText" disable-animation />
       </div>
 
       <div class="faq-list">
