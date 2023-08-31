@@ -19,14 +19,18 @@ export const LangLandingBluefinImageURL = '/characters/angry.png'
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, and the performance and versatility of Ubuntu and Fedora.'
+export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop. A custom image of Fedora designed for ease of use and performance.'
 export const LangUsersListItems = [
   'Application ecosystem provided by Flathub',
   'Zero maintenance',
   'Included GPU drivers',
 ]
-export const LangUsersAppendix = '<THIS TEXT GOES BELLOW LIST ITEMS>'
 export const LangUsersBluefinImageURL = '/characters/bluefin-small.png'
+export const LangUsersAppendix = `
+Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks and combined with native container workflows to provide a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
+\n\n
+Images are available for your PC, M1/M2 Macs, and Framework laptops.
+`
 
 //
 //
@@ -34,7 +38,7 @@ export const LangUsersBluefinImageURL = '/characters/bluefin-small.png'
 //
 export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
-export const LangDevsText = 'Three developer workflows to get you started depending on where you\'re coming from: (or bring your own!)'
+export const LangDevsText = 'Four developer workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
 export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual Studio Code. Run any OCI container as your developer environment.'
 export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
@@ -53,7 +57,7 @@ Bluefin is not just software. She is a new breed of animal, adapted to survive t
 
 We believe that the desktop needs to change. That technology starts with your local computer, the device that touches your hands -- and that has to be as important as the rest of it. 
 
-By bringing cloud-native patterns to the desktop we hope to provide an open source alternative to Chromebooks while also catering to the next-generation of open source contributor. 
+By bringing cloud-native patterns to the desktop we hope to kickstart an open source alternative to Chromebooks while also catering to the next-generation of open source contributor. 
 
 Bluefin is about sustainability of the software, the hardware, and the people.
 
