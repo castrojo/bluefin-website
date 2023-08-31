@@ -5,6 +5,7 @@
 @import "./devs";
 @import "./users";
 @import "./landing";
+@import "./video";
 
 .brand-grid {
   @include grid(0, 2);

@@ -23,6 +23,8 @@ const links: Record<string, Link> = {
   '#scene-faq': { name: 'FAQ' },
 }
 
+const linksAmount = Object.keys(links).length
+
 const visibleSection = inject('visibleSection') as WritableComputedRef<string>
 const offset = ref<number>(0)
 
@@ -59,7 +61,9 @@ function scrollUp() {
 <template>
   <header id="navigation" class="app-navigation" role="navigation">
     <nav aria-label="Navigation">
-      <ul>
+      <ul :style="{
+        gridTemplateColumns: `repeat(${linksAmount},1fr)`,
+      }">
         <li v-for="(link, key) in links" :key="key" :data-section="key">
           <a :href="key" :class="{ active: key === visibleSection }" :aria-label="`Section ${link.name}`"
             @click.prevent="scrollTo(key)">
@@ -71,6 +75,7 @@ function scrollUp() {
         <div class="bg" :style="{
           left: `${Math.max(0, (offset - 1) * 25)}%`,
           opacity: visibleSection === 'null' ? 0 : 1,
+          width: `${Math.round(100 / linksAmount)}%`,
         }" />
       </ul>
     </nav>

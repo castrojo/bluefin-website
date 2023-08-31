@@ -47,12 +47,12 @@
   }
 
   strong {
-    @include font(700);
+    @include font(400);
     display: block;
     font-size: 1.2rem;
     text-transform: uppercase;
-    color: var(--color-blue);
-    margin-bottom: 4px;
+    color: var(--color-text-light);
+    // margin-bottom: 4px;
   }
 
   h2 {

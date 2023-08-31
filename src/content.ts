@@ -53,6 +53,21 @@ Bluefin is about sustainability of the software, the hardware, and the people.
 `
 
 //
+// Post mission section
+//
+
+export const LangAppendixText = `
+Project Bluefin is not a finished product, she is an ongoing passion project. She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. 
+
+We must adapt. **We can do it together**.
+
+Bluefin is built with Universal Blue, a community toolkit designed to reboot the Linux desktop. Built for the love of the game. *Welcome to indie cloud-native*.
+`
+
+// Youtube video > share > embed > copy and paste the text inside the string
+export const LangAppendixYTVideo = '<iframe width="560" height="315" src="https://www.youtube.com/embed/gC7av1uSkoM?si=kaEbsIGtjT0jjRGZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+
+//
 // Frequently asked questions
 //
 export const LangFaqTag = 'Unsure?'

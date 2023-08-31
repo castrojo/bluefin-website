@@ -9,6 +9,7 @@ import SceneDevelopers from './components/scenes/SceneDevelopers.vue'
 import SceneLanding from './components/scenes/SceneLanding.vue'
 import SceneUsers from './components/scenes/SceneUsers.vue'
 import SectionFooter from './components/sections/SectionFooter.vue'
+import SectionVideo from './components/sections/SectionVideo.vue'
 
 const visibleSection = ref<string>('')
 provide('visibleSection', visibleSection)
@@ -62,6 +63,7 @@ onBeforeMount(() => {
           <SceneDevelopers />
         </ParallaxWrapper>
         <SectionMission />
+        <SectionVideo />
         <SectionQuestions />
         <SectionFooter />
 
