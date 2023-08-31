@@ -6,6 +6,7 @@
 @import "./loading";
 @import "./sections/";
 @import "./parallax";
+@import ".button";
 
 h1 {
   @include font(700);

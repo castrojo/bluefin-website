@@ -66,7 +66,6 @@ onBeforeMount(() => {
         <SectionVideo />
         <SectionQuestions />
         <SectionFooter />
-
         <Navigation />
       </div>
     </Transition>

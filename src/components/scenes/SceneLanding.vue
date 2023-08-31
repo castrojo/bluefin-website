@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-import SceneContent from '../common/SceneContent.vue'
+import { onMounted, ref } from 'vue'
+import { IconLinkVariant } from '@iconify-prerendered/vue-mdi'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 import { LangLandingTag, LangLandingText, LangLandingTitle } from '../../content'
 
@@ -8,17 +9,45 @@ function scrollToUsers() {
     .querySelector('#scene-users')
     ?.scrollIntoView({ behavior: 'smooth' })
 }
+
+const isLoaded = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    isLoaded.value = true
+  }, 150)
+})
 </script>
 
 <template>
   <section id="scene-landing" class="section-wrap">
-    <div class="container">
-      <SceneContent :tag="LangLandingTag" :title="LangLandingTitle" :text="LangLandingText" />
-      <img src="/characters/angry.png" alt="">
+    <div class="container moderate">
+      <div class="title" :class="{ 'is-loaded': isLoaded }">
+        <div class="text">
+          <strong>{{ LangLandingTag }}</strong>
+          <h2>{{ LangLandingTitle }}</h2>
+          <blockquote>
+            {{ LangLandingText }}
+          </blockquote>
+          <p class="from">
+            <a href="https://www.brainyquote.com/authors/stephen-jay-gould-quotes" target="_blank">Stephen Jay Gould</a>
+          </p>
 
-      <button class="button" aria-label="Discover Bluefin" @click="scrollToUsers">
-        Discover
-      </button>
+          <div class="btn-wrap">
+            <button class="btn filled" @click="scrollToUsers">
+              Discover
+            </button>
+
+            <button class="btn black" @click="scrollToUsers">
+              Try Out
+              <IconLinkVariant />
+            </button>
+          </div>
+        </div>
+        <div class="img-wrap">
+          <img src="/characters/angry.png" alt="">
+        </div>
+      </div>
     </div>
     <SceneVisibilityChecker name="null" />
   </section>

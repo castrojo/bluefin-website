@@ -7,10 +7,7 @@ const y = refThrottled(rawY, 10)
 
 const windowHeight = window.innerHeight * 0.75
 const nightOverlayOpacity = computed(() => {
-  if (y.value < windowHeight)
-    return 0
-
-  const actualScroll = y.value - windowHeight
+  const actualScroll = y.value - (windowHeight / 3)
   return Math.min(1, actualScroll / 1000)
 })
 

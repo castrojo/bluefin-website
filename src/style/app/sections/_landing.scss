@@ -1,66 +1,160 @@
 #scene-landing {
   @include flex(0, flex-start, $d: column);
-  padding-top: 10%;
+  padding-top: 192px;
   z-index: 50;
 
-  img {
-    display: block;
-    width: 680px;
-    margin: 0 auto;
-    transform: translateY(-20%);
-    // margin-bottom: -150px;
-  }
+  .title {
+    @include grid(40px, 2);
+    opacity: 0;
 
-  &:before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1024px;
-    height: 1024px;
-    background: radial-gradient(
-      circle,
-      rgba(0, 0, 0, 0.35) 0%,
-      rgba(0, 0, 0, 0) 50%
-    );
-  }
+    // Define animations
+    @keyframes wrapper {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
 
-  .scene-content {
-    text-align: center;
-    margin-bottom: 0;
+    @keyframes content {
+      from {
+        transform: translateX(10%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes image {
+      from {
+        right: -30%;
+      }
+      to {
+        right: -45%;
+      }
+    }
+
+    // Run animations
+    &.is-loaded {
+      animation: wrapper 0.8s normal 0s forwards cubic-bezier(0.76, 0, 0.24, 1);
+
+      .img-wrap img {
+        animation: image 0.75s normal 0s forwards cubic-bezier(0.76, 0, 0.24, 1);
+      }
+
+      .text {
+        animation: content 0.75s normal 0s forwards
+          cubic-bezier(0.76, 0, 0.24, 1);
+      }
+    }
+
+    .text {
+      transform: translateX(10%);
+    }
+
+    .img-wrap {
+      position: relative;
+      pointer-events: none;
+
+      img {
+        display: block;
+        width: 726px;
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-60%);
+      }
+    }
 
     strong,
-    h2,
-    p {
-      color: var(--color-text-light);
-      text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+    h2 {
+      @include font(700);
+      text-transform: uppercase;
+      color: var(--color-bg);
+      // text-shadow: 1px 1px 3px rgba(var(--color-bg-rgb), 0.75);
+    }
+
+    strong {
+      font-size: 1.2rem;
     }
 
     h2 {
-      font-size: 14rem;
-      // letter-spacing: 0.05em;
+      font-size: 12rem;
+      text-transform: uppercase;
+      margin-left: -7px;
+      margin-bottom: 24px;
+    }
+
+    blockquote {
+      @include font(400);
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--color-bg);
+
+      & + .from {
+        padding-top: 8px;
+        text-align: right;
+        font-size: 1.2rem;
+        color: var(--color-blue);
+        margin-bottom: 20px;
+
+        &:hover a {
+          text-decoration: none;
+        }
+      }
     }
   }
 
-  button {
-    @include t(0.3s);
-    @include font(400);
-    @include flex(5px, center, center, column);
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    color: var(--color-text-light);
-    letter-spacing: 0.1em;
-    text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+  // &:before {
+  //   content: "";
+  //   display: block;
+  //   position: absolute;
+  //   z-index: -1;
+  //   top: 30%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   width: 1024px;
+  //   height: 1024px;
+  //   background: radial-gradient(
+  //     circle,
+  //     rgba(0, 0, 0, 0.35) 0%,
+  //     rgba(0, 0, 0, 0) 50%
+  //   );
+  // }
 
-    &:hover {
-      color: var(--color-blue);
-    }
-  }
+  // .scene-content {
+  //   text-align: center;
+  //   margin-bottom: 0;
+
+  //   strong,
+  //   h2,
+  //   p {
+  //     color: var(--color-text-light);
+  //     text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+  //   }
+
+  //   h2 {
+  //     font-size: 14rem;
+  //   }
+  // }
+
+  // button {
+  //   @include t(0.3s);
+  //   @include font(400);
+  //   @include flex(5px, center, center, column);
+  //   position: absolute;
+  //   bottom: 15%;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   font-size: 1.2rem;
+  //   text-transform: uppercase;
+  //   color: var(--color-text-light);
+  //   letter-spacing: 0.1em;
+  //   text-shadow: 1px 1px 2px rgba(var(--color-bg-rgb), 0.5);
+
+  //   &:hover {
+  //     color: var(--color-blue);
+  //   }
+  // }
 }
