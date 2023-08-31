@@ -5,7 +5,11 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
-export const LangLandingText = '“Evolution is a process of constant branching and expansion”'
+export const LangLandingQuote = {
+  text: '“Evolution is a process of constant branching and expansion”',
+  author: 'Stepehn Jay Gould',
+  url: 'https://en.wikipedia.org/wiki/Stephen_Jay_Gould',
+}
 
 //
 // Users section
@@ -18,6 +22,7 @@ export const LangUsersListItems = [
   'Zero maintenance',
   'Included GPU drivers',
 ]
+export const LangUsersAppendix = '<THIS TEXT GOES BELLOW LIST ITEMS>'
 
 //
 // Developers Section
@@ -121,5 +126,44 @@ export const LangSocialLinks = [
     component: IconGithubCircle,
     text: 'Github',
     link: 'https://github.com/ublue-os/bluefin',
+  },
+]
+
+// Footer logos (powered-by)
+interface PoweredBy { imageUrl: string; projectUrl?: string; altText: string; style?: string }
+export const LangPoweredBy: PoweredBy[] = [
+  {
+    // This one will point to the logos saved in the public folder
+    // You can also link to an external asset if needed
+    imageUrl: '/brands/fedora.png',
+    projectUrl: 'https://fedoraproject.org/',
+    altText: 'Fedora',
+  },
+  {
+    imageUrl: '/brands/devpod.svg',
+    projectUrl: '',
+    altText: 'Devpod',
+  },
+  {
+    imageUrl: '/brands/devbox.svg',
+    projectUrl: '',
+    altText: 'Devbox',
+  },
+  {
+    imageUrl: '/brands/podman-logo-dark.png',
+    projectUrl: '',
+    altText: 'Podman',
+    // This is when you need to adjust a specific logo to your needs
+    // Style is just an inline CSS style applied to the <img>
+    style: 'height:68px;transform:translateY(-6px)',
+  },
+  {
+    imageUrl: '/brands/ubuntu.svg',
+    projectUrl: '',
+    altText: 'Ubuntu',
+  },
+  {
+    imageUrl: '/brands/dontrememberthisbrand.svg',
+    altText: '<I dont remember the name of this brand sorry, please help me here Jorge>',
   },
 ]

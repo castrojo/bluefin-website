@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { IconLinkVariant } from '@iconify-prerendered/vue-mdi'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-import { LangLandingTag, LangLandingText, LangLandingTitle } from '../../content'
+import { LangLandingQuote, LangLandingTag, LangLandingTitle } from '../../content'
 
 function scrollToUsers() {
   document
@@ -27,10 +27,10 @@ onMounted(() => {
           <strong>{{ LangLandingTag }}</strong>
           <h2>{{ LangLandingTitle }}</h2>
           <blockquote>
-            {{ LangLandingText }}
+            {{ LangLandingQuote.text }}
           </blockquote>
           <p class="from">
-            <a href="https://en.wikipedia.org/wiki/Stephen_Jay_Gould" target="_blank">Stephen Jay Gould</a>
+            <a :href="LangLandingQuote.url" target="_blank">{{ LangLandingQuote.author }}</a>
           </p>
 
           <div class="btn-wrap">

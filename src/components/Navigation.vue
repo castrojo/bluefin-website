@@ -24,7 +24,6 @@ const links: Record<string, Link> = {
 }
 
 const linksAmount = Object.keys(links).length
-
 const visibleSection = inject('visibleSection') as WritableComputedRef<string>
 const offset = ref<number>(0)
 
@@ -61,22 +60,28 @@ function scrollUp() {
 <template>
   <header id="navigation" class="app-navigation" role="navigation">
     <nav aria-label="Navigation">
-      <ul :style="{
-        gridTemplateColumns: `repeat(${linksAmount},1fr)`,
-      }">
+      <ul
+        :style="{
+          gridTemplateColumns: `repeat(${linksAmount},1fr)`,
+        }"
+      >
         <li v-for="(link, key) in links" :key="key" :data-section="key">
-          <a :href="key" :class="{ active: key === visibleSection }" :aria-label="`Section ${link.name}`"
-            @click.prevent="scrollTo(key)">
+          <a
+            :href="key" :class="{ active: key === visibleSection }" :aria-label="`Section ${link.name}`"
+            @click.prevent="scrollTo(key)"
+          >
             <component :is="link.icon" v-if="link.icon" />
             {{ link.name }}
           </a>
         </li>
 
-        <div class="bg" :style="{
-          left: `${Math.max(0, (offset - 1) * 25)}%`,
-          opacity: visibleSection === 'null' ? 0 : 1,
-          width: `${Math.round(100 / linksAmount)}%`,
-        }" />
+        <div
+          class="bg" :style="{
+            left: `${Math.max(0, (offset - 1) * 25)}%`,
+            opacity: visibleSection === 'null' ? 0 : 1,
+            width: `${Math.round(100 / linksAmount)}%`,
+          }"
+        />
       </ul>
     </nav>
 

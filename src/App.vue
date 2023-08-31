@@ -53,15 +53,20 @@ onBeforeMount(() => {
       })
     }),
   )
-    .finally(() => isLoading.value = false)
+    .finally(() => {
+      // Adding timeout gives us a moment to also render the images
+      setTimeout(() => {
+        isLoading.value = false
+      }, 100)
+    })
 })
 </script>
 
 <template>
-  <main>
-    <Transition name="fade">
+  <Transition name="fade">
+    <main>
       <PageLoading v-if="isLoading" />
-      <div v-else>
+      <div v-show="!isLoading">
         <ParallaxWrapper>
           <SceneLanding />
           <SceneUsers />
@@ -73,6 +78,6 @@ onBeforeMount(() => {
         <SectionFooter />
         <Navigation />
       </div>
-    </Transition>
-  </main>
+    </main>
+  </Transition>
 </template>

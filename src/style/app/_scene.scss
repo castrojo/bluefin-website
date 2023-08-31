@@ -91,7 +91,14 @@
   blockquote {
     padding-top: 20px;
     margin-top: 60px;
+    padding-bottom: 20px;
     border-top: 1px solid var(--color-border);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+
+    &:last-child {
+      border-bottom: 0;
+    }
 
     p {
       font-size: 1.6rem;
@@ -101,15 +108,19 @@
       cite {
         display: block;
         padding-top: 15px;
-        float: right;
+        text-align: right;
+        // float: right;
         position: relative;
+        a {
+          text-decoration: none;
+        }
 
         &:before {
           content: "”";
           width: 20px;
           height: 2px;
           position: absolute;
-          left: -25px;
+          right: 150px;
           top: 15px;
           font-size: 15rem;
           color: var(--color-text);

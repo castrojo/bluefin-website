@@ -8,7 +8,7 @@ const y = refThrottled(rawY, 10)
 const windowHeight = window.innerHeight * 0.75
 const nightOverlayOpacity = computed(() => {
   const actualScroll = y.value - (windowHeight / 3)
-  return Math.min(1, actualScroll / 700)
+  return Math.min(1, actualScroll / 650)
 })
 
 // const visibleSection = inject('visibleSection') as WritableComputedRef<string>

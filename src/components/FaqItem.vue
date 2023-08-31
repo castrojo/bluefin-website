@@ -16,13 +16,26 @@ const contentMaxHeight = ref(0)
 watch(open, async (value) => {
   if (value) {
     await nextTick()
-    contentMaxHeight.value = (content.value?.scrollHeight ?? 0) + 5
+    contentMaxHeight.value = content.value?.scrollHeight ?? 0
   }
-})
+}, { immediate: true })
 
 onMounted(() => {
   if (props.open !== undefined)
     open.value = props.open
+})
+
+// Check when marked has finished parsing
+marked.use({
+  hooks: {
+    // Should probably fix that mr marked
+    preprocess: html => html,
+    postprocess(html) {
+      contentMaxHeight.value = content.value?.scrollHeight ?? 0
+
+      return html
+    },
+  },
 })
 
 // Tweak marked to not turn `` into code blocks
@@ -40,7 +53,7 @@ const renderedContent = computed(() => marked.parse(props.answer, { renderer }))
       {{ props.question }}
     </button>
 
-    <div ref="content" class="faq-content" :style="{ 'max-height': open ? `${contentMaxHeight}px` : 0 }">
+    <div ref="content" class="faq-content" :style="{ 'max-height': open ? `${contentMaxHeight + 5}px` : 0 }">
       <div v-html="renderedContent" />
     </div>
   </div>

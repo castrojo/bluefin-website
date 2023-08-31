@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import SceneContent from '../common/SceneContent.vue'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-import { LangUsersListItems, LangUsersTag, LangUsersText, LangUsersTitle } from '../../content'
+import { LangUsersAppendix, LangUsersListItems, LangUsersTag, LangUsersText, LangUsersTitle } from '../../content'
 
 const vis = ref(false)
 </script>
@@ -23,6 +23,10 @@ const vis = ref(false)
               <p>{{ item }}</p>
             </div>
           </div>
+
+          <p v-if="LangUsersAppendix">
+            {{ LangUsersAppendix }}
+          </p>
         </SceneContent>
       </div>
     </div>

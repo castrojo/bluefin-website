@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { marked } from 'marked'
-import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangSocialLinks } from '../../content'
+import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPoweredBy, LangSocialLinks } from '../../content'
 </script>
 
 <template>
@@ -10,13 +10,14 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangSo
         <strong class="footer-title">Powered By</strong>
 
         <div class="logo-list">
-          <img src="/brands/fedora.png" alt="Fedora logo" title="Fedora">
-          <img src="/brands/devpod.svg" alt="Devpod logo" title="Devpod">
-          <img src="/brands/devbox.svg" alt="Devbox logo" title="Devbox">
-          <img src="/brands/podman-logo-dark.png" alt="Podman logo" title="Podman"
-            style="height:68px;transform:translateY(-6px)">
-          <img src="/brands/ubuntu.svg" alt="Ubuntu logo" title="Ubuntu">
-          <img src="/brands/dontrememberthisbrand.svg" alt="Logo" title="Logo">
+          <template v-for="brand in LangPoweredBy" :key="brand.imageUrl">
+            <a v-if="brand.projectUrl" :href="brand.projectUrl" target="_blank">
+              <img :style="brand.style ?? {}" :src="brand.imageUrl" :alt="brand.altText" :title="brand.altText">
+            </a>
+
+            <!-- Does not have project url -->
+            <img v-else :style="brand.style ?? {}" :src="brand.imageUrl" :alt="brand.altText" :title="brand.altText">
+          </template>
         </div>
       </div>
 
