@@ -16,13 +16,15 @@ export const LangLandingQuote = {
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, for everyone. A custom image of Fedora designed for ease of use and performance.'
+export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop. A custom image of Fedora designed for ease of use and performance.'
 export const LangUsersListItems = [
   'Application ecosystem provided by Flathub',
   'Zero maintenance',
   'Included GPU drivers',
 ]
-export const LangUsersAppendix = 'Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks and combined with native container workflows to provide a generational leap in reliability and composability. Images are available for your PC, M1/M2 Macs, and Framework laptops.'
+export const LangUsersAppendix = 'Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks and combined with native container workflows to provide a generational leap in reliability and composability. 
+  
+Images are available for your PC, M1/M2 Macs, and Framework laptops.'
 
 //
 // Developers Section
