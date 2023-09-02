@@ -19,15 +19,15 @@ export const LangLandingBluefinImageURL = '/characters/angry.png'
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop. A custom image of Fedora designed for ease of use and performance.'
+export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop. A custom image of Fedora designed for ease of use, performance, and sustainability.'
 export const LangUsersListItems = [
-  'Application ecosystem provided by Flathub',
+  'Applications by Flathub',
   'Zero maintenance',
   'Included GPU drivers',
 ]
 export const LangUsersBluefinImageURL = '/characters/bluefin-small.png'
 export const LangUsersAppendix = `
-Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks and combined with native container workflows to provide a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
+Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provide a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
 
 Images are available for your PC, M1/M2 Macs, and Framework laptops.
 `
@@ -45,7 +45,9 @@ export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix witho
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = '/characters/devs.png'
-export const LangDevsAppendix = 'The inclusion of a [container runtime](https://glossary.cncf.io/runtime/) unlocks your team\'s potential - Bluefin is designed to be forked and extended depending on your requirements, using standard cloud-native tools and techniques.'
+export const LangDevsAppendix = `The inclusion of a [container runtime](https://glossary.cncf.io/runtime/) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. 
+<br><br>
+Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.` 
 
 //
 //
@@ -76,15 +78,15 @@ export const LangMissionBluefinImageURL = '/characters/nest.png'
 // Post mission section
 //
 export const LangAppendixText = `
-Project Bluefin is not a finished product, she is an ongoing passion project. She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. 
+Project Bluefin is not a finished product, she is an ongoing passion project maintained by cloud-native nerds who want a more reliable and maintainable Linux desktop experience. 
 
-We must adapt. **We can do it together**.
+She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. We must adapt. **We can do it together**.
 
-Bluefin is built with Universal Blue, a community toolkit designed to reboot the Linux desktop. Built for the love of the game. *Welcome to indie cloud-native*.
+Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. *Welcome to indie cloud-native*.
 `
 
 // Youtube video > share > embed > copy and paste the text inside the string
-export const LangAppendixYTVideo = '<iframe width="560" height="315" src="https://www.youtube.com/embed/gC7av1uSkoM?si=kaEbsIGtjT0jjRGZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+export const LangAppendixYTVideo = '<iframe width="560" height="315" src="https://www.youtube.com/embed/XCE8H3dKJm4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
 //
 //
@@ -99,29 +101,25 @@ you can reach us at [jorge@bluefin.com](jorge@bluefin.com).
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: ' Blufin uses Fedora\'s OCI deployment feature to decouple the system image from configuration. This allows for customization similar to a configuration management tool such as Ansible or Salt without the usual problems associated with custom distributions. All of Bluefin and universal blue are open source and signed by cosign. It\'s more akin to having someone install Fedora for you and set it up “the right way”. \n\n What is a cloud native model? \n\n [Check it out on YouTube](https://youtu.be/p-88GN1WVs8)',
+    answer: 'Bluefin uses Fedora\'s OCI features to compose and build an OS image. This is maintained by a well structured community using GitOps-style customization and delivery. This is similar to a configuration management tool such as Ansible or Salt without the usual problems associated with maintaining a custom distribution. Since it\'s a cloud-native approach the end user can rebase back to stock Fedora or any Universal Blue image. It\'s more akin to having someone install, configure, and maintain a slick Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktops](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
     open: true,
   },
   {
     question: 'Where can I find more details on the features?',
-    answer: 'You can find detailed information in our Github repository. \n\n [Visit Github](https://github.com/ublue-os/bluefin#readme)',
+    answer: 'You can find detailed information in our Github repository. \n\n [Github](https://github.com/ublue-os/bluefin#readme) \n [Documentation](https://universal-blue.org/images/bluefin/)',
     open: true,
   },
   {
     question: 'What if I want something like KDE or another window manager?',
-    answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make their own custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS',
+    answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://universal-blue.org/images/bazzite/)' ,
   },
   {
-    question: 'What do the -framework images do?',
-    answer: 'These follow Framework\'s recommendations to swap out gnome-power-profile with tlp. The recommended settings are shipped, but allow for user-overridden configuration. We hope the framework community can help us ship a good set of configs that would allow for quick testing of battery settings so we can maintain it long term.',
-  },
-  {
-    question: 'How do I change my shell?',
-    answer: '`just zsh` or `just fish` will prompt you to switch your shell. Type `just` at the command line to see other convenience shortcuts. ',
+    question: 'What do the Framework images do?',
+    answer: 'These follow Framework\'s recommendations to swap out gnome-power-profile with tlp. The recommended settings are shipped, but allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/bluefin/framework/)',
   },
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
-    answer: 'The good distros have well maintained cloud images. You can use them _all_. Bluefin/Alpine is the author\'s preferred personal setup. Bluefin consumes distro images at her leisure.',
+    answer: 'All good distros have well maintained cloud images, you can use just about all of them. Bluefin/Alpine is the creators\'s preferred personal setup. Bluefin consumes distro images at her leisure. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
   },
 ]
 
@@ -130,8 +128,13 @@ export const LangFaqQuestions = [
 // Footer content
 //
 export const LangFooterProjectTitle = 'Project Bluefin'
-export const LangFooterProject = 'Bluefin is built with Universal Blue, a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to Indie Cloud Native.'
-export const LangFooterReferences = 'All artwork built by humans. [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) (Website and Logos) and [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header) (Bluefin wallpaper). The website was designed and implemented by [Jan Dolanský](https://dolansky.dev/).'
+export const LangFooterProject = 'Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to Indie Cloud Native.'
+export const LangFooterReferences = `All artwork built by humans.
+<br><br>
+- Logos and Wallpapers: [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) 
+- Blufin Wallpaper: Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
+- Website design and implementation: [Jan Dolanský](https://dolansky.dev/).
+- Product Management: Aaron Lake and Dustin Kirkland`
 
 // The icons are taken from here
 // https://icones.js.org/collection/mdi
