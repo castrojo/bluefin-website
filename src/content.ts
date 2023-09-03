@@ -19,15 +19,15 @@ export const LangLandingBluefinImageURL = '/characters/angry.png'
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop. A custom image of Fedora designed for ease of use, performance, and sustainability.'
+export const LangUsersText = 'Bluefin is a custom image of Fedora designed for ease of use, performance, and sustainability. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop. '
 export const LangUsersListItems = [
   'Applications by Flathub',
-  'Zero maintenance',
+  'Near-zero maintenance',
   'Included GPU drivers',
 ]
 export const LangUsersBluefinImageURL = '/characters/bluefin-small.png'
 export const LangUsersAppendix = `
-Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provide a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
+Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provides a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
 
 Images are available for your PC, M1/M2 Macs, and Framework laptops.
 `
@@ -56,11 +56,11 @@ Bluefin is designed to be [forked and extended](https://universal-blue.org/tinke
 export const LangMissionTag = 'Our'
 export const LangMissionTitle = 'Mission'
 export const LangMissionText = `
-Bluefin is not just software. She is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
+Bluefin is not just software, she is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
 
-We believe that the desktop needs to change. That technology starts with your local computer, the device that touches your hands -- and that has to be as important as the rest of it. 
+We believe that the desktop experience needs to change. That technology starts with your local computer, the device that touches your hands, and that has to be as important as the rest of the Linux ecosystem. 
 
-By bringing cloud-native patterns to the desktop we hope to kickstart an open source alternative to Chromebooks while also catering to the next-generation of open source contributor. 
+By bringing cloud-native patterns to the desktop we hope to kickstart an open source alternative desktop while catering to the next-generation of open source contributor. 
 
 Bluefin is about sustainability of the software, the hardware, and the people.
 
@@ -78,7 +78,7 @@ export const LangMissionBluefinImageURL = '/characters/nest.png'
 // Post mission section
 //
 export const LangAppendixText = `
-Project Bluefin is not a finished product, she is an ongoing passion project maintained by cloud-native nerds who want a more reliable and maintainable Linux desktop experience. 
+Project Bluefin is not a finished product, she is an ongoing passion project maintained by systems engineers who want a more reliable and maintainable Linux desktop experience. 
 
 She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. We must adapt. **We can do it together**.
 
@@ -101,7 +101,7 @@ you can reach us at [jorge@bluefin.com](jorge@bluefin.com).
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin uses Fedora\'s OCI features to compose and build an OS image. This is maintained by a well structured community using GitOps-style customization and delivery. This is similar to a configuration management tool such as Ansible or Salt without the usual problems associated with maintaining a custom distribution. Since it\'s a cloud-native approach the end user can rebase back to stock Fedora or any Universal Blue image. It\'s more akin to having someone install, configure, and maintain a slick Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktops](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
+    answer: 'Bluefin uses Fedora\'s OCI features to compose and build an OS image. This is maintained by a well structured community dedicated to automation and sustainability. The end result is similar to a configuration management tool such as Ansible or Salt without the usual problems associated with maintaining a custom distribution. Since it\'s a cloud-native approach the end user can rebase back to stock Fedora or any Universal Blue image. It\'s more akin to having someone install, configure, and maintain a slick Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
     open: true,
   },
   {
@@ -115,7 +115,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What do the Framework images do?',
-    answer: 'These follow Framework\'s recommendations to swap out gnome-power-profile with tlp. The recommended settings are shipped, but allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/bluefin/framework/)',
+    answer: 'These follow Framework\'s recommendations to swap out gnome-power-profile with tlp. The recommended settings are included on the image by default, but allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/bluefin/framework/)',
   },
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
