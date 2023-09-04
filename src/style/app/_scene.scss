@@ -76,7 +76,7 @@
 
     a {
       @include font(700);
-      color: var(--color-blue-light);
+      color: var(--color-blue-light) !important;
 
       &:hover {
         text-decoration: none;
@@ -109,11 +109,7 @@
         display: block;
         padding-top: 15px;
         text-align: right;
-        // float: right;
         position: relative;
-        a {
-          text-decoration: none;
-        }
 
         &:before {
           content: "”";

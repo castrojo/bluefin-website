@@ -38,6 +38,15 @@
         margin-bottom: 0;
       }
 
+      a {
+        @include font(700);
+        color: var(--color-blue-light) !important;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
       strong {
         @include font(700);
       }

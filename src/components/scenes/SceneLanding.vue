@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { IconLinkVariant } from '@iconify-prerendered/vue-mdi'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-import { LangLandingBluefinImageURL, LangLandingQuote, LangLandingTag, LangLandingTitle } from '../../content'
+import { LangLandingBluefinImageURL, LangLandingTag, LangLandingText, LangLandingTitle } from '../../content'
 
 function scrollToUsers() {
   document
@@ -26,19 +26,14 @@ onMounted(() => {
         <div class="text">
           <strong>{{ LangLandingTag }}</strong>
           <h2>{{ LangLandingTitle }}</h2>
-          <blockquote>
-            {{ LangLandingQuote.text }}
-          </blockquote>
-          <p class="from">
-            <a :href="LangLandingQuote.url" target="_blank">{{ LangLandingQuote.author }}</a>
-          </p>
+          <p>{{ LangLandingText }}</p>
 
           <div class="btn-wrap">
             <button class="btn filled" @click="scrollToUsers">
               Discover
             </button>
 
-            <a href="https://universal-blue.org/images/bluefin/" target="_blank" class="btn black" @click="scrollToUsers">
+            <a href="https://universal-blue.org/images/bluefin/" target="_blank" class="btn black filled" @click="scrollToUsers">
               Try Out
               <IconLinkVariant />
             </a>
@@ -50,5 +45,14 @@ onMounted(() => {
       </div>
     </div>
     <SceneVisibilityChecker name="null" />
+
+    <!-- <div class="scene-quote">
+      <blockquote>
+        {{ LangLandingQuote.text }}
+      </blockquote>
+      <p class="from">
+        <a :href="LangLandingQuote.url" target="_blank">{{ LangLandingQuote.author }}</a>
+      </p>
+    </div> -->
   </section>
 </template>

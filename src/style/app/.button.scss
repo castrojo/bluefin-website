@@ -30,6 +30,12 @@
   &.filled {
     background-color: var(--color-blue);
     color: var(--color-text-light);
+
+    &.black {
+      background-color: var(--color-bg);
+      color: var(--color-text-light);
+      border-color: var(--color-bg);
+    }
   }
 
   &.black {

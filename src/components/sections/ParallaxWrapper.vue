@@ -26,7 +26,6 @@ const showParallax = computed(() => {
   </div>
 
   <div v-show="showParallax" class="parallax-wrap">
-    <!-- <div class="vignette" /> -->
     <div class="night-overlay" :style="{ opacity: nightOverlayOpacity }" />
 
     <div class="parallax-item">

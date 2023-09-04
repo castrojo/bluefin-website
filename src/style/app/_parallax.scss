@@ -3,23 +3,9 @@
   inset: -10%;
   top: 0;
   pointer-events: none;
-  // bottom: unset;
   z-index: 5;
   overflow: hidden;
-
-  .vignette {
-    position: absolute;
-    z-index: 200;
-    inset: 0;
-
-    &:after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(transparent 60%, var(--color-bg));
-      opacity: 0.5;
-    }
-  }
+  transform: scaleX(-1);
 
   .night-overlay {
     position: absolute;

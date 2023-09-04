@@ -10,6 +10,7 @@ import SceneLanding from './components/scenes/SceneLanding.vue'
 import SceneUsers from './components/scenes/SceneUsers.vue'
 import SectionFooter from './components/sections/SectionFooter.vue'
 import SectionVideo from './components/sections/SectionVideo.vue'
+import { LangParallaxQuote } from './content'
 
 const visibleSection = ref<string>('')
 provide('visibleSection', visibleSection)
@@ -70,6 +71,18 @@ onBeforeMount(() => {
         <ParallaxWrapper>
           <SceneLanding />
           <SceneUsers />
+
+          <div class="scene-quote">
+            <blockquote>
+              <p>
+                {{ LangParallaxQuote.text }}
+                <cite>
+                  <a :href="LangParallaxQuote.url" target="_blank">{{ LangParallaxQuote.author }}</a>
+                </cite>
+              </p>
+            </blockquote>
+          </div>
+
           <SceneDevelopers />
         </ParallaxWrapper>
         <SectionMission />

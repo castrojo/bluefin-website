@@ -4,10 +4,12 @@
 
   .layer-transition {
     position: absolute;
-    bottom: 98%;
+    bottom: 90%;
     z-index: -1;
     display: block;
     width: 120%;
+    right: 0;
+    transform: scaleX(-1);
   }
 
   .container {

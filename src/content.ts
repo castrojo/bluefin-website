@@ -6,11 +6,7 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 //
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
-export const LangLandingQuote = {
-  text: '“Evolution is a process of constant branching and expansion”',
-  author: 'Stephen Jay Gould',
-  url: 'https://en.wikipedia.org/wiki/Stephen_Jay_Gould',
-}
+export const LangLandingText = 'The next generation workstation type of beat for landing text right here.'
 export const LangLandingBluefinImageURL = '/characters/angry.png'
 
 //
@@ -19,7 +15,7 @@ export const LangLandingBluefinImageURL = '/characters/angry.png'
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'Bluefin is a custom image of Fedora designed for ease of use, performance, and sustainability. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop. '
+export const LangUsersText = 'Bluefin is a custom image of Fedora designed for ease of use, performance, and sustainability. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop.'
 export const LangUsersListItems = [
   'Applications by Flathub',
   'Near-zero maintenance',
@@ -31,6 +27,16 @@ Updates are image-based and automatic. Applications are logically separated from
 
 Images are available for your PC, M1/M2 Macs, and Framework laptops.
 `
+
+//
+//
+// Parallax quote
+//
+export const LangParallaxQuote = {
+  text: '“Evolution is a process of constant branching and expansion”',
+  author: 'Stephen Jay Gould',
+  url: 'https://en.wikipedia.org/wiki/Stephen_Jay_Gould',
+}
 
 //
 //
@@ -47,7 +53,7 @@ export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = '/characters/devs.png'
 export const LangDevsAppendix = `The inclusion of a [container runtime](https://glossary.cncf.io/runtime/) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. 
 <br><br>
-Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.` 
+Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.`
 
 //
 //
@@ -111,7 +117,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What if I want something like KDE or another window manager?',
-    answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://universal-blue.org/images/bazzite/)' ,
+    answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://universal-blue.org/images/bazzite/)',
   },
   {
     question: 'What do the Framework images do?',
