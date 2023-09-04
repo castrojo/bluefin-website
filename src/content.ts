@@ -7,7 +7,7 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
 export const LangLandingText = 'The next generation workstation type of beat for landing text right here.'
-export const LangLandingBluefinImageURL = '/characters/angry.png'
+export const LangLandingBluefinImageURL = './characters/angry.png'
 
 //
 //
@@ -21,7 +21,7 @@ export const LangUsersListItems = [
   'Near-zero maintenance',
   'Included GPU drivers',
 ]
-export const LangUsersBluefinImageURL = '/characters/bluefin-small.png'
+export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
 export const LangUsersAppendix = `
 Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provides a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
 
@@ -50,7 +50,7 @@ export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual
 export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
-export const LangDevsTowerImageURL = '/characters/devs.png'
+export const LangDevsTowerImageURL = './characters/devs.png'
 export const LangDevsAppendix = `The inclusion of a [container runtime](https://glossary.cncf.io/runtime/) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. 
 <br><br>
 Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.`
@@ -77,7 +77,7 @@ Bluefin is about sustainability of the software, the hardware, and the people.
 
 Or she may disembowel us on the way. Clever Girl.
 `
-export const LangMissionBluefinImageURL = '/characters/nest.png'
+export const LangMissionBluefinImageURL = './characters/nest.png'
 
 //
 //
@@ -158,22 +158,22 @@ export const LangPoweredBy: PoweredBy[] = [
   {
     // This one will point to the logos saved in the public folder
     // You can also link to an external asset if needed
-    imageUrl: '/brands/fedora.png',
+    imageUrl: './brands/fedora.png',
     projectUrl: 'https://fedoraproject.org/',
     altText: 'Fedora',
   },
   {
-    imageUrl: '/brands/devpod.svg',
+    imageUrl: './brands/devpod.svg',
     projectUrl: '',
     altText: 'Devpod',
   },
   {
-    imageUrl: '/brands/devbox.svg',
+    imageUrl: './brands/devbox.svg',
     projectUrl: '',
     altText: 'Devbox',
   },
   {
-    imageUrl: '/brands/podman-logo-dark.png',
+    imageUrl: './brands/podman-logo-dark.png',
     projectUrl: '',
     altText: 'Podman',
     // This is when you need to adjust a specific logo to your needs
@@ -181,12 +181,12 @@ export const LangPoweredBy: PoweredBy[] = [
     style: 'height:68px;transform:translateY(-6px)',
   },
   {
-    imageUrl: '/brands/ubuntu.svg',
+    imageUrl: './brands/ubuntu.svg',
     projectUrl: '',
     altText: 'Ubuntu',
   },
   {
-    imageUrl: '/brands/dontrememberthisbrand.svg',
+    imageUrl: './brands/dontrememberthisbrand.svg',
     altText: 'Distrobox',
   },
 ]
