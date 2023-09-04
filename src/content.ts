@@ -116,6 +116,10 @@ export const LangFaqQuestions = [
     open: true,
   },
   {
+    question: 'Why dinosaurs??',
+    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur which means "terrible claw". She was discovered in the 1960s and revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were viewed as slow, dim witted creatures. She threw all our misconceptions out the window and gave us insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We want our desktop to feel nimble, powerful, and adaptable. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
+  },
+  {
     question: 'What if I want something like KDE or another window manager?',
     answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://universal-blue.org/images/bazzite/)',
   },
@@ -126,10 +130,6 @@ export const LangFaqQuestions = [
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
     answer: 'All good distros have well maintained cloud images, you can use just about all of them. Bluefin/Alpine is the creators\'s preferred personal setup. Bluefin consumes distro images at her leisure. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
-  },
-  {
-    question: 'Why dinosaurs??',
-    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur which means "terrible claw". She was discovered in the 1960s and revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were viewed as slow, dim witted creatures. She threw all our misconceptions out the window and gave us insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We want our desktop to feel nimble, powerful, and adaptable. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
