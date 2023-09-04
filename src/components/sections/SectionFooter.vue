@@ -12,11 +12,11 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
         <div class="logo-list">
           <template v-for="brand in LangPoweredBy" :key="brand.imageUrl">
             <a v-if="brand.projectUrl" :href="brand.projectUrl" target="_blank">
-              <img :style="brand.style ?? {}" :src="brand.imageUrl" :alt="brand.altText" :title="brand.altText">
+              <img :src="brand.imageUrl" :alt="brand.altText" :title="brand.altText">
             </a>
 
             <!-- Does not have project url -->
-            <img v-else :style="brand.style ?? {}" :src="brand.imageUrl" :alt="brand.altText" :title="brand.altText">
+            <img v-else :src="brand.imageUrl" :alt="brand.altText" :title="brand.altText">
           </template>
         </div>
       </div>

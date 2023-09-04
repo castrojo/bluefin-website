@@ -153,7 +153,7 @@ export const LangSocialLinks = [
 ]
 
 // Footer logos (powered-by)
-interface PoweredBy { imageUrl: string; projectUrl?: string; altText: string; style?: string }
+interface PoweredBy { imageUrl: string; projectUrl?: string; altText: string }
 export const LangPoweredBy: PoweredBy[] = [
   {
     // This one will point to the logos saved in the public folder
@@ -176,9 +176,6 @@ export const LangPoweredBy: PoweredBy[] = [
     imageUrl: './brands/podman-logo-dark.png',
     projectUrl: '',
     altText: 'Podman',
-    // This is when you need to adjust a specific logo to your needs
-    // Style is just an inline CSS style applied to the <img>
-    style: 'height:68px;transform:translateY(-6px)',
   },
   {
     imageUrl: './brands/ubuntu.svg',
