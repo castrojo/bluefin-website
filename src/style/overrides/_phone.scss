@@ -249,7 +249,10 @@
         left: unset;
 
         &:before {
-          width: 512px;
+          width: 280px;
+          height: 280px;
+          left: 50%;
+          // display: none;
         }
 
         img {
