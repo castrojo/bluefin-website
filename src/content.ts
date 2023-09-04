@@ -129,7 +129,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
-    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n Wallpapers \n Dinosaurs \n HEIC Wallpapers for OSX \n [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) \n Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)', 
+    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n [Wallpapers] \n [Dinosaurs] \n [HEIC Wallpapers for OSX] \n [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) \n Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)', 
   },
 ]
 
@@ -169,26 +169,27 @@ export const LangPoweredBy: PoweredBy[] = [
   },
   {
     imageUrl: './brands/devpod.svg',
-    projectUrl: '',
+    projectUrl: 'https://devpod.sh/',
     altText: 'Devpod',
   },
   {
     imageUrl: './brands/devbox.svg',
-    projectUrl: '',
+    projectUrl: 'https://www.jetpack.io/devbox/',
     altText: 'Devbox',
   },
   {
     imageUrl: './brands/podman-logo-dark.png',
-    projectUrl: '',
+    projectUrl: 'https://podman.io/',
     altText: 'Podman',
   },
   {
     imageUrl: './brands/ubuntu.svg',
-    projectUrl: '',
+    projectUrl: 'https://ubuntu.com/',
     altText: 'Ubuntu',
   },
   {
     imageUrl: './brands/dontrememberthisbrand.svg',
+    projectUrl: 'https://distrobox.privatedns.org/'
     altText: 'Distrobox',
   },
 ]
