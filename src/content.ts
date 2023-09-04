@@ -6,7 +6,7 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 //
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
-export const LangLandingText = 'The next generation workstation type of beat for landing text right here.'
+export const LangLandingText = 'The next generation Linux workstation, designed for reliability, performance, and sustainability.'
 export const LangLandingBluefinImageURL = './characters/angry.png'
 
 //
@@ -15,7 +15,7 @@ export const LangLandingBluefinImageURL = './characters/angry.png'
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'Bluefin is a custom image of Fedora designed for ease of use, performance, and sustainability. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop.'
+export const LangUsersText = 'Bluefin is a custom image of Fedora Silverblue. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop.'
 export const LangUsersListItems = [
   'Applications by Flathub',
   'Near-zero maintenance',
