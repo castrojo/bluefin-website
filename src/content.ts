@@ -143,7 +143,7 @@ export const LangFooterReferences = `All artwork built by humans.
 <br><br>
 - Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) 
 - Blufin Wallpaper - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
-- Website design and implementation - [Jan Dolanský](https://dolansky.dev/).
+- Website design and implementation - [Jan Dolanský](https://dolansky.dev/)
 - Project Management - Aaron Lake 
 - Product Management - Dustin Kirkland`
 
