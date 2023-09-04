@@ -127,6 +127,10 @@ export const LangFaqQuestions = [
     question: 'What if I don\'t like Ubuntu? What are my options?',
     answer: 'All good distros have well maintained cloud images, you can use just about all of them. Bluefin/Alpine is the creators\'s preferred personal setup. Bluefin consumes distro images at her leisure. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
   },
+  {
+    question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
+    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use' \n\n Wallpapers \n Dinosaurs \n HEIC Wallpapers for OSX',
+  },
 ]
 
 //
