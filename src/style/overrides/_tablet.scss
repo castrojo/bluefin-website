@@ -16,6 +16,23 @@
     }
   }
 
+  .container {
+    width: 100%;
+    max-width: 100%;
+
+    &.small {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 116px;
+    }
+
+    &.moderate {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 64px;
+    }
+  }
+
   .scene-content {
     width: 100% !important;
 
@@ -35,6 +52,7 @@
 
     h2 {
       font-size: 5rem;
+      margin-bottom: 15px;
     }
 
     p {

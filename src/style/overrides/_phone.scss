@@ -145,4 +145,21 @@
       font-size: 1rem;
     }
   }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+
+    &.small {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 48px;
+    }
+
+    &.moderate {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 32px;
+    }
+  }
 }
