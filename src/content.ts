@@ -59,7 +59,7 @@ export const LangParallaxQuote = {
   text: '“Be the one who moves, not the one who is moved.”',
   author: 'Zavala',
   url: 'https://en.wikipedia.org/wiki/Lance_Reddick',
-
+}
 
 //
 // Mission section
