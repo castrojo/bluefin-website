@@ -189,7 +189,7 @@ export const LangPoweredBy: PoweredBy[] = [
   },
   {
     imageUrl: './brands/dontrememberthisbrand.svg',
-    projectUrl: 'https://distrobox.privatedns.org/'
+    projectUrl: 'https://distrobox.privatedns.org/',
     altText: 'Distrobox',
   },
 ]
