@@ -40,7 +40,7 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
         <div style="flex:1;" />
 
         <p class="copyright">
-          Copyright {{ new Date().getUTCFullYear() }} © Project bluefin
+          Copyright {{ new Date().getUTCFullYear() }} © Project Bluefin
         </p>
       </div>
     </div>
