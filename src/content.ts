@@ -51,14 +51,16 @@ export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix witho
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = './characters/devs.png'
-export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.
+export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.`
 
-> Be the one who moves, not the one who is moved.
-> <cite>[Zavala][1]</cite>
-
-[1]: https://en.wikipedia.org/wiki/Lance_Reddick`
-
+// Parallax quote
 //
+export const LangParallaxQuote = {
+  text: '“Be the one who moves, not the one who is moved.”',
+  author: 'Zavala',
+  url: 'https://en.wikipedia.org/wiki/Lance_Reddick',
+
+
 //
 // Mission section
 //
