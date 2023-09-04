@@ -112,7 +112,8 @@
     font-size: 1.6rem;
     color: var(--color-text-light);
     font-style: italic;
-    width: 556px;
+    max-width: 556px;
+    width: 100%;
     margin: 0 auto;
     padding: 40px;
 

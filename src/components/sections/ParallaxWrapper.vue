@@ -2,6 +2,14 @@
 import { refThrottled, useWindowScroll } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
+// const TABLET_THRESHOLD = 1024;
+
+// const {width} = useWindowSize()
+
+// if (width.value > TABLET_THRESHOLD) {
+
+// }
+
 const { y: rawY } = useWindowScroll()
 const y = refThrottled(rawY, 10)
 

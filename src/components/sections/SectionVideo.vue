@@ -4,7 +4,7 @@ import { LangAppendixText, LangAppendixYTVideo } from '../../content'
 </script>
 
 <template>
-  <section id="section-video" class="section-wrap">
+  <section id="scene-video" class="section-wrap">
     <div class="container moderate">
       <div class="video-wrapper">
         <div v-html="LangAppendixYTVideo" />

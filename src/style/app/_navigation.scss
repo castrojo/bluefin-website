@@ -6,7 +6,6 @@
   width: clamp(564px, 50%, 792px);
   border: 1px solid var(--color-border-light);
   border-radius: 24px;
-  // background-color: var(--color-bg);
   background-color: rgba(var(--color-bg-rgb), 0.8);
   backdrop-filter: blur(15px);
   z-index: 100;
