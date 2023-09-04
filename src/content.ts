@@ -128,6 +128,10 @@ export const LangFaqQuestions = [
     answer: 'All good distros have well maintained cloud images, you can use just about all of them. Bluefin/Alpine is the creators\'s preferred personal setup. Bluefin consumes distro images at her leisure. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
   },
   {
+    question: 'Why dinosaurs??',
+    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur which means "terrible claw". She was discovered in the 1960s and revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were viewed as slow, dim witted creatures. She threw all our misconceptions out the window and gave us insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We want our desktop to feel nimble, powerful, and adaptable. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
+  },
+  {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
     answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n [Wallpapers](https://github.com/ublue-os/bluefin) \n [Dinosaurs](https://github.com/ublue-os/bluefin) \n [HEIC Wallpapers for OSX](https://github.com/ublue-os/bluefin) \n [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)', 
   },
