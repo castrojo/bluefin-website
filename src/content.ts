@@ -129,7 +129,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
-    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n Wallpapers \n Dinosaurs \n HEIC Wallpapers for OSX',
+    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n Wallpapers \n Dinosaurs \n HEIC Wallpapers for OSX \n [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) \n Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)', 
   },
 ]
 
@@ -141,10 +141,11 @@ export const LangFooterProjectTitle = 'Project Bluefin'
 export const LangFooterProject = 'Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to Indie Cloud Native.'
 export const LangFooterReferences = `All artwork built by humans.
 <br><br>
-- Logos and Wallpapers: [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) 
-- Blufin Wallpaper: Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
-- Website design and implementation: [Jan Dolanský](https://dolansky.dev/).
-- Product Management: Aaron Lake and Dustin Kirkland`
+- Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) 
+- Blufin Wallpaper - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
+- Website design and implementation - [Jan Dolanský](https://dolansky.dev/).
+- Project Management - Aaron Lake 
+- Product Management - Dustin Kirkland`
 
 // The icons are taken from here
 // https://icones.js.org/collection/mdi
