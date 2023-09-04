@@ -107,7 +107,7 @@ you can find us [on GitHub](https://github.com/ublue-os/bluefin)
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin uses Fedora\'s OCI features to compose and build an OS image. This is maintained by a well structured community dedicated to automation and sustainability. The end result is similar to a configuration management tool such as Ansible or Salt without the usual problems associated with maintaining a custom distribution. Since it\'s a cloud-native approach the end user can rebase back to stock Fedora or any Universal Blue image. It\'s more akin to having someone install, configure, and maintain a slick Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
+    answer: 'Bluefin uses Fedora\'s OCI features to compose and build an OS image. This is maintained by a well structured community dedicated to automation and sustainability. The end result is similar to a configuration management tool such as Ansible or Salt without the usual problems associated with maintaining a custom distribution. \n\n Since it\'s a cloud-native approach the end user can rebase back to stock Fedora or any Universal Blue image. It\'s more akin to having someone install, configure, and maintain a slick Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
     open: true,
   },
   {
