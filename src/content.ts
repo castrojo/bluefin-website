@@ -129,7 +129,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
-    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n [Wallpapers] \n [Dinosaurs] \n [HEIC Wallpapers for OSX] \n [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) \n Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)', 
+    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n [Wallpapers](https://github.com/ublue-os/bluefin) \n [Dinosaurs](https://github.com/ublue-os/bluefin) \n [HEIC Wallpapers for OSX](https://github.com/ublue-os/bluefin) \n [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)', 
   },
 ]
 
