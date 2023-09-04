@@ -129,7 +129,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
-    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use' \n\n Wallpapers \n Dinosaurs \n HEIC Wallpapers for OSX',
+    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n Wallpapers \n Dinosaurs \n HEIC Wallpapers for OSX',
   },
 ]
 
