@@ -1,0 +1,80 @@
+@media only screen and (max-width: 1280px) {
+  @keyframes image {
+    from {
+      right: 0;
+    }
+    to {
+      right: -20%;
+    }
+  }
+
+  #scene-landing .title .img-wrap img {
+    width: 592px;
+    right: -20%;
+  }
+
+  #scene-users .container .img-wrap img {
+    transform: translateX(0) scale(1.1);
+  }
+
+  #scene-users .container .brand-grid .brand-item p {
+    font-size: 1.6rem;
+  }
+
+  .scene-content {
+    h2 {
+      font-size: 6rem;
+    }
+  }
+
+  #scene-developers .container .img-wrap {
+    right: 20%;
+  }
+
+  #scene-developers .container .scene-arrow {
+    top: 2%;
+    right: 15%;
+  }
+
+  #scene-mission .container .img-wrap {
+    left: 8%;
+  }
+
+  .section-wrap {
+    padding: 112px 0;
+  }
+
+  #scene-faq {
+    padding-top: 112px;
+    margin-bottom: 112px;
+  }
+
+  .faq-item .faq-btn {
+    font-size: 2rem;
+  }
+
+  .faq-item .faq-content p {
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (max-width: 1344px) {
+  footer .container {
+    grid-template-columns: 1fr 1fr;
+
+    & > div:first-of-type {
+      padding-right: 32px;
+    }
+
+    & > div:last-of-type {
+      padding-left: 32px;
+    }
+
+    .logo-list {
+      gap: 40px;
+      img {
+        height: 48px;
+      }
+    }
+  }
+}

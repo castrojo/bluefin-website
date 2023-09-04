@@ -52,14 +52,12 @@
     font-size: 1.2rem;
     text-transform: uppercase;
     color: var(--color-text-light);
-    // margin-bottom: 4px;
   }
 
   h2 {
     @include font(700);
     font-size: 7rem;
     margin-bottom: 30px;
-    // margin-left: -4px;
     text-transform: uppercase;
     color: var(--color-text-light);
   }
