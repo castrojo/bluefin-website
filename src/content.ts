@@ -53,7 +53,12 @@ export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = './characters/devs.png'
 export const LangDevsAppendix = `The inclusion of a [container runtime](https://glossary.cncf.io/runtime/) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. 
 <br><br>
-Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.`
+Bluefin is designed to be [forked and extended](https://universal-blue.org/tinker/fork-your-own) depending on your requirements, using standard cloud-native tools and techniques.
+
+> Be the one who moves, not the one who is moved.
+> <cite>[Zavala][1]</cite>
+
+[1]: https://en.wikipedia.org/wiki/Lance_Reddick`
 
 //
 //
