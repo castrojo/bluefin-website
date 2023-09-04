@@ -148,9 +148,7 @@ export const LangFooterReferences = `All artwork built by humans.
 - Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) 
 - Bluefin Wallpaper - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
 - Website - [Jan Dolanský](https://dolansky.dev/)
-- Technical Leads - Marco Ceppi and Brian Ketelsen
-- Project Management - Aaron Lake 
-- Product Management - Dustin Kirkland`
+- Special Thanks - [Aaron Lake](https://www.bungie.net/7/en/destiny/newlight), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://blog.dustinkirkland.com/), and [Marco Ceppi](https://github.com/marcoceppi)`
 
 // The icons are taken from here
 // https://icones.js.org/collection/mdi
