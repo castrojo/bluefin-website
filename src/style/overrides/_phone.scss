@@ -8,11 +8,7 @@
   }
 
   .parallax-wrap {
-    .parallax-item {
-      img {
-        width: 400%;
-      }
-    }
+    inset: 0 -10%;
   }
 
   .scene-content {
