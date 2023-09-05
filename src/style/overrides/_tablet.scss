@@ -13,6 +13,10 @@
       img {
         width: 200%;
       }
+
+      &:nth-of-type(5) {
+        top: 50px;
+      }
     }
   }
 
