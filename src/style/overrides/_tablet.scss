@@ -84,11 +84,13 @@
 
   #scene-landing {
     padding-top: 0;
+    margin-top: -40px;
 
     .title {
       @include flex(0px, center, center, column-reverse);
 
       .img-wrap {
+        margin-bottom: -40px;
         img {
           width: 264px;
           position: relative;
