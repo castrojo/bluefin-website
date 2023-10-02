@@ -135,7 +135,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
-    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n [Wallpapers](https://github.com/ublue-os/bluefin) \n [Dinosaurs](https://github.com/ublue-os/bluefin) \n [HEIC Wallpapers for OSX](https://github.com/ublue-os/bluefin) \n [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)',
+    answer: 'Bluefin was brought to life by Jacob Schurr and Andy Frazer. The artwork is free for you to use \n\n [Wallpapers](https://github.com/ublue-os/bluefin) \n [Dinosaurs](https://github.com/ublue-os/bluefin) \n [HEIC Wallpapers for OSX](https://github.com/ublue-os/bluefin) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)',
   },
 ]
 
@@ -147,8 +147,8 @@ export const LangFooterProjectTitle = 'Project Bluefin'
 export const LangFooterProject = 'Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to Indie Cloud Native.'
 export const LangFooterReferences = `All artwork built by humans.
 <br><br>
-- Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/listing/1425657775/cretaceous-chonkers-chonky-dinosaur) 
-- Bluefin Wallpaper - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
+- Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) 
+- Bluefin Illustrative Wallpaper - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
 - Special Thanks - [Aaron Lake](https://www.bungie.net/7/en/destiny/newlight), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://blog.dustinkirkland.com/), and [Marco Ceppi](https://github.com/marcoceppi)`
 
 // The icons are taken from here
