@@ -86,7 +86,7 @@ export const LangMissionBluefinImageURL = './characters/nest.png'
 // Post mission section
 //
 export const LangAppendixText = `
-Project Bluefin is not a finished product, she is an ongoing passion project maintained by systems engineers who want a more reliable and maintainable Linux desktop experience. 
+Project Bluefin is not a finished product, she is an ongoing passion project maintained by [systems engineers](https://github.com/ublue-os/bluefin/graphs/contributors) who want a more reliable and maintainable Linux desktop experience. 
 
 She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. We must adapt. **We can do it together**.
 
