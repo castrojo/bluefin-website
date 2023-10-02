@@ -149,7 +149,7 @@ export const LangFooterReferences = `All artwork built by humans.
 <br><br>
 - Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) 
 - Bluefin Illustrative Wallpaper - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)
-- Special Thanks - [Aaron Lake](https://www.bungie.net/7/en/destiny/newlight), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://blog.dustinkirkland.com/), and [Marco Ceppi](https://github.com/marcoceppi)`
+- Special Thanks - [Aaron Lake](https://www.linkedin.com/in/aaron-lake/), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://www.kotterva.com/), and [Marco Ceppi](https://github.com/marcoceppi)`
 
 // The icons are taken from here
 // https://icones.js.org/collection/mdi
