@@ -23,9 +23,9 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
 export const LangUsersAppendix = `
-Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provides a generational leap in reliability and composability. Get what you want without sacrificing system stability. 
+Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provides a generational leap in reliability and composability. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. 
 
-Images are available for your PC, M1/M2 Macs, and Framework laptops.
+Images are available for your PC, M1/M2 Macs, Framework laptops, and Microsoft Surface devices.
 `
 
 //
