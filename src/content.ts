@@ -23,7 +23,7 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
 export const LangUsersAppendix = `
-Updates are image-based and automatic. Applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provides a generational leap in reliability and composability. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. 
+Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provides a generational leap in reliability and composability. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. 
 
 Images are available for your PC, M1/M2 Macs, Framework laptops, and Microsoft Surface devices.
 `
@@ -46,7 +46,7 @@ export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
 export const LangDevsText = 'Four developer workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
-export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual Studio Code. Run any OCI container as your developer environment.'
+export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual Studio Code. Run any OCI container as your developer environment with [devcontainers](https://containers.dev/)'
 export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
@@ -114,7 +114,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'Where can I find more details on the features?',
-    answer: 'You can find detailed information in our Github repository. \n\n [Github](https://github.com/ublue-os/bluefin#readme) \n [Documentation](https://universal-blue.org/images/bluefin/)',
+    answer: 'You can find detailed information in our Github repository. \n\n [Github](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://universal-blue.org/images/bluefin/), [Developer Documentation](https://universal-blue.org/images/bluefin/developer-experience/)',
     open: true,
   },
   {
