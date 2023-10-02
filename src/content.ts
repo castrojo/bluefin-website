@@ -46,7 +46,7 @@ export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
 export const LangDevsText = 'Four developer workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
-export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual Studio Code. Run any OCI container as your developer environment with [devcontainers](https://containers.dev/)'
+export const LangDevsBoxOne = `Built-in Ubuntu user space integrated with Visual Studio Code. Run any OCI container as your developer environment with [devcontainers](https://containers.dev/)`
 export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
