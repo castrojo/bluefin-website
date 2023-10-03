@@ -127,7 +127,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What do the Asus, Framework, and Surface images do?',
-    answer: 'The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. The Framework image ships recommended power settings for the Framework 13 laptop. All of them allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/bluefin/framework/) \n\n [Framework](https://universal-blue.org/images/framework/) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
+    answer: 'The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. The Framework image ships recommended power settings for the Framework 13 laptop. All of them allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/framework/) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
   },
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
