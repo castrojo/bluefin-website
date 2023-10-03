@@ -126,8 +126,8 @@ export const LangFaqQuestions = [
     answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://universal-blue.org/images/bazzite/)',
   },
   {
-    question: 'What do the Framework images do?',
-    answer: 'These follow Framework\'s recommendations to swap out gnome-power-profile with tlp. The recommended settings are included on the image by default, but allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/bluefin/framework/)',
+    question: 'What do the Asus, Framework, and Surface images do?',
+    answer: 'The Asus and Surface images ship the [asus-linux.org](https://asus-linux.org/) and [linux-surface](https://github.com/linux-surface/linux-surface) kernels, respectively. The Framework image ships recommended power settings for the Framework 13 laptop. All of them allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/bluefin/framework/) \n\n [Framework](https://universal-blue.org/images/framework/) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
   },
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
