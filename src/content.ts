@@ -131,7 +131,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
-    answer: 'Bluefin is an interpretation of the Ubuntu spirit built on Fedora technology. All good distros have well maintained cloud images, you can use just about all of them. Bluefin/Alpine is the creators\'s preferred personal setup. Bluefin consumes distro images at her leisure, whatever she\'s hungry for that day. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
+    answer: 'Bluefin is an interpretation of the Ubuntu spirit built on Fedora technology. All good distros have well maintained cloud images, you can use just about all of them. Bluefin consumes distro images at her leisure, whatever she\'s hungry for that day. Bluefin/Homebrew is the creators\'s preferred personal setup. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
