@@ -88,9 +88,7 @@ export const LangMissionBluefinImageURL = './characters/nest.png'
 export const LangAppendixText = `
 Project Bluefin is not a finished product, she is an ongoing passion project maintained by [systems engineers](https://github.com/ublue-os/bluefin/graphs/contributors) who want a more reliable and maintainable Linux desktop experience. 
 
-She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. We must adapt. **We can do it together**.
-
-Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. *Welcome to indie cloud-native*.
+She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. We must adapt. We can do it **together**.
 `
 
 // Youtube video > share > embed > copy and paste the text inside the string
