@@ -23,9 +23,9 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
 export const LangUsersAppendix = `
-Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. When combined with native container workflows it provides a generational leap in reliability and composability. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/p/71eb8bc6-1ae6-4b67-994e-17b915f8e031/) for more background information. 
+Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/p/71eb8bc6-1ae6-4b67-994e-17b915f8e031/) for more background information. 
 
-Images are available for your PC, M1/M2 Macs, Framework laptops, and Microsoft Surface devices.
+Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. M1/M2 Mac Support is in progress. 
 `
 
 //
@@ -33,7 +33,7 @@ Images are available for your PC, M1/M2 Macs, Framework laptops, and Microsoft S
 // Parallax quote
 //
 export const LangParallaxQuote = {
-  text: '“Evolution is a process of constant branching and expansion”',
+  text: '“Evolution is a process of constant branching and expansion.”',
   author: 'Stephen Jay Gould',
   url: 'https://en.wikipedia.org/wiki/Stephen_Jay_Gould',
 }
@@ -86,7 +86,7 @@ export const LangMissionBluefinImageURL = './characters/nest.png'
 // Post mission section
 //
 export const LangAppendixText = `
-Project Bluefin is not a finished product, she is an ongoing passion project maintained by [systems engineers](https://github.com/ublue-os/bluefin/graphs/contributors) who want a more reliable and maintainable Linux desktop experience. 
+Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who want a more reliable and maintainable Linux desktop experience. 
 
 She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. We must adapt. We can do it **together**.
 `
@@ -102,7 +102,7 @@ export const LangFaqTag = 'Unsure?'
 export const LangFaqTitle = 'FAQ'
 export const LangFaqText = `
 If your questions remain unanswered, 
-you can find us [on GitHub](https://github.com/ublue-os/bluefin)
+you can find us [on GitHub](https://github.com/orgs/ublue-os/discussions/categories/bluefin)
 `
 export const LangFaqQuestions = [
   {
@@ -142,7 +142,7 @@ export const LangFaqQuestions = [
 // Footer content
 //
 export const LangFooterProjectTitle = 'Project Bluefin'
-export const LangFooterProject = 'Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to Indie Cloud Native.'
+export const LangFooterProject = 'Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to indie Cloud Native.'
 export const LangFooterReferences = `All artwork built by humans.
 <br><br>
 - Website - [Jan Dolanský](https://dolansky.dev/)
