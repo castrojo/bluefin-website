@@ -25,7 +25,7 @@ export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
 export const LangUsersAppendix = `
 Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/p/71eb8bc6-1ae6-4b67-994e-17b915f8e031/) for more background information. 
 
-Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. M1/M2 Mac Support is in progress. 
+Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. M1/M2 Mac Support coming soon. 
 `
 
 //
@@ -66,11 +66,11 @@ export const LangMissionTitle = 'Mission'
 export const LangMissionText = `
 Bluefin is not just software, she is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
 
-We believe that the desktop experience needs to change. That technology starts with your local computer, the device that touches your hands, and that has to be as important as the rest of the Linux ecosystem. 
+We believe that the desktop experience needs to change. Technology begins with your local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
 
-By bringing cloud-native patterns to the desktop we hope to kickstart interest in the desktop while catering to the next-generation of open source contributors. 
+By introducing cloud-native patterns to the desktop, we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors.
 
-Bluefin is about sustainability of the software, the hardware, and the people.
+Bluefin is all about sustainability, encompassing software, hardware, and the people.
 
 > There are two ways of spreading light: to be the candle or the mirror that reflects it. 
 > <cite>[Edith Wharton][1]</cite>
@@ -86,9 +86,9 @@ export const LangMissionBluefinImageURL = './characters/nest.png'
 // Post mission section
 //
 export const LangAppendixText = `
-Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who want a more reliable and maintainable Linux desktop experience. 
+Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who seek a more reliable and maintainable Linux desktop experience. 
 
-She represents the state of the art … a fragile, beautiful, and unique creature. The perfect predator for a world that will ultimately die. We must adapt. We can do it **together**.
+She represents the state of the art … a fragile, beautiful, and unique creature. She is the perfect predator for a world that will that will inevitably face challenges. We must adapt. We can do it **together**.
 `
 
 // Youtube video > share > embed > copy and paste the text inside the string
@@ -107,7 +107,7 @@ you can find us [on GitHub](https://github.com/orgs/ublue-os/discussions/categor
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin uses Fedora\'s OCI features to compose and build an OS image. This is maintained by a well structured community dedicated to automation and sustainability. The end result is similar to a configuration management tool such as Ansible or Salt without the usual problems associated with maintaining a custom distribution. \n\n Since it\'s a cloud-native approach the end user can rebase back to stock Fedora or any Universal Blue image. It\'s more akin to having someone install, configure, and maintain a slick Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
+    answer: 'Bluefin utilizes Fedora\'s OCI features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. \n\n Because it follows a cloud-native approach, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
     open: true,
   },
   {
@@ -117,7 +117,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'Why dinosaurs??',
-    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur which means "terrible claw". She was discovered in the 1960s and revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were viewed as slow, dim witted creatures. She threw all our misconceptions out the window and gave us insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We want our desktop to feel nimble, powerful, and adaptable. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
+    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness, power, and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
   },
   {
     question: 'What if I want something like KDE or another window manager?',
