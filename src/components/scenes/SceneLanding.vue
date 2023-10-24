@@ -33,7 +33,7 @@ onMounted(() => {
               Discover
             </button>
 
-            <a href="https://universal-blue.org/images/bluefin/" target="_blank" class="btn black filled" @click="scrollToUsers">
+            <a href="https://github.com/ublue-os/bluefin/releases/" target="_blank" class="btn black filled" @click="scrollToUsers">
               Try Out
               <IconLinkVariant />
             </a>
