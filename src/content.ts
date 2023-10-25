@@ -92,7 +92,7 @@ She represents the state of the art … a fragile, beautiful, and unique creatur
 `
 
 // Youtube video > share > embed > copy and paste the text inside the string
-export const LangAppendixYTVideo = '<iframe width="560" height="315" src="https://www.youtube.com/embed/XCE8H3dKJm4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+export const LangAppendixYTVideo = '<iframe width="560" height="315" src="https://www.youtube.com/embed/Nz-yyDwTfRM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
 //
 //
