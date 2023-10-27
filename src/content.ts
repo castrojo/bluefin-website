@@ -6,7 +6,7 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 //
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
-export const LangLandingText = 'The next generation Linux workstation, designed for reliability, performance, and sustainability.'
+export const LangLandingText = 'The next generation cloud-native Linux workstation, designed for reliability, performance, and sustainability.'
 export const LangLandingBluefinImageURL = './characters/angry.png'
 
 //
