@@ -23,7 +23,7 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
 export const LangUsersAppendix = `
-Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/p/71eb8bc6-1ae6-4b67-994e-17b915f8e031/) for more background information. 
+Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) for more background information. 
 
 Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. M1/M2 Mac Support coming soon. 
 `
