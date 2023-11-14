@@ -36,6 +36,7 @@ onMounted(() => {
             <a href="https://github.com/ublue-os/bluefin/releases/" target="_blank" class="btn black filled" @click="scrollToUsers">
               Try Out
               <IconLinkVariant />
+            </a>
 
             <a href="https://universal-blue.discourse.group/c/bluefin/6" target="_blank" class="btn black filled" @click="scrollToUsers">
               Community
