@@ -37,10 +37,6 @@ onMounted(() => {
               Try Out
               <IconLinkVariant />
             </a>
-              <a href="https://universal-blue.discourse.group/c/bluefin/6" target="_blank" class="btn black filled" @click="scrollToUsers">
-              Community
-              <IconLinkVariant />
-            </a>
           </div>
         </div>
         <div class="img-wrap">
