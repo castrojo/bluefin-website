@@ -66,7 +66,7 @@ export const LangMissionTitle = 'Mission'
 export const LangMissionText = `
 Bluefin is not just software, she is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
 
-We believe that the desktop experience needs to change. Technology begins with your local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
+We believe that the desktop experience needs to change. Technology begins with the local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
 
 By introducing cloud-native patterns to the desktop, we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors.
 
@@ -88,7 +88,7 @@ export const LangMissionBluefinImageURL = './characters/nest.png'
 export const LangAppendixText = `
 Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who seek a more reliable and maintainable Linux desktop experience. 
 
-She represents the state of the art … a fragile, beautiful, and unique creature. She is the perfect predator for a world that will that will inevitably face challenges. We must adapt. We can do it **together**.
+She represents the state of the art … a fragile, beautiful, and unique creature. A perfect predator for a world that will that will inevitably face challenges. We must adapt. We can do it **together**.
 `
 
 // Youtube video > share > embed > copy and paste the text inside the string
@@ -107,7 +107,7 @@ you can find us [on our Discourse forum](https://universal-blue.discourse.group/
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin utilizes Fedora\'s OCI features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. \n\n Because it follows a cloud-native approach, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
+    answer: 'Bluefin utilizes Fedora\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. \n\n Because it follows a cloud-native pattern, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
     open: true,
   },
   {
@@ -117,7 +117,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'Why dinosaurs??',
-    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness, power, and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
+    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness. Power and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
   },
   {
     question: 'What if I want something like KDE or another window manager?',
@@ -129,7 +129,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
-    answer: 'Bluefin is an interpretation of the Ubuntu spirit built on Fedora technology. All good distros have well maintained cloud images, you can use just about all of them. Bluefin consumes distro images at her leisure, whatever she\'s hungry for that day. Bluefin/Homebrew is the creators\'s preferred personal setup. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
+    answer: 'Bluefin is an interpretation of the Ubuntu spirit built on Fedora technology. It ships with an Ubuntu command line experience by default. Any distribution cloud image can be used as a user space. Bluefin consumes distro images at her leisure, whatever she\'s hungry for that day. Bluefin/Homebrew is the creators\'s preferred personal setup. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
