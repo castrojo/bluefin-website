@@ -46,12 +46,12 @@ export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
 export const LangDevsText = 'Four developer workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
-export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual Studio Code and dev containers.'
-export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
+export const LangDevsBoxOne = 'Visual Studio Code with devcontainers.'
+export const LangDevsBoxTwo = 'Devbox - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
-export const LangDevsBoxFour = 'Homebrew on-tap'
+export const LangDevsBoxFour = 'Containerized Homebrew on-tap'
 export const LangDevsTowerImageURL = './characters/devs.png'
-export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.org/guide/fork-your-own/) depending on your requirements, using standard cloud-native tools and techniques.
+export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential - with a preconfigured Ubuntu userspace. Lke most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques.
 
 > Be the one who moves, not the one who is moved.
 > <cite>[Zavala][1]</cite>
@@ -107,7 +107,7 @@ you can find us [on our Discourse forum](https://universal-blue.discourse.group/
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin utilizes Fedora\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. \n\n Because it follows a cloud-native pattern, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
+    answer: 'Bluefin utilizes Fedora\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. \n\n Because it follows a cloud-native pattern, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you.\n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
     open: true,
   },
   {
@@ -129,7 +129,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What if I don\'t like Ubuntu? What are my options?',
-    answer: 'Bluefin is an interpretation of the Ubuntu spirit built on Fedora technology. It ships with an Ubuntu command line experience by default. Any distribution cloud image can be used as a user space. Bluefin consumes distro images at her leisure, whatever she\'s hungry for that day. Bluefin/Homebrew is the creators\'s preferred personal setup. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
+    answer: 'Bluefin is an interpretation of the Ubuntu spirit built on Fedora technology. It ships with an Ubuntu command line experience by default but includes prebuilt containers for Fedora, WolfiOS, and Homebrew. Any distribution cloud image can be used as a user space. Bluefin consumes distro images at her leisure, whatever she\'s hungry for that day. Bluefin/Homebrew is the creators\'s preferred personal setup. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
