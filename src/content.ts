@@ -111,6 +111,11 @@ export const LangFaqQuestions = [
     open: true,
   },
   {
+    question: 'How does this differ from other desktops?',
+    answer: 'We call Bluefin "an interpretation of the Ubuntu spirit built on Fedora technology". We take the original mantra of Ubuntu\'s opinionated software decisions and apply them to Fedora Silverblue. We remove choice paralysis for users by presenting one well curated Flathub store and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers. The command line experience is powered by the Prompt terminal and WolfiOS with Homebrew, providing access to the same packages our MacOS friends use. \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros), \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev), [Prompt](https://gitlab.gnome.org/chergert/prompt) '
+  },
+  
+  {
     question: 'Where can I find more details on the features?',
     answer: 'You can find detailed information in our Github repository. \n\n [Github](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://universal-blue.discourse.group/docs?category=6) [Developer Documentation](https://universal-blue.discourse.group/docs?topic=39)',
     open: true,
@@ -126,10 +131,6 @@ export const LangFaqQuestions = [
   {
     question: 'What do the Asus, Framework, and Surface images do?',
     answer: 'The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. The Framework image ships recommended power settings for the Framework 13 laptop. All of them allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/framework/) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
-  },
-  {
-    question: 'How does this differ from other desktops?',
-    answer: 'We call Bluefin "an interpretation of the Ubuntu spirit built on Fedora technology". We take the original mantra of Ubuntu\'s opinionated software decisions and apply them to Fedora Silverblue. We remove choice paralysis for users by presenting one well curated Flathub store and minimize the use of system packaging. For developers we concentrate on a pure cloud-native developer workflow via devcontainers. The command line experience is powered by the Prompt terminal and WolfiOS with Homebrew, providing you access to everything. Or use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros), \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev), [Prompt](https://gitlab.gnome.org/chergert/prompt) '
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
