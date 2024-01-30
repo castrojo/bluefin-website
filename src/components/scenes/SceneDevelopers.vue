@@ -42,10 +42,6 @@ const vis = ref(false)
                   <img src="/brands/devbox.svg" alt="Devbox logo blur">
                   <img src="/brands/devbox.svg" alt="Devbox logo">
                 </div>
-                <div class="icon-wrap">
-                  <img src="/brands/fleek.png" alt="Fleek logo blur">
-                  <img src="/brands/fleek.png" alt="Fleek logo">
-                </div>
               </div>
               <p>{{ LangDevsBoxTwo }}</p>
             </div>
