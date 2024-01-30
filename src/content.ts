@@ -44,14 +44,16 @@ export const LangParallaxQuote = {
 //
 export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
-export const LangDevsText = 'Four developer workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
+export const LangDevsText = 'Container focused workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
 export const LangDevsBoxOne = 'Visual Studio Code with devcontainers.'
 export const LangDevsBoxTwo = 'Devbox - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Containerized Homebrew on-tap'
 export const LangDevsTowerImageURL = './characters/devs.png'
-export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential - with a preconfigured Ubuntu userspace. Lke most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques.
+export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential. Like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques. 
+
+We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through it's cloud-native journey. And there's dinosaurs."
 
 > Be the one who moves, not the one who is moved.
 > <cite>[Zavala][1]</cite>
