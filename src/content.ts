@@ -53,7 +53,7 @@ export const LangDevsBoxFour = 'Containerized Homebrew on-tap'
 export const LangDevsTowerImageURL = './characters/devs.png'
 export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential. Like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques. 
 
-We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through it's cloud-native journey. And there's dinosaurs."
+We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through it's cloud-native journey. And there's dinosaurs.
 
 > Be the one who moves, not the one who is moved.
 > <cite>[Zavala][1]</cite>
