@@ -23,7 +23,7 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.webp'
 export const LangUsersAppendix = `
-Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) for more background information. 
+Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a complete [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) for more background information. 
 
 Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. M1/M2 Mac Support coming soon. 
 `
@@ -44,14 +44,16 @@ export const LangParallaxQuote = {
 //
 export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
-export const LangDevsText = 'Four developer workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
+export const LangDevsText = 'Container focused workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
-export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual Studio Code and dev containers.'
-export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
+export const LangDevsBoxOne = 'Visual Studio Code with devcontainers.'
+export const LangDevsBoxTwo = 'Devbox - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
-export const LangDevsBoxFour = 'Homebrew on-tap'
-export const LangDevsTowerImageURL = './characters/devs.webp'
-export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.org/guide/fork-your-own/) depending on your requirements, using standard cloud-native tools and techniques.
+export const LangDevsBoxFour = 'Containerized Homebrew on-tap'
+export const LangDevsTowerImageURL = './characters/devs.png'
+export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential. Like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques. 
+
+We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through its cloud-native journey. There will be dinosaurs on this trip.
 
 > Be the one who moves, not the one who is moved.
 > <cite>[Zavala][1]</cite>
@@ -66,7 +68,7 @@ export const LangMissionTitle = 'Mission'
 export const LangMissionText = `
 Bluefin is not just software, she is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
 
-We believe that the desktop experience needs to change. Technology begins with your local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
+We believe that the desktop experience needs to change. Technology begins with the local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
 
 By introducing cloud-native patterns to the desktop, we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors.
 
@@ -88,7 +90,7 @@ export const LangMissionBluefinImageURL = './characters/nest.webp'
 export const LangAppendixText = `
 Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who seek a more reliable and maintainable Linux desktop experience. 
 
-She represents the state of the art … a fragile, beautiful, and unique creature. She is the perfect predator for a world that will that will inevitably face challenges. We must adapt. We can do it **together**.
+She represents the state of the art … a fragile, beautiful, and unique creature. A perfect predator for a world that will that will inevitably face challenges. We must adapt. We can do it **together**.
 `
 
 // Youtube video > share > embed > copy and paste the text inside the string
@@ -102,38 +104,39 @@ export const LangFaqTag = 'Unsure?'
 export const LangFaqTitle = 'FAQ'
 export const LangFaqText = `
 If your questions remain unanswered, 
-you can find us [on GitHub](https://github.com/orgs/ublue-os/discussions/categories/bluefin)
+you can find us [on our Discourse forum](https://universal-blue.discourse.group/c/bluefin/6)
 `
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin utilizes Fedora\'s OCI features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. \n\n Because it follows a cloud-native approach, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you. \n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
+    answer: 'Bluefin utilizes Fedora\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. \n\n Because it follows a cloud-native pattern, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you.\n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
     open: true,
   },
   {
+    question: 'How does this differ from other desktops?',
+    answer: 'We call Bluefin "an interpretation of the Ubuntu spirit built on Fedora technology". We take the original mantra of Ubuntu\'s opinionated software decisions and apply them to Fedora Silverblue. We remove choice paralysis for users by presenting one well curated Flathub store and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers. The command line experience is powered by the Prompt terminal and WolfiOS with Homebrew, providing access to the same packages our MacOS friends use. \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Prompt](https://gitlab.gnome.org/chergert/prompt) '
+  },
+  
+  {
     question: 'Where can I find more details on the features?',
-    answer: 'You can find detailed information in our Github repository. \n\n [Github](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://universal-blue.org/images/bluefin/) [Developer Documentation](https://universal-blue.org/images/bluefin/developer-experience/)',
+    answer: 'You can find detailed information in our Github repository. \n\n [Github](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://universal-blue.discourse.group/docs?category=6) [Developer Documentation](https://universal-blue.discourse.group/docs?topic=39)',
     open: true,
   },
   {
     question: 'Why dinosaurs??',
-    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness, power, and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
+    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness. Power and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
   },
   {
     question: 'What if I want something like KDE or another window manager?',
-    answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://universal-blue.org/images/bazzite/)',
+    answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://bazzite.gg)',
   },
   {
     question: 'What do the Asus, Framework, and Surface images do?',
     answer: 'The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. The Framework image ships recommended power settings for the Framework 13 laptop. All of them allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/framework/) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
   },
   {
-    question: 'What if I don\'t like Ubuntu? What are my options?',
-    answer: 'Bluefin is an interpretation of the Ubuntu spirit built on Fedora technology. All good distros have well maintained cloud images, you can use just about all of them. Bluefin consumes distro images at her leisure, whatever she\'s hungry for that day. Bluefin/Homebrew is the creators\'s preferred personal setup. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros)',
-  },
-  {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
-    answer: 'Bluefin was brought to life by Jacob Schnurr and Andy Frazer. The artwork is free for you to use. It represents the delicate balance of life and is there to remind us that open source is an ecosystem that needs to be sustained. The software we make has an effect on the world: Bluefin might be put together by technology nerds, but it took two humans to show us the importance of the creativity of the human mind. \n\n [Wallpapers](https://github.com/ublue-os/bluefin) \n [Dinosaurs](https://github.com/ublue-os/bluefin) \n [HEIC Wallpapers for OSX](https://github.com/ublue-os/bluefin) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)',
+    answer: 'Bluefin was brought to life by Jacob Schnurr and Andy Frazer. The artwork is free for you to use. It represents the delicate balance of life and is there to remind us that open source is an ecosystem that needs to be sustained. The software we make has an effect on the world: Bluefin might be put together by technology nerds, but it took two humans to show us the importance of the creativity of the human mind. \n\n [Wallpapers and Dinosaurs](https://universal-blue.discourse.group/t/dinosaur-gallery/18/5) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)',
   },
 ]
 
