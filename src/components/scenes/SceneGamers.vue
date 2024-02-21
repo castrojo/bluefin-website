@@ -11,7 +11,7 @@ Featuring a world class gaming experience, provided by Flathub. Bluefin inherits
   <section id="scene-gamers" class="section-wrap">
     <div class="container small">
       <SceneContent tag="For" title="Gamers" :text="content" />
-      <img src="/characters/gamer.png" alt="">
+      <img src="/characters/gamer.webp" alt="">
       <SceneVisibilityChecker name="#scene-gamers" />
 
       <div class="gradient-1" />
