@@ -7,7 +7,7 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
 export const LangLandingText = 'The next generation Linux workstation, designed for reliability, performance, and sustainability.'
-export const LangLandingBluefinImageURL = './characters/angry.png'
+export const LangLandingBluefinImageURL = './characters/angry.webp'
 
 //
 //
@@ -21,7 +21,7 @@ export const LangUsersListItems = [
   'Near-zero maintenance',
   'Included GPU drivers',
 ]
-export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
+export const LangUsersBluefinImageURL = './characters/bluefin-small.webp'
 export const LangUsersAppendix = `
 Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a complete [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) for more background information. 
 
@@ -81,7 +81,7 @@ Bluefin is all about sustainability, encompassing software, hardware, and the pe
 
 Or she may disembowel us on the way. Clever Girl.
 `
-export const LangMissionBluefinImageURL = './characters/nest.png'
+export const LangMissionBluefinImageURL = './characters/nest.webp'
 
 //
 //
