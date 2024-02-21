@@ -7,7 +7,7 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
 export const LangLandingText = 'The next generation Linux workstation, designed for reliability, performance, and sustainability.'
-export const LangLandingBluefinImageURL = './characters/angry.png'
+export const LangLandingBluefinImageURL = './characters/angry.webp'
 
 //
 //
@@ -21,7 +21,7 @@ export const LangUsersListItems = [
   'Near-zero maintenance',
   'Included GPU drivers',
 ]
-export const LangUsersBluefinImageURL = './characters/bluefin-small.png'
+export const LangUsersBluefinImageURL = './characters/bluefin-small.webp'
 export const LangUsersAppendix = `
 Updates are image-based and automatic, applications are logically separated from the system by using Flatpaks. Get what you want without sacrificing system stability. For gamers it offers a premade [Bazzite](https://bazzite.gg) container or the [Flathub](https://flathub.org) gaming experience. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) for more background information. 
 
@@ -50,7 +50,7 @@ export const LangDevsBoxOne = 'Built-in Ubuntu user space integrated with Visual
 export const LangDevsBoxTwo = 'Devbox and Fleek - harness the power of nix without the complexity'
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
-export const LangDevsTowerImageURL = './characters/devs.png'
+export const LangDevsTowerImageURL = './characters/devs.webp'
 export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential - like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.org/guide/fork-your-own/) depending on your requirements, using standard cloud-native tools and techniques.
 
 > Be the one who moves, not the one who is moved.
@@ -79,7 +79,7 @@ Bluefin is all about sustainability, encompassing software, hardware, and the pe
 
 Or she may disembowel us on the way. Clever Girl.
 `
-export const LangMissionBluefinImageURL = './characters/nest.png'
+export const LangMissionBluefinImageURL = './characters/nest.webp'
 
 //
 //

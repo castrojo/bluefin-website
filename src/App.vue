@@ -18,35 +18,35 @@ provide('visibleSection', visibleSection)
 
 const imageLinks = [
   // Characters
-  './characters/angry.png',
-  './characters/bluefin-small.png',
-  './characters/devs.png',
-  './characters/nest.png',
+  './characters/angry.webp',
+  './characters/bluefin-small.webp',
+  './characters/devs.webp',
+  './characters/nest.webp',
 ]
 
 // If the initial size is not tablet, load these too
 if (!IS_TABLET.value) {
   imageLinks.push(
   // The goldern hour / evening scenes
-    './evening/BlueFinSite_1_Sky-min.png',
-    './evening/BlueFinSite_2_Clouds-min.png',
-    './evening/BlueFinSite_2_Sun-min.png',
-    './evening/BlueFinSite_3_Clouds-min.png',
-    './evening/BlueFinSite_4_Mountains-min.png',
-    './evening/BlueFinSite_5_FogA-min.png',
-    './evening/BlueFinSite_6_BackgroundA-min.png',
-    './evening/BlueFinSite_7_FogB-min.png',
-    './evening/BlueFinSite_8_BackgroundB-min.png',
-    './evening/BlueFinSite_9_MidGroundA-min.png',
-    './evening/BlueFinSite_10_MidgroundB-min.png',
-    './evening/BlueFinSite_11_MidGroundC-min.png',
-    './evening/BlueFinSite_12_ForeGroundA-min.png',
-    './evening/BlueFinSite_13_ForegroundB-min.png',
-    './evening/BlueFinSite_14_ForegroundC-min.png',
+    './evening/BlueFinSite_1_Sky-min.webp',
+    './evening/BlueFinSite_2_Clouds-min.webp',
+    './evening/BlueFinSite_2_Sun-min.webp',
+    './evening/BlueFinSite_3_Clouds-min.webp',
+    './evening/BlueFinSite_4_Mountains-min.webp',
+    './evening/BlueFinSite_5_FogA-min.webp',
+    './evening/BlueFinSite_6_BackgroundA-min.webp',
+    './evening/BlueFinSite_7_FogB-min.webp',
+    './evening/BlueFinSite_8_BackgroundB-min.webp',
+    './evening/BlueFinSite_9_MidGroundA-min.webp',
+    './evening/BlueFinSite_10_MidgroundB-min.webp',
+    './evening/BlueFinSite_11_MidGroundC-min.webp',
+    './evening/BlueFinSite_12_ForeGroundA-min.webp',
+    './evening/BlueFinSite_13_ForegroundB-min.webp',
+    './evening/BlueFinSite_14_ForegroundC-min.webp',
   )
 }
 else {
-  imageLinks.push('./mobile-parallax.png')
+  imageLinks.push('./mobile-parallax.webp')
 }
 
 const isLoading = ref(true)
