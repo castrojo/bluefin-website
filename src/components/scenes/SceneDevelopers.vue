@@ -29,8 +29,8 @@ const vis = ref(false)
             <div class="brand-item">
               <div>
                 <div class="icon-wrap">
-                  <img src="/brands/vscode.svg" alt="Visual Studio Code logo blur">
-                  <img src="/brands/vscode.svg" alt="Visual Studio Code logo">
+                  <img src="/brands/vscode.svg" alt="Visual Studio Code logo blur" loading="lazy">
+                  <img src="/brands/vscode.svg" alt="Visual Studio Code logo" loading="lazy">
                 </div>
               </div>
               <p> {{ LangDevsBoxOne }}</p>
@@ -39,8 +39,8 @@ const vis = ref(false)
             <div class="brand-item">
               <div>
                 <div class="icon-wrap">
-                  <img src="/brands/devbox.svg" alt="Devbox logo blur">
-                  <img src="/brands/devbox.svg" alt="Devbox logo">
+                  <img src="/brands/devbox.svg" alt="Devbox logo blur" loading="lazy">
+                  <img src="/brands/devbox.svg" alt="Devbox logo" loading="lazy">
                 </div>
               </div>
               <p>{{ LangDevsBoxTwo }}</p>
@@ -49,8 +49,8 @@ const vis = ref(false)
             <div class="brand-item">
               <div>
                 <div class="icon-wrap">
-                  <img src="/brands/devpod.svg" alt="Devpod logo blur">
-                  <img src="/brands/devpod.svg" alt="Devpod logo">
+                  <img src="/brands/devpod.svg" alt="Devpod logo blur" loading="lazy">
+                  <img src="/brands/devpod.svg" alt="Devpod logo" loading="lazy">
                 </div>
               </div>
               <p>{{ LangDevsBoxThree }}</p>
@@ -59,8 +59,8 @@ const vis = ref(false)
             <div class="brand-item">
               <div>
                 <div class="icon-wrap">
-                  <img src="/brands/homebrew.svg" alt="Homebrew logo blur">
-                  <img src="/brands/homebrew.svg" alt="Homebrew logo">
+                  <img src="/brands/homebrew.svg" alt="Homebrew logo blur" loading="lazy">
+                  <img src="/brands/homebrew.svg" alt="Homebrew logo" loading="lazy">
                 </div>
               </div>
               <p>{{ LangDevsBoxFour }}</p>
