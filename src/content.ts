@@ -47,9 +47,9 @@ export const LangDevsTitle = 'Developers'
 export const LangDevsText = 'Container focused workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
 export const LangDevsBoxOne = 'Visual Studio Code with devcontainers.'
-export const LangDevsBoxTwo = 'Homebrew on-tap'
+export const LangDevsBoxTwo = 'Ptyxis - Container focused terminal
 export const LangDevsBoxThree = 'Devpod - developer environments as code'
-export const LangDevsBoxFour = 'Ptyxis - Container focused terminal'
+export const LangDevsBoxFour = 'Homebrew on-tap''
 export const LangDevsTowerImageURL = './characters/devs.webp'
 export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential. Like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques. 
 
@@ -179,19 +179,9 @@ export const LangPoweredBy: PoweredBy[] = [
     altText: 'Devpod',
   },
   {
-    imageUrl: './brands/devbox.svg',
-    projectUrl: 'https://www.jetpack.io/devbox/',
-    altText: 'Devbox',
-  },
-  {
     imageUrl: './brands/podman-logo-dark.png',
     projectUrl: 'https://podman.io/',
     altText: 'Podman',
-  },
-  {
-    imageUrl: './brands/ubuntu.svg',
-    projectUrl: 'https://ubuntu.com/',
-    altText: 'Ubuntu',
   },
   {
     imageUrl: './brands/dontrememberthisbrand.svg',
