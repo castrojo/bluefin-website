@@ -6,6 +6,8 @@
 @import "./users";
 @import "./landing";
 @import "./video";
+@import "./news";
+@import "./picker";
 
 .brand-grid {
   @include grid(0, 2);
