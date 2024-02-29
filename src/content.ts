@@ -169,7 +169,7 @@ export const LangPoweredBy: PoweredBy[] = [
   {
     // This one will point to the logos saved in the public folder
     // You can also link to an external asset if needed
-    imageUrl: './brands/fedora.png',
+    imageUrl: './brands/fedora.svg',
     projectUrl: 'https://fedoraproject.org/',
     altText: 'Fedora',
   },
@@ -179,7 +179,7 @@ export const LangPoweredBy: PoweredBy[] = [
     altText: 'Devpod',
   },
   {
-    imageUrl: './brands/podman-logo-dark.png',
+    imageUrl: './brands/podman.svg',
     projectUrl: 'https://podman.io/',
     altText: 'Podman',
   },
