@@ -312,6 +312,17 @@
     }
   }
 
+  #scene-news {
+    h2 {
+      font-size: 5rem;
+      margin-bottom: 15px;
+      display: block;
+      text-align: center;
+      transform: translateY(0) !important;
+      animation: unset !important;
+    }
+  }
+
   #scene-video {
     padding: 40px 0;
 
