@@ -1,0 +1,39 @@
+#scene-picker {
+  background-color: var(--color-bg-light);
+  min-height: unset;
+  padding: 80px 0;
+  overflow: unset;
+
+  .content {
+    display: block;
+
+    p {
+      display: block;
+      font-size: 1.8rem;
+      line-height: 1.6em;
+      color: var(--color-text-light);
+      margin-bottom: 32px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      a {
+        @include font(700);
+        color: var(--color-blue-light) !important;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      strong {
+        @include font(700);
+      }
+
+      em {
+        font-style: italic;
+      }
+    }
+  }
+}
