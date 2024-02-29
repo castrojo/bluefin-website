@@ -100,7 +100,6 @@ onBeforeMount(() => {
         <SectionMission />
         <SectionVideo />
         <SectionNews />
-        <SectionPicker />
         <SectionQuestions />
         <SectionFooter />
         <Navigation />
