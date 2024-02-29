@@ -24,8 +24,7 @@ onMounted(() => {
     <div class="container moderate">
       <div class="title" :class="{ 'is-loaded': isLoaded }">
         <div class="text">
-          <strong>{{ LangLandingTag }}</strong>
-          <h2>{{ LangLandingTitle }}</h2>
+          <img style="width:100%;height:auto;" width="105" height="43" src="/brands/bluefin.svg" alt="{{ LangLandingTag }} {{ LangLandingTitle }}"/>
           <p>{{ LangLandingText }}</p>
 
           <div class="btn-wrap">
