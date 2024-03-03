@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script setup lang='ts'>
 let hasScrolled = false;
 
 function handleSelectedHardwareChange() {
@@ -78,7 +78,10 @@ function handleInputChange() {
     resultElement?.classList.remove('hidden-fade');
     resultElement?.classList.add('shown-fade');
 
-    document.querySelector('.image-name').textContent = imagename;
+    let imagename:any = document.querySelector('.image-name');
+    if (imagename) {
+      imagename.textContent = imagename;
+    }
     document.querySelector('.button-download')?.setAttribute('href', `https://download.bazzite.gg/${imagename}-stable.iso`);
     document.querySelector('.sha256')?.setAttribute('href', `https://download.bazzite.gg/${imagename}-stable-CHECKSUM`);
     document.querySelector('.ghcr-details')?.setAttribute('href', `https://ghcr.io/ublue-os/${imagename}`);
