@@ -1,3 +1,7 @@
+<script setup lang='ts'>
+import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
+</script>
+
 <template>
   <section id="scene-picker" class="section-wrap">
     <div class="container moderate">
@@ -7,5 +11,6 @@
       </div>
       <iframe id="image-picker" src="/image-picker.html"></iframe>
     </div>
+    <SceneVisibilityChecker name="#scene-picker" />
   </section>
 </template>
