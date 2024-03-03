@@ -11,6 +11,7 @@ import SceneUsers from './components/scenes/SceneUsers.vue'
 import SectionFooter from './components/sections/SectionFooter.vue'
 import SectionVideo from './components/sections/SectionVideo.vue'
 import SectionNews from './components/sections/SectionNews.vue'
+import SectionPicker from './components/sections/SectionPicker.vue'
 import { LangParallaxQuote } from './content'
 import { IS_TABLET } from './composables'
 
@@ -99,6 +100,7 @@ onBeforeMount(() => {
         <SectionMission />
         <SectionVideo />
         <SectionNews />
+        <SectionPicker />
         <SectionQuestions />
         <SectionFooter />
         <Navigation />

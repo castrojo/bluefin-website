@@ -1,12 +1,17 @@
 <script setup lang='ts'>
 import { onMounted, ref } from 'vue'
-import { IconLinkVariant } from '@iconify-prerendered/vue-mdi'
 import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 import { LangLandingBluefinImageURL, LangLandingText } from '../../content'
 
 function scrollToUsers() {
   document
     .querySelector('#scene-users')
+    ?.scrollIntoView({ behavior: 'smooth' })
+}
+
+function scrollToPicker() {
+  document
+    .querySelector('#scene-picker')
     ?.scrollIntoView({ behavior: 'smooth' })
 }
 
@@ -32,9 +37,8 @@ onMounted(() => {
               Discover
             </button>
 
-            <a href="https://universal-blue.discourse.group/docs?topic=41" target="_blank" class="btn black filled" @click="scrollToUsers">
+            <a class="btn black filled" @click="scrollToPicker">
               Try Out
-              <IconLinkVariant />
             </a>
           </div>
         </div>

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.contentWindow.min.js" integrity="sha512-mdT/HQRzoRP4laVz49Mndx6rcCGA3IhuyhP3gaY0E9sZPkwbtDk9ttQIq9o8qGCf5VvJv1Xsy3k2yTjfUoczqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/fontawesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css" rel="stylesheet">
+    <style>
+      @font-face {
+        font-display:swap;
+        font-family:Inter;
+        font-style:normal;
+        font-weight:400;
+        src:url(https://projectbluefin.io/fonts/inter-v12-latin-regular.woff2) format("woff2")
+      }
+      @font-face {
+        font-display:swap;
+        font-family:Inter;
+        font-style:normal;
+        font-weight:700;
+        src:url(https://projectbluefin.io//fonts/inter-v12-latin-700.woff2) format("woff2")
+      }
+
+      html * {
+        font-family: 'Inter';
+        color: #fff;
+        font-weight: 400;
+      }
+
+      select {
+        appearance: none;
+        outline: 10px red;
+        border: 0;
+        box-shadow: none;
+        flex: 1;
+        padding: 0 1em;
+        color: #fff;
+        background-color: #333;
+        background-image: none;
+        cursor: pointer;
+      }
+
+      select::-ms-expand {
+        display: none;
+      }
+
+      .select {
+        position: relative;
+        display: flex;
+        width: 20em;
+        height: 3em;
+        border-radius: .25em;
+        overflow: hidden;
+        margin-bottom: 15px;
+        margin-top: 5px;
+      }
+
+      .select::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 1em;
+        background-color: rgb(66, 133, 244);
+        transition: .25s all ease;
+        pointer-events: none;
+      }
+
+      .select:hover::after {
+        color: #f39c12;
+      }
+
+      .sha256 {
+        top: 5px;
+        position: relative;
+      }
+
+      .sha256 .fa-file,
+      .ghcr-details .fa-box-open {
+        color: #ccc;
+        font-size: 25px;
+      }
+
+      .sha256 .fa-check {
+        color: #262626;
+        position: relative;
+        font-size: 14px;
+        top: -1px;
+        left: -16px;
+      }
+
+      .ghcr-details .fa-box-open {
+        top:3px;position:relative;font-size:18px;
+      }
+
+      .questions,
+      .download-link {
+        width:50%;
+        float:left;
+      }
+
+      #image-builder-result {
+        transition: opacity 0.45s ease-in-out, transform 0.65s ease-in-out, max-height 0.35s ease-in-out;
+      }
+
+      #image-builder > div,
+      .dx-only {
+        transition: opacity 0.20s ease-in-out, transform 0.35s ease-in-out, max-height 0.15s ease-in-out;
+      }
+
+      .dx-only {
+        display: block;
+      }
+
+      .hidden-fade {
+        opacity: 0;
+        overflow: hidden;
+        max-height: 0px;
+      }
+
+      .shown-fade {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1.0);
+        max-height: 100%;
+      }
+
+      .fine-print {
+        line-height: 20px;
+        font-style: italic;
+        font-size: 14px;
+      }
+
+      .button-download {
+        color: #fff;
+        height: 36px;
+        line-height: 36px;
+        border: 2px solid rgb(66, 133, 244);
+        border-radius: 18px;
+        flex-wrap: nowrap;
+        gap: 10px;
+        justify-content: flex-start;
+        text-align: center;
+        flex-direction: row;
+        display: inline-flex;
+        padding: 0 20px;
+        font-size: 14px;
+        text-decoration: none;
+        background-color: rgb(66, 133, 244);
+        margin: 0px 10px 15px 0px;
+      }
+
+      @media only screen and (max-width: 830px) {
+        .questions,
+        .download-link {
+          width:100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="questions">
+      <form id="image-builder" autocomplete="off">
+        <div class="selectedHardware">
+          <label for="selectedHardware">What hardware are you using?</label>
+          <div class="select">
+            <select id="selectedHardware" name="hardware">
+              <option disabled selected value>Select your hardware</option>
+              <option value="desktop">Desktop</option>
+              <optgroup label="Laptops">
+                <option value="framework">Framework Laptop</option>
+                <option value="surface">Surface Laptop</option>
+                <option value="asus">ASUS Laptop</option>
+                <option value="desktop">Other Laptop</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="developer hidden-fade">
+          <label for="isDeveloper">Are you a developer?</label>
+          <div class="select">
+            <select id="isDeveloper" name="isDeveloper">
+              <option disabled selected value>Select if you want developer tools included</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="gpu hidden-fade">
+          <label for="gpuVendor">Who is the vendor of your primary GPU?</label>
+          <div class="select">
+            <select id="gpuVendor" name="gpuVendor">
+              <option disabled selected value>Select your primary GPU vendor</option>
+              <option value="amd">AMD</option>
+              <option value="nvidia">Nvidia</option>
+              <option value="intel">Intel</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="download-link">
+      <div id="image-builder-result" class="hidden-fade">
+        <span class="iso-selection">
+          <div class="button-download-container">
+            <a class="button-download button has-icon button_right">
+              <span class="button_label">Download the <span class="image-name"></span> ISO</span>
+              <span class="button_icon">
+                <i class="fas fa-download"></i>
+              </span>
+            </a>
+            <a class="sha256" title="Verify (SHA256)"><i class="fas fa-file"><i class="fas fa-check"></i></i></a>
+            <a class="ghcr-details" title="View details on the GitHub Container registry" target="_blank"><i class="fas fa-box-open"></i></a>
+          </div>
+          <span class="fine-print">Check out the <a href="https://universal-blue.discourse.group/docs?topic=41" target="_blank">Introduction to Bluefin</a>.<br>
+          <span class="dx-only hidden-fade">Check out <a href="https://universal-blue.discourse.group/docs?topic=39" target="_blank">Introduction to Bluefin DX</a>.<br></span>
+          The full list of documentation can be found <a href="https://universal-blue.discourse.group/docs?category=6" target="_blank">here</a>.</span>
+        </span>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        jQuery('#image-builder #selectedHardware').on('change', function() {
+          var selectedHardware = jQuery(this).val();
+          if (selectedHardware !== '') {
+            jQuery('#image-builder .developer').removeClass('hidden-fade').addClass('shown-fade');
+          } else {
+            jQuery('#image-builder .developer').addClass('hidden-fade').removeClass('shown-fade');
+            jQuery('#image-builder .gpu').addClass('hidden-fade').removeClass('shown-fade');
+          }
+        });
+
+        jQuery('#image-builder #isDeveloper').on('change', function() {
+          var isDeveloper = jQuery(this).val();
+          if (isDeveloper !== '') {
+            jQuery('#image-builder .gpu').removeClass('hidden-fade').addClass('shown-fade');
+          } else {
+            jQuery('#image-builder .gpu').addClass('hidden-fade').removeClass('shown-fade');
+          }
+        });
+
+        jQuery('#image-builder #selectedHardware, #image-builder #gpuVendor, #image-builder #isDeveloper').on('change', function() {
+          var hardware = jQuery('#selectedHardware').parent('div').hasClass('hidden-fade') ? '' : jQuery('#selectedHardware').val();
+          var gpuVendor = jQuery('#gpuVendor').parent('div').hasClass('hidden-fade') ? '' : jQuery('#gpuVendor').val();
+          var isDeveloper = jQuery('#isDeveloper').parent('div').hasClass('hidden-fade') ? '' : jQuery('#isDeveloper').val();
+
+          var imagename = 'bluefin';
+
+          if (isDeveloper == 'yes') {
+            imagename += '-dx';
+            jQuery('.dx-only').removeClass('hidden-fade').addClass('shown-fade');
+          } else {
+            jQuery('.dx-only').addClass('hidden-fade').removeClass('shown-fade');
+          }
+
+          switch(hardware) {
+            case 'asus':
+              imagename += '-asus';
+              break;
+            case 'surface':
+              imagename += '-surface';
+              break;
+            case 'framework':
+              imagename += '-framework';
+              break;
+          }
+
+          if (gpuVendor === 'nvidia') {
+            imagename += '-nvidia';
+          }
+
+          // Display the result
+          var allSelectionsMade = true;
+          jQuery('#image-builder .shown-fade select').each(function() {
+              if (!jQuery(this).val()) {
+                  allSelectionsMade = false;
+                  return false;
+              }
+          });
+
+          if( imagename !== '' && allSelectionsMade ) {
+            jQuery('#image-builder-result').removeClass('hidden-fade').addClass('shown-fade');
+            jQuery('#image-builder-result .image-name').text(imagename);
+            jQuery('.button-download').attr('href', 'https://download.projectbluefin.io/' + imagename + '-stable.iso');
+            jQuery('.sha256').attr('href', 'https://download.projectbluefin.io/' + imagename + '-stable-CHECKSUM');
+            jQuery('.ghcr-details').attr('href', 'https://ghcr.io/ublue-os/' + imagename);
+          } else {
+            jQuery('#image-builder-result').addClass('hidden-fade').removeClass('shown-fade');
+          }
+        });
+      });
+    </script>
+  </footer>
+</html>
