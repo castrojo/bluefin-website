@@ -64,10 +64,11 @@
         background-color: rgb(66, 133, 244);
         transition: .25s all ease;
         pointer-events: none;
+        color: #ccc;
       }
 
       .select:hover::after {
-        color: #ccc;
+        color: #fff;
       }
 
       .sha256 {
@@ -93,6 +94,11 @@
         top: 3px;
         position: relative;
         font-size: 18px;
+      }
+
+      .fine-print a {
+        color: rgb(66, 133, 244);
+        font-weight: 600;
       }
 
       .sha256:hover .fa-file, .ghcr-details:hover .fa-box-open {
