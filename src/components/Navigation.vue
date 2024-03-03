@@ -78,7 +78,7 @@ function scrollUp() {
 
         <div
           class="bg" :style="{
-            left: `${Math.max(0, (offset - 1) * 25)}%`,
+            left: `${Math.max(0, (offset - 1) * 20)}%`,
             opacity: visibleSection === 'null' ? 0 : 1,
             width: `${Math.round(100 / linksAmount)}%`,
           }"
