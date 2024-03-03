@@ -4,7 +4,7 @@ import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
 
 <template>
   <section id="scene-picker" class="section-wrap">
-    <div class="container moderate">
+    <div class="container">
       <div>
         <h2>Try Bluefin</h2>
         <p>Use the form below to get the correct ISO download link for your hardware and use case.</p>
