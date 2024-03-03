@@ -30,7 +30,6 @@ function handleSelectedHardwareChange() {
 }
 
 function handleGPUVendorChange() {
-  const selectedHardware = (document.getElementById('selectedHardware') as HTMLSelectElement).value;
   const selectedGPU = (document.getElementById('gpuVendor') as HTMLSelectElement).value;
   const developerElements = document.querySelectorAll('#image-builder .developer');
 
@@ -74,10 +73,8 @@ function handleInputChange() {
     imagename += '-nvidia';
   }
 
-  const allSelectionsMade = Array.from(document.querySelectorAll('#image-builder .shown-fade select')).every((select: HTMLSelectElement) => !!select.value);
-
   const resultElement = document.getElementById('image-builder-result');
-  if (imagename !== '' && allSelectionsMade) {
+  if (imagename !== '' && hardware != '' && gpuVendor != '' && isDeveloper != '') {
     resultElement?.classList.remove('hidden-fade');
     resultElement?.classList.add('shown-fade');
 
