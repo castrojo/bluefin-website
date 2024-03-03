@@ -164,8 +164,6 @@
           left: 0;
           right: 0;
           margin: auto;
-            margin-top: auto;
-            margin-bottom: auto;
           margin-bottom: 30px;
           margin-top: 10px;
         }
@@ -298,8 +296,8 @@
           if( imagename !== '' && allSelectionsMade ) {
             jQuery('#image-builder-result').removeClass('hidden-fade').addClass('shown-fade');
             jQuery('#image-builder-result .image-name').text(imagename);
-            jQuery('.button-download').attr('href', 'https://download.projectbluefin.io/' + imagename + '-stable.iso');
-            jQuery('.sha256').attr('href', 'https://download.projectbluefin.io/' + imagename + '-stable-CHECKSUM');
+            jQuery('.button-download').attr('href', 'https://download.projectbluefin.io/' + imagename + '-latest.iso');
+            jQuery('.sha256').attr('href', 'https://download.projectbluefin.io/' + imagename + '-latest-CHECKSUM');
             jQuery('.ghcr-details').attr('href', 'https://ghcr.io/ublue-os/' + imagename);
           } else {
             jQuery('#image-builder-result').addClass('hidden-fade').removeClass('shown-fade');
