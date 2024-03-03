@@ -67,7 +67,7 @@
       }
 
       .select:hover::after {
-        color: #f39c12;
+        color: #ccc;
       }
 
       .sha256 {
@@ -82,7 +82,7 @@
       }
 
       .sha256 .fa-check {
-        color: #262626;
+        color: rgb(12, 16, 22);
         position: relative;
         font-size: 14px;
         top: -1px;
@@ -90,7 +90,13 @@
       }
 
       .ghcr-details .fa-box-open {
-        top:3px;position:relative;font-size:18px;
+        top: 3px;
+        position: relative;
+        font-size: 18px;
+      }
+
+      .sha256:hover .fa-file, .ghcr-details:hover .fa-box-open {
+        color: #fff;
       }
 
       .questions,
