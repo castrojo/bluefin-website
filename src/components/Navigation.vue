@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { Component, WritableComputedRef } from 'vue'
 import { inject, onMounted, ref, watch } from 'vue'
-import { IconArrowUp, IconCodeBraces, IconFaceManShimmer } from '@iconify-prerendered/vue-mdi'
+import { IconArrowUp, IconCodeBraces, IconFaceManShimmer, IconDownload } from '@iconify-prerendered/vue-mdi'
 import { useEventListener } from '@vueuse/core/index.cjs'
 
 interface Link {
@@ -20,7 +20,7 @@ const links: Record<string, Link> = {
   '#scene-developers': { name: 'For Devs', icon: IconCodeBraces },
   // '#scene-gamers': { name: 'Gamers', icon: IconControllerClassic },
   '#scene-mission': { name: 'Our Mission' },
-  '#scene-picker': { name: 'Try Out' },
+  '#scene-picker': { name: 'Try Out', icon: IconDownload },
   '#scene-faq': { name: 'FAQ' },
 }
 
