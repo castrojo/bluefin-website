@@ -50,7 +50,7 @@
         width: 20em;
         height: 3em;
         overflow: hidden;
-        margin-bottom: 14.5px;
+        margin-bottom: 15px;
         margin-top: 5px;
         min-width: 350px;
         overflow:visible;
@@ -62,7 +62,7 @@
         position: absolute;
         top: 0;
         right: -3px;
-        padding: 15px;
+        padding: 14.5px;
         border: 1px solid rgb(108, 122, 233);
         transition: .25s all ease;
         pointer-events: none;
@@ -140,6 +140,15 @@
         visibility: visible;
         transform: scale(1.0);
         max-height: 100%;
+      }
+
+      #image-builder-result .dolly {
+        transform: translateX(0px);
+        transition: transform 0.45s ease-in-out;
+      }
+
+      #image-builder-result.hidden-fade .dolly {
+        transform: translateX(60px);
       }
 
       .fine-print {
