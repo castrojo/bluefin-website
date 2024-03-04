@@ -20,7 +20,7 @@ const links: Record<string, Link> = {
   '#scene-developers': { name: 'For Devs', icon: IconCodeBraces },
   // '#scene-gamers': { name: 'Gamers', icon: IconControllerClassic },
   '#scene-mission': { name: 'Our Mission' },
-  '#scene-picker': { name: 'Try' },
+  '#scene-picker': { name: 'Try Out' },
   '#scene-faq': { name: 'FAQ' },
 }
 
