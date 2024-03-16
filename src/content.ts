@@ -53,7 +53,7 @@ export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = './characters/devs.webp'
 export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential. Like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques. Develop your application with the same stack you deploy to production. 
 
-We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through its cloud-native journey. There will be dinosaurs on this trip.
+We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through its cloud-native journey and building it as a community. There will be dinosaurs on this trip.
 
 > Be the one who moves, not the one who is moved.
 > <cite>[Zavala][1]</cite>
@@ -70,7 +70,7 @@ Bluefin is not just software, she is a new breed of animal, adapted to survive t
 
 We believe that the desktop experience needs to change. Technology begins with the local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
 
-By introducing cloud-native patterns to the desktop, we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors.
+By introducing cloud-native patterns to the desktop we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors. Bluefin is designed to be the tool you depend on to do what you do best.
 
 Bluefin is all about sustainability, encompassing software, hardware, and the people.
 
