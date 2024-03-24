@@ -179,9 +179,19 @@ export const LangPoweredBy: PoweredBy[] = [
     altText: 'Devpod',
   },
   {
+    imageUrl: './brands/chainguard.webp',
+    projectUrl: 'https://www.chainguard.dev/',
+    altText: 'Chainguard',
+  },
+  {
     imageUrl: './brands/podman.svg',
     projectUrl: 'https://podman.io/',
     altText: 'Podman',
+  },
+  {
+    imageUrl: './brands/docker.svg',
+    projectUrl: 'https://www.docker.com/',
+    altText: 'Docker',
   },
   {
     imageUrl: './brands/dontrememberthisbrand.svg',
