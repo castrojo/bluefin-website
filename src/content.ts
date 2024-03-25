@@ -127,8 +127,8 @@ export const LangFaqQuestions = [
     answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness. Power and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
   },
   {
-    question: 'What if I want something like KDE or another window manager?',
-    answer: 'Bluefin is an opinionated GNOME experience. However Universal Blue provides a maintained set of base images for anyone to be able to make a custom image. We hope Bluefin acts as an inspiration for others to build their own communities around user experiences. For example check out Bazzite if you want a great KDE gaming experience, similar to SteamOS. \n\n [Base Images](https://universal-blue.org/images/) \n [Bazzite](https://bazzite.gg)',
+    question: 'What if I want to use KDE?',
+    answer: 'Aurora is the same Bluefin but uses KDE instead. We hope that Bluefin and Aurora acts as an inspiration for others to build their own communities around user experiences. Also check out Bazzite if you want an enthusiast-grade gaming experience, similar to SteamOS. \n\n [Aurora](https://github.com/NiHaiden/aurora) \n [Bazzite](https://bazzite.gg)',
   },
   {
     question: 'What do the Asus, Framework, and Surface images do?',
