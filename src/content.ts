@@ -128,7 +128,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What if I want to use KDE?',
-    answer: 'Aurora is the same Bluefin but uses KDE instead. We hope that Bluefin and Aurora acts as an inspiration for others to build their own communities around user experiences. Also check out Bazzite if you want an enthusiast-grade gaming experience, similar to SteamOS. \n\n [Aurora](https://github.com/NiHaiden/aurora) \n [Bazzite](https://bazzite.gg)',
+    answer: 'Aurora is the same Bluefin but uses KDE instead. We hope that Bluefin and Aurora act as inspiration for others to build their own communities around user experiences. Also check out Bazzite if you want an enthusiast-grade gaming experience, similar to SteamOS. \n\n [Aurora](https://github.com/NiHaiden/aurora) \n [Bazzite](https://bazzite.gg)',
   },
   {
     question: 'What do the Asus, Framework, and Surface images do?',
