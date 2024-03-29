@@ -354,7 +354,7 @@
             jQuery('#image-builder-result').removeClass('hidden-fade').addClass('shown-fade');
             jQuery('#image-builder-result .image-name').text(imagename);
             jQuery('.button-download').attr('href', 'https://download.projectbluefin.io/' + imagename + isoSuffix + '.iso');
-            jQuery('.sha256').attr('href', 'https://download.projectbluefin.io/' + imagename + isoSuffix + '-CHECKSUM');
+            jQuery('.sha256').attr('href', 'https://download.projectbluefin.io/' + imagename + isoSuffix + '.iso-CHECKSUM');
             jQuery('.ghcr-details').attr('href', 'https://ghcr.io/ublue-os/' + imagename);
           } else {
             jQuery('#image-builder-result').addClass('hidden-fade').removeClass('shown-fade');
