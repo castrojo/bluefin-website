@@ -9,7 +9,7 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
       <div class="container">
         <iframe id="contributor-container" src="/contributors.html"></iframe>
       </div>
-    </sectino>
+    </section>
     <div class="container">
       <div>
         <strong class="footer-title">Powered By</strong>
