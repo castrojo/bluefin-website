@@ -6,6 +6,7 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
 <template>
   <footer>
     <div class="container">
+      <iframe id="contributors" src="/contributors.html"></iframe>
       <div>
         <strong class="footer-title">Powered By</strong>
 
