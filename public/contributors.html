@@ -73,6 +73,8 @@
   </body>
   <footer>
     <script type="text/javascript">
+      const ignoredContributors = ['github-actions[bot]', 'dependabot[bot]', 'pull[bot]'];
+
       var xhr = new XMLHttpRequest();
       xhr.open('GET', 'https://api.github.com/repos/ublue-os/bluefin/contributors', true);
       xhr.responseType = 'json';
@@ -80,7 +82,10 @@
         if (xhr.status === 200) {
           var data = xhr.response;
           data.forEach(function(contributor) {
-            document.getElementById('contributor-container').innerHTML += '<div class="github-profile-badge" data-user="' + contributor['login'] + '"></div';
+            var contributorLogin = contributor['login']
+            if(!ignoredContributors.includes(contributorLogin)) {
+              document.getElementById('contributor-container').innerHTML += '<div class="github-profile-badge" data-user="' + contributorLogin + '"></div';
+            }
           });
 
           /**
