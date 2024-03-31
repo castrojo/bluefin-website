@@ -5,8 +5,8 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
 
 <template>
   <footer>
-    <section id="contributors" class="section-wrap">
-      <div class="container" style="display:block;width:100%;text-align:center;min-height:0px;padding:0px 0px 40px 0px;">
+    <section id="contributors" class="section-wrap" style="min-height:0px">
+      <div class="container" style="display:block;width:100%;text-align:center;padding:0px 0px 40px 0px;">
         <h2 style="font-size:42px;margin-bottom:5px;">Our Team</h2>
         <p style="font-size:18px;">Bluefin is built by a dedicated group of maintainers and contributors.</p>
         <iframe style="width:100%;margin-top:30px;" id="contributor-container" src="/contributors.html"></iframe>
