@@ -5,8 +5,12 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
 
 <template>
   <footer>
+    <section id="contributors" class="section-wrap">
+      <div class="container">
+        <iframe src="/contributors.html"></iframe>
+      </div>
+    </sectino>
     <div class="container">
-      <iframe id="contributors" src="/contributors.html"></iframe>
       <div>
         <strong class="footer-title">Powered By</strong>
 
