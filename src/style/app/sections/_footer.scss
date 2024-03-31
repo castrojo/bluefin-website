@@ -15,8 +15,12 @@ footer {
       padding: 0px 0px 40px 0px;
 
       h2 {
-        font-size: 42px;
-        margin-bottom: 5px;
+        font-family: Inter;
+        font-weight: 700;
+        font-size: 7rem;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        color: var(--color-text-light);;
       }
 
       iframe {
