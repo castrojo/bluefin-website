@@ -9,7 +9,7 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
       <div class="container">
         <h2>Our Team</h2>
         <p style="font-size:18px;">Bluefin is built by a dedicated group of maintainers and contributors.</p>
-        <iframe id="contributor-container" src="/contributors.html"></iframe>
+        <iframe id="contributor-container" src="/contributors.html" loading="lazy"></iframe>
       </div>
     </section>
     <div class="container">
