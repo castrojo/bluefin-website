@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://projectbluefin.io/"><img src="/meta.png?raw=true" alt="Bluefin"/></a>
+  <a href="https://projectbluefin.io/"><img src="/public/meta.png?raw=true" alt="Bluefin"/></a>
 </p>
 
 # Website for [Bluefin](https://github.com/ublue-os/bluefin)
