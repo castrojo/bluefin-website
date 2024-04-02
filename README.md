@@ -1,10 +1,9 @@
-# Bluefin Website
+<p align="center">
+  <a href="https://projectbluefin.io/"><img src="/meta.png?raw=true" alt="Bluefin"/></a>
+</p>
 
-Hello world.
+# Website for [Bluefin](https://github.com/ublue-os/bluefin)
 
-Launch date: 1 Novemberish
-
-Your task:
-
-- make these words sound good instead of jorge brain dump
-- have fun
+<p align="center">
+  <img src="/metrics.plugin.pagespeed.svg?raw=true" alt="Google Pagespeed Metrics"/>
+</p>
