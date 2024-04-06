@@ -72,7 +72,7 @@ We believe that the desktop experience needs to change. Technology begins with t
 
 By introducing cloud-native patterns to the desktop we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors. Bluefin is designed to be the tool you depend on to do what you do best.
 
-Bluefin is all about sustainability, encompassing software, hardware, and the people.
+Bluefin is about sustainability, encompassing the software, the hardware, and the people.
 
 > There are two ways of spreading light: to be the candle or the mirror that reflects it. 
 > <cite>[Edith Wharton][1]</cite>
