@@ -30,7 +30,7 @@ import { LangFooterProject, LangFooterProjectTitle, LangFooterReferences, LangPo
 
       <div>
         <strong class="footer-title">{{ LangFooterProjectTitle }}</strong>
-        <img src="./brands/ublue.svg" alt="Universal Blue" width="120" height="120" decoding="async" loading="lazy">
+        <img v-else :src="./brands/ublue.svg" :alt="Universal Blue" width="120" height="120" :title="Universal Blue" loading="lazy">
         <p v-html="marked.parse(LangFooterProject)" />
         <ul class="footer-links">
           <li v-for="item in LangSocialLinks" :key="item.text">
