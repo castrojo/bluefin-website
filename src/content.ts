@@ -15,7 +15,7 @@ export const LangLandingBluefinImageURL = './characters/angry.webp'
 //
 export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
-export const LangUsersText = 'Bluefin is a custom image of Fedora Silverblue. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop.'
+export const LangUsersText = 'Bluefin is an operating system for your computer. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop.'
 export const LangUsersListItems = [
   'Applications by Flathub',
   'Near-zero maintenance',
@@ -109,12 +109,12 @@ you can find us [on our Discourse forum](https://universal-blue.discourse.group/
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin utilizes Fedora\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. \n\n Because it follows a cloud-native pattern, the end user has the flexibility to rebase back to the stock Fedora or any Universal Blue image. It\'s more like having someone install, configure, and maintain a polished Fedora setup for you.\n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable)',
+    answer: 'Bluefin utilizes bootc\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. It\'s like having someone install, configure, and maintain a polished setup for you.\n\n What is a cloud native model? \n\n [Cloud Native Desktop Model](https://youtu.be/vZ1LRe_foJY) \n [OSTree Native Containers](https://containers.github.io/bootc/)',
     open: true,
   },
   {
     question: 'How does this differ from other desktops?',
-    answer: 'We call Bluefin "an interpretation of the Ubuntu spirit built on Fedora technology". We take the original mantra of Ubuntu\'s opinionated software decisions and apply them to Fedora Silverblue. We remove choice paralysis for users by presenting one well curated Flathub store, Homebrew, and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers.  \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Prompt](https://gitlab.gnome.org/chergert/prompt) '
+    answer: 'Bluefin is a next generation desktop that purposely behaves like a consumer device instead of a traditional distribution. We remove choice paralysis for users by presenting one well curated Flathub store, Homebrew, and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers.  \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Prompt](https://gitlab.gnome.org/chergert/prompt) '
   },
   
   {
@@ -169,9 +169,9 @@ export const LangPoweredBy: PoweredBy[] = [
   {
     // This one will point to the logos saved in the public folder
     // You can also link to an external asset if needed
-    imageUrl: './brands/fedora.svg',
-    projectUrl: 'https://fedoraproject.org/',
-    altText: 'Fedora',
+    imageUrl: './brands/.svg',
+    projectUrl: 'https://project.org/',
+    altText: '',
   },
   {
     imageUrl: './brands/devpod.svg',
