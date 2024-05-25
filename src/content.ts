@@ -167,13 +167,6 @@ export const LangSocialLinks = [
 interface PoweredBy { imageUrl: string; projectUrl?: string; altText: string }
 export const LangPoweredBy: PoweredBy[] = [
   {
-    // This one will point to the logos saved in the public folder
-    // You can also link to an external asset if needed
-    imageUrl: './brands/.svg',
-    projectUrl: 'https://project.org/',
-    altText: '',
-  },
-  {
     imageUrl: './brands/devpod.svg',
     projectUrl: 'https://devpod.sh/',
     altText: 'Devpod',
