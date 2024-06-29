@@ -44,7 +44,7 @@ export const LangParallaxQuote = {
 //
 export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
-export const LangDevsText = 'Container focused workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
+export const LangDevsText = 'Bluefin comes with a dedicated "developer mode" that transforms your device in a powerful developer workstation. Container focused workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
 export const LangDevsBoxOne = 'Visual Studio Code with devcontainers.'
 export const LangDevsBoxTwo = 'Ptyxis - Container focused terminal'
@@ -131,8 +131,8 @@ export const LangFaqQuestions = [
     answer: 'Aurora is the same Bluefin but uses KDE instead. We hope that Bluefin and Aurora act as inspiration for others to build their own communities around user experiences. Also check out Bazzite if you want an enthusiast-grade gaming experience, similar to SteamOS. Birds of a feather are stronger together. \n\n [Aurora](https://getaurora.dev) \n [Bazzite](https://bazzite.gg)',
   },
   {
-    question: 'What do the Asus, Framework, and Surface images do?',
-    answer: 'The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. The Framework image ships recommended power settings for the Framework 13 laptop. All of them allow for user-overridden configuration. \n\n [Framework](https://universal-blue.org/images/framework/) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
+    question: 'What do the Framework, Asus, and Surface images do?',
+    answer: 'Bluefin is a community supported option on the Framework 13 and 16 laptops. We work closely with the Framework team to ensure the best experience. The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. All of them allow for user-overridden configuration. \n\n [Framework](https://frame.work/linux) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
