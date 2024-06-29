@@ -44,7 +44,7 @@ export const LangParallaxQuote = {
 //
 export const LangDevsTag = 'For'
 export const LangDevsTitle = 'Developers'
-export const LangDevsText = 'Bluefin comes with a dedicated "developer mode" that transforms your device in a powerful developer workstation. Container focused workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
+export const LangDevsText = 'Bluefin comes with a dedicated "developer mode" that transforms your device in a powerful developer workstation. It features container focused workflows to get you started depending on where you\'re coming from, or bring your own. Wield the [industry\'s leading tools](https://landscape.cncf.io/) at your fingertips.'
 
 export const LangDevsBoxOne = 'Visual Studio Code with devcontainers.'
 export const LangDevsBoxTwo = 'Ptyxis - Container focused terminal'
