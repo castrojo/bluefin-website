@@ -132,7 +132,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'What do the Framework, Asus, and Surface images do?',
-    answer: 'Bluefin is a community supported option on the Framework 13 and 16 laptops. We work closely with the Framework team to ensure the best experience. The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. All of them allow for user-overridden configuration. \n\n [Framework](https://frame.work/linux) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
+    answer: 'Bluefin is a community supported option on the Framework 13 and 16 laptops. We work closely with the Framework team to ensure the best experience and is the preferred platform by the Universal Blue team. The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. All of them allow for user-overridden configuration. \n\n [Framework](https://frame.work/linux) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
   },
   {
     question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
