@@ -119,7 +119,7 @@ export const LangFaqQuestions = [
   
   {
     question: 'Where can I find more details on the features?',
-    answer: 'You can find detailed information in our GitHub repository. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://universal-blue.discourse.group/docs?category=6) [Developer Documentation](https://universal-blue.discourse.group/docs?topic=39)',
+    answer: 'You can find detailed information in our GitHub repository. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://universal-blue.discourse.group/docs?topic=2291) [Developer Documentation](https://universal-blue.discourse.group/docs?topic=39)',
     open: true,
   },
   {
