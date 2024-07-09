@@ -70,7 +70,7 @@ Bluefin is not just software, she is a new breed of animal, adapted to survive t
 
 We believe that the desktop experience needs to change. Technology begins with the local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
 
-By introducing cloud-native patterns to the desktop we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors. Bluefin is designed to be the tool you depend on to do what you do best. The current Linux desktop didn't get us there, but we believe that what was made can be unmade.
+By introducing cloud-native patterns to the desktop we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors. Bluefin is designed to be the tool you depend on to do what you do best. The current Linux desktop didn't get us there, but we believe that what was made, can be unmade. Let's make it better.
 
 Bluefin is about sustainability, encompassing the software, the hardware, and the people.
 
