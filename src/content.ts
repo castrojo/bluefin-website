@@ -23,7 +23,7 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.webp'
 export const LangUsersAppendix = `
-Featuring automatic image-based updates and a simple graphical application store, Bluefin is designed to get out of your way. Get what you want without sacrificing system stability. The Linux client has evolved. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) and [introductory documentation](https://universal-blue.discourse.group/t/introduction-to-bluefin/41) for more information. 
+Featuring automatic image-based updates and a simple graphical application store, Bluefin is designed to get out of your way. Get what you want without sacrificing system stability. The Linux client has evolved. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) and [introductory documentation](https://docs.projectbluefin.io) for more information. 
 
 Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. M1/M2 Mac Support coming soon. 
 `
@@ -104,7 +104,7 @@ export const LangFaqTag = 'Unsure?'
 export const LangFaqTitle = 'FAQ'
 export const LangFaqText = `
 If your questions remain unanswered, 
-you can find us [on our Discourse forum](https://universal-blue.discourse.group/c/bluefin/6)
+you can find us [on our Discourse forum](https://universal-blue.discourse.group/c/bluefin/6) and check out [docs.projectbluefin.io](https://docs.projectbluefin.io).
 `
 export const LangFaqQuestions = [
   {
@@ -114,12 +114,12 @@ export const LangFaqQuestions = [
   },
   {
     question: 'How does this differ from other desktops?',
-    answer: 'Bluefin is a next generation desktop that purposely behaves like a consumer device instead of a traditional distribution. We remove choice paralysis for users by presenting one well curated Flathub store, Homebrew, and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers.  \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Prompt](https://gitlab.gnome.org/chergert/prompt) '
+    answer: 'Bluefin is a next generation desktop that purposely behaves like a consumer device instead of a traditional distribution. We remove choice paralysis for users by presenting one well curated Flathub store, Homebrew, and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers.  \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis) '
   },
   
   {
     question: 'Where can I find more details on the features?',
-    answer: 'You can find detailed information in our GitHub repository. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://universal-blue.discourse.group/docs?topic=2291) [Developer Documentation](https://universal-blue.discourse.group/docs?topic=39)',
+    answer: 'You can find detailed information in our GitHub repository. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://docs.projectbluefin.io) [Developer Documentation](https://docs.projectbluefin.io/bluefin-dx)',
     open: true,
   },
   {
