@@ -23,7 +23,7 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.webp'
 export const LangUsersAppendix = `
-Featuring automatic image-based updates and a simple graphical application store, Bluefin is designed to get out of your way. Get what you want without sacrificing system stability. The Linux client has evolved. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) and [introductory documentation](https://docs.projectbluefin.io) for more information. 
+Featuring automatic image-based updates and a simple graphical application store, Bluefin is designed to get out of your way. Get what you want without sacrificing system stability. The Linux client has evolved, a clean start for the next generation. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) and [introductory documentation](https://docs.projectbluefin.io) for more information. 
 
 Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. M1/M2 Mac Support coming soon. 
 `
@@ -51,9 +51,9 @@ export const LangDevsBoxTwo = 'Container centric terminal'
 export const LangDevsBoxThree = 'Devpod for developer environments as code'
 export const LangDevsBoxFour = 'Homebrew on-tap'
 export const LangDevsTowerImageURL = './characters/devs.webp'
-export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential. Like most dromaeosaurs, she knows how to ship to production. Bluefin is designed to be [forked and extended](https://universal-blue.discourse.group/docs?topic=43) depending on your requirements, using standard cloud-native tools and techniques. Develop your application with the same stack you deploy to production. 
+export const LangDevsAppendix = `The inclusion of a [container runtime](https://podman.io) unlocks your team\'s potential. Use the same tools that power modern internet infrastructure on your desktop. Bluefin knows how to ship to production. 
 
-We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through its cloud-native journey and building it as a community. There will be dinosaurs on this trip.
+We target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through its cloud-native journey and building it as a community. 
 
 > Be the one who moves, not the one who is moved.
 > <cite>[Zavala][1]</cite>
@@ -66,7 +66,7 @@ We target Linux operators who don't use Linux on the desktop because it has fail
 export const LangMissionTag = 'Our'
 export const LangMissionTitle = 'Mission'
 export const LangMissionText = `
-Bluefin is not just software, she is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family.
+Bluefin is not just software, she is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family. 
 
 We believe that the desktop experience needs to change. Technology begins with the local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.
 
