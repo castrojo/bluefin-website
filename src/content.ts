@@ -127,6 +127,10 @@ export const LangFaqQuestions = [
     answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness. Power and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
   },
   {
+    question: 'How do you plan on making the project sustainable?',
+    answer: 'The project is purposely written in bash and Python in order to allow easy entry. We are just copying files around, it\'s Linux. Since this modeel scales, we feel that organizations that get value from this project would contribute some of their time to helping maintain it. It\'s mostly feature complete and we feel the model attracts automation minded system administrator\'s. Any one can contribute and get value back by automating operating system maintenance via a community. Or just donate to GitHub Sponsors to help pay for the builders. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)',
+  },
+  {
     question: 'What if I want to use KDE?',
     answer: 'Aurora is the same Bluefin but uses KDE instead. We hope that Bluefin and Aurora act as inspiration for others to build their own communities around user experiences. Also check out Bazzite if you want an enthusiast-grade gaming experience, similar to SteamOS. Birds of a feather are stronger together. \n\n [Aurora](https://getaurora.dev) \n [Bazzite](https://bazzite.gg)',
   },
