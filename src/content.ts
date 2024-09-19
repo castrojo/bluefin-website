@@ -109,7 +109,7 @@ you can find us [on our Discourse forum](https://universal-blue.discourse.group/
 export const LangFaqQuestions = [
   {
     question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin utilizes bootc\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. It\'s like having someone install, configure, and maintain a polished setup for you.\n\n What is a cloud native model? \n\n [OSTree Native Containers](https://containers.github.io/bootc/)',
+    answer: 'Bluefin utilizes bootc\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. It\'s like having someone install, configure, and maintain a polished setup for you. \n\n It\'s akin to your geeky friend helping you set up your computer, except we do it together as a community to help each other. \n\n[OSTree Native Containers](https://containers.github.io/bootc/)',
     open: true,
   },
   {
