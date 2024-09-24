@@ -128,7 +128,7 @@ export const LangFaqQuestions = [
   },
   {
     question: 'How do you plan on making the project sustainable?',
-    answer: 'The project is purposely written in bash and Python in order to allow easy entry. We are just copying files around, it\'s Linux. Since this modeel scales, we feel that organizations that get value from this project would contribute some of their time to helping maintain it. It\'s mostly feature complete and we feel the model attracts automation minded system administrators. Any one can contribute and get value back by automating operating system maintenance via a community. Or just donate to GitHub Sponsors to help pay for the builders and to sponsor more paleoart. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)',
+    answer: 'The project is purposely written in bash and Python in order to allow easy entry. We are just copying files around, it\'s Linux. Since this model scales, we feel that organizations that get value from this project would contribute some of their time to helping maintain it. It\'s mostly feature complete and it attracts automation minded system administrators. Any one can contribute and get value back by automating operating system maintenance via a community. Or just donate to GitHub Sponsors to help pay for the builders and to sponsor more paleoart. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)',
   },
   {
     question: 'What if I want to use KDE?',
