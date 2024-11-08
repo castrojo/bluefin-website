@@ -264,6 +264,18 @@
             </select>
           </div>
         </div>
+        <div class="gts hidden-fade">
+          <label for="isGts">How stable do you want?</label>
+          <div class="select">
+            <select id="isGts" name="isGts">
+              <option disabled selected value>
+                Select your desired stability
+              </option>
+              <option value="stable">F41: Stable</option>
+              <option value="gts">F40: Supa Stable GTS</option>
+            </select>
+          </div>
+        </div>
       </form>
     </div>
     <div class="download-link">
@@ -309,10 +321,20 @@
           }
         });
 
-        jQuery('#image-builder #selectedHardware, #image-builder #gpuVendor, #image-builder #isDeveloper').on('change', function() {
+        jQuery('#image-builder #gpuVendor').on('change', function() {
+          var gpuVendor = jQuery(this).val();
+          if (gpuVendor !== '') {
+            jQuery('#image-builder .gts').removeClass('hidden-fade').addClass('shown-fade');
+          } else {
+            jQuery('#image-builder .gts').addClass('hidden-fade').removeClass('shown-fade');
+          }
+        });
+
+        jQuery('#image-builder #selectedHardware, #image-builder #gpuVendor, #image-builder #isDeveloper, #image-builder #isGts').on('change', function() {
           var hardware = jQuery('#selectedHardware').parent('div').hasClass('hidden-fade') ? '' : jQuery('#selectedHardware').val();
           var gpuVendor = jQuery('#gpuVendor').parent('div').hasClass('hidden-fade') ? '' : jQuery('#gpuVendor').val();
           var isDeveloper = jQuery('#isDeveloper').parent('div').hasClass('hidden-fade') ? '' : jQuery('#isDeveloper').val();
+          var isGts = jQuery('#isGts').parent('div').hasClass('hidden-fade') ? '' : jQuery('#isGts').val();
 
           var imagename = 'bluefin';
 
@@ -349,7 +371,14 @@
           });
 
           if( imagename !== '' && allSelectionsMade ) {
-            var isoSuffix = '-gts';
+            var isoSuffix = '-stable';
+
+            if(isGts == 'gts') {
+              isoSuffix = '-gts';
+            } else {
+              isoSuffix = '-stable';
+            }
+
             if(hardware == 'asus') {
               isoSuffix = '-latest';
             }
