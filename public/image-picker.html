@@ -265,14 +265,14 @@
           </div>
         </div>
         <div class="gts hidden-fade">
-          <label for="isGts">How much stability would you like?</label>
+          <label for="isGts">How aggressive do you like your updates?</label>
           <div class="select">
             <select id="isGts" name="isGts">
               <option disabled selected value>
                 Select your update stream
               </option>
               <option value="gts">Bluefin GTS (for New Users, based on Fedora 40)</option>
-              <option value="stable">Bluefin (or Enthusiasts, based on Fedora 41)</option>
+              <option value="stable">Bluefin (or Enthusiasts, based on Fedora 40)</option>
             </select>
           </div>
         </div>
@@ -375,8 +375,6 @@
 
             if(isGts == 'gts') {
               isoSuffix = '-gts';
-            } else {
-              isoSuffix = '-stable';
             }
 
             if(hardware == 'asus') {
