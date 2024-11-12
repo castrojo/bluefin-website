@@ -29,21 +29,27 @@ watchOnce(isVisible, () => {
     emit('visible')
   }, 50)
 })
+
+import { useI18n } from 'vue-i18n'
+import type { MessageSchema, NumberSchema } from './locales/schema'
+const { t, n } = useI18n<{ message: MessageSchema, number: NumberSchema }>({
+  useScope: 'global'
+})
 </script>
 
 <template>
   <div ref="wrapper" class="scene-content" :class="{ visible: fired }">
     <div>
-      <strong>{{ props.tag }}</strong>
+      <strong>{{ t(props.tag) }}</strong>
     </div>
     <div>
       <h2>
-        {{ props.title }}
+        {{ t(props.title) }}
       </h2>
     </div>
     <div>
       <div>
-        <div v-html="marked.parse(props.text ?? '')" />
+        <div v-html="marked.parse(t(props.text) ?? '')" />
         <slot />
       </div>
     </div>

@@ -1,15 +1,22 @@
-<script setup lang='ts'>
-import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
+<script setup lang="ts">
+import SceneVisibilityChecker from "../common/SceneVisibilityChecker.vue"
+import ImagePicker from "../ImagePicker.vue"
+
+import { useI18n } from "vue-i18n"
+import type { MessageSchema, NumberSchema } from "./locales/schema"
+const { t, n } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+  useScope: "global"
+})
 </script>
 
 <template>
   <section id="scene-picker" class="section-wrap">
     <div class="container">
       <div>
-        <h2>Try Bluefin</h2>
-        <p>Use the form below to get the correct ISO download link for your hardware and use case. The team recommends <a href="https://flathub.org/apps/org.fedoraproject.MediaWriter">Fedora Media Writer</a> to create installation media:</p>
+        <h2>{{ t("TryBluefin.Title") }}</h2>
+        <p v-html="t('TryBluefin.Description')" />
       </div>
-      <iframe id="image-picker" src="/image-picker.html" loading="lazy"></iframe>
+      <ImagePicker />
     </div>
     <SceneVisibilityChecker name="#scene-picker" />
   </section>

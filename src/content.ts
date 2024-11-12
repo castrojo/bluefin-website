@@ -1,5 +1,7 @@
 import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 
+export const LangDollyURL = './characters/dolly.webp'
+
 //
 //
 // Landing section
@@ -7,7 +9,7 @@ import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 export const LangLandingTag = 'Project'
 export const LangLandingTitle = 'Bluefin'
 export const LangLandingText = 'The next generation Linux workstation, designed for reliability, performance, and sustainability.'
-export const LangLandingBluefinImageURL = './characters/angry.webp'
+export const LangLandingBluefinImageURL = './characters/leaping.png'
 
 //
 //
@@ -17,9 +19,9 @@ export const LangUsersTag = 'For'
 export const LangUsersTitle = 'You'
 export const LangUsersText = 'Bluefin is an operating system for your computer. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop.'
 export const LangUsersListItems = [
-  'Applications by Flathub',
-  'Near-zero maintenance',
-  'Included GPU drivers',
+  'Users.Box1',
+  'Users.Box2',
+  'Users.Box3',
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.webp'
 export const LangUsersAppendix = `
@@ -108,39 +110,38 @@ you can find us [on our Discourse forum](https://universal-blue.discourse.group/
 `
 export const LangFaqQuestions = [
   {
-    question: 'What is this exactly? Why did you make a Linux distribution?',
-    answer: 'Bluefin utilizes bootc\'s OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term "custom image" to describe this approach. It\'s like having someone install, configure, and maintain a polished setup for you. \n\n It\'s akin to your geeky friend helping you set up your computer, except we do it together as a community to help each other. \n\n[OSTree Native Containers](https://containers.github.io/bootc/)',
+    question: "Faq.QuestionsArray.0.question",
+    answer: "Faq.QuestionsArray.0.answer",
     open: true,
   },
   {
-    question: 'How does this differ from other desktops?',
-    answer: 'Bluefin is a next generation desktop that purposely behaves like a consumer device instead of a traditional distribution. We remove choice paralysis for users by presenting one well curated Flathub store, Homebrew, and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers.  \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis) '
-  },
-  
+    question: "Faq.QuestionsArray.1.question",
+    answer: "Faq.QuestionsArray.1.answer",
+  },  
   {
-    question: 'Where can I find more details on the features?',
-    answer: 'You can find detailed information in our GitHub repository. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://docs.projectbluefin.io) [Developer Documentation](https://docs.projectbluefin.io/bluefin-dx)',
+    question: "Faq.QuestionsArray.2.question",
+    answer: "Faq.QuestionsArray.2.answer",
     open: true,
   },
   {
-    question: 'Why dinosaurs??',
-    answer: 'Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means "terrible claw". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness. Power and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)',
+    question: "Faq.QuestionsArray.3.question",
+    answer: "Faq.QuestionsArray.3.answer",
   },
   {
-    question: 'How do you plan on making the project sustainable?',
-    answer: 'The project is purposely written in bash and Python in order to allow easy entry. We are just copying files around, it\'s Linux. Since this model scales, we feel that organizations that get value from this project would contribute some of their time to helping maintain it. It\'s mostly feature complete and it attracts automation minded system administrators. Any one can contribute and get value back by automating operating system maintenance via a community. Or just donate to GitHub Sponsors to help pay for the builders and to sponsor more paleoart. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)',
+    question: "Faq.QuestionsArray.4.question",
+    answer: "Faq.QuestionsArray.4.answer",
   },
   {
-    question: 'What if I want to use KDE?',
-    answer: 'Aurora is the same Bluefin but uses KDE instead. We hope that Bluefin and Aurora act as inspiration for others to build their own communities around user experiences. Also check out Bazzite if you want an enthusiast-grade gaming experience, similar to SteamOS. Birds of a feather are stronger together. \n\n [Aurora](https://getaurora.dev) \n [Bazzite](https://bazzite.gg)',
+    question: "Faq.QuestionsArray.5.question",
+    answer: "Faq.QuestionsArray.5.answer",
   },
   {
-    question: 'What do the Framework, Asus, and Surface images do?',
-    answer: 'Bluefin is a community supported option on the Framework 13 and 16 laptops. We work closely with the Framework team to ensure the best experience and is the preferred platform by the Universal Blue team. The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. All of them allow for user-overridden configuration. \n\n [Framework](https://frame.work/linux) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)',
+    question: "Faq.QuestionsArray.6.question",
+    answer: "Faq.QuestionsArray.6.answer",
   },
   {
-    question: 'I\'m not interested in a desktop, can I just get the dinosaurs?',
-    answer: 'Bluefin was brought to life by Jacob Schnurr and Andy Frazer. The artwork is free for you to use. It represents the delicate balance of life and is there to remind us that open source is an ecosystem that needs to be sustained. The software we make has an effect on the world: Bluefin might be put together by technology nerds, but it took two humans to show us the importance of the creativity of the human mind. \n\n [Wallpapers and Dinosaurs](https://universal-blue.discourse.group/t/dinosaur-gallery/18/5) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)',
+    question: "Faq.QuestionsArray.7.question",
+    answer: "Faq.QuestionsArray.7.answer",
   },
 ]
 

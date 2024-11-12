@@ -9,20 +9,24 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@iconify-prerendered/vue-mdi": "^0.23.1689058119",
-    "@types/marked": "^5.0.1",
-    "@vueuse/components": "^10.3.0",
-    "@vueuse/core": "^10.3.0",
-    "marked": "^7.0.2",
-    "sass": "^1.64.2",
-    "vue": "^3.3.4"
+    "@iconify-prerendered/vue-mdi": "^0.23.1718880438",
+    "@types/marked": "^5.0.2",
+    "@vueuse/components": "^10.11.1",
+    "@vueuse/core": "^10.11.1",
+    "marked": "^7.0.5",
+    "sass": "^1.80.6",
+    "vue": "^3.5.12",
+    "vue-i18n": "^10.0.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.40.0",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "eslint": "^8.46.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.5.3",
-    "vue-tsc": "^2.1.6"
+    "@antfu/eslint-config": "^0.40.3",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "postcss": "^8.4.48",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3",
+    "vite": "^4.5.5",
+    "vue-tsc": "^2.1.10"
   }
 }
