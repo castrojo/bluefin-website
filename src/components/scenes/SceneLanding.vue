@@ -35,6 +35,7 @@ const redirectToLang = (lang: string) => {
 
 import { useI18n } from "vue-i18n"
 import type { MessageSchema, NumberSchema } from "../../locales/schema"
+import { i18n } from "../../locales/schema"
 const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
   useScope: "global"
 })
@@ -69,8 +70,12 @@ const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
               @change="redirectToLang(lang)"
               v-model="lang"
             >
-              <option :value="'en-US'">en-US</option>
-              <option :value="'pt-BR'">pt-BR</option>
+              <option
+                v-for="key in Object.keys(i18n.global.messages)"
+                :value="key"
+              >
+                {{ key }}
+              </option>
             </select>
           </div>
         </div>
