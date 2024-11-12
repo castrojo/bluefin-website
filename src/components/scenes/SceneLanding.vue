@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue"
 import SceneVisibilityChecker from "../common/SceneVisibilityChecker.vue"
 import { LangLandingBluefinImageURL } from "../../content"
+import { i18n } from '../../locales/schema';
 
 function scrollToUsers() {
   document.querySelector("#scene-users")?.scrollIntoView({ behavior: "smooth" })
@@ -21,8 +22,7 @@ onMounted(() => {
   }, 150)
 })
 
-const urlParams = new URLSearchParams(window.location.search)
-const lang = ref(urlParams.get("lang") ?? "en-US")
+const lang = ref(i18n.global.locale)
 const redirectToLang = (lang: string) => {
   // @ts-ignore
   const urlParams = new URLSearchParams(window.location.search)
