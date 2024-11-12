@@ -10,7 +10,7 @@
 
 ## Contributing
 
-If you want to add another language to this website, make sure to add it to the [language schema](src/locales/schema.ts) and start writing! Send a PR and itll most likely get merged!
+If you want to add another language to this website, add it to the [language schema](src/locales/schema.ts) and start writing!
 
 ```typescript
 // Add your own language here on a new json file following the naming schemas. e.g.:
@@ -34,10 +34,10 @@ export const i18n = createI18n<[MessageSchema], string>({
   messages: {
     'en-US': enUS,
     'pt-BR': ptBR,
-    // add your language here following the style guideline, e.g.:
+    // Add your language here following the style guideline, e.g.:
     // 'ja-JP': jaJP,
   }
-}
+})
 ```
 
-Your new language will follow the schema from enUS, so make sure the fields any everything are the same. Some fields may contain markdown support or HTML support, that really depends and there is just no way I can document this here.
+Your new language will follow the schema from `enUS`, so make sure the fields and everything are the same. Some fields may contain markdown support or HTML support, that really depends and there is just no way I can document this here.
