@@ -70,8 +70,8 @@ function scrollUp() {
 }
 
 import { useI18n } from "vue-i18n"
-import type { MessageSchema, NumberSchema } from "./locales/schema"
-const { t, n } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+import type { MessageSchema, NumberSchema } from "../locales/schema"
+const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
   useScope: "global"
 })
 </script>

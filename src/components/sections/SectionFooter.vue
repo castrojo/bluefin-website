@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { marked } from "marked"
-import {
-  LangFooterProject,
-  LangFooterProjectTitle,
-  LangFooterReferences,
-  LangPoweredBy,
-  LangSocialLinks
-} from "../../content"
+import { LangPoweredBy, LangSocialLinks } from "../../content"
 
 import { useI18n } from "vue-i18n"
 import type { MessageSchema, NumberSchema } from "../../locales/schema"

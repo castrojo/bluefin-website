@@ -34,6 +34,7 @@
     "BluefinChillAlt": "Bluefin sentada tranquila"
   },
   "Video": {
+    "Url": "https://www.youtube.com/embed/Nz-yyDwTfRM&autoplay=1",
     "Title": "Introducao ao Bluefin Linux",
     "AppendixText": "Bluefin não é um produto finalizado, ela é um projeto de paixão continuamente mantido por [entusiastas de tecnologias da nuvem](https://github.com/ublue-os/bluefin/graphs/contributors) que procuram uma experiencia Linux do desktop mais confiável e mantivel. Veja nossos [issues abertos](https://github.com/ublue-os/bluefin/issues).\n\nEla representa o estado da arte... uma criatura frágil, linda e única. Um predador perfeito para um mundo que inevitavelmente enfrentará desafios. Precisamos nos adaptar. Podemos fazer isso **juntos**."
   },

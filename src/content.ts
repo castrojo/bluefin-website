@@ -1,6 +1,5 @@
 import { IconGithubCircle } from '@iconify-prerendered/vue-mdi'
 
-export const LangDollyURL = './characters/dolly.webp'
 
 //
 //

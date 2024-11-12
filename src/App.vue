@@ -76,12 +76,12 @@ import { i18n } from "./locales/schema"
 
 let urlParams = new URLSearchParams(window.location.search)
 if (urlParams.has("lang")) {
-  i18n.global.locale = urlParams.get("lang")
+  ;(i18n.global as any).locale = urlParams.get("lang") ?? "en-US"
 }
 
 import { useI18n } from "vue-i18n"
 import type { MessageSchema, NumberSchema } from "./locales/schema"
-const { t, n } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
   useScope: "global"
 })
 </script>

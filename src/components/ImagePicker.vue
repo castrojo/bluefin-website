@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Ref, ref } from "vue"
-import { LangDollyURL } from "../content"
 import {
   IconCheckCircle,
   IconDownload,
