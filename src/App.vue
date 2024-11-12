@@ -77,6 +77,9 @@ import { i18n } from "./locales/schema"
 let urlParams = new URLSearchParams(window.location.search)
 if (urlParams.has("lang")) {
   ;(i18n.global as any).locale = urlParams.get("lang") ?? "en-US"
+} else {
+  let lang = window.navigator.userLanguage || window.navigator.language
+  ;(i18n.global as any).locale = lang ?? "en-US";
 }
 
 import { useI18n } from "vue-i18n"
