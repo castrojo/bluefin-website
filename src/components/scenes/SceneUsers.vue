@@ -1,9 +1,19 @@
-<script setup lang='ts'>
-import { ref } from 'vue'
-import { marked } from 'marked'
-import SceneContent from '../common/SceneContent.vue'
-import SceneVisibilityChecker from '../common/SceneVisibilityChecker.vue'
-import { LangUsersAppendix, LangUsersBluefinImageURL, LangUsersListItems, LangUsersTag, LangUsersText, LangUsersTitle } from '../../content'
+<script setup lang="ts">
+import { ref } from "vue"
+import { marked } from "marked"
+import SceneContent from "../common/SceneContent.vue"
+import SceneVisibilityChecker from "../common/SceneVisibilityChecker.vue"
+import {
+  LangUsersAppendix,
+  LangUsersBluefinImageURL,
+  LangUsersListItems
+} from "../../content"
+
+import type { MessageSchema, NumberSchema } from "../../locales/schema"
+import { useI18n } from "vue-i18n"
+const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+  useScope: "global"
+})
 
 const vis = ref(false)
 </script>
@@ -13,19 +23,34 @@ const vis = ref(false)
     <div class="container">
       <Transition name="fade">
         <div v-if="vis" class="img-wrap">
-          <img :src="LangUsersBluefinImageURL" alt="Character bluefin artwork">
+          <img
+            :src="LangUsersBluefinImageURL"
+            :alt="t('Users.ArtworkDescription')"
+          />
         </div>
       </Transition>
 
       <div>
-        <SceneContent :tag="LangUsersTag" :title="LangUsersTitle" :text="LangUsersText" @visible="vis = true">
+        <SceneContent
+          :tag="'Users.Tag'"
+          :title="'Users.Title'"
+          :text="'Users.Text'"
+          @visible="vis = true"
+        >
           <div class="brand-grid">
-            <div v-for="item in LangUsersListItems" :key="item" class="brand-item">
-              <p>{{ item }}</p>
+            <div
+              v-for="item in LangUsersListItems"
+              :key="item"
+              class="brand-item"
+            >
+              <p>{{ t(item) }}</p>
             </div>
           </div>
 
-          <div v-if="LangUsersAppendix" v-html="marked.parse(LangUsersAppendix)" />
+          <div
+            v-if="LangUsersAppendix"
+            v-html="marked.parse(t('Users.Appendix'))"
+          />
         </SceneContent>
       </div>
     </div>

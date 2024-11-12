@@ -1,0 +1,136 @@
+{
+  "Landing": {
+    "Title": "The next generation Linux workstation, designed for reliability, performance, and sustainability.",
+    "DiscoverButton": "Discover",
+    "TryOutButton": "Try Out"
+  },
+  "Users": {
+    "Text": "Bluefin is an operating system for your computer. The best of both worlds: the reliability and ease of use of a Chromebook, with the power of a GNOME desktop.",
+    "Tag": "For",
+    "Title": "You",
+    "Appendix": "Featuring automatic image-based updates and a simple graphical application store, Bluefin is designed to get out of your way. Get what you want without sacrificing system stability. The Linux client has evolved, a clean start for the next generation. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) and [introductory documentation](https://docs.projectbluefin.io) for more information. \n\nImages are available for PC, Framework and ASUS laptops, and Microsoft Surface devices.",
+    "ArtworkDescription": "Character bluefin artwork",
+    "Box1": "Applications by Flathub",
+    "Box2": "Near-zero maintenance",
+    "Box3": "Included GPU drivers"
+  },
+  "ParallaxQuote": "Evolution is a process of constant branching and expansion.",
+  "Devs": {
+    "Tag": "For",
+    "Title": "Developers",
+    "Text": "Bluefin comes with an optional \"developer mode\" that transforms your device into a powerful workstation. It features container-focused workflows to get you started depending on where you're coming from, or bring your own. Wield the [industry's leading tools](https://landscape.cncf.io/) at your fingertips.",
+    "BoxOne": "Visual Studio Code with devcontainers.",
+    "BoxTwo": "Container centric terminal",
+    "BoxThree": "Devpod for developer environments as code",
+    "BoxFour": "Homebrew on-tap",
+    "Appendix": "The inclusion of a [container runtime](https://podman.io) unlocks your team's potential. Use the same tools that power modern internet infrastructure on your desktop. Bluefin knows how to ship to production. \n\nWe target Linux operators who don't use Linux on the desktop because it has failed them. So we're taking the Linux desktop through its cloud-native journey and building it as a community. \n\n> Be the one who moves, not the one who is moved.\n> <cite>[Zavala][1]</cite>\n\n[1]: https://en.wikipedia.org/wiki/Lance_Reddick",
+    "ArtworkDescription": "Character tower artwork",
+    "TowerJoke": "<b>Tower</b> over your Backlog!"
+  },
+  "Mission": {
+    "Tag": "Our",
+    "Title": "Mission",
+    "Text": "Bluefin is not just software, she is a new breed of animal, adapted to survive the rigors of an ecosystem dominated by giants while protecting her family. \n\nWe believe that the desktop experience needs to change. Technology begins with the local computer, the device that you touch, and it should be as essential as the rest of the Linux ecosystem.\n\nBy introducing cloud-native patterns to the desktop we hope to ignite interest in desktop computing while catering to the next generation of open-source contributors. Bluefin is designed to be the tool you depend on to do what you do best. The current Linux desktop didn't get us there, but we believe that what was made, can be unmade. Let's make it better.\n\nBluefin is about sustainability, encompassing the software, the hardware, and the people.\n\n> There are two ways of spreading light: to be the candle or the mirror that reflects it.\n> <cite>[Edith Wharton][1]</cite>\n\n[1]: https://en.wikipedia.org/wiki/Edith_Wharton\n\nOr she may disembowel us on the way. Clever Girl.",
+    "BluefinChillAlt": "Bluefin laying down and chilling"
+  },
+  "Video": {
+    "Url": "https://www.youtube.com/embed/Nz-yyDwTfRM&autoplay=1",
+    "Title": "Bluefin Linux introduction",
+    "AppendixText": "Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who seek a more reliable and maintainable Linux desktop experience. Check out the [open issues](https://github.com/ublue-os/bluefin/issues).\n\nShe represents the state of the art … a fragile, beautiful, and unique creature. A perfect predator for a world that will that will inevitably face challenges. We must adapt. We can do it **together**."
+  },
+  "TryBluefin": {
+    "Title": "Try Bluefin",
+    "Description": "Use the form below to get the correct ISO download link for your hardware and use case. The team recommends <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> to create installation media:",
+    "Hardware": {
+      "Question": "What hardware are you using?",
+      "DefaultSelection": "Select your hardware",
+      "Desktop": "Desktop",
+      "Framework": "Framework Laptop",
+      "Surface": "Surface Laptop",
+      "Asus": "ASUS Laptop",
+      "Other": "Other Laptop"
+    },
+    "Developer": {
+      "Question": "Are you a developer?",
+      "DefaultSelection": "Include developer tooling",
+      "Yes": "Yes",
+      "No": "No"
+    },
+    "Gpu": {
+      "Question": "Who is the vendor of your primary GPU? ",
+      "DefaultSelection": "Select your primary GPU vendor"
+    },
+    "Stream": {
+      "Question": "How aggressive do you like your updates? ",
+      "DefaultSelection": "Select your update stream",
+      "Gts": "Bluefin GTS (for most users, based on {version})",
+      "Stable": "Bluefin (for enthusiasts {version})"
+    },
+    "Download": {
+      "Iso": "Download the {isoname} ISO",
+      "Registry": "View details on the GitHub Container Registry",
+      "Checksum": "Verify (SHA256)",
+      "DocumentationURL": "Check out the [Bluefin Documentation](https://docs.projectbluefin.io/), it takes about 15 minutes and includes an installation runbook - set yourself up for success, you are headed into a new world.",
+      "DeveloperNote": "Check out [Introduction to Bluefin DX](https://docs.projectbluefin.io/bluefin-dx)",
+      "DollyChill": "Dolly chilling near your ISO link"
+    }
+  },
+  "NewsTitle": "News",
+  "Faq": {
+    "Tag": "Unsure?",
+    "Title": "FAQ",
+    "Text": "If your questions remain unanswered, \nyou can find us [on our Discourse forum](https://universal-blue.discourse.group/c/bluefin/6) and check out [docs.projectbluefin.io](https://docs.projectbluefin.io)",
+    "QuestionsArray": {
+      "0": {
+        "question": "What is this exactly? Why did you make a Linux distribution?",
+        "answer": "Bluefin utilizes bootc's OCI container features to compose and build an OS image. This process is overseen by a well-structured community that is committed to automation and sustainability. The end result is akin to a configuration management tool like Ansible or Salt, but without the typical challenges associated with maintaining a custom distribution. We use the term \"custom image\" to describe this approach. It's like having someone install, configure, and maintain a polished setup for you. \n\n It's akin to your geeky friend helping you set up your computer, except we do it together as a community to help each other. \n\n[OSTree Native Containers](https://containers.github.io/bootc/)"
+      },
+      "1": {
+        "question": "How does this differ from other desktops?",
+        "answer": "Bluefin is a next generation desktop that purposely behaves like a consumer device instead of a traditional distribution. We remove choice paralysis for users by presenting one well curated Flathub store, Homebrew, and minimize the use of system packaging. \n\n For developers we concentrate on a pure cloud-native developer workflow via devcontainers.  \n\nOr use any OCI container as your user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis)"
+      },
+      "2": {
+        "question": "Where can I find more details on the features?",
+        "answer": "You can find detailed information in our GitHub repository. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://docs.projectbluefin.io) [Developer Documentation](https://docs.projectbluefin.io/bluefin-dx)"
+      },
+      "3": {
+        "question": "Why dinosaurs??",
+        "answer": "Bluefin is a Deinonychus antirrhopus, a theropod dinosaur whose name means \"terrible claw\". Discovered in the 1960s, she revolutionized our understanding of dinosaurs. Before Deinonychus, dinosaurs were often seen as slow, dim-witted creatures. However, she shattered these misconceptions, offering insight into the dynamic world of hot-blooded, rapidly evolving animals that were masters of their domain. We aim for our desktop to embody a similar nimbleness. Power and adaptability. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)"
+      },
+      "4": {
+        "question": "How do you plan on making the project sustainable?",
+        "answer": "The project is purposely written in bash and Python in order to allow easy entry. We are just copying files around, it's Linux. Since this model scales, we feel that organizations that get value from this project would contribute some of their time to helping maintain it. It's mostly feature complete and it attracts automation minded system administrators. Any one can contribute and get value back by automating operating system maintenance via a community. Or just donate to GitHub Sponsors to help pay for the builders and to sponsor more paleoart. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)"
+      },
+      "5": {
+        "question": "What if I want to use KDE?",
+        "answer": "Aurora is the same Bluefin but uses KDE instead. We hope that Bluefin and Aurora act as inspiration for others to build their own communities around user experiences. Also check out Bazzite if you want an enthusiast-grade gaming experience, similar to SteamOS. Birds of a feather are stronger together. \n\n [Aurora](https://getaurora.dev) \n [Bazzite](https://bazzite.gg)"
+      },
+      "6": {
+        "question": "What do the Framework, Asus, and Surface images do?",
+        "answer": "Bluefin is a community supported option on the Framework 13 and 16 laptops. We work closely with the Framework team to ensure the best experience and is the preferred platform by the Universal Blue team. The Asus and Surface images ship the asus-linux.org and linux-surface kernels, respectively. All of them allow for user-overridden configuration. \n\n [Framework](https://frame.work/linux) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)"
+      },
+      "7": {
+        "question": "Im not interested in a desktop, can I just get the dinosaurs?",
+        "answer": "Bluefin was brought to life by Jacob Schnurr and Andy Frazer. The artwork is free for you to use. It represents the delicate balance of life and is there to remind us that open source is an ecosystem that needs to be sustained. The software we make has an effect on the world: Bluefin might be put together by technology nerds, but it took two humans to show us the importance of the creativity of the human mind. \n\n [Wallpapers and Dinosaurs](https://universal-blue.discourse.group/t/dinosaur-gallery/18/5) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)"
+      }
+    }
+  },
+  "Flock": {
+    "Title": "Our Flock",
+    "Description": "Bluefin is built by a dedicated group of maintainers and contributors."
+  },
+  "Footer": {
+    "Title": "Powered By",
+    "Copyright": "Copyright {date} © Project Bluefin and Universal Blue",
+    "Project": "Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to indie Cloud Native.",
+    "ProjectTitle": "Project Bluefin",
+    "References": "All artwork built by humans.\n\n- Website - [Jan Dolanský](https://dolansky.dev/) & [Kyle Gospodnetich](https://kylegospodneti.ch/)\n- Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775)\n- Bluefin Illustrative Wallpaper - Andy Frazer\n, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)\n- Translations - [Tulip Blossom](https://github.com/tulilirockz)\n- Special Thanks - [Aaron Lake](https://www.linkedin.com/in/aaron-lake/), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://www.kotterva.com/), and [Marco Ceppi](https://github.com/marcoceppi)"
+  },  
+  "Navbar": {
+    "ForYou": "For You",
+    "ForDevs": "For Devs",
+    "OurMission": "Our Mission",
+    "TryOut": "Try Out",
+    "FAQ": "FAQ"
+  }
+}
