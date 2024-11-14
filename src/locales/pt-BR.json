@@ -17,7 +17,7 @@
   },
   "Devs": {
     "Tag": "Para",
-    "Title": "Devenvolvedores",
+    "Title": "Desenvolvedores",
     "Text": "Bluefin vem com um modo opcional para desenvolvedores, que transforma seu dispositivo em uma poderosa Workstation. Ele tem fluxos de trabalho focados em contêineres para você começar dependendo de onde você está vindo, ou traga o seu próprio. Use as [ferramentas líderes do setor](https://landscape.cncf.io/) na ponta dos dedos.",
     "BoxOne": "Visual Studio Code com devcontainers",
     "BoxTwo": "Terminal centrado a containers",

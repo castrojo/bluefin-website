@@ -9,9 +9,9 @@ import {
   LangUsersListItems
 } from "../../content"
 
-import type { MessageSchema, NumberSchema } from "../../locales/schema"
+import type { MessageSchema } from "../../locales/schema"
 import { useI18n } from "vue-i18n"
-const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
 

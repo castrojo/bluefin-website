@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Ref, ref } from "vue"
+import { marked } from "marked"
 import {
   IconCheckCircle,
   IconDownload,
@@ -63,9 +64,8 @@ const getFormattedImageName = () => {
 const BLUEFIN_DOWNLOAD_URL = "https://download.projectbluefin.io/%TEMPLATE%"
 
 import { useI18n } from "vue-i18n"
-import type { MessageSchema, NumberSchema } from "../locales/schema"
-import { marked } from "marked"
-const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+import type { MessageSchema } from "../locales/schema"
+const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
 </script>

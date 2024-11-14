@@ -45,15 +45,15 @@ marked.use({
 const renderer = new marked.Renderer()
 renderer.code = (code) => `<p>${code}</p>`
 
+import { useI18n } from "vue-i18n"
+import type { MessageSchema } from "../locales/schema"
+const { t } = useI18n<MessageSchema>({
+  useScope: "global"
+})
+
 const renderedContent = computed(() =>
   marked.parse(t(props.answer), { renderer })
 )
-
-import { useI18n } from "vue-i18n"
-import type { MessageSchema, NumberSchema } from "../locales/schema"
-const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
-  useScope: "global"
-})
 </script>
 
 <template>
