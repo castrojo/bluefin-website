@@ -188,7 +188,7 @@ const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
                 {{ t("TryBluefin.Stream.Gts", { version: "40" }) }}
               </option>
               <option :value="'stable'">
-                {{ t("TryBluefin.Stream.Stable", { version: "40" }) }}
+                {{ t("TryBluefin.Stream.Stable", { version: "41" }) }}
               </option>
             </select>
           </div>
