@@ -41,11 +41,15 @@ const getFormattedImageName = () => {
       break
   }
 
-  if (imageName.value.hardware === "nvidia") {
+  if (imageName.value.gpu === "nvidia") {
     final_name += "-nvidia"
   }
 
   if (imageName.value.hardware === "asus") {
+    final_name += "-latest"
+  } else if (imageName.value.hardware === "surface") {
+    final_name += "-latest"
+  } else if (imageName.value.stream === "latest") {
     final_name += "-latest"
   } else if (imageName.value.stream === "gts") {
     final_name += "-gts"
@@ -189,6 +193,9 @@ const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
               </option>
               <option :value="'stable'">
                 {{ t("TryBluefin.Stream.Stable", { version: "41" }) }}
+              </option>
+              <option :value="'latest'">
+                {{ t("TryBluefin.Stream.Latest", { version: "41" }) }}
               </option>
             </select>
           </div>
