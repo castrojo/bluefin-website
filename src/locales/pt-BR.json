@@ -87,7 +87,7 @@
       },
       "1": {
         "question": "Em quê isto difere de outros desktops?",
-        "answer": "Bluefin é um desktop de última geração que propositadamente se comporta como um sistema voltado a consumo ao invés de uma distribuição tradicional. Nós removemos a paralisia da escolha para os usuários apresentando uma única e bem curada loja Flathub, o Homebrew, e minimizando o uso de pacotes a nível de sistema. \n\n Para desenvolvedores, nos concentramos em prover um workflow puramente cloud-native via devcontainers.  \n\nOu você pode usar qualquer container OCI como seu user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis)"
+        "answer": "Bluefin é um desktop de última geração que propositadamente se comporta como um sistema voltado a consumo ao invés de uma distribuição tradicional. Nós removemos a paralisia da escolha para os usuários oferecendo uma única e bem curada loja Flathub, o Homebrew, e minimizando o uso de pacotes a nível de sistema. \n\n Para desenvolvedores, nos concentramos em prover um workflow puramente cloud-native via devcontainers.  \n\nOu você pode usar qualquer container OCI como seu user space. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis)"
       },
       "2": {
         "question": "Onde posso encontrar mais informações sobre recursos?",
