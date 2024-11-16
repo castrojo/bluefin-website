@@ -99,7 +99,7 @@
       },
       "4": {
         "question": "Como vocês pretendem tornar esse projeto sustentável?",
-        "answer": "O projeto foi escrito propositadamente em Bash e Python para facilitar o acesso de outras pessoas. Nós apenas copiamos arquivos aqui e ali, o clássico Linux. Dado que este método escala bem, nós acreditamos que organizações que geram valor por meio desse projeto podem contribuir um pouco do seu tempo para ajudar a mantê-lo. Está quase repleto de recursos, e atrai administradores de sistema com ímpeto de automação. Qualquer um pode contribuir e obter valor de volta automatizando alguma parte da manutenção do sistema com essa comunidade. Ou é só doar via GitHub Sponsors para ajudar a pagar pelos builders e patrocinar mais arte paleológica. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)"
+        "answer": "O projeto foi escrito propositadamente em Bash e Python para facilitar o acesso de outras pessoas. Nós apenas copiamos arquivos aqui e ali, o clássico Linux. Dado que este método escala bem, nós acreditamos que organizações que geram valor por meio desse projeto podem contribuir um pouco do seu tempo para ajudar a mantê-lo. Quase repleto de recursos, e atrai administradores de sistema com ímpeto de automação. Qualquer um pode contribuir e obter valor de volta automatizando alguma parte da manutenção do sistema com essa comunidade. Ou é só doar via GitHub Sponsors para ajudar a pagar pelos builders e patrocinar mais arte paleológica. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)"
       },
       "5": {
         "question": "E se eu quiser usar o KDE?",
