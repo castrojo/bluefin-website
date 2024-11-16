@@ -64,7 +64,8 @@
       "Question": "Com qual cadencia você gostaria suas atualizações?",
       "DefaultSelection": "Selecione sua cadencia de updates",
       "Gts": "Bluefin GTS (para todos, baseado no Fedora {version})",
-      "Stable": "Bluefin (para entusiastas, baseado no Fedora {version})"
+      "Stable": "Bluefin (para entusiastas, baseado no Fedora {version})",
+      "Latest": "Bluefin Latest (para usuário avançados, basedo no Fedora {version})"
     },
     "Download": {
       "Iso": "Baixe a ISO {isoname}",
