@@ -40,7 +40,7 @@
   },
   "TryBluefin": {
     "Title": "Experimente Bluefin",
-    "Description": "Use o formulário abaixo para obter o link download da ISO correta para o seu hardware e uso. A equipe recomenda o <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> para criar a mídia de instalação:",
+    "Description": "Use o formulário abaixo para obter o link de download da ISO correta para o seu hardware e uso. A equipe recomenda o <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> para criar a mídia de instalação:",
     "Hardware": {
       "Question": "Qual hardware você planeja utilizar?",
       "DefaultSelection": "Selecione seu equipamento",
