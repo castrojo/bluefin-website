@@ -36,7 +36,7 @@
   "Video": {
     "Url": "https://www.youtube.com/embed/Nz-yyDwTfRM&autoplay=1",
     "Title": "Bluefin Linux introduction",
-    "AppendixText": "Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who seek a more reliable and maintainable Linux desktop experience. Check out the [open issues](https://github.com/ublue-os/bluefin/issues).\n\nShe represents the state of the art … a fragile, beautiful, and unique creature. A perfect predator for a world that will that will inevitably face challenges. We must adapt. We can do it **together**."
+    "AppendixText": "Project Bluefin is not a finished product, she is an ongoing passion project maintained by [cloud-native enthusiasts](https://github.com/ublue-os/bluefin/graphs/contributors) who seek a more reliable and maintainable Linux desktop experience. Check out the [open issues](https://github.com/ublue-os/bluefin/issues).\n\nShe represents the state of the art … a fragile, beautiful, and unique creature. A perfect predator for a world that will inevitably face challenges. We must adapt. We can do it **together**."
   },
   "TryBluefin": {
     "Title": "Try Bluefin",
@@ -124,8 +124,8 @@
     "Copyright": "Copyright {date} © Project Bluefin and Universal Blue",
     "Project": "Bluefin is built with [Universal Blue](https://universal-blue.org), a community toolkit designed to reboot the Linux desktop. Built for the love of the game. Welcome to indie Cloud Native.",
     "ProjectTitle": "Project Bluefin",
-    "References": "All artwork built by humans.\n\n- Website - [Jan Dolanský](https://dolansky.dev/) & [Kyle Gospodnetich](https://kylegospodneti.ch/)\n- Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775)\n- Bluefin Illustrative Wallpaper - Andy Frazer\n, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)\n- Translations - [Tulip Blossom](https://github.com/tulilirockz)\n- Special Thanks - [Aaron Lake](https://www.linkedin.com/in/aaron-lake/), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://www.kotterva.com/), and [Marco Ceppi](https://github.com/marcoceppi)"
-  },  
+    "References": "All artwork built by humans.\n\n- Website - [Jan Dolanský](https://dolansky.dev/) & [Kyle Gospodnetich](https://kylegospodneti.ch/)\n- Logos and Wallpapers - [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775)\n- Bluefin Illustrative Wallpaper - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)\n- Translations - [Tulip Blossom](https://github.com/tulilirockz)\n- Special Thanks - [Aaron Lake](https://www.linkedin.com/in/aaron-lake/), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://www.kotterva.com/), and [Marco Ceppi](https://github.com/marcoceppi)"
+  },
   "Navbar": {
     "ForYou": "For You",
     "ForDevs": "For Devs",

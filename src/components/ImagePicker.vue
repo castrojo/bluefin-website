@@ -194,9 +194,7 @@ const { t } = useI18n<MessageSchema>({
               <option :value="'stable'">
                 {{ t("TryBluefin.Stream.Stable", { version: "41" }) }}
               </option>
-              <option :value="'latest'">
-                {{ t("TryBluefin.Stream.Latest", { version: "41" }) }}
-              </option>
+              <!-- Do not add Latest, it is way too unstable for new users -->
             </select>
           </div>
         </div>
