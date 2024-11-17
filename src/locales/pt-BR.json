@@ -40,7 +40,7 @@
   },
   "TryBluefin": {
     "Title": "Experimente Bluefin",
-    "Description": "Use o formulário abaixo para obter o link download da ISO correta para o seu hardware e uso. A equipe recomenda o <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> para criar a mídia de instalação:",
+    "Description": "Use o formulário abaixo para obter o link de download da ISO correta para o seu hardware e uso. A equipe recomenda o <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> para criar a mídia de instalação:",
     "Hardware": {
       "Question": "Qual hardware você planeja utilizar?",
       "DefaultSelection": "Selecione seu equipamento",
@@ -95,7 +95,7 @@
       },
       "3": {
         "question": "Por quê dinossauros??",
-        "answer": "A Bluefin é uma Deinonychus antirrhopus, um dinossauro terópode cujo nome significa \"garra terrível\". Descoberta nos anos 60, ela revolucionou o nosso conhecimento sobre dinossauros. Antes do Deinonychus, dinossauros eram vistos como criaturas lentas e estúpidas. Felizmente, ela destruiu esses mal-entendidos, nos dando uma noção sobre o mundo dinânmico desses animais com sangue-quente que rapidamente se diversificaram e tornaram-se mestres do seu ambiente. Nós queremos que o nosso desktop incorpore uma perspicácia parecida. Poder e adaptabilidade. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)"
+        "answer": "A Bluefin é uma Deinonychus antirrhopus, um dinossauro terópode cujo nome significa \"garra terrível\". Descoberta nos anos 60, ela revolucionou o nosso conhecimento sobre dinossauros. Antes do Deinonychus, dinossauros eram vistos como criaturas lentas e estúpidas. Felizmente, ela destruiu esses mal-entendidos, nos dando uma noção sobre o mundo dinânmico desses animais com sangue quente que rapidamente se diversificaram e tornaram-se mestres do seu ambiente. Nós queremos que o nosso desktop incorpore uma perspicácia parecida. Poder e adaptabilidade. \n\n [Deinonychus](https://en.wikipedia.org/wiki/Deinonychus)"
       },
       "4": {
         "question": "Como vocês pretendem tornar esse projeto sustentável?",
