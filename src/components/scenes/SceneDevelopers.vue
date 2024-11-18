@@ -6,10 +6,11 @@ import SceneContent from "../common/SceneContent.vue"
 import SceneVisibilityChecker from "../common/SceneVisibilityChecker.vue"
 
 import { useI18n } from "vue-i18n"
-import type { MessageSchema, NumberSchema } from "../../locales/schema"
-const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+import type { MessageSchema } from "../../locales/schema"
+const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
+
 const vis = ref(false)
 </script>
 

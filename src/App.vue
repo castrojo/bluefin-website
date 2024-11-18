@@ -74,16 +74,16 @@ onBeforeMount(() => {
 
 import { i18n } from "./locales/schema"
 
-let urlParams = new URLSearchParams(window.location.search);
+let urlParams = new URLSearchParams(window.location.search)
 if (urlParams.has("lang")) {
-  (i18n.global as any).locale = urlParams.get("lang") ?? "en-US"
+  ;(i18n.global as any).locale = urlParams.get("lang") ?? "en-US"
 } else {
-  (i18n.global as any).locale = window.navigator.language ?? "en-US";
+  ;(i18n.global as any).locale = window.navigator.language ?? "en-US"
 }
 
 import { useI18n } from "vue-i18n"
-import type { MessageSchema, NumberSchema } from "./locales/schema"
-const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+import type { MessageSchema } from "./locales/schema"
+const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
 </script>

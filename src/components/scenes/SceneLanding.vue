@@ -2,9 +2,9 @@
 import { onMounted, ref } from "vue"
 import SceneVisibilityChecker from "../common/SceneVisibilityChecker.vue"
 import { LangLandingBluefinImageURL } from "../../content"
-import { i18n } from '../../locales/schema';
+import { i18n } from "../../locales/schema"
 import { useI18n } from "vue-i18n"
-import type { MessageSchema, NumberSchema } from "../../locales/schema"
+import type { MessageSchema } from "../../locales/schema"
 
 function scrollToUsers() {
   document.querySelector("#scene-users")?.scrollIntoView({ behavior: "smooth" })
@@ -34,7 +34,7 @@ const redirectToLang = (lang: string) => {
   // @ts-ignore
   window.location.search = urlParams
 }
-const { t } = useI18n<{ message: MessageSchema; number: NumberSchema }>({
+const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
 </script>
