@@ -96,34 +96,6 @@ const { t } = useI18n<MessageSchema>({
         <label for="selectedHardware" class="question-title">
           {{ t("TryBluefin.Hardware.Question") }}
         </label>
-        <div>
-          <select
-            v-model="imageName.hardware"
-            name="hardware"
-            class="question-select"
-          >
-            <option disabled selected :value="undefined">
-              {{ t("TryBluefin.Hardware.DefaultSelection") }}
-            </option>
-            <option :value="'desktop'">
-              {{ t("TryBluefin.Hardware.Desktop") }}
-            </option>
-            <optgroup label="Laptops">
-              <option :value="'desktop'">
-                {{ t("TryBluefin.Hardware.Framework") }}
-              </option>
-              <option :value="'surface'">
-                {{ t("TryBluefin.Hardware.Surface") }}
-              </option>
-              <option :value="'asus'">
-                {{ t("TryBluefin.Hardware.Asus") }}
-              </option>
-              <option :value="'desktop'">
-                {{ t("TryBluefin.Hardware.Other") }}
-              </option>
-            </optgroup>
-          </select>
-        </div>
       </div>
       <Transition name="fade">
         <div class="question-container" v-if="imageName.hardware != undefined">
