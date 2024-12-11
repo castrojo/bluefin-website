@@ -24,10 +24,7 @@ export const LangUsersListItems = [
 ]
 export const LangUsersBluefinImageURL = './characters/bluefin-small.webp'
 export const LangUsersAppendix = `
-Featuring automatic image-based updates and a simple graphical application store, Bluefin is designed to get out of your way. Get what you want without sacrificing system stability. The Linux client has evolved, a clean start for the next generation. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) and [introductory documentation](https://docs.projectbluefin.io) for more information. 
-
-Images are available for PC, Framework and ASUS laptops, and Microsoft Surface devices. 
-`
+Featuring automatic image-based updates and a simple graphical application store, Bluefin is designed to get out of your way. Get what you want without sacrificing system stability. The Linux client has evolved, a clean start for the next generation. Check the [announcement blog post](https://www.ypsidanger.com/announcing-project-bluefin/) and [introductory documentation](https://docs.projectbluefin.io) for more information.`
 
 //
 //
