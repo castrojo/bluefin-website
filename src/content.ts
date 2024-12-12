@@ -135,10 +135,6 @@ export const LangFaqQuestions = [
     question: "Faq.QuestionsArray.6.question",
     answer: "Faq.QuestionsArray.6.answer",
   },
-  {
-    question: "Faq.QuestionsArray.7.question",
-    answer: "Faq.QuestionsArray.7.answer",
-  },
 ]
 
 //
