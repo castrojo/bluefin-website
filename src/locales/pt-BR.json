@@ -97,10 +97,6 @@
         "answer": "Aurora é o mesmo Bluefin, mas utilizando o KDE. Nós queremos que Bluefin e Aurora sejam uma inspiração para outros criarem suas próprias comunidades de experiência de usuário. Confira também o Bazzite se você quiser uma experiência com jogos digna de um entusiasta, e parecida com o SteamOS. Juntos somos mais fortes. \n\n [Aurora](https://getaurora.dev) \n [Bazzite](https://bazzite.gg)"
       },
       "6": {
-        "question": "Qual a diferença das imagens Framework, Asus e Surface?",
-        "answer": "Bluefin é uma opção de sistema da comunidade nos laptops Framework 13 e 16. Nós trabalhamos junto da equipe Framework para assegurar a melhor experiência possível, e esta é a plataforma preferida da equipe Universal Blue. As imagens Surface e Asus usam os kernels asus-linux.org e linux-surface, respectivamente. Todas elas podem ter suas configurações modificadas pelo usuário da mesma maneira. \n\n [Framework](https://frame.work/linux) \n [Surface](https://universal-blue.org/images/surface/) \n [Asus](https://universal-blue.org/images/asus/)"
-      },
-      "7": {
         "question": "Não tenho interesse nesse sistema, mas de onde são esses dinossauros?",
         "answer": "Bluefin foi trazida à vida por Jacob Schnurr e Andy Frazer. As artes são de livre utilização. Elas representam o balanço delicado da vida e estão aqui para nos lembrar que open source é um ecossistema que precisa de sustento. O software que criamos faz sua diferença no mundo: Bluefin pode ter sido feita por nerds de tecnologia, mas precisamos de dois humanos pra nos demonstrar a importância da criatividade da mente humana.  \n\n [Wallpapers e Dinossauros](https://universal-blue.discourse.group/t/dinosaur-gallery/18/5) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)"
       }
