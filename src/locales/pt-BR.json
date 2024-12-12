@@ -41,15 +41,6 @@
   "TryBluefin": {
     "Title": "Experimente Bluefin",
     "Description": "Use o formulário abaixo para obter o link de download da ISO correta para o seu hardware e uso. A equipe recomenda o <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> para criar a mídia de instalação:",
-    "Hardware": {
-      "Question": "Qual hardware você planeja utilizar?",
-      "DefaultSelection": "Selecione seu equipamento",
-      "Desktop": "Desktop",
-      "Framework": "Laptop da Framework",
-      "Surface": "Laptop da Microsoft (Surface)",
-      "Asus": "Laptop da ASUS",
-      "Other": "Outro Laptop"
-    },
     "Developer": {
       "Question": "Você é desenvolvedor?",
       "DefaultSelection": "Incluir ferramentas de desenvolvedor",
