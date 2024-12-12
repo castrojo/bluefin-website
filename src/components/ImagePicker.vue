@@ -9,13 +9,11 @@ import {
 
 const imageName: Ref<{
   base: string | undefined
-  hardware: string | undefined
   developer: string | undefined
   gpu: string | undefined
   stream: string | undefined
 }> = ref({
   base: "bluefin",
-  hardware: undefined,
   developer: undefined,
   gpu: undefined,
   stream: undefined
@@ -28,34 +26,17 @@ const getFormattedImageName = () => {
     final_name += "-dx"
   }
 
-  switch (imageName.value.hardware) {
-    case undefined:
-      break
-    case "asus":
-      final_name += "-asus"
-      break
-    case "surface":
-      final_name += "-surface"
-      break
-    case "framework":
-      final_name += "-framework"
-      break
-  }
-
   if (imageName.value.gpu === "nvidia") {
     final_name += "-nvidia"
   }
 
-  if (imageName.value.hardware === "asus") {
-    final_name += "-latest"
-  } else if (imageName.value.hardware === "surface") {
-    final_name += "-latest"
-  } else if (imageName.value.stream === "latest") {
-    final_name += "-latest"
-  } else if (imageName.value.stream === "gts") {
-    final_name += "-gts"
-  } else {
-    final_name += "-stable"
+  switch (imageName.value.stream) {
+    case "latest":
+    case "gts":
+      final_name += "-"+imageName.value.stream
+      break;
+    default:
+      final_name += "-stable";
   }
 
   return final_name
@@ -87,70 +68,15 @@ const { t } = useI18n<MessageSchema>({
 }
 </style>
 
+
 <template>
   <div
     class="flex pt-20 flex-wrap xl:flex-nowrap font-inter w-full xl:w-auto text-[11pt]"
   >
     <form autocomplete="off" class="container-xl w-full">
-      <div class="question-container">
-        <label for="selectedHardware" class="question-title">
-          {{ t("TryBluefin.Hardware.Question") }}
-        </label>
-        <div>
-          <select
-            v-model="imageName.hardware"
-            name="hardware"
-            class="question-select"
-          >
-            <option disabled selected :value="undefined">
-              {{ t("TryBluefin.Hardware.DefaultSelection") }}
-            </option>
-            <option :value="'desktop'">
-              {{ t("TryBluefin.Hardware.Desktop") }}
-            </option>
-            <optgroup label="Laptops">
-              <option :value="'desktop'">
-                {{ t("TryBluefin.Hardware.Framework") }}
-              </option>
-              <option :value="'surface'">
-                {{ t("TryBluefin.Hardware.Surface") }}
-              </option>
-              <option :value="'asus'">
-                {{ t("TryBluefin.Hardware.Asus") }}
-              </option>
-              <option :value="'desktop'">
-                {{ t("TryBluefin.Hardware.Other") }}
-              </option>
-            </optgroup>
-          </select>
-        </div>
-      </div>
-      <Transition name="fade">
-        <div class="question-container" v-if="imageName.hardware != undefined">
-          <label for="isDeveloper" class="question-title">{{
-            t("TryBluefin.Developer.Question")
-          }}</label>
-          <div>
-            <select
-              v-model="imageName.developer"
-              id="isDeveloper"
-              name="isDeveloper"
-              class="question-select"
-            >
-              <option :value="undefined" disabled selected>
-                {{ t("TryBluefin.Developer.DefaultSelection") }}
-              </option>
-              <option :value="true">{{ t("TryBluefin.Developer.Yes") }}</option>
-              <option :value="false">{{ t("TryBluefin.Developer.No") }}</option>
-            </select>
-          </div>
-        </div>
-      </Transition>
-
       <Transition name="fade">
         <div
           class="gpu question-container"
-          v-if="imageName.developer != undefined"
         >
           <label for="gpuVendor" class="question-title">{{
             t("TryBluefin.Gpu.Question")
@@ -174,7 +100,31 @@ const { t } = useI18n<MessageSchema>({
       </Transition>
 
       <Transition name="fade">
-        <div class="question-container" v-if="imageName.gpu != undefined">
+        <div 
+          class="question-container"
+          v-if="imageName.gpu != undefined"
+        >
+          <label for="isDeveloper" class="question-title">{{
+            t("TryBluefin.Developer.Question")
+          }}</label>
+          <div>
+            <select
+              v-model="imageName.developer"
+              id="isDeveloper"
+              name="isDeveloper"
+              class="question-select"
+            >
+              <option :value="undefined" disabled selected>
+                {{ t("TryBluefin.Developer.DefaultSelection") }}
+              </option>
+              <option :value="true">{{ t("TryBluefin.Developer.Yes") }}</option>
+              <option :value="false">{{ t("TryBluefin.Developer.No") }}</option>
+            </select>
+          </div>
+        </div>
+      </Transition>
+      <Transition name="fade">
+        <div class="question-container" v-if="imageName.developer != undefined">
           <label for="isGts" class="question-title">{{
             t("TryBluefin.Stream.Question")
           }}</label>
@@ -204,7 +154,6 @@ const { t } = useI18n<MessageSchema>({
     <Transition name="fade">
       <div
         v-if="
-          imageName.hardware != undefined &&
           imageName.developer != undefined &&
           imageName.gpu != undefined &&
           imageName.stream != undefined
