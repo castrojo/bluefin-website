@@ -61,8 +61,8 @@
       "Iso": "Download the {isoname} ISO",
       "Registry": "View details on the GitHub Container Registry",
       "Checksum": "Verify (SHA256)",
-      "DocumentationURL": "Check out the [Bluefin Documentation](https://docs.projectbluefin.io/), it takes about 15 minutes and includes an installation runbook - set yourself up for success, you are headed into a new world.",
-      "DeveloperNote": "Check out [Introduction to Bluefin DX](https://docs.projectbluefin.io/bluefin-dx)",
+      "DocumentationURL": "Check out the [Bluefin Documentation](https://docs.projectbluefin.io/), it takes about 15 minutes and includes an installation runbook - set yourself up for success, you are headed into a new world. **GTS Users**: The installation ISO is built on an older version of Fedora and will update to the latest supported version automatically.",
+      "DeveloperNote": "Check out [Introduction to Bluefin DX](https://docs.projectbluefin.io/bluefin-dx).",
       "DollyChill": "Dolly chilling near your ISO link"
     }
   },
