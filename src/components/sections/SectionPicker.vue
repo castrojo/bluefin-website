@@ -9,6 +9,17 @@ const { t } = useI18n<MessageSchema>({
 })
 </script>
 
+<style>
+a {
+  @include font(700);
+  color: var(--color-blue-light) !important;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+</style>
+
 <template>
   <section id="scene-picker" class="section-wrap">
     <div class="container">
