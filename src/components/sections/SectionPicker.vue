@@ -10,9 +10,9 @@ const { t } = useI18n<MessageSchema>({
 </script>
 
 <style>
-a {
+#scene-picker a {
   @include font(700);
-  color: var(--color-blue-light) !important;
+  color: var(--color-blue-light);
 
   &:hover {
     text-decoration: none;

@@ -66,6 +66,9 @@ const { t } = useI18n<MessageSchema>({
 .question-title {
   @apply mb-2 text-white text-2xl;
 }
+#downloadtexts a {
+  color: #FFFFFF !important;
+}
 </style>
 
 
@@ -160,7 +163,7 @@ const { t } = useI18n<MessageSchema>({
         "
         class="w-full mt-20 xl:m-auto container-xl justify-center flex flex-col text-white items-center xl:items-start xl:justify-left"
       >
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center" id="downloadtexts">
           <a
             class="bg-blue-500 rounded-3xl p-4 my-10 max-w-md flex flex-row flex-nowrap justify-center grow items-center"
             :href="
@@ -209,19 +212,6 @@ const { t } = useI18n<MessageSchema>({
           :src="'./characters/dolly.webp'"
           :title="t('TryBluefin.Download.DollyChill')"
         />
-
-        <!-- <span class="dx-only hidden-fade" -->
-        <!-- >Check out -->
-        <!-- <a -->
-        <!-- href="https://docs.projectbluefin.io/bluefin-dx" -->
-        <!-- target="_blank" -->
-        <!-- >Introduction to Bluefin DX</a -->
-        <!-- >.<br /></span -->
-        <!-- <img -->
-        <!-- class="dolly" -->
-        <!-- :src="dolly" -->
-        <!-- title="Dolly chilling near your ISO link" -->
-        <!-- /> -->
       </div>
     </Transition>
   </div>
