@@ -54,7 +54,6 @@
     "Stream": {
       "Question": "Wie häufig wünschst du deine Updates? ",
       "DefaultSelection": "Update Stream auswählen",
-      "Gts": "Bluefin GTS (für die meisten Anwender:innen, basiert auf Fedora {version})",
       "Stable": "Bluefin (für Enthusiast:innen, basiert auf Fedora {version})"
     },
     "Download": {
