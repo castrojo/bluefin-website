@@ -18,7 +18,7 @@
   "Devs": {
     "Tag": "Pre",
     "Title": "Vývojárov",
-    "Text": "Bluefin v sebe môže mť volitelný \"developer mode\" ktorý tvoje zariadenie transformuje na výkonnú pracovnú stanicu. Obsahuje workflowy zamerané na vývoj v kontajneroch, aby si mohol začať čo najjednoduchšie nech prichádzaš z akéhokoľvek prostredia. Maj [najlepšie nástroje v tomto priemysle](https://landscape.cncf.io/) na dosah ruky.",
+    "Text": "Bluefin v sebe môže mať volitelný \"developer mode\" ktorý tvoje zariadenie transformuje na výkonnú pracovnú stanicu. Obsahuje workflowy zamerané na vývoj v kontajneroch, aby si mohol začať čo najjednoduchšie nech prichádzaš z akéhokoľvek prostredia. Maj [najlepšie nástroje v tomto priemysle](https://landscape.cncf.io/) na dosah ruky.",
     "BoxOne": "Visual Studio Code s devcontainermy.",
     "BoxTwo": "Terminál zameraný na kontajnery",
     "BoxThree": "Devpod pre vývojárske prostredia",
@@ -40,7 +40,7 @@
   },
   "TryBluefin": {
     "Title": "Vyskúšať Bluefin",
-    "Description": "Použi formulár nižšie pre získanie správneho ISO súboru pre tvoj hardware a použitie. Náš tým odporúča <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> pre tvorbu inštalačných médií.",
+    "Description": "Použi formulár nižšie pre získanie správneho ISO súboru pre tvoj hardware a použitie. Náš tím odporúča <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> pre tvorbu inštalačných médií.",
     "Developer": {
       "Question": "Si vývojár?",
       "DefaultSelection": "Zahrnúť developer tooling",
@@ -78,7 +78,7 @@
       },
       "1": {
         "question": "Čím sa to odlišuje od ostatných systémov?",
-        "answer": "Bluefin je desktopový operačný novej generácie, ktorý sa zámerne správa ako spotrebiteľské zariadenie namiesto tradičnej distribúcie. Odstraňujeme paralýzu výberu pre používateľov tým, že ponúkame jeden dobre vyladený obchod Flathub, Homebrew, a minimalizujeme používanie systémových balíkov. \n\n Pre vývojárov sa sústreďujeme na čisto cloudový vývojársky workflow prostredníctvom devcontainerov.  \n\nAlebo použi akýkoľvek OCI kontajner ako svoj userspace. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis)"
+        "answer": "Bluefin je desktopový operačný novej generácie, ktorý sa zámerne správa ako spotrebiteľské zariadenie namiesto tradičnej distribúcie. Odstraňujeme paralýzu výberu pre používateľov tím, že ponúkame jeden dobre vyladený obchod Flathub, Homebrew, a minimalizujeme používanie systémových balíkov. \n\n Pre vývojárov sa sústreďujeme na čisto cloudový vývojársky workflow prostredníctvom devcontainerov.  \n\nAlebo použi akýkoľvek OCI kontajner ako svoj userspace. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis)"
       },
       "2": {
         "question": "Kde môžem nájsť viac informácií o funkciách?",
@@ -90,7 +90,7 @@
       },
       "4": {
         "question": "Aký je plán pre udržateľnosť projektu?",
-        "answer": "Tento projekt je naschvál písaný v bashi a Pythone aby bolo prispievanie čo najľahšie. V podstate len kopírujeme súbory hore-dolu, je to Linux. Keďze tento model vývoja Škáluje, máme pocit že organizácie ktoré využijú tento projekt pre svoje potreby by nám pomohli s vývojom. Väčšina funkcií je hotových a projekt priťahuje systémových administrátorov ktorí sa zaujímajú o automatizáciu. Každý môže prispieť a získať späť hodnotu automatizáciou údržby operačného systému skrz komunitu. Alebo jednoducho prispeje Sponzorom na GitHube, aby sa pokryli náklady na builderov a aby bolo viac dinosaurieho paleo umenia. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)"
+        "answer": "Tento projekt je naschvál písaný v bashi a Pythone aby bolo prispievanie čo najľahšie. V podstate len kopírujeme súbory hore-dolu, je to Linux. Keďze tento model vývoja škáluje, máme pocit že organizácie ktoré využijú tento projekt pre svoje potreby by nám pomohli s vývojom. Väčšina funkcií je hotových a projekt priťahuje systémových administrátorov, ktorí sa zaujímajú o automatizáciu. Každý môže prispieť a získať späť hodnotu automatizáciou údržby operačného systému skrz komunitu. Alebo jednoducho prispeje Sponzorom na GitHube, aby sa pokryli náklady na builderov a aby bolo viac dinosaurých paleo kresieb. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)"
       },
       "5": {
         "question": "Čo ak chcem používať KDE?",
@@ -103,7 +103,7 @@
     }
   },
   "Flock": {
-    "Title": "Náš Tým",
+    "Title": "Náš tím",
     "Description": "Bluefin vytvára skupina odhodlaných udržiavateľov a prispievateľov."
   },
   "Footer": {
