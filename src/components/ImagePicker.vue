@@ -32,7 +32,7 @@ const getFormattedImageName = () => {
 
   switch (imageName.value.stream) {
     case "latest":
-    case "gts":
+//  case "gts": 
       final_name += "-"+imageName.value.stream
       break;
     default:
