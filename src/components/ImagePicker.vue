@@ -141,8 +141,8 @@ const { t } = useI18n<MessageSchema>({
               <option disabled selected :value="undefined">
                 {{ t("TryBluefin.Stream.DefaultSelection") }}
               </option>
-              <option :value="'gts'">
-                {{ t("TryBluefin.Stream.Gts", { version: "40" }) }}
+              <!-- <option :value="'gts'">
+                {{ t("TryBluefin.Stream.Gts", { version: "40" }) }} -->
               </option>
               <option :value="'stable'">
                 {{ t("TryBluefin.Stream.Stable", { version: "41" }) }}
