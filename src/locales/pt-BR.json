@@ -54,7 +54,6 @@
     "Stream": {
       "Question": "Qual cadência de atualização você gostaria?",
       "DefaultSelection": "Selecione a cadência pra updates",
-      "Gts": "Bluefin GTS (para a maioria dos usos, baseado no Fedora {version})",
       "Stable": "Bluefin (para entusiastas, baseado no Fedora {version})"
     },
     "Download": {
