@@ -61,7 +61,7 @@
       "Iso": "Stiahnuť {isoname} ISO",
       "Registry": "Zobraziť podrobnosti na GitHub Container Registry",
       "Checksum": "Overiť (SHA256)",
-      "DocumentationURL": "Pozrieť [Bluefin Dokumentáciu](https://docs.projectbluefin.io/). Prečítanie nepotrvá viac ako 15 minút a obsahuje inštačnú príručku - pripravte sa na úspech, idete do nového sveta. <br/><br/><span style='font-weight: 900'>Hľadáš Bluefin GTS?</span> GTS ISá sú dočasne nedostupné, vrátia sa však na Jar 2025.",
+      "DocumentationURL": "Pozrieť [Bluefin Dokumentáciu](https://docs.projectbluefin.io/). Prečítanie nepotrvá viac ako 15 minút a obsahuje inštačnú príručku - pripravte sa na úspech, idete do nového sveta. <br/><br/><span style='font-weight: 900'>Hľadáš Bluefin GTS?</span> GTS ISO súbory sú dočasne nedostupné, vrátia sa však na Jar 2025.",
       "DeveloperNote": "Pozrieť [Úvod do Bluefin DX](https://docs.projectbluefin.io/bluefin-dx).",
       "DollyChill": "Dolly odpočívajúca pri tvojom ISO linku"
     }
