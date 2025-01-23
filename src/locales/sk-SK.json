@@ -1,0 +1,123 @@
+{
+  "Landing": {
+    "Title": "Linuxová pracovná stanica novej generácie, vyrobená pre spoľahlivosť, výkon a udržateľnosť.",
+    "DiscoverButton": "Objaviť",
+    "TryOutButton": "Vyskúšať"
+  },
+  "Users": {
+    "Text": "Bluefin je operačný systém pre tvoj počítač. Spája to najlepšie z oboch svetov: spoľahlivosť a jednoduchosť používania Chromebooku so silou grafického prostredia GNOME.",
+    "Tag": "Pre",
+    "Title": "Teba",
+    "Appendix": "Bluefin je navrhnutá tak, aby ti nestála v ceste. Obsahuje automatické aktualizácie založené na obrazoch systému (image-based) a jednoduchý grafický obchod s aplikáciami. Stiahni si, čo chceš, bez toho, aby si obetoval stabilitu systému. Linux sa vyvinul a ponúka jednoduchý štart novej generácii užívateľov. Viac nájdeš v [oznamovacom blogu](https://www.ypsidanger.com/announcing-project-bluefin/) a [úvodnej dokumentácii](https://docs.projectbluefin.io).",
+    "ArtworkDescription": "Kresba postavy bluefin",
+    "Box1": "Aplikácie z Flathubu",
+    "Box2": "Takmer nulová údržba",
+    "Box3": "Vrátane GPU driverov"
+  },
+  "ParallaxQuote": "Evolúcia je proces neustáleho vetvenia a expanzie.",
+  "Devs": {
+    "Tag": "Pre",
+    "Title": "Vývojárov",
+    "Text": "Bluefin v sebe môže mať volitelný \"developer mode\" ktorý tvoje zariadenie transformuje na výkonnú pracovnú stanicu. Obsahuje workflowy zamerané na vývoj v kontajneroch, aby si mohol začať čo najjednoduchšie nech prichádzaš z akéhokoľvek prostredia. Maj [najlepšie nástroje v tomto priemysle](https://landscape.cncf.io/) na dosah ruky.",
+    "BoxOne": "Visual Studio Code s devcontainermy.",
+    "BoxTwo": "Terminál zameraný na kontajnery",
+    "BoxThree": "Devpod pre vývojárske prostredia",
+    "BoxFour": "Homebrew jedným klikom",
+    "Appendix": "Zahrnutie [container runtime](https://podman.io) odomkne potenciál vášho tímu. Používajte tie isté nástroje, ktoré poháňajú modernú internetovú infraštruktúru na vašom počítači. Bluefin vie, ako dodávať do prevádzky. \n\nZameriavame sa na Linuxových operátorov, ktorí nepoužívajú Linux na desktope, pretože ich zklamal. Preto berieme Linux na dobrodružstvo skrz cloud-native svet ako komunita. \n\n> Buď ten ktorý hýbe svetom, nie ten s ktorým hýbe svet.\n> <cite>[Zavala][1]</cite>\n\n[1]: https://cs.wikipedia.org/wiki/Lance_Reddick",
+    "ArtworkDescription": "Obrázok prekonávajúcej postavy",
+    "TowerJoke": "<b>Prekonaj</b> svoj Backlog!"
+  },
+  "Mission": {
+    "Tag": "Naša",
+    "Title": "Misia",
+    "Text": "Bluefin nie je len softvér, je to nový druh zvieraťa, prispôsobený na prežitie v náročnom ekosystéme, v ktorom dominujú obri, a zároveň chráni svoju rodinu. \n\nVeríme že zážitok na desktopových počítačoch sa musí zmeniť. Technológia sa začína na počítači, zariadení, ktorého sa dotýkate, a malo by byť rovnako dôležité ako zvyšok Linuxového ekosystému. Dúfame, že zavedením cloud-native vzorov do desktopových počítačov vzbudíme záujem o túto výpočtovú techniku a zároveň uspokojíme potreby ďalšej generácie prispievateľov do open-source. Bluefin je navrhnutá tak, aby sa stala nástrojom, na ktorý sa môžete spoľahnúť a ktorý vám umožní robiť to, čo robíte najlepšie. Súčasný desktopový linux nás k tomu nedoviedol, ale veríme že to čo bolo vytvorené sa dá zmeniť. Urobme ho lepším.\n\nBluefin je o udržateľnosti, ktorá zahŕňa softvér, hardvér a ľudí.\n\n> Existujú dva spôsoby šírenia svetla: byť sviečkou alebo zrkadlom, ktoré ho odráža.\n> <cite>[Edith Wharton][1]</cite>\n\n[1]: https://cs.wikipedia.org/wiki/Edith_Wharton\n\nAlebo nám vykuchá vnútornosti. Kto vie.",
+    "BluefinChillAlt": "Ležiaca a odpočívajúca Bluefin"
+  },
+  "Video": {
+    "Url": "https://www.youtube.com/embed/Nz-yyDwTfRM&autoplay=1",
+    "Title": "Úvod do Bluefin Linux",
+    "AppendixText": "Projekt Bluefin nie je dokončený produkt, je to passion project vytváraný [nadšencami do cloud-native technológií](https://github.com/ublue-os/bluefin/graphs/contributors), ktorí chcú dosiahnuť spoľahlivejší a udržateľnejší Linuxový zážitok. Tu môžeš vidieť [súčasné problémy](https://github.com/ublue-os/bluefin/issues). Bluefin reprezentuje majestátneho a krásneho tvora, dokonalého predátora vo svete ktorý nevyhnuteľne čelí výzvam. Musíme sa mu prispôsobiť. Dokážeme to **spoločne**."
+  },
+  "TryBluefin": {
+    "Title": "Vyskúšať Bluefin",
+    "Description": "Použi formulár nižšie pre získanie správneho ISO súboru pre tvoj hardware a použitie. Náš tím odporúča <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> pre tvorbu inštalačných médií.",
+    "Developer": {
+      "Question": "Si vývojár?",
+      "DefaultSelection": "Zahrnúť developer tooling",
+      "Yes": "Áno",
+      "No": "Nie"
+    },
+    "Gpu": {
+      "Question": "Kto je výrobcom tvojej hlavnej grafickej karty? ",
+      "DefaultSelection": "Zvol výrobcu grafickej karty"
+    },
+    "Stream": {
+      "Question": "Ako agresívne máš rád svoje updaty? ",
+      "DefaultSelection": "Vyber kanál aktualizácií",
+      "Gts": "Bluefin GTS (pre väčšinu ľudí, založený na Fedore {version})",
+      "Stable": "Bluefin (pre nadšencov, založený na Fedore {version})"
+    },
+    "Download": {
+      "Iso": "Stiahnuť {isoname} ISO",
+      "Registry": "Zobraziť podrobnosti na GitHub Container Registry",
+      "Checksum": "Overiť (SHA256)",
+      "DocumentationURL": "Pozrieť [Bluefin Dokumentáciu](https://docs.projectbluefin.io/). Prečítanie nepotrvá viac ako 15 minút a obsahuje inštačnú príručku - pripravte sa na úspech, idete do nového sveta. <br/><br/><span style='font-weight: 900'>Hľadáš Bluefin GTS?</span> GTS ISO súbory sú dočasne nedostupné, vrátia sa však na Jar 2025.",
+      "DeveloperNote": "Pozrieť [Úvod do Bluefin DX](https://docs.projectbluefin.io/bluefin-dx).",
+      "DollyChill": "Dolly odpočívajúca pri tvojom ISO linku"
+    }
+  },
+  "NewsTitle": "Novinky",
+  "Faq": {
+    "Tag": "Nie si si istý?",
+    "Title": "FAQ",
+    "Text": "Ak tvoje otázky neboli zodpovedané, \nvieš nás nájsť na našom [Discourse fóre](https://universal-blue.discourse.group/c/bluefin/6). Taktiež pozri [docs.projectbluefin.io](https://docs.projectbluefin.io)",
+    "QuestionsArray": {
+      "0": {
+        "question": "Čo to má byť? Prečo ste vyrobili Linuxovú distribúciu?",
+        "answer": "Bluefin využíva funkcií bootc OCI kontajnerov pre zostavenie ISO obrazu. Na tento proces dohliada dobre štrukturovaná komunita ktorá sa usiluje o automatizáciu a udržateľnosť. Finálny produkt je podobný výsledkom konfiguračných management nástrojov ako Ansible alebo Salt, ale bez obvyklých problémov ktoré idú ruku v ruke s udržiavaním vlastnej distribúcie. Termín ktorý používame je \"custom image\" na opísanie tohoto prístupu. Je to ako keby ste mali niekoho kto vám nainštaluje, nastavý a bude udržiavať vyladený systém za vás. \n\n Alebo inými slovami, je to ako keď vám váš technický kamarát pomáha nastaviť počítač, ale robíme to spoločne ako komunita, aby sme si navzájom pomohli. \n\n[OSTree Native Containers](https://containers.github.io/bootc/)"
+      },
+      "1": {
+        "question": "Čím sa to odlišuje od ostatných systémov?",
+        "answer": "Bluefin je desktopový operačný novej generácie, ktorý sa zámerne správa ako spotrebiteľské zariadenie namiesto tradičnej distribúcie. Odstraňujeme paralýzu výberu pre používateľov tím, že ponúkame jeden dobre vyladený obchod Flathub, Homebrew, a minimalizujeme používanie systémových balíkov. \n\n Pre vývojárov sa sústreďujeme na čisto cloudový vývojársky workflow prostredníctvom devcontainerov.  \n\nAlebo použi akýkoľvek OCI kontajner ako svoj userspace. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis)"
+      },
+      "2": {
+        "question": "Kde môžem nájsť viac informácií o funkciách?",
+        "answer": "Detailnejšie informácie môžeš nájsť v našom GitHub repozitáry. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://docs.projectbluefin.io) [Developer Documentation](https://docs.projectbluefin.io/bluefin-dx)"
+      },
+      "3": {
+        "question": "Prečo dinosaury?",
+        "answer": "Bluefin je Deinonychus antirrhopus, theropod, ktorého meno znamená \"strašný pazúr\". Bol objavený v šesťdesiatych rokoch minulého storočia a zmenil naše chápanie dinosaurov. Pred Deinonychusom sa na dinosaury pozeralo ako na pomalé a hlúpe tvory. Avšak Bluefin zničil všetky tieto predsudky a dovolil nám nahliadnuť do dynamického sveta teplo-krvných, rýchlo sa vyvíjajúcich zvierat, ktoré boli pánmi svojej domény. Naším cieľom je systém s podobnou obratnosťou, výkonom a prispôsobivosťou. \n\n [Deinonychus](https://sk.wikipedia.org/wiki/Deinonychus)"
+      },
+      "4": {
+        "question": "Aký je plán pre udržateľnosť projektu?",
+        "answer": "Tento projekt je naschvál písaný v bashi a Pythone aby bolo prispievanie čo najľahšie. V podstate len kopírujeme súbory hore-dolu, je to Linux. Keďze tento model vývoja škáluje, máme pocit že organizácie ktoré využijú tento projekt pre svoje potreby by nám pomohli s vývojom. Väčšina funkcií je hotových a projekt priťahuje systémových administrátorov, ktorí sa zaujímajú o automatizáciu. Každý môže prispieť a získať späť hodnotu automatizáciou údržby operačného systému skrz komunitu. Alebo jednoducho prispeje Sponzorom na GitHube, aby sa pokryli náklady na builderov a aby bolo viac dinosaurých paleo kresieb. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)"
+      },
+      "5": {
+        "question": "Čo ak chcem používať KDE?",
+        "answer": "Aurora je podobná Bluefin, až na to že používa KDE. Dúfame že Bluefin a Aurora inšpirujú ostatných aby si vytvorili svoje vlastné komunity okolo užívateľského zážitku ktorý im vyhovuje. Taktiež mrknite na Bazzite ak chcete herný zážitok pre nadšencov podobný SteamOS. Spoločne sme silnejší. \n\n [Aurora](https://getaurora.dev) \n [Bazzite](https://bazzite.gg)"
+      },
+      "6": {
+        "question": "Nemám záujem o operačný systém, mohol by som stiahnuť len dinosaury?",
+        "answer": "Bluefin oživili Jacob Schnurr a Andy Frazer. Obrázky môžete používať bezplatne. Predstavujú krehkú rovnováhu života a majú nám pripomínať, že open source je ekosystém, ktorý treba udržiavať. Softvér ktorý vytvárame má vplyv na svet: Bluefin možno vytvorili technologickí nerdi, ale bolo potrebné, aby nám dvaja ľudia ukázali význam kreativity ľudskej mysle. \n\n [Tapety a Dinosaury](https://universal-blue.discourse.group/t/dinosaur-gallery/18/5) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)"
+      }
+    }
+  },
+  "Flock": {
+    "Title": "Náš tím",
+    "Description": "Bluefin vytvára skupina odhodlaných udržiavateľov a prispievateľov."
+  },
+  "Footer": {
+    "Title": "Powered by",
+    "Copyright": "Copyright {date} © Project Bluefin a Universal Blue",
+    "Project": "Bluefin je vytvorený pomocou [Universal Blue](https://universal-blue.org), a komunitným setom nástrojov navrhnutých aby vylepšili Linuxové systémy. Vytvorené z lásky k hre. Vitajte v indie Cloud Native.",
+    "ProjectTitle": "Project Bluefin",
+    "References": "Všetky kresby sú vyrobené skutočními ľuďmi.\n\n- Stránka - [Jan Dolanský](https://dolansky.dev/) & [Kyle Gospodnetich](https://kylegospodneti.ch/)\n- Logá a tapety - [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775)\n- Bluefin Ilustračná Tapeta - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)\n- Preklady - [Tulip Blossom](https://github.com/tulilirockz)\n- Špeciálne poďakovanie - [Aaron Lake](https://www.linkedin.com/in/aaron-lake/), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://www.kotterva.com/), a [Marco Ceppi](https://github.com/marcoceppi)"
+  },
+  "Navbar": {
+    "ForYou": "Pre Teba",
+    "ForDevs": "Pre Vývojárov",
+    "OurMission": "Naša Misia",
+    "TryOut": "Vyskúšať",
+    "FAQ": "FAQ"
+  }
+}
