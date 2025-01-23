@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@iconify-prerendered/vue-mdi": "^0.23.1718880438",
+    "@iconify-prerendered/vue-mdi": "^0.28.0",
     "@types/marked": "^5.0.2",
     "@vueuse/components": "^10.11.1",
     "@vueuse/core": "^10.11.1",
