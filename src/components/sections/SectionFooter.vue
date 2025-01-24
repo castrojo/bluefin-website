@@ -7,6 +7,9 @@ import { useI18n } from "vue-i18n"
 const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
+
+// @ts-ignore
+import IframeResizer from "@iframe-resizer/vue/sfc"
 </script>
 
 <template>
@@ -17,11 +20,12 @@ const { t } = useI18n<MessageSchema>({
         <p style="font-size: 18px">
           {{ $t("Flock.Description") }}
         </p>
-        <iframe
+        <IframeResizer
+          license="GPLv3"
           id="contributor-container"
           src="/contributors.html"
           loading="lazy"
-        ></iframe>
+        ></IframeResizer>
       </div>
     </section>
     <div class="container">
