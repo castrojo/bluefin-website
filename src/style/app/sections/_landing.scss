@@ -1,10 +1,13 @@
+@use "../../setup/fonts";
+@use "../../setup/mixins";
+
 #scene-landing {
-  @include flex(0, flex-start, $d: column);
+  @include mixins.flex(0, flex-start, $d: column);
   padding-top: 10%;
   z-index: 50;
 
   .title {
-    @include grid(40px, 2);
+    @include mixins.grid(40px, 2);
     opacity: 0;
 
     // Define animations
@@ -75,7 +78,7 @@
 
     strong,
     h2 {
-      @include font(700);
+      @include fonts.font(700);
       text-transform: uppercase;
       color: var(--color-bg);
     }
@@ -93,7 +96,7 @@
 
     p {
       display: block;
-      @include font(400);
+      @include fonts.font(400);
       margin-bottom: 30px;
       font-size: 1.9rem;
       line-height: 1.3em;
@@ -103,12 +106,12 @@
 }
 
 .scene-quote {
-  @include flex(0, center, center, column);
+  @include mixins.flex(0, center, center, column);
   height: 30vh !important;
   border-bottom: none !important;
 
   blockquote {
-    @include font(400);
+    @include fonts.font(400);
     font-size: 1.6rem;
     color: var(--color-text-light);
     font-style: italic;
@@ -143,7 +146,7 @@
         }
 
         a {
-          @include font(700);
+          @include fonts.font(700);
           text-align: right;
           display: block;
           font-size: 1.4rem;

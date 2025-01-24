@@ -1,3 +1,6 @@
+@use "../../setup/fonts";
+@use "../../setup/mixins";
+
 footer {
   display: block;
   position: relative;
@@ -31,7 +34,7 @@ footer {
   }
 
   .container {
-    @include grid(0, 1.5fr 2fr);
+    @include mixins.grid(0, 1.5fr 2fr);
 
     & > div:first-of-type {
       border-right: 1px solid var(--color-border);
@@ -41,11 +44,11 @@ footer {
     & > div:last-of-type {
       padding-left: 60px;
 
-      @include flex(0, flex-start, flex-start, column);
+      @include mixins.flex(0, flex-start, flex-start, column);
     }
 
     .logo-list {
-      @include flex(64px, flex-start, flex-start, $w: wrap);
+      @include mixins.flex(64px, flex-start, flex-start, $w: wrap);
       width: 95%;
 
       img {
@@ -55,7 +58,7 @@ footer {
   }
 
   .footer-title {
-    @include font(700);
+    @include fonts.font(700);
     display: block;
     font-size: 1.4rem;
     text-transform: uppercase;
@@ -81,11 +84,11 @@ footer {
     }
 
     b {
-      @include font(700);
+      @include fonts.font(700);
     }
 
     a {
-      @include font(700);
+      @include fonts.font(700);
       color: var(--color-blue) !important;
 
       &:hover {
@@ -96,12 +99,12 @@ footer {
   }
 
   .footer-links {
-    @include flex(40px);
+    @include mixins.flex(40px);
 
     li {
       a {
-        @include t();
-        @include flex(5px);
+        @include mixins.t();
+        @include mixins.flex(5px);
         font-size: 1.6rem;
         color: var(--color-text);
         text-decoration: none;
@@ -114,7 +117,7 @@ footer {
         }
 
         svg {
-          @include t();
+          @include mixins.t();
           color: var(--color-text);
           font-size: 2.2rem;
         }

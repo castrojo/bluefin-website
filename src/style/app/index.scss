@@ -1,15 +1,16 @@
 // Main app styles
-@import "./layout";
-@import "./scene";
-@import "./navigation";
-@import "./animations";
-@import "./loading";
-@import "./sections/";
-@import "./parallax";
-@import ".button";
+@use "layout";
+@use "scene";
+@use "navigation";
+@use "animations";
+@use "loading";
+@use "sections";
+@use "parallax";
+@use "button";
+@use "../setup/fonts";
 
 h1 {
-  @include font(700);
+  @include fonts.font(700);
   font-size: 10rem;
   text-transform: uppercase;
   padding-top: 80px;

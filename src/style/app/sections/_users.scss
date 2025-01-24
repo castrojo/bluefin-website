@@ -1,9 +1,11 @@
+@use "../../setup/mixins";
+
 #scene-users {
   min-height: 90vh;
   z-index: 49;
 
   .container {
-    @include grid(40px, 1fr 1.25fr);
+    @include mixins.grid(40px, 1fr 1.25fr);
     align-items: center;
 
     .scene-content {
@@ -73,7 +75,7 @@
       }
 
       .brand-item {
-        @include flex(0, center, center);
+        @include mixins.flex(0, center, center);
         border: none;
         border-right: 1px solid var(--color-border-light);
         text-align: center;

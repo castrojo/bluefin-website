@@ -1,3 +1,6 @@
+@use "../setup/fonts";
+@use "../setup/mixins";
+
 .scene-components {
   // SECTION: debug
   z-index: 10;
@@ -47,7 +50,7 @@
   }
 
   strong {
-    @include font(400);
+    @include fonts.font(400);
     display: block;
     font-size: 1.2rem;
     text-transform: uppercase;
@@ -55,7 +58,7 @@
   }
 
   h2 {
-    @include font(700);
+    @include fonts.font(700);
     font-size: 7rem;
     margin-bottom: 30px;
     text-transform: uppercase;
@@ -68,12 +71,12 @@
     color: var(--color-text-light);
 
     em {
-      @include font(700);
+      @include fonts.font(700);
       font-style: italic;
     }
 
     a {
-      @include font(700);
+      @include fonts.font(700);
       color: var(--color-blue-light) !important;
 
       &:hover {
@@ -126,20 +129,20 @@
 }
 
 .scene-arrow {
-  @include flex(15px, $a: flex-end);
+  @include mixins.flex(15px, $a: flex-end);
   position: absolute;
   bottom: 0;
   left: 15%;
 
   span {
-    @include font(400);
+    @include fonts.font(400);
     font-size: 1rem;
     line-height: 1.2em;
     color: var(--color-text);
     // opacity: 0.5;
 
     b {
-      @include font(700);
+      @include fonts.font(700);
       font-size: inherit;
     }
   }

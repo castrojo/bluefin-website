@@ -1,3 +1,5 @@
+@use "../../setup/fonts";
+
 #scene-video {
   // border-top: 1px solid var(--color-border);
   // border-bottom: 1px solid var(--color-border);
@@ -39,7 +41,7 @@
       }
 
       a {
-        @include font(700);
+        @include fonts.font(700);
         color: var(--color-blue-light) !important;
 
         &:hover {
@@ -48,7 +50,7 @@
       }
 
       strong {
-        @include font(700);
+        @include fonts.font(700);
       }
 
       em {
