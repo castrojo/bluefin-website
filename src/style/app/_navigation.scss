@@ -24,7 +24,9 @@
     }
   }
 
-  animation: 1s cubic-bezier(0.85, 0, 0.15, 1) 0s 1 popup;
+   & {
+     animation: 1s cubic-bezier(0.85, 0, 0.15, 1) 0s 1 popup
+   }
 
   nav {
     ul {
