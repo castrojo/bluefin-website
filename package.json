@@ -1,7 +1,7 @@
 {
-  "name": "website",
+  "name": "project-bluefin-website",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -9,24 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@iconify-prerendered/vue-mdi": "^0.28.0",
+    "@iconify-prerendered/vue-mdi": "^0.28.1737398331",
+    "@tailwindcss/vite": "^4.0.0",
     "@types/marked": "^6.0.0",
-    "@vueuse/components": "^10.11.1",
-    "@vueuse/core": "^12.0.0",
-    "marked": "^15.0.0",
-    "sass": "^1.80.6",
-    "vue": "^3.5.12",
-    "vue-i18n": "^11.0.0"
+    "@vueuse/components": "^12.5.0",
+    "@vueuse/core": "^12.5.0",
+    "marked": "^15.0.6",
+    "sass": "^1.83.4",
+    "vue": "^3.5.13",
+    "vue-i18n": "^11.0.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.43.0",
-    "@vitejs/plugin-vue": "^4.6.2",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.0.0",
-    "postcss": "^8.4.48",
+    "@vitejs/plugin-vue": "^5.2.1",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.6.3",
-    "vite": "^4.5.9",
-    "vue-tsc": "^2.1.10"
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11",
+    "vue-tsc": "^2.2.0"
   }
 }

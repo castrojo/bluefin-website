@@ -1,3 +1,5 @@
+@use "../setup/mixins";
+
 @media only screen and (max-width: 956px) {
   .scene-components {
     padding-bottom: 64px;
@@ -98,7 +100,7 @@
     margin-top: -40px;
 
     .title {
-      @include flex(0px, center, center, column-reverse);
+      @include mixins.flex(0px, center, center, column-reverse);
 
       .img-wrap {
         margin-bottom: -40px;
@@ -284,7 +286,7 @@
     }
 
     .container {
-      @include flex(20px, center, center, column-reverse);
+      @include mixins.flex(20px, center, center, column-reverse);
 
       .img-wrap {
         position: relative;
@@ -384,7 +386,7 @@
       justify-content: flex-start;
 
       svg {
-        @include t();
+        @include mixins.t();
         line-height: unset;
         font-size: 20px !important;
         color: inherit;
@@ -426,7 +428,7 @@
       & > div:last-of-type {
         padding-left: 0;
 
-        @include flex(0, center, flex-start, column);
+        @include mixins.flex(0, center, flex-start, column);
       }
 
       .logo-list {

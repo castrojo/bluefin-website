@@ -1,16 +1,17 @@
-@import "./faq";
-@import "./mission";
-@import "./footer";
-@import "./gamers";
-@import "./devs";
-@import "./users";
-@import "./landing";
-@import "./video";
-@import "./news";
-@import "./picker";
+@use "faq";
+@use "mission";
+@use "footer";
+@use "gamers";
+@use "devs";
+@use "users";
+@use "landing";
+@use "video";
+@use "news";
+@use "picker";
+@use "../../setup/mixins";
 
 .brand-grid {
-  @include grid(0, 2);
+  @include mixins.grid(0, 2);
   margin-bottom: 20px;
 
   .brand-item {
@@ -27,7 +28,7 @@
     }
 
     & > div {
-      @include flex(20px);
+      @include mixins.flex(20px);
       margin-bottom: 20px;
     }
 

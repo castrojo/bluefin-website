@@ -1,7 +1,9 @@
+@use "../setup/mixins";
+
 .page-loading {
   position: fixed;
   inset: 0;
-  @include flex(20px, center, center, column);
+  @include mixins.flex(20px, center, center, column);
 
   .loader {
     width: 56px;

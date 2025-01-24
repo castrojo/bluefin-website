@@ -1,7 +1,9 @@
-@import "./setup/";
+@use "sass:meta";
+@use "setup/fonts";
+@use "setup";
 
 html {
-  @include font(400);
+  @include fonts.font(400);
   font-size: 63.5%;
   position: relative;
   background-color: var(--color-bg);
@@ -14,6 +16,6 @@ html {
   }
 }
 
-@import "./app/";
+@include meta.load-css("app/");
 
-@import "./overrides/";
+@include meta.load-css("overrides/");

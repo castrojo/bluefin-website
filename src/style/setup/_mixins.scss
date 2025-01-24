@@ -1,9 +1,10 @@
+@use "sass:meta";
 //
 // Helpers
 //
 
 @function is-number($value) {
-  @return type-of($value) == "number";
+  @return meta.type-of($value) == "number";
 }
 
 @mixin noselect() {

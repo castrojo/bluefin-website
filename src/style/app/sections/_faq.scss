@@ -1,3 +1,6 @@
+@use "../../setup/fonts";
+@use "../../setup/mixins";
+
 #scene-faq {
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
@@ -5,7 +8,7 @@
   margin-bottom: 128px;
 
   .container {
-    @include grid(80px, 1fr 2fr);
+    @include mixins.grid(80px, 1fr 2fr);
     position: relative;
 
     .scene-content {
@@ -41,9 +44,9 @@
   }
 
   .faq-btn {
-    @include t();
-    @include font(700);
-    @include grid(18px, 24px 1fr);
+    @include mixins.t();
+    @include fonts.font(700);
+    @include mixins.grid(18px, 24px 1fr);
     margin-bottom: 20px;
     color: var(--color-text);
     font-size: 2.2rem;
@@ -56,7 +59,7 @@
     }
 
     svg {
-      @include t();
+      @include mixins.t();
       width: 32px;
       font-size: 2.6rem;
       color: inherit;
@@ -64,7 +67,7 @@
   }
 
   .faq-content {
-    @include t(0.15s);
+    @include mixins.t(0.15s);
     overflow: hidden;
     font-size: 1.4rem;
     padding-left: 40px;
@@ -79,14 +82,14 @@
       }
 
       a {
-        @include font(700);
-        @include t();
+        @include fonts.font(700);
+        @include mixins.t();
         height: 36px;
         line-height: 36px;
         border: 1px solid var(--color-blue);
         color: var(--color-blue);
         border-radius: 18px;
-        @include flex(10px, flex-start, center);
+        @include mixins.flex(10px, flex-start, center);
         display: inline-flex;
         padding: 0 20px;
         font-size: 1.2rem;

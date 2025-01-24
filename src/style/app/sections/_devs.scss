@@ -1,3 +1,6 @@
+@use "../../setup/fonts";
+@use "../../setup/mixins";
+
 #scene-developers {
   padding-bottom: 212px;
 
@@ -19,7 +22,7 @@
     }
 
     .scene-arrow {
-      @include flex(10px, flex-start, flex-start);
+      @include mixins.flex(10px, flex-start, flex-start);
       left: unset;
       position: absolute;
       right: 10%;
@@ -32,7 +35,7 @@
       }
 
       b {
-        @include font(700);
+        @include fonts.font(700);
       }
     }
 
