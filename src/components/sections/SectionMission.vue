@@ -28,6 +28,7 @@ const { t } = useI18n<MessageSchema>({
       <Transition name="fade">
         <div v-if="vis" class="img-wrap">
           <img
+            class="container"
             :src="LangMissionBluefinImageURL"
             :alt="t('Misson.BluefinChillAlt')"
           />

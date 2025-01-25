@@ -78,7 +78,7 @@ const { t } = useI18n<MessageSchema>({
           </div>
         </div>
         <div class="img-wrap">
-          <img :src="LangLandingBluefinImageURL" alt="Bluefin" />
+          <img class="container" :src="LangLandingBluefinImageURL" alt="Bluefin" />
         </div>
       </div>
     </div>

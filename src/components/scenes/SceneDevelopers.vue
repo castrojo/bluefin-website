@@ -10,17 +10,15 @@ import type { MessageSchema } from "../../locales/schema"
 const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
-
-const vis = ref(false)
 </script>
 
 <template>
   <section id="scene-developers" class="section-wrap">
     <div class="container">
       <Transition name="fade">
-        <div v-if="vis">
+        <div>
           <div class="img-wrap">
-            <img :src="LangDevsTowerImageURL" :alt="t('ArtworkDescription')" />
+            <img class="container" :src="LangDevsTowerImageURL" :alt="t('ArtworkDescription')" />
           </div>
           <div class="scene-arrow">
             <img src="/icons/arrow.svg" alt="" />

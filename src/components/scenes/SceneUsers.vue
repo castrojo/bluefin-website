@@ -14,15 +14,13 @@ import { useI18n } from "vue-i18n"
 const { t } = useI18n<MessageSchema>({
   useScope: "global"
 })
-
-const vis = ref(false)
 </script>
 
 <template>
   <section id="scene-users" class="section-wrap">
     <div class="container">
       <Transition name="fade">
-        <div v-if="vis" class="img-wrap">
+        <div class="img-wrap">
           <img
             :src="LangUsersBluefinImageURL"
             :alt="t('Users.ArtworkDescription')"

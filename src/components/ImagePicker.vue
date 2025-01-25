@@ -52,26 +52,27 @@ const { t } = useI18n<MessageSchema>({
 </script>
 
 // Ofc this is inneficient, but its much better than the old solution.
-<style scoped>
+<style>
+@import "tailwindcss";
 
-.questionare-form {
-  display: flex; 
-  padding-top: 5rem; 
-  flex-wrap: wrap; 
-  width: 100%; 
-  color: 11pt;
-  
-  @media (min-width: 1280px) { 
-    flex-wrap: nowrap; 
-    width: auto; 
-  }
+.question-select {
+  @apply rounded-xl bg-black p-5 text-white w-full xl:w-full xl:max-w-xl border-blue-500 border-s-8 text-2xl;
 }
-
+.question-container {
+  @apply my-7 w-full;
+}
+.question-title {
+  @apply mb-2 text-white text-2xl;
+}
+#downloadtexts a {
+  color: #FFFFFF !important;
+}
 </style>
+
 
 <template>
   <div
-    class="questionare-form"
+    class="flex pt-20 flex-wrap xl:flex-nowrap font-inter w-full xl:w-auto text-[11pt]"
   >
     <form autocomplete="off" class="container-xl w-full">
       <Transition name="fade">
@@ -124,33 +125,32 @@ const { t } = useI18n<MessageSchema>({
         </div>
       </Transition>
       <!-- GTS is entirely broken right now, we gotta disable it. -->
-      <!--
-      <Transition name="fade">
-        <div class="question-container" v-if="imageName.developer != undefined">
-          <label for="isGts" class="question-title">{{
-            t("TryBluefin.Stream.Question")
-          }}</label>
-          <div class="select">
-            <select
-              v-model="imageName.stream"
-              id="isGts"
-              name="isGts"
-              class="question-select"
-            >
-              <option disabled selected :value="undefined">
-                {{ t("TryBluefin.Stream.DefaultSelection") }}
-              </option>
-              <option :value="'gts'">
-                {{ t("TryBluefin.Stream.Gts", { version: "40" }) }}
-              </option>
-              <option :value="'stable'">
-                {{ t("TryBluefin.Stream.Stable", { version: "41" }) }}
-              </option>
-              Do not add Latest, it is way too unstable for new users
-            </select>
-          </div>
-        </div>
-      </Transition> -->
+      <!-- <Transition name="fade"> -->
+        <!-- <div class="question-container" v-if="imageName.developer != undefined"> -->
+          <!-- <label for="isGts" class="question-title">{{ -->
+            <!-- t("TryBluefin.Stream.Question") -->
+          <!-- }}</label> -->
+          <!-- <div class="select"> -->
+            <!-- <select -->
+              <!-- v-model="imageName.stream" -->
+              <!-- id="isGts" -->
+              <!-- name="isGts" -->
+              <!-- class="question-select" -->
+            <!-- > -->
+              <!-- <option disabled selected :value="undefined"> -->
+                <!-- {{ t("TryBluefin.Stream.DefaultSelection") }} -->
+              <!-- </option> -->
+              <!-- <option :value="'gts'"> -->
+                <!-- {{ t("TryBluefin.Stream.Gts", { version: "40" }) }} -->
+              <!-- </option> -->
+              <!-- <option :value="'stable'"> -->
+                <!-- {{ t("TryBluefin.Stream.Stable", { version: "41" }) }} -->
+              <!-- </option> -->
+              <!-- Do not add Latest, it is way too unstable for new users -->
+            <!-- </select> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </Transition> -->
     </form>
 
     <Transition name="fade">
