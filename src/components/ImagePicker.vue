@@ -164,7 +164,7 @@ const { t } = useI18n<MessageSchema>({
       >
         <div class="flex flex-row items-center" id="downloadtexts">
           <a
-            class="bg-blue-500 rounded-3xl p-4 my-10 max-w-md flex flex-row flex-nowrap justify-center grow items-center"
+            class="bg-blue-500 rounded-3xl max-w-md flex flex-row flex-nowrap justify-center grow items-center" style="padding: 1.5rem; margin-top: 2.5rem; margin-bottom: 2.5rem; margin-right: 1.5rem; font-size: 1.5rem; line-height: 2rem;  "
             :href="
               BLUEFIN_DOWNLOAD_URL.replace(
                 '%TEMPLATE%',
