@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue"
 import { marked } from "marked"
 import { LangDevsAppendix, LangDevsTowerImageURL } from "../../content"
 import SceneContent from "../common/SceneContent.vue"
@@ -32,7 +31,6 @@ const { t } = useI18n<MessageSchema>({
           :tag="'Devs.Tag'"
           :title="'Devs.Title'"
           :text="'Devs.Text'"
-          @visible="vis = true"
         >
           <div class="brand-grid">
             <div class="brand-item">

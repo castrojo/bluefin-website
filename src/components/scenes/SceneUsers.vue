@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue"
 import { marked } from "marked"
 import SceneContent from "../common/SceneContent.vue"
 import SceneVisibilityChecker from "../common/SceneVisibilityChecker.vue"
@@ -33,7 +32,6 @@ const { t } = useI18n<MessageSchema>({
           :tag="'Users.Tag'"
           :title="'Users.Title'"
           :text="'Users.Text'"
-          @visible="vis = true"
         >
           <div class="brand-grid">
             <div
