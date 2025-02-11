@@ -1,0 +1,122 @@
+{
+  "Landing": {
+    "Title": "La sekva generacio de Linuksa laborstacio, desegnita por fidindeco, rendimento kaj daŭripovo.",
+    "DiscoverButton": "Malkovri",
+    "TryOutButton": "Provi"
+  },
+  "Users": {
+    "Text": "Bluefin estas operacia sistemo por via komputilo. La plej bona el du mondoj: la fidindeco kaj faciluzo de Chromebook, kun la potenco de GNOME labortablo.",
+    "Tag": "Por",
+    "Title": "Vi",
+    "Appendix": "Enhavante aŭtomatajn bild-bazitajn ĝisdatigojn kaj simplan grafikan aplikaĵvendejon, Bluefin estas desegnita por ne esti en via vojo. Akiru kion vi volas sen oferi sisteman stabilecon. La Linuksa kliento evoluis, pura komenco por la sekva generacio. Kontrolu la [anoncan blogafiŝon](https://www.ypsidanger.com/announcing-project-bluefin/) kaj [enkondukan dokumentadon](https://docs.projectbluefin.io) por pli da informoj.",
+    "ArtworkDescription": "Bluefin karaktera artaĵo",
+    "Box1": "Aplikaĵoj per Flathub",
+    "Box2": "Preskaŭ nula prizorgado",
+    "Box3": "Inkluzivitaj GPU peliloj"
+  },
+  "ParallaxQuote": "Evoluo estas proceso de konstanta branĉiĝo kaj ekspansio.",
+  "Devs": {
+    "Tag": "Por",
+    "Title": "Programistoj",
+    "Text": "Bluefin venas kun laŭvola „programista reĝimo” kiu transformas vian aparaton en potencan laborstacion. Ĝi prezentas kontener-centrajn laborflukojn por komenci depende de kie vi venas, aŭ alportu vian propran. Uzu la [plej bonajn ilojn de la industrio](https://landscape.cncf.io/) je viaj fingropintoj.",
+    "BoxOne": "Visual Studio Code kun devcontainers.",
+    "BoxTwo": "Uja-centra terminalo",
+    "BoxThree": "Devpod por programistaj medioj kiel kodo",
+    "BoxFour": "Homebrew preta",
+    "Appendix": "La inkluzivo de [uja-rultempilo](https://podman.io) malŝlosas la potencialon de via teamo. Uzu la samajn ilojn kiuj funkcigas modernan interretan infrastrukturon sur via labortablo. Bluefin scias kiel liveri al produktado. \n\nNi celas linuksajn operatorojn kiuj ne uzas Linukson sur la labortablo ĉar ĝi malsukcesis ilin. Do ni kondukas la Linuksan labortablon tra ĝia nuba-indiĝena vojaĝo kaj konstruas ĝin kiel komunumo. \n\n> Estu tiu kiu movas, ne tiu kiu estas movata.\n> <cite>[Zavala][1]</cite>\n\n[1]: https://eo.wikipedia.org/wiki/Lance_Reddick",
+    "ArtworkDescription": "Tura protagonista artaĵo",
+    "TowerJoke": "<b>Supreniru</b> vian Atendvicon!"
+  },
+  "Mission": {
+    "Tag": "Nia",
+    "Title": "Misio",
+    "Text": "Bluefin ne estas nur programaro, ŝi estas nova speco de besto, adaptita por travivi la malfacilaĵojn de ekosistemo regata de gigantoj dum protektante sian familion. \n\nNi kredas ke la labortabla sperto bezonas ŝanĝiĝi. Teknologio komenciĝas per la loka komputilo, la aparato kiun vi tuŝas, kaj ĝi devus esti same esenca kiel la cetero de la Linuksa ekosistemo.\n\nPer enkonduko de nub-indiĝenaj modeloj al la labortablo ni esperas eksciti intereson pri labortabla komputado dum servante al la sekva generacio de malfermitkodaj kontribuantoj. Bluefin estas desegnita por esti la ilo sur kiu vi dependas por fari kion vi plej bone faras. La nuna Linuksa labortablo ne alportis nin tien, sed ni kredas ke kio estis farita, povas esti malfarita. Ni plibonigu ĝin.\n\nBluefin temas pri daŭripovo, ampleksante la programaron, la aparataron, kaj la homojn.\n\n> Estas du manieroj disvastigi lumon: esti la kandelo aŭ la spegulo kiu reflektas ĝin.\n> <cite>[Edith Wharton][1]</cite>\n\n[1]: https://eo.wikipedia.org/wiki/Edith_Wharton\n\nAŭ eble ŝi disŝiros niajn internojn survoje. Lerta Knabino.",
+    "BluefinChillAlt": "Bluefin kuŝanta kaj malstreĉiĝanta"
+  },
+  "Video": {
+    "Url": "https://www.youtube.com/embed/Nz-yyDwTfRM&autoplay=1",
+    "Title": "Enkonduko al Bluefin Linux",
+    "AppendixText": "Projekto Bluefin ne estas finita produkto, ŝi estas daŭra pasia projekto prizorgata de [nub-indiĝenaj entuziasmloj](https://github.com/ublue-os/bluefin/graphs/contributors) kiuj serĉas pli fidindan kaj prizorgeblan Linuksan labortablan sperton. Kontrolu la [malfermitajn problemojn](https://github.com/ublue-os/bluefin/issues).\n\nŜi reprezentas la plej modernan arton ... bela kaj unika estaĵo. Perfekta predanto por mondo kiu neeviteble alfrontos defiojn. Ni devas adaptiĝi. Ni povas fari tion **kune**."
+  },
+  "TryBluefin": {
+    "Title": "Provu Bluefin",
+    "Description": "Uzu la formularon sube por akiri la ĝustan ISO-elŝuton por via aparataro kaj uzkazo. La teamo rekomendas <a href='https://flathub.org/apps/org.fedoraproject.MediaWriter'>Fedora Media Writer</a> por krei instalan portilon:",
+    "Developer": {
+      "Question": "Ĉu vi estas programisto?",
+      "DefaultSelection": "Inkluzivi programistajn ilojn",
+      "Yes": "Jes",
+      "No": "Ne"
+    },
+    "Gpu": {
+      "Question": "Kiu estas la vendisto de via ĉefa GPU? ",
+      "DefaultSelection": "Elektu vian ĉefan GPU-vendiston"
+    },
+    "Stream": {
+      "Question": "Kiom agresema vi ŝatas viajn ĝisdatigojn? ",
+      "DefaultSelection": "Elektu vian ĝisdatigan fluon",
+      "Stable": "Bluefin (por entuziasmloj, bazita sur Fedora {version})"
+    },
+    "Download": {
+      "Iso": "Elŝuti la {isoname} ISO",
+      "Registry": "Vidi detalojn en la GitHub Container Registry",
+      "Checksum": "Kontroli (SHA256)",
+      "DocumentationURL": "Kontrolu la [Bluefin Dokumentadon](https://docs.projectbluefin.io/), ĝi daŭras ĉirkaŭ 15 minutojn kaj inkluzivas instalan gvidlibron - preparu vin por sukceso, vi iras en novan mondon. <br/><br/><span style='font-weight: 900'>Serĉante Bluefin GTS?</span> GTS ISO-j nuntempe ne haveblas sed revenos en Printempo 2025.",
+      "DeveloperNote": "Kontrolu [Enkonduko al Bluefin DX](https://docs.projectbluefin.io/bluefin-dx).",
+      "DollyChill": "Dolly malstreĉiĝanta apud via ISO-ligilo"
+    }
+  },
+  "NewsTitle": "Novaĵoj",
+  "Faq": {
+    "Tag": "Necerta?",
+    "Title": "Oftaj demandoj",
+    "Text": "Se viaj demandoj restas nerespondataj, \nvi povas trovi nin [en nia Discourse forumo](https://universal-blue.discourse.group/c/bluefin/6) kaj kontroli [docs.projectbluefin.io](https://docs.projectbluefin.io)",
+    "QuestionsArray": {
+      "0": {
+        "question": "Kio ĝuste estas ĉi tio? Kial vi kreis Linuksan distribuaĵon?",
+        "answer": "Bluefin uzas la OCI-kontenilajn funkciojn de bootc por komponi kaj konstrui OS-bildon. Ĉi tiu procezo estas superrigardita de bone strukturita komunumo kiu estas dediĉita al aŭtomatigo kaj daŭripovo. La fina rezulto similas al konfigurada administra ilo kiel Ansible aŭ Salt, sed sen la tipaj defioj asociitaj kun prizorgado de propra distribuaĵo. Ni uzas la terminon „propra bildo” por priskribi ĉi tiun aliron. Estas kvazaŭ havi iun instali, agordi, kaj prizorgi polurita agordaron por vi. \n\n Estas kvazaŭ via nerda amiko helpas vin agordi vian komputilon, krom ke ni faras tion kune kiel komunumo por helpi unu la alian. \n\n[OSTree Native Containers](https://containers.github.io/bootc/)"
+      },
+      "1": {
+        "question": "Kiel ĉi tio malsamas de aliaj labortabloj?",
+        "answer": "Bluefin estas sekva-generacia labortablo kiu intence kondutas kiel konsuma aparato anstataŭ tradicia distribuaĵo. Ni forigas elekto-paralizon por uzantoj prezentante unu bone kuratitan Flathub-vendejon, Homebrew, kaj minimumigante la uzon de sistema pakaĵado. \n\n Por programistoj ni koncentriĝas je pura nub-indiĝena programista laborfluo per devcontainers.  \n\nAŭ uzu iun ajn OCI-kontenilon kiel via uzantspaco. \n\n [Distrobox](https://distrobox.privatedns.org/compatibility/#host-distros) \n [Flathub](https://flathub.org) \n [Devcontainers](https://containers.dev) \n [Ptyxis](https://flathub.org/apps/app.devsuite.Ptyxis)"
+      },
+      "2": {
+        "question": "Kie mi povas trovi pli da detaloj pri la funkcioj?",
+        "answer": "Vi povas trovi detalan informon en nia GitHub-deponejo. \n\n [GitHub](https://github.com/ublue-os/bluefin#readme) \n [Bluefin Documentation](https://docs.projectbluefin.io) [Developer Documentation](https://docs.projectbluefin.io/bluefin-dx)"
+      },
+      "3": {
+        "question": "Kial dinosaŭroj?",
+        "answer": "Bluefin estas Deinonychus antirrhopus, teropoda dinosaŭro kies nomo signifas „terura ungego”. Malkovrita en la 1960-aj jaroj, ŝi revoluciigis nian komprenon pri dinosaŭroj. Antaŭ Deinonychus, dinosaŭroj ofte estis vidataj kiel malrapidaj, malpli inteligentaj estaĵoj. Tamen, ŝi disbatis ĉi tiujn miskomprenaĵojn, donante komprenon pri la dinamika mondo de varmosangaj, rapide evoluantaj bestoj kiuj estis mastroj de sia domajno. Ni celas ke nia labortablo enkorpigu similan kapablon. Potenco kaj adaptiĝemo. \n\n [Deinonychus](https://eo.wikipedia.org/wiki/Deinonychus)"
+      },
+      "4": {
+        "question": "Kiel vi planas fari la projekton daŭripova?",
+        "answer": "La projekto estas intence skribita en bash kaj Python por permesi facilan eniron. Ni nur kopias dosierojn, estas Linukso. Ĉar ĉi tiu modelo skaliĝas, ni sentas ke organizoj kiuj ricevas valoron el ĉi tiu projekto kontribuus iom da sia tempo por helpi prizorgi ĝin. Ĝi estas plejparte funkcie kompleta kaj ĝi altiras aŭtomatig-mensajn sistemadministrantojn. Iu ajn povas kontribui kaj rericevi valoron per aŭtomatigo de operacia sistema prizorgado per komunumo. Aŭ simple donacu al GitHub Sponsors por helpi pagi la konstruilojn kaj sponsori pli da palearto. \n\n [GitHub Sponsors](https://github.com/sponsors/castrojo)"
+      },
+      "5": {
+        "question": "Kio se mi volas uzi KDE?",
+        "answer": "Aurora similas al Bluefin sed uzas KDE anstataŭe. Ni esperas ke Bluefin kaj Aurora servas kiel inspiro por aliaj konstrui siajn proprajn komunumojn ĉirkaŭ uzantaj spertoj. Ankaŭ kontrolu Bazzite se vi volas entuziasmulan ludadan sperton, similan al SteamOS. Birdoj de sama plumaro estas pli fortaj kune. \n\n [Aurora](https://getaurora.dev) \n [Bazzite](https://bazzite.gg)"
+      },
+      "6": {
+        "question": "Mi ne interesiĝas pri operaciumo, ĉu mi povas simple akiri la dinosaŭrojn?",
+        "answer": "Bluefin estis kreita de Jacob Schnurr kaj Andy Frazer. La arto estas libera por vi uzi. Ĝi reprezentas la delikatan ekvilibron de vivo kaj estas tie por rememori al ni, ke malferma fonto estas ekosistemo, kiu bezonas esti subtenata. La programaro, kiun ni faras, havas efikon al la mondo: Bluefin eble estas kunmetita de teknologiaj entuziasmuloj, sed du homoj necesis por montri al ni la gravecon de la kreemo de la homa menso.\n\n [Fondo kaj Dinosaŭroj](https://universal-blue.discourse.group/t/dinosaur-gallery/18/5) \n [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775) \n [Andy Frazer](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)"
+      }
+    }
+  },
+  "Flock": {
+    "Title": "Nia Flocko",
+    "Description": "Bluefin estas konstruita de dediĉita grupo de prizorgantoj kaj kontribuantoj."
+  },
+  "Footer": {
+    "Title": "Povita De",
+    "Copyright": "Kopirajto {date} © Projekto Bluefin kaj Universala Blua",
+    "Project": "Bluefin estas konstruita kun [Universala Blua](https://universal-blue.org), komunuma ilaro desegnita por restartigi la Linux-labortablon. Konstruita pro la amo al la ludo. Bonvenon al indie Cloud Native.",
+    "ProjectTitle": "Projekto Bluefin",
+    "References": "Ĉiuj artoj estas kreitaj de homoj.\n\n- Retpaĝo - [Jan Dolanský](https://dolansky.dev/) & [Kyle Gospodnetich](https://kylegospodneti.ch/)\n- Logoj kaj Fondo - [Jacob Schnurr](https://www.etsy.com/shop/JSchnurrCommissions?listing_id=1425657775)\n- Ilustra Fondo Bluefin - Andy Frazer, [DragonsofWales](https://www.etsy.com/fi-en/shop/DragonsofWales?ref=profile_header)\n- Tradukoj - [Tulip Blossom](https://github.com/tulilirockz), [karhima](https://github.com/karhima), [Niklas](https://niklas.tech), [Crono](https://github.com/EPOCHvoyager) kaj [Tsu-gu](https://github.com/Tsu-gu) \n- Specialaj Dankoj - [Aaron Lake](https://www.linkedin.com/in/aaron-lake/), [Brian Ketelsen](https://brian.dev/), [Dustin Kirkland](https://www.kotterva.com/), kaj [Marco Ceppi](https://github.com/marcoceppi)"
+  },
+  "Navbar": {
+    "ForYou": "Por vi",
+    "ForDevs": "Por programistoj",
+    "OurMission": "Nia misio",
+    "TryOut": "Provu",
+    "FAQ": "POD"
+  }
+}
