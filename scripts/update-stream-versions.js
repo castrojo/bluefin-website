@@ -42,8 +42,8 @@ export async function updateProducts({ products = ['bluefin'] } = {}) {
   const auditResult = await verifyRegistry(records, { collectVerifiedImageSbom })
   const projected = projectBluefinStreams(auditResult)
 
-  // Write YAML with only the stable/lts data (no checkedAt at top level in YAML)
-  const yamlData = {}
+  // Write YAML with checkedAt and stable/lts data
+  const yamlData = { checkedAt: projected.checkedAt }
   if (projected.stable) yamlData.stable = projected.stable
   if (projected.lts) yamlData.lts = projected.lts
 

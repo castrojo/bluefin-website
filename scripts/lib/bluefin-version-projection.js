@@ -12,6 +12,30 @@ const BLUEFIN_IDS = IMAGE_SBOM_REGISTRY
   .map(r => r.id)
 
 /**
+ * Strip RPM epoch prefix (e.g. `3:`) and Fedora/EL dist-tag suffix
+ * (e.g. `.fc44`, `.el10`) from a user-facing version string.
+ * Preserves the RPM release segment (`-1`, `-201`).
+ *
+ * Examples:
+ *   "7.1.6-201.fc44"      → "7.1.6-201"
+ *   "50.3-1.fc44"         → "50.3-1"
+ *   "3:610.57.04-1.fc44"  → "610.57.04-1"
+ *   "6.12.0-233.el10"     → "6.12.0-233"  (unchanged — no .el suffix in this form)
+ *
+ * @param {string} v
+ * @returns {string}
+ */
+export function normalizeUserVersion(v) {
+  if (typeof v !== 'string') return v
+  let out = v
+  // Strip leading numeric epoch (e.g. "3:")
+  out = out.replace(/^\d+:/, '')
+  // Strip trailing .fcNN or .elNN
+  out = out.replace(/\.(?:fc|el)\d+$/, '')
+  return out
+}
+
+/**
  * Derive the Fedora base version from a kernel-core RPM version string.
  * Example: "7.0.12-201" with suffix ".fc44" → "Fedora 44"
  * The registry extracts versions after normalisation strips .fc suffixes,
@@ -42,14 +66,23 @@ export function projectBluefinStreams(auditResult, checkedAt) {
   const ltsHwe = bluefinImages.find(img => img.id === 'bluefin-lts-hwe')
   const ltsNvidia = bluefinImages.find(img => img.id === 'bluefin-lts-nvidia')
 
+  /**
+   * Normalize all version values in a map for user display.
+   * Skips the 'base' key (already human-readable, e.g. "Fedora 44").
+   */
+  function normalizeVals(vals) {
+    const out = {}
+    for (const [k, v] of Object.entries(vals)) {
+      out[k] = k === 'base' ? v : normalizeUserVersion(v)
+    }
+    return out
+  }
+
   // Build stable stream
   let stable
   if (stableBase && stableBase.status === 'verified' && stableBase.values) {
     const vals = { ...stableBase.values }
 
-    // Derive base from the 'base' field which is the raw kernel-core version
-    // The registry maps the 'base' field to kernel-core; its normalised value
-    // contains the fc suffix needed for derivation.
     if (vals.base) {
       const fedora = deriveFedoraBase(vals.base)
       if (fedora) {
@@ -64,7 +97,7 @@ export function projectBluefinStreams(auditResult, checkedAt) {
 
     stable = {
       status: 'verified',
-      ...vals,
+      ...normalizeVals(vals),
     }
   }
   else {
@@ -85,7 +118,7 @@ export function projectBluefinStreams(auditResult, checkedAt) {
 
     lts = {
       status: 'verified',
-      ...vals,
+      ...normalizeVals(vals),
     }
   }
   else {

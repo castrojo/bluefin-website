@@ -4,6 +4,7 @@ import ImageChooser from '../components/ImageChooser.vue'
 import { i18n } from '../locales/schema'
 
 const STREAM_VERSIONS_YAML = `
+checkedAt: '2026-08-26T00:00:00.000Z'
 lts:
   status: unavailable
 stable:

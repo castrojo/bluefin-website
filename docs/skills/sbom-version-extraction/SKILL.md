@@ -1,16 +1,17 @@
 ---
 name: sbom-version-extraction
-description: Use when editing scripts/lib/spdx-version-extractor.js, scripts/lib/oci-sbom.js, scripts/lib/image-version-audit.js, scripts/update-dakota-versions.js, scripts/update-image-versions.js, or their tests.
+description: Use when editing scripts/lib/spdx-version-extractor.js, scripts/lib/oci-sbom.js, scripts/lib/image-version-audit.js, scripts/lib/bluefin-version-projection.js, scripts/update-dakota-versions.js, scripts/update-stream-versions.js, scripts/update-image-versions.js, or their tests.
 ---
 
 # SBOM version extraction
 
 ## Overview
 
-Dakota version data (`public/dakota-versions.json`) is derived exclusively from
-SPDX SBOMs attached to published GHCR images. Editing the scripts that drive
-this pipeline requires understanding how BuildStream SBOMs differ from Syft SBOMs
-and how ambiguity is handled.
+Version data for Dakota (`public/dakota-versions.json`) and Bluefin
+(`public/stream-versions.yml`) is derived exclusively from SPDX SBOMs attached
+to published GHCR images. Editing the scripts that drive this pipeline requires
+understanding how BuildStream SBOMs differ from Syft SBOMs and how ambiguity is
+handled.
 
 **Prohibited sources.** Do not reinstate parsing of `.bst` source refs or GitHub
 file content. Those sources describe the next build, not the image users are
@@ -21,10 +22,14 @@ running. Any future PR restoring those imports should be rejected.
 Use when editing any of these files:
 
 - `scripts/lib/spdx-version-extractor.js`
+- `scripts/lib/bluefin-version-projection.js`
 - `scripts/lib/oci-sbom.js`
 - `scripts/update-dakota-versions.js`
+- `scripts/update-stream-versions.js`
 - `scripts/tests/spdx-version-extractor.test.ts`
+- `scripts/tests/bluefin-version-projection.test.ts`
 - `scripts/tests/update-dakota-versions.test.ts`
+- `scripts/tests/update-stream-versions.test.ts`
 - `scripts/tests/fixtures/dakota-linux-elements.spdx.json`
 
 ## When NOT to Use
@@ -36,7 +41,7 @@ generated. Do not use for Wolves version data; that lives in
 ## Core Process
 
 1. Read the prohibited-sources comment at the top of `update-dakota-versions.js`.
-2. Run `npx vitest run scripts/tests/spdx-version-extractor.test.ts scripts/tests/update-dakota-versions.test.ts` before and after changes.
+2. Run `npx vitest run scripts/tests/spdx-version-extractor.test.ts scripts/tests/update-dakota-versions.test.ts scripts/tests/bluefin-version-projection.test.ts scripts/tests/update-stream-versions.test.ts` before and after changes.
 3. Commit the implementation file before or in the same commit as any test
    that imports it.
 4. Update this skill when you discover a new correctness rule.
@@ -46,10 +51,14 @@ generated. Do not use for Wolves version data; that lives in
 | File | Role |
 |---|---|
 | `scripts/lib/spdx-version-extractor.js` | Core extraction: `normalizeVersion`, `packageElement`, `extractMappedVersions` |
+| `scripts/lib/bluefin-version-projection.js` | Bluefin projection: `projectBluefinStreams`, `normalizeUserVersion` |
 | `scripts/lib/oci-sbom.js` | OCI layer: `pullImageSbom`, `compareVersions`, `spdxPackageVersion` |
-| `scripts/update-dakota-versions.js` | Updater: `versionsFromSbom`, `applyVersions`, `main` |
+| `scripts/update-dakota-versions.js` | Dakota updater: `versionsFromSbom`, `applyVersions`, `main` |
+| `scripts/update-stream-versions.js` | Bluefin updater: `updateProducts`, `createHeader` |
 | `scripts/tests/spdx-version-extractor.test.ts` | Extractor unit tests |
-| `scripts/tests/update-dakota-versions.test.ts` | Updater integration tests |
+| `scripts/tests/bluefin-version-projection.test.ts` | Projection unit tests |
+| `scripts/tests/update-dakota-versions.test.ts` | Dakota updater integration tests |
+| `scripts/tests/update-stream-versions.test.ts` | Bluefin updater tests |
 | `scripts/tests/fixtures/dakota-linux-elements.spdx.json` | BuildStream SPDX fixture |
 
 ## Critical correctness rules
@@ -99,6 +108,28 @@ When `scripts/update-dakota-versions.js` is dirty (uncommitted), tests that
 import from it pass locally but fail in a clean worktree. Always commit the
 implementation in the same commit as the tests that import it, or in a prior
 commit. Never commit a test file before the module it imports.
+
+### Bluefin projection-layer normalisation
+
+User-facing RPM versions in `stream-versions.yml` are normalised by
+`normalizeUserVersion` in `bluefin-version-projection.js`, **not** in the shared
+extractor. The shared extractor preserves raw SPDX evidence unchanged.
+
+Rules:
+- Strip leading numeric epoch (`3:610.57.04-1.fc44` → `610.57.04-1`)
+- Strip trailing `.fcNN` / `.elNN` suffix (`7.1.6-201.fc44` → `7.1.6-201`)
+- Preserve RPM release segment (`-1`, `-201`)
+
+### `versionInfo` takes precedence over `version`
+
+`extractMappedVersions` reads `pkg.versionInfo ?? pkg.version`. Syft SBOMs use
+`version`; SPDX uses `versionInfo`. The fallback is necessary for Syft
+compatibility. Do not normalise or strip raw values in the shared extractor.
+
+### `checkedAt` in stream-versions.yml
+
+`stream-versions.yml` must include a top-level `checkedAt` ISO timestamp.
+`ImageChooser.vue` declares `checkedAt?: string` in `StreamVersions`.
 
 ## Fixture structure
 

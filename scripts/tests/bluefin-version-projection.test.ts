@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { projectBluefinStreams } from '../lib/bluefin-version-projection.js'
+import { projectBluefinStreams, normalizeUserVersion } from '../lib/bluefin-version-projection.js'
 import { dump as dumpYaml } from 'js-yaml'
 
 const IMAGE_DIGEST = 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -31,7 +31,7 @@ const STABLE_NVIDIA = {
   imageDigest: 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc',
   sbomDigest: 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
   status: 'verified',
-  values: { nvidia: '595.71.05' },
+  values: { nvidia: '3:610.57.04-1.fc44' },
 }
 
 const LTS_BASE = {
@@ -70,21 +70,21 @@ const LTS_NVIDIA = {
 }
 
 describe('projectBluefinStreams', () => {
-  it('stable values come from bluefin-stable', () => {
+  it('stable values come from bluefin-stable with normalized versions', () => {
     const result = projectBluefinStreams(
       { checkedAt: '2026-08-26T00:00:00Z', images: [STABLE_BASE] },
     )
     expect(result.stable.status).toBe('verified')
-    expect(result.stable.kernel).toBe('7.0.12-201.fc44')
-    expect(result.stable.gnome).toBe('50.3-1.fc44')
+    expect(result.stable.kernel).toBe('7.0.12-201')
+    expect(result.stable.gnome).toBe('50.3-1')
     expect(result.stable.base).toBe('Fedora 44')
   })
 
-  it('stable nvidia comes only from bluefin-stable-nvidia', () => {
+  it('stable nvidia comes only from bluefin-stable-nvidia, epoch stripped', () => {
     const withNvidia = projectBluefinStreams(
       { checkedAt: '2026-08-26T00:00:00Z', images: [STABLE_BASE, STABLE_NVIDIA] },
     )
-    expect(withNvidia.stable.nvidia).toBe('595.71.05')
+    expect(withNvidia.stable.nvidia).toBe('610.57.04-1')
 
     const withoutNvidia = projectBluefinStreams(
       { checkedAt: '2026-08-26T00:00:00Z', images: [STABLE_BASE] },
@@ -125,8 +125,8 @@ describe('projectBluefinStreams', () => {
       { checkedAt: '2026-08-26T00:00:00Z', images: [STABLE_BASE, LTS_BASE, LTS_HWE, LTS_NVIDIA] },
     )
     expect(result.lts.status).toBe('verified')
-    expect(result.lts.kernel).toBe('6.12.0-233.el10')
-    expect(result.lts.hwe).toBe('7.0.8-100.fc43')
+    expect(result.lts.kernel).toBe('6.12.0-233')
+    expect(result.lts.hwe).toBe('7.0.8-100')
     expect(result.lts.nvidia).toBe('575.0')
   })
 
@@ -146,5 +146,41 @@ describe('projectBluefinStreams', () => {
     )
     expect(result.stable.status).toBe('unavailable')
     expect(result.stable.kernel).toBeUndefined()
+  })
+})
+
+describe('normalizeUserVersion', () => {
+  it('strips .fcNN suffix preserving RPM release', () => {
+    expect(normalizeUserVersion('7.1.6-201.fc44')).toBe('7.1.6-201')
+    expect(normalizeUserVersion('50.3-1.fc44')).toBe('50.3-1')
+  })
+
+  it('strips leading numeric epoch and .fcNN suffix', () => {
+    expect(normalizeUserVersion('3:610.57.04-1.fc44')).toBe('610.57.04-1')
+  })
+
+  it('strips .elNN suffix', () => {
+    expect(normalizeUserVersion('6.12.0-233.el10')).toBe('6.12.0-233')
+    expect(normalizeUserVersion('49.5')).toBe('49.5')
+  })
+
+  it('passes through versions without epoch or dist-tag', () => {
+    expect(normalizeUserVersion('595.71.05')).toBe('595.71.05')
+    expect(normalizeUserVersion('1.2.3')).toBe('1.2.3')
+  })
+})
+
+describe('YAML serialization', () => {
+  it('full serialization with partial optional data contains no literal unknown', () => {
+    // Stable verified with NVIDIA, LTS unavailable (partial data)
+    const result = projectBluefinStreams(
+      { checkedAt: '2026-08-26T00:00:00Z', images: [STABLE_BASE, STABLE_NVIDIA] },
+    )
+    const yaml = dumpYaml(result)
+    expect(yaml).not.toContain('unknown')
+    expect(yaml).toContain('checkedAt')
+    expect(yaml).toContain('2026-08-26T00:00:00Z')
+    expect(yaml).toContain('verified')
+    expect(yaml).toContain('unavailable')
   })
 })

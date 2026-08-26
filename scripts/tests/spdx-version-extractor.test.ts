@@ -121,4 +121,32 @@ describe('extractMappedVersions', () => {
     expect(result.missingRequired).toContain('kernel')
     expect(result.rejected.some(r => r.field === 'kernel')).toBe(true)
   })
+
+  it('versionInfo takes precedence over version (Syft regression)', () => {
+    const sbom = {
+      packages: [
+        { name: 'kernel-core', versionInfo: '7.1.6-201.fc44', version: '7.1.6' },
+      ],
+    }
+    const result = extractMappedVersions(sbom, { kernel: { name: 'kernel-core' } })
+    expect(result.values.kernel).toBe('7.1.6-201.fc44')
+  })
+
+  it('falls back to version when versionInfo is absent (Syft)', () => {
+    const sbom = {
+      packages: [
+        { name: 'kernel-core', version: '7.1.6-201.fc44' },
+      ],
+    }
+    const result = extractMappedVersions(sbom, { kernel: { name: 'kernel-core' } })
+    expect(result.values.kernel).toBe('7.1.6-201.fc44')
+  })
+
+  it('Dakota SPDX extraction uses versionInfo from BuildStream packages', () => {
+    // Verify the existing fixture still works — versionInfo is the standard SPDX field
+    const result = extractMappedVersions(FIXTURE, {
+      kernel: { name: 'linux', element: 'components/linux.bst' },
+    })
+    expect(result.values.kernel).toBe('7.0.7')
+  })
 })

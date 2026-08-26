@@ -29,6 +29,7 @@ interface VersionInfo {
 }
 
 interface StreamVersions {
+  checkedAt?: string
   lts: VersionInfo
   stable: VersionInfo
 }
