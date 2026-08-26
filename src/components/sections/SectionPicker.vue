@@ -61,17 +61,17 @@ const wolvesDownloads = computed(() => [
     versionRows: dakotaRows.value
   },
   {
-    title: t('TryBluefin.Wolves.Cards.Utah'),
-    description: t('TryBluefin.Wolves.Cards.UtahDescription'),
-    href: 'https://devconf.us',
-    image: 'characters/utah.webp',
-    versionRows: []
-  },
-  {
     title: t('TryBluefin.Wolves.Cards.Server'),
     description: t('TryBluefin.Wolves.Cards.ServerDescription'),
     href: '/server/',
     image: 'characters/alamosaurus.webp',
+    versionRows: []
+  },
+  {
+    title: t('TryBluefin.Wolves.Cards.Utah'),
+    description: t('TryBluefin.Wolves.Cards.UtahDescription'),
+    href: 'https://devconf.us',
+    image: 'characters/utah.webp',
     versionRows: []
   }
 ])

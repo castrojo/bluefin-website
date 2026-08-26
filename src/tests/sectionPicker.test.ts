@@ -60,18 +60,18 @@ describe('sectionPicker.vue', () => {
     const cards = wrapper.findAll('.wolves-download-grid .card-box')
     expect(cards.map(card => card.get('.card-title').text())).toEqual([
       'Dakota',
-      'Utah',
-      'Bluefin Server'
+      'Bluefin Server',
+      'Utah'
     ])
     expect(cards.map(card => card.attributes('href'))).toEqual([
       '/dakota/',
-      'https://devconf.us',
-      '/server/'
+      '/server/',
+      'https://devconf.us'
     ])
     expect(cards.map(card => card.get('.card-image').attributes('style'))).toEqual([
       expect.stringContaining('characters/dakota.webp'),
-      expect.stringContaining('characters/utah.webp'),
-      expect.stringContaining('characters/alamosaurus.webp')
+      expect.stringContaining('characters/alamosaurus.webp'),
+      expect.stringContaining('characters/utah.webp')
     ])
   })
 
