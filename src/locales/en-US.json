@@ -88,6 +88,18 @@
       "Choice": "Choose your raptor for your hardware and use case. The team recommends [Fedora Media Writer](https://flathub.org/apps/org.fedoraproject.MediaWriter) to create installation media, Ventoy is unsupported. Check [the documentation](https://docs.projectbluefin.io) for more information.",
       "Updates": "Bluefin receives timely security updates and is available in two different streams that reflect how aggressively it receives feature updates:"
     },
+    "Wolves": {
+      "Title": "For the Wolves",
+      "Description": "No compromises. This agentic factory uses [Hive](https://hive.kubestellar.io) to coordinate agent actions across the organization. It is designed to be a sovereign, local first, and fully automated platform for the user.\n\nThree components. A server, built with Buildstream and FSDK as a vendor neutral platform. A desktop, Dakota, designed to be a natural \"client\". And Utah is built on Fedora Hummingbird and is the Openshift to our Kubernetes. Every component is 100% open source and free to use.",
+      "Cards": {
+        "Dakota": "Dakota",
+        "DakotaDescription": "The Final Form. Bluefin Perfected.",
+        "Utah": "Utah",
+        "UtahDescription": "",
+        "Server": "Bluefin Server",
+        "ServerDescription": "The world's premier FSDK server operating system."
+      }
+    },
     "Label": {
       "Base": "Base",
       "Gnome": "GNOME",
