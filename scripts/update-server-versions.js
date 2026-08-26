@@ -1,208 +1,78 @@
 #!/usr/bin/env node
 
 /**
- * Script to update server-versions.json with live data from:
- *   1. Flatcar Container Linux release server — version.txt + SPDX SBOM JSON
- *      for each stream (stable, beta, alpha, lts)
- *   2. GitHub Releases API — projectbluefin/server latest tag
+ * Updates server-versions.json from the SPDX SBOM attached to the published
+ * Bluefin Server image.
  *
- * Flatcar SBOM URL pattern:
- *   https://{channel}.release.flatcar-linux.net/amd64-usr/current/flatcar_production_image_sbom.json
+ * This script previously fetched Flatcar Container Linux release streams and
+ * wrote docker/containerd/ignition/etcd fields. That was wrong: Bluefin Server
+ * is an FSDK/BuildStream 2, DDI-first, distroless OS that merely targets the
+ * same space as Flatcar. It ships none of those components, and the numbers it
+ * reported belonged to a different operating system.
  *
- * Non-zero exit is intentional when all fetches fail — CI should fail loudly
- * if both the data source AND the fallback values are missing.
- * Individual stream failures are soft (keep existing value).
+ * Bluefin Server does not publish a container image yet, so there is no SBOM to
+ * read and this script exits non-zero by design. That failure is the signal to
+ * add SBOM publishing to projectbluefin/server — it is not a reason to
+ * reintroduce a substitute data source.
+ *
+ * Requires: oras, authenticated against ghcr.io.
  */
 
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
+import { pullImageSbom, spdxPackageVersion } from './lib/oci-sbom.js'
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/server-versions.json')
 
-const CHANNELS = ['stable', 'beta', 'alpha', 'lts']
-const SERVER_RELEASES_URL = 'https://api.github.com/repos/projectbluefin/server/releases/latest'
+const SERVER_IMAGE = process.env.BLUEFIN_SERVER_IMAGE ?? 'ghcr.io/projectbluefin/server:latest'
 
-const headers = {
-  'User-Agent': 'bluefin-website-updater',
-  ...(process.env.GITHUB_TOKEN ? { Authorization: `token ${process.env.GITHUB_TOKEN}` } : {}),
+// server-versions.json field → SPDX package name.
+const SERVER_PACKAGES = {
+  kernel: 'linux',
+  systemd: 'systemd',
+  k3s: 'k3s',
 }
 
-export async function fetchText(url) {
-  const res = await fetch(url, { headers, redirect: 'follow' })
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status} from ${url}`)
+/**
+ * Read the mapped package versions out of the server SPDX document.
+ * @param {object} sbom - parsed SPDX document
+ * @returns {Record<string, string>} resolved versions, omitting misses
+ */
+export function versionsFromSbom(sbom) {
+  const resolved = {}
+  for (const [field, packageName] of Object.entries(SERVER_PACKAGES)) {
+    const version = spdxPackageVersion(sbom, packageName)
+    if (version) {
+      resolved[field] = version
+      console.info(`[server-versions] ${field} -> ${version}`)
+    }
+    else {
+      console.warn(`[server-versions] no version for "${packageName}"`)
+    }
   }
-  return res.text()
+  return resolved
 }
 
-export async function fetchJSON(url) {
-  const res = await fetch(url, { headers, redirect: 'follow' })
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status} from ${url}`)
+/**
+ * Build the document written to server-versions.json.
+ *
+ * Bluefin Server has no application version of its own — per that repo's
+ * docs/skills/bump-fsdk-version.md the version axis IS the FSDK release, which
+ * the image declares in its io.projectbluefin.fsdk.version label.
+ * @param {Record<string, string>} versions - SBOM-derived package versions
+ * @param {string} fsdkVersion - FSDK release the image was built from
+ * @param {string} generatedAt - ISO timestamp to stamp
+ * @returns {object} server-versions.json contents
+ */
+export function buildServerVersionData(versions, fsdkVersion, generatedAt) {
+  return {
+    generatedAt,
+    fsdkVersion,
+    packages: versions,
   }
-  return res.json()
-}
-
-export function parseVersionTxt(body) {
-  const result = {}
-  for (const line of body.split('\n')) {
-    const parts = line.trim().split('=')
-    if (parts.length !== 2) {
-      continue
-    }
-    const [key, val] = parts.map(s => s.replace(/^"|"$/g, ''))
-    if (key === 'FLATCAR_VERSION') {
-      result.version = val
-    }
-    if (key === 'FLATCAR_BUILD_ID' && val.length >= 10) {
-      result.buildDate = val.slice(0, 10)
-    }
-  }
-  return result
-}
-
-export function parseSBOM(doc) {
-  const result = {}
-  for (const pkg of (doc.packages ?? [])) {
-    switch (pkg.name) {
-      case 'sys-kernel/coreos-kernel':
-        result.kernel = pkg.versionInfo
-        break
-      case 'sys-apps/systemd':
-        result.systemd = pkg.versionInfo
-        break
-      case 'sys-apps/ignition':
-        result.ignition = (pkg.versionInfo ?? '').replace(/-r\d+$/, '')
-        break
-      case 'dev-db/etcd':
-        result.etcd = pkg.versionInfo
-        break
-    }
-  }
-  return result
-}
-
-export function extractVersion(line, prefix) {
-  const after = line.slice(prefix.length)
-  const colonIdx = after.indexOf('::')
-  return colonIdx >= 0 ? after.slice(0, colonIdx) : after
-}
-
-// Flatcar ships these NVIDIA driver sysexts for the stable channel.
-// The label follows NVIDIA's official branch classification.
-const NVIDIA_BRANCHES = [
-  { id: '570-open', label: 'Production' },
-  { id: '550-open', label: 'Production' },
-  { id: '535-open', label: 'Long-Term Support' },
-]
-
-export function extractNvidiaVersion(contents) {
-  const match = contents.match(/libcuda\.so\.(\d+\.\d+\.\d+)/)
-  return match ? match[1] : null
-}
-
-async function fetchNvidiaDrivers() {
-  const base = 'https://stable.release.flatcar-linux.net/amd64-usr/current'
-  const drivers = []
-  for (const branch of NVIDIA_BRANCHES) {
-    try {
-      const txt = await fetchText(`${base}/flatcar-nvidia-drivers-${branch.id}_contents.txt`)
-      const version = extractNvidiaVersion(txt)
-      if (version) {
-        drivers.push({ label: branch.label, version })
-        console.info(`[nvidia] ${branch.id} → ${version}`)
-      }
-    }
-    catch (e) {
-      console.warn(`[nvidia] ${branch.id} failed:`, e.message)
-    }
-  }
-  return drivers.length > 0 ? drivers : null
-}
-
-export function parseSysext(body) {
-  const result = {}
-  for (const raw of body.split('\n')) {
-    const line = raw.trim()
-    if (
-      line.startsWith('app-containers/docker-')
-      && !line.includes('docker-cli')
-      && !line.includes('docker-buildx')
-    ) {
-      result.docker = extractVersion(line, 'app-containers/docker-')
-    }
-    if (line.startsWith('app-containers/containerd-')) {
-      result.containerd = extractVersion(line, 'app-containers/containerd-')
-    }
-  }
-  return result
-}
-
-async function fetchChannel(channel, existing) {
-  const base = `https://${channel}.release.flatcar-linux.net/amd64-usr/current`
-  const stream = { ...existing }
-
-  try {
-    const txt = await fetchText(`${base}/version.txt`)
-    const parsed = parseVersionTxt(txt)
-    if (parsed.version) {
-      stream.version = parsed.version
-    }
-    if (parsed.buildDate) {
-      stream.buildDate = parsed.buildDate
-    }
-    console.info(`[${channel}] version → ${stream.version} (${stream.buildDate})`)
-  }
-  catch (e) {
-    console.warn(`[${channel}] version.txt failed:`, e.message)
-  }
-
-  try {
-    const doc = await fetchJSON(`${base}/flatcar_production_image_sbom.json`)
-    const parsed = parseSBOM(doc)
-    if (parsed.kernel) {
-      stream.kernel = parsed.kernel
-    }
-    if (parsed.systemd) {
-      stream.systemd = parsed.systemd
-    }
-    if (parsed.ignition) {
-      stream.ignition = parsed.ignition
-    }
-    if (parsed.etcd) {
-      stream.etcd = parsed.etcd
-    }
-    console.info(`[${channel}] SBOM → kernel ${stream.kernel}, systemd ${stream.systemd}`)
-  }
-  catch (e) {
-    console.warn(`[${channel}] SBOM failed:`, e.message)
-  }
-
-  try {
-    const txt = await fetchText(`${base}/rootfs-included-sysexts/docker-flatcar_packages.txt`)
-    const parsed = parseSysext(txt)
-    if (parsed.docker) {
-      stream.docker = parsed.docker
-    }
-  }
-  catch (e) {
-    console.warn(`[${channel}] docker sysext failed:`, e.message)
-  }
-
-  try {
-    const txt = await fetchText(`${base}/rootfs-included-sysexts/containerd-flatcar_packages.txt`)
-    const parsed = parseSysext(txt)
-    if (parsed.containerd) {
-      stream.containerd = parsed.containerd
-    }
-  }
-  catch (e) {
-    console.warn(`[${channel}] containerd sysext failed:`, e.message)
-  }
-
-  return stream
 }
 
 function isMainModule() {
@@ -210,43 +80,30 @@ function isMainModule() {
 }
 
 async function main() {
-  const current = JSON.parse(fs.readFileSync(OUT, 'utf8'))
-  const existingStreams = current.streams ?? {}
+  const sbom = pullImageSbom(SERVER_IMAGE)
+  const versions = versionsFromSbom(sbom)
 
-  // Fetch all channels + NVIDIA drivers in parallel
-  const [results, nvidiaDrivers] = await Promise.all([
-    Promise.all(CHANNELS.map(ch => fetchChannel(ch, existingStreams[ch] ?? {}))),
-    fetchNvidiaDrivers(),
-  ])
-
-  current.streams = Object.fromEntries(CHANNELS.map((ch, i) => [ch, results[i]]))
-  if (nvidiaDrivers) {
-    current.nvidiaDrivers = nvidiaDrivers
+  if (Object.keys(versions).length === 0) {
+    throw new Error(`no package versions resolved from ${SERVER_IMAGE}`)
   }
 
-  // Latest Server release tag
-  try {
-    const release = await fetchJSON(SERVER_RELEASES_URL)
-    if (release.tag_name) {
-      current.serverVersion = release.tag_name
-      console.info(`[server] release → ${release.tag_name}`)
-    }
-  }
-  catch (e) {
-    console.warn('[server] release fetch failed:', e.message)
-  }
+  const fsdkVersion = spdxPackageVersion(sbom, 'freedesktop-sdk')
+    ?? sbom.creationInfo?.comment?.match(/freedesktop-sdk-([\d.]+)/)?.[1]
+    ?? 'unknown'
 
-  current.generatedAt = new Date().toISOString()
-  // Remove old flat flatcar key if present (schema migration)
-  delete current.flatcar
+  const data = buildServerVersionData(versions, fsdkVersion, new Date().toISOString())
 
-  fs.writeFileSync(OUT, `${JSON.stringify(current, null, 2)}\n`)
+  fs.writeFileSync(OUT, `${JSON.stringify(data, null, 2)}\n`)
   console.info('[server-versions] wrote', OUT)
 }
 
 if (isMainModule()) {
   main().catch((e) => {
     console.error('[server-versions] fatal:', e.message)
+    console.error(
+      '[server-versions] Bluefin Server publishes no container image, so it has no '
+      + 'SBOM. Add SBOM publishing to projectbluefin/server; do not substitute another source.',
+    )
     process.exit(1)
   })
 }

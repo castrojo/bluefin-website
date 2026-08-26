@@ -43,6 +43,85 @@ generated file.
 - An unlisted page is added to navigation or metadata.
 - Generated output is patched instead of regenerated.
 
+## Front-page downloads
+
+The main-site download picker is owned by `src/components/sections/SectionPicker.vue`,
+while its user-facing copy belongs in `src/locales/en-US.json`. Adding a new
+download card changes the rendered component surface and therefore needs an
+explicitly approved design request; do not treat it as a locale-only edit.
+
+Re-derive the owner and locale source with:
+
+```bash
+rg -n "ImageChooser|TryBluefin.Wolves|wolves-download" \
+  src/components/sections/SectionPicker.vue src/locales/en-US.json
+```
+
+Reuse `src/components/common/ProductVersionCard.vue` — the extracted "raptor
+card" — for any new product/download card. Do not author parallel markup or
+styles for the same data; the labels and card chrome must not drift between
+`/`, `/dakota/`, and `/server/`.
+
+A card's title and description must be classed `<span>`s, not `<p>`. The global
+`#scene-picker p` rule sets `text-align: center` and `max-width: 800px`, and its
+id specificity beats any scoped component class, so a bare `<p>` silently
+ignores the component's own alignment.
+
+## Version data sourcing
+
+Every variant's versions come from that variant's **published image SBOM**. Any
+other source is a bug, including upstream `.bst` refs, release notes, and hand
+edits. A `.bst` ref describes the *next* build, so it reports versions that have
+never shipped — that is how the NVIDIA row briefly read `610.57.04` when the
+published `dakota-nvidia` image contained `595.71.05`.
+
+`scripts/lib/oci-sbom.js` is the shared reader. Images attach an
+`application/vnd.spdx+json` referrer:
+
+```bash
+oras discover --artifact-type application/vnd.spdx+json --format json \
+  ghcr.io/projectbluefin/dakota:latest
+```
+
+`pullImageSbom()` resolves and pulls it; `spdxPackageVersion()` reads one
+package. BuildStream SBOMs list a package once per element, so a name carries
+several `versionInfo` values plus commit hashes — take the highest numeric
+version and skip non-numeric refs, otherwise `linux` resolves to `6.12.40`
+instead of `7.0.7`.
+
+Refresh with the generators, never by editing `public/*-versions.json`:
+
+```bash
+node scripts/update-dakota-versions.js   # dakota + dakota-nvidia SBOMs
+node scripts/update-stream-versions.js   # bluefin stream SBOM attestations
+```
+
+If a package is absent from the SBOM it must not be displayed. `freedesktop-sdk`
+and Homebrew are not in the Dakota SBOM, so they carry no version row.
+
+Display names come from upstream docs or element sources, never invented. The
+NVIDIA row is `NVidia Driver` (`elements/bluefin-nvidia/nvidia-drivers.bst`
+declares `nvidia-version`), not a coined phrase like "Open GPU Kernel".
+
+### Bluefin Server has no SBOM yet
+
+`projectbluefin/server` is an **FSDK/BuildStream 2, DDI-first** OS. It is not
+built from Flatcar — it merely targets the same space. `update-server-versions.js`
+used to fetch Flatcar release streams and write `docker`/`containerd`/`ignition`/
+`etcd` fields that do not exist in the product.
+
+Its `build.yml` publishes only release assets, and no `ghcr.io/projectbluefin/server*`
+repository exists (an authenticated pull token returns `NAME_UNKNOWN`, while
+`dakota` returns `200`), so there is no image SBOM. The updater therefore exits
+non-zero **by design**. That failure is the signal to add SBOM publishing
+upstream; it is not permission to substitute another source. Per that repo's
+`docs/skills/bump-fsdk-version.md`, "there is no application version for these
+images — the version axis IS the FSDK release".
+
+`public/server-versions.json` still holds the old Flatcar values and still feeds
+`/server/`. Front-page rendering of them is blocked by a regression test in
+`src/tests/sectionPicker.test.ts`; the `/server/` page itself is unfixed.
+
 ## Verification
 
 - [ ] Diff contains only content, data, or approved assets.

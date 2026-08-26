@@ -1,0 +1,18 @@
+{
+  "reference": "ghcr.io/projectbluefin/dakota@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "referrers": [
+    {
+      "reference": "ghcr.io/projectbluefin/dakota@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "mediaType": "application/vnd.dev.sigstore.bundle.v0.3+json",
+      "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json"
+    },
+    {
+      "reference": "ghcr.io/projectbluefin/dakota@sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "mediaType": "application/vnd.spdx+json",
+      "artifactType": "application/vnd.spdx+json"
+    }
+  ]
+}

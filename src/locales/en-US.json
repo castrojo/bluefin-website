@@ -88,6 +88,18 @@
       "Choice": "Choose your raptor for your hardware and use case. The team recommends [Fedora Media Writer](https://flathub.org/apps/org.fedoraproject.MediaWriter) to create installation media, Ventoy is unsupported. Check [the documentation](https://docs.projectbluefin.io) for more information.",
       "Updates": "Bluefin receives timely security updates and is available in two different streams that reflect how aggressively it receives feature updates:"
     },
+    "Wolves": {
+      "Title": "For the Wolves",
+      "Description": "The following three pieces of technology are here for new contributors to build with. No compromises. These will be the future of Bluefin. Wranglers wanted.",
+      "Cards": {
+        "Dakota": "Dakota",
+        "DakotaDescription": "The Final Form. Bluefin Perfected.",
+        "Redacted": "[ REDACTED ]",
+        "RedactedDescription": "",
+        "Server": "Bluefin Server",
+        "ServerDescription": "The world's premier FSDK server operating system."
+      }
+    },
     "Label": {
       "Base": "Base",
       "Gnome": "GNOME",
