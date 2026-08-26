@@ -56,6 +56,11 @@ does not replace `validation`, `design-gate`, or the Wolves skills.
    unrelated local deletions into the task. For deleted content, search all
    manifests, imports, timelines, and generated-data sources before committing.
    Stage explicit paths only. Include regression coverage in the same commit.
+   **Worktree with pre-existing staged work:** `git status --short` shows `MM`
+   (first column = staged, second = unstaged) when prior work is partly staged.
+   Explicit `git add <paths>` for Task N files does not clear other staged files;
+   `git commit` still picks them up. If parallel tasks require isolated commits,
+   stash or reset the pre-existing staged hunks before committing, then restore.
    Use the repository's Conventional Commits format (`type(scope): description`).
    Carry both attribution trailers (see `## Commit attribution`).
    Do not leave a tested fix uncommitted.
