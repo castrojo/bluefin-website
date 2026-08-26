@@ -28,6 +28,7 @@ control, add more words — are defects there. Read `AGENTS.md` under
 | I need to... | Load |
 |---|---|
 | Edit text, links, translations, data, or approved assets | [`content-maintenance/SKILL.md`](skills/content-maintenance/SKILL.md) |
+| Edit SBOM extraction scripts, version comparison, or dakota-versions updater | [`sbom-version-extraction/SKILL.md`](skills/sbom-version-extraction/SKILL.md) |
 | Change layout, styling, a component, animation, or navigation | [`design-gate/SKILL.md`](skills/design-gate/SKILL.md) |
 | Handle lore, fiction, quotes, or attribution | [`editorial-provenance/SKILL.md`](skills/editorial-provenance/SKILL.md) |
 | Run tests, builds, staging, deployment, or claim live status | [`validation/SKILL.md`](skills/validation/SKILL.md) |
