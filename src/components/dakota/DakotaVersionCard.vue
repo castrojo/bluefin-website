@@ -48,7 +48,7 @@ const VERSION_LABELS: Record<string, string> = {
 }
 
 const versionRows = computed(() => {
-  if (!versions.value) {
+  if (!versions.value || versions.value.status !== 'verified') {
     return []
   }
   return Object.entries(versions.value.packages)

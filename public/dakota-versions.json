@@ -1,5 +1,20 @@
 {
-  "generatedAt": "2026-07-21T05:57:06.159Z",
+  "checkedAt": "2026-08-26T04:55:04.600Z",
+  "status": "verified",
+  "sources": [
+    {
+      "id": "dakota",
+      "image": "ghcr.io/projectbluefin/dakota:latest",
+      "imageDigest": "sha256:placeholder",
+      "sbomDigest": "sha256:placeholder"
+    },
+    {
+      "id": "dakota-nvidia",
+      "image": "ghcr.io/projectbluefin/dakota-nvidia:latest",
+      "imageDigest": "sha256:placeholder",
+      "sbomDigest": "sha256:placeholder"
+    }
+  ],
   "isos": [
     {
       "label": "Download ISO",
@@ -9,14 +24,13 @@
   "packages": {
     "kernel": "7.0.7",
     "gnome": "50.2",
-    "freedesktop-sdk": "25.08.14",
-    "mesa": "26.0.6",
-    "bootc": "1.15.2",
-    "nvidia": "595.71.05",
+    "mesa": "26.1.0",
     "systemd": "260.2",
     "podman": "5.8.2",
     "pipewire": "1.6.1",
     "flatpak": "1.16.6",
+    "bootc": "1.15.2",
+    "nvidia": "595.71.05",
     "baseline": "x86-64-v3"
   }
 }

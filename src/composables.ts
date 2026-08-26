@@ -11,7 +11,9 @@ export const IS_TABLET = computed(() => {
 })
 
 export interface DakotaVersions {
-  generatedAt: string
+  checkedAt: string
+  status: 'verified' | 'unavailable'
+  sources: Array<{ id: string, image: string, imageDigest: string, sbomDigest: string }>
   isos?: Array<{ label: string, filename: string }>
   packages: Record<string, string>
 }

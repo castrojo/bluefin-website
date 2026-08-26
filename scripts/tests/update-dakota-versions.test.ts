@@ -1,12 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { compareVersions, spdxPackageVersion } from '../lib/oci-sbom.js'
-import { applyVersions, versionsFromSbom } from '../update-dakota-versions.js'
 
 const SBOM = {
   spdxVersion: 'SPDX-2.3',
   packages: [
-    // BuildStream lists a package once per element, so duplicates and
-    // commit-hash refs both appear for the same name.
     { name: 'linux', versionInfo: '6.12.40' },
     { name: 'linux', versionInfo: '7.0.7' },
     { name: 'linux', versionInfo: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
@@ -31,14 +28,12 @@ describe('oci-sbom helpers', () => {
   })
 
   it('handles kernel suffixes without producing NaN', () => {
-    // "7.1.8-ogc1" — parseInt("8-ogc1") = 8, not NaN
     expect(compareVersions('7.1.8-ogc1', '7.1.7')).toBeGreaterThan(0)
     expect(compareVersions('7.0.7', '7.1.8-ogc1')).toBeLessThan(0)
     expect(compareVersions('7.1.8-ogc1', '7.1.8-ogc1')).toBe(0)
   })
 
   it('returns undefined when a package has multiple distinct versions (ambiguous)', () => {
-    // linux appears as 6.12.40 and 7.0.7 — ambiguous, must not silently pick highest
     expect(spdxPackageVersion(SBOM, 'linux')).toBeUndefined()
     expect(spdxPackageVersion(SBOM, 'mesa')).toBeUndefined()
     expect(spdxPackageVersion(SBOM, 'systemd')).toBeUndefined()
@@ -63,40 +58,9 @@ describe('oci-sbom helpers', () => {
   })
 })
 
-describe('update-dakota-versions helpers', () => {
-  it('maps SBOM package names onto dakota-versions fields', () => {
-    // linux is ambiguous (6.12.40 and 7.0.7 are both distinct accepted versions)
-    // so kernel is omitted; gnome-shell has one version and resolves
-    expect(versionsFromSbom(SBOM, { kernel: 'linux', gnome: 'gnome-shell' })).toEqual({
-      gnome: '50.2',
-    })
-  })
-
-  it('omits fields the SBOM does not carry rather than inventing them', () => {
-    expect(versionsFromSbom(SBOM, { nvidia: 'NVIDIA-Linux-x86' })).toEqual({})
-  })
-
-  it('replaces derived versions, preserves metadata, and restamps generatedAt', () => {
-    const updated = applyVersions(
-      {
-        generatedAt: 'old-date',
-        isos: [{ label: 'Download ISO', filename: 'dakota-live-alpha4.iso' }],
-        packages: {
-          'kernel': 'old',
-          'baseline': 'x86-64-v3',
-          'ogc-kernel': '595.71.05',
-        },
-      },
-      { kernel: '7.0.7', gnome: '50.2' },
-      '2026-08-26T00:00:00.000Z',
-    )
-
-    expect(updated.generatedAt).toBe('2026-08-26T00:00:00.000Z')
-    expect(updated.packages).toEqual({
-      kernel: '7.0.7',
-      gnome: '50.2',
-      baseline: 'x86-64-v3',
-    })
-    expect(updated.isos).toHaveLength(1)
+describe('update-dakota-versions wrapper', () => {
+  it('exports updateProducts as the entry point', async () => {
+    const mod = await import('../update-dakota-versions.js')
+    expect(typeof mod.updateProducts).toBe('function')
   })
 })

@@ -15,7 +15,9 @@ vi.mock('../composables', async (importOriginal) => {
 const { default: DakotaVersionChips } = await import('../components/dakota/DakotaVersionChips.vue')
 
 const VERSIONS_JSON: DakotaVersions = {
-  generatedAt: '2026-08-01T00:00:00Z',
+  checkedAt: '2026-08-01T00:00:00Z',
+  status: 'verified',
+  sources: [],
   packages: {
     kernel: '6.19.11',
     gnome: '50.0',
@@ -89,7 +91,9 @@ describe('dakotaVersionChips.vue', () => {
 
   it('renders nothing when the payload has no packages', async () => {
     getDakotaVersionsMock.mockResolvedValue({
-      generatedAt: '2026-08-01T00:00:00Z',
+      checkedAt: '2026-08-01T00:00:00Z',
+      status: 'verified',
+      sources: [],
       packages: {},
     })
 
@@ -114,7 +118,9 @@ describe('dakotaVersionChips.vue', () => {
 
   it('falls back to the raw package key when no label is mapped', async () => {
     getDakotaVersionsMock.mockResolvedValue({
-      generatedAt: '2026-08-01T00:00:00Z',
+      checkedAt: '2026-08-01T00:00:00Z',
+      status: 'verified',
+      sources: [],
       packages: {
         kernel: '6.19.11',
         brandNewPackage: '9.9.9',

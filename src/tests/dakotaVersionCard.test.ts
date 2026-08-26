@@ -14,7 +14,11 @@ vi.mock('../composables', async (importOriginal) => {
 })
 
 const FULL_VERSIONS: DakotaVersions = {
-  generatedAt: '2026-08-01T00:00:00Z',
+  checkedAt: '2026-08-01T00:00:00Z',
+  status: 'verified',
+  sources: [
+    { id: 'dakota', image: 'ghcr.io/projectbluefin/dakota:latest', imageDigest: 'sha256:aaa', sbomDigest: 'sha256:bbb' },
+  ],
   isos: [
     { label: 'Download ISO', filename: 'dakota-live-alpha4.iso' },
     { label: 'Download DX', filename: 'dakota-dx-live-alpha4.iso' },
@@ -75,7 +79,9 @@ describe('dakotaVersionCard.vue', () => {
 
   it('uses fallback ISOs when versions have no isos field', async () => {
     getDakotaVersionsMock.mockResolvedValue({
-      generatedAt: '2026-08-01',
+      checkedAt: '2026-08-01',
+      status: 'verified',
+      sources: [],
       packages: {},
     })
 

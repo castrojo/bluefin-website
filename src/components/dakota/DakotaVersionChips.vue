@@ -37,7 +37,7 @@ onMounted(async () => {
 })
 
 const chips = computed(() => {
-  if (!versions.value) {
+  if (!versions.value || versions.value.status !== 'verified') {
     return []
   }
   return Object.entries(versions.value.packages)
