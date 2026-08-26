@@ -196,11 +196,18 @@ echo -n '' | sha256sum
 Task 4 adds a registry-wide orchestrator on top of the extractor.
 
 **Failure policy (enforced by tests):**
-- `EvidenceError` from a *required* image → `status: "unavailable"` in the audit.
-- `EvidenceError` from an *optional* image → record omitted entirely.
+- `pendingSbom` records are NOT skipped — they are attempted like all others.
+- `EvidenceError` from any image (required or optional) → `status: "unavailable"` in the audit with `required`, `errorCode`, and `error` fields.
 - Non-`EvidenceError` thrown by the collector → abort, no file written.
 - Missing *required* package in SBOM → `status: "unavailable"` with `missingRequired`.
 - Missing *optional* package in SBOM → omit that field, keep `status: "verified"`.
+
+**`productStatus` logic:**
+- All verified → `ok`
+- Any *required* unavailable → `unavailable`
+- Only *optional* unavailable → `degraded`
+
+**`--check-only` exits nonzero when ANY audit entry is unavailable**, including optional pending evidence. Normal mode exits zero for EvidenceErrors so deployment proceeds and issues alert.
 
 **Atomic writes:** `writeOutputsAtomically` validates all outputs first, then writes to a `mkdtempSync` directory **inside `destinationRoot`** (not `os.tmpdir()`) and renames each file into place. Staging under the same filesystem as the destination guarantees `renameSync` cannot fail with `EXDEV`. If validation throws, no file is written; cleanup removes only the staging subdirectory, never `destinationRoot`.
 

@@ -82,13 +82,17 @@ describe('verifyRegistry — failure policy', () => {
     expect(result.images[0].id).toBe('dakota')
   })
 
-  it('omits an optional image entirely when collectVerifiedImageSbom throws EvidenceError', async () => {
+  it('includes optional image in results when collectVerifiedImageSbom throws EvidenceError', async () => {
     const err = new EvidenceError('missing-sbom', OPTIONAL_RECORD.image, 'no sbom')
     const collect = vi.fn().mockRejectedValue(err)
 
     const result = await verifyRegistry([OPTIONAL_RECORD], { collectVerifiedImageSbom: collect })
 
-    expect(result.images).toHaveLength(0)
+    expect(result.images).toHaveLength(1)
+    expect(result.images[0].status).toBe('unavailable')
+    expect(result.images[0].required).toBe(false)
+    expect(result.images[0].errorCode).toBe('missing-sbom')
+    expect(result.images[0].error).toBe('no sbom')
   })
 
   it('aborts (re-throws) when collector throws a non-EvidenceError', async () => {
@@ -134,14 +138,17 @@ describe('verifyRegistry — failure policy', () => {
     expect(result.images[0].missingOptional).toEqual([])
   })
 
-  it('skips pendingSbom records entirely', async () => {
-    const pending = Object.freeze({ ...REQUIRED_RECORD, pendingSbom: true })
-    const collect = vi.fn()
+  it('attempts pendingSbom records and records their EvidenceError', async () => {
+    const pending = Object.freeze({ ...REQUIRED_RECORD, pendingSbom: true, packages: {} })
+    const err = new EvidenceError('missing-sbom', pending.image, 'no sbom')
+    const collect = vi.fn().mockRejectedValue(err)
 
     const result = await verifyRegistry([pending], { collectVerifiedImageSbom: collect })
 
-    expect(collect).not.toHaveBeenCalled()
-    expect(result.images).toHaveLength(0)
+    expect(collect).toHaveBeenCalledTimes(1)
+    expect(result.images).toHaveLength(1)
+    expect(result.images[0].status).toBe('unavailable')
+    expect(result.images[0].errorCode).toBe('missing-sbom')
   })
 
   it('includes checkedAt from the injected now() function', async () => {
@@ -160,7 +167,7 @@ describe('verifyRegistry — failure policy', () => {
     const image = result.images[0]
 
     // Only documented keys should be present
-    const allowedKeys = new Set(['id', 'product', 'image', 'imageDigest', 'sbomDigest', 'status', 'values', 'missingOptional'])
+    const allowedKeys = new Set(['id', 'product', 'image', 'required', 'imageDigest', 'sbomDigest', 'status', 'values', 'missingOptional'])
     for (const key of Object.keys(image)) {
       expect(allowedKeys).toContain(key)
     }
@@ -198,16 +205,28 @@ describe('productStatus', () => {
     expect(status.dakota.status).toBe('ok')
   })
 
-  it('returns unavailable when any image is unavailable', () => {
+  it('returns unavailable when a required image is unavailable', () => {
     const result = {
       checkedAt: '2026-08-26T00:00:00.000Z',
       images: [
-        { id: 'dakota', product: 'dakota', status: 'verified' },
-        { id: 'dakota-gaming', product: 'dakota', status: 'unavailable' },
+        { id: 'dakota', product: 'dakota', required: true, status: 'verified' },
+        { id: 'dakota-gaming', product: 'dakota', required: true, status: 'unavailable' },
       ],
     }
     const status = productStatus(result)
     expect(status.dakota.status).toBe('unavailable')
+  })
+
+  it('returns degraded when only optional images are unavailable', () => {
+    const result = {
+      checkedAt: '2026-08-26T00:00:00.000Z',
+      images: [
+        { id: 'dakota', product: 'dakota', required: true, status: 'verified' },
+        { id: 'dakota-gaming', product: 'dakota', required: false, status: 'unavailable' },
+      ],
+    }
+    const status = productStatus(result)
+    expect(status.dakota.status).toBe('degraded')
   })
 
   it('throws an explicit error when an image entry has no product field', () => {
@@ -332,14 +351,14 @@ describe('--check-only semantics (productStatus + verifyRegistry)', () => {
     expect(unavailable.length).toBeGreaterThan(0)
   })
 
-  it('has zero unavailable count when only optional images fail', async () => {
+  it('has nonzero unavailable count when only optional images fail (now included)', async () => {
     const err = new EvidenceError('missing-sbom', OPTIONAL_RECORD.image, 'no sbom')
     const collect = vi.fn().mockRejectedValue(err)
 
     const result = await verifyRegistry([OPTIONAL_RECORD], { collectVerifiedImageSbom: collect })
     const unavailable = result.images.filter(img => img.status === 'unavailable')
 
-    // Optional failures are omitted entirely, so unavailable count must be zero
-    expect(unavailable.length).toBe(0)
+    // Optional failures are now included so --check-only exits nonzero
+    expect(unavailable.length).toBeGreaterThan(0)
   })
 })

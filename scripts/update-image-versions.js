@@ -8,7 +8,7 @@
  *
  * Usage:
  *   node scripts/update-image-versions.js             # verify + write all outputs
- *   node scripts/update-image-versions.js --check-only  # verify and exit non-zero on any unavailable
+ *   node scripts/update-image-versions.js --check-only  # verify and exit non-zero on ANY unavailable (including optional pending evidence)
  */
 import fs from 'node:fs'
 import path from 'node:path'

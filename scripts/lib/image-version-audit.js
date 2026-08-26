@@ -36,11 +36,6 @@ export async function verifyRegistry(records, dependencies) {
   const images = []
 
   for (const record of records) {
-    if (record.pendingSbom) {
-      // Skip images explicitly marked as not yet having SBOMs
-      continue
-    }
-
     let collected
     try {
       collected = await collectVerifiedImageSbom(record, collectorDeps)
@@ -50,16 +45,15 @@ export async function verifyRegistry(records, dependencies) {
         // Non-evidence errors (programming errors, network failures, etc.) abort
         throw err
       }
-      if (record.required) {
-        images.push({
-          id: record.id,
-          product: record.product,
-          image: record.image,
-          status: 'unavailable',
-          error: err.message,
-        })
-      }
-      // Optional image failures are omitted entirely
+      images.push({
+        id: record.id,
+        product: record.product,
+        image: record.image,
+        required: record.required,
+        status: 'unavailable',
+        errorCode: err.code,
+        error: err.message,
+      })
       continue
     }
 
@@ -70,6 +64,7 @@ export async function verifyRegistry(records, dependencies) {
         id: record.id,
         product: record.product,
         image: record.image,
+        required: record.required,
         imageDigest: collected.imageDigest,
         sbomDigest: collected.sbomDigest,
         status: 'unavailable',
@@ -82,6 +77,7 @@ export async function verifyRegistry(records, dependencies) {
       id: record.id,
       product: record.product,
       image: record.image,
+      required: record.required,
       imageDigest: collected.imageDigest,
       sbomDigest: collected.sbomDigest,
       status: 'verified',
@@ -119,11 +115,14 @@ export function productStatus(auditResult) {
     if (statuses.every(s => s === 'verified')) {
       group.status = 'ok'
     }
-    else if (statuses.includes('unavailable')) {
-      group.status = 'unavailable'
-    }
     else {
-      group.status = 'degraded'
+      const hasRequiredUnavailable = group.images.some(img => img.status === 'unavailable' && img.required)
+      if (hasRequiredUnavailable) {
+        group.status = 'unavailable'
+      }
+      else {
+        group.status = 'degraded'
+      }
     }
   }
 

@@ -63,6 +63,43 @@ function issueBody(image, audit) {
 }
 
 /**
+ * Build an issue body listing all affected images that share the same title.
+ * @param {Array<{ id: string, product: string, image: string, imageDigest?: string, error?: string, missingRequired?: string[] }>} images
+ * @param {{ checkedAt: string }} audit
+ * @returns {string}
+ */
+function issueBodyMulti(images, audit) {
+  if (images.length === 1) {
+    return issueBody(images[0], audit)
+  }
+  const lines = [
+    `## SBOM Verification Failure`,
+    ``,
+    `**Affected images** (${images.length}):`,
+    ``,
+  ]
+  for (const image of images) {
+    lines.push(`### \`${image.id}\``)
+    lines.push(`- **Image**: \`${image.image}\``)
+    lines.push(`- **Product**: ${image.product}`)
+    if (image.imageDigest) {
+      lines.push(`- **Digest**: \`${image.imageDigest}\``)
+    }
+    if (image.error) {
+      lines.push(`- **Error**: ${image.error}`)
+    }
+    if (image.missingRequired?.length) {
+      lines.push(`- **Missing required packages**: ${image.missingRequired.join(', ')}`)
+    }
+    lines.push(``)
+  }
+  lines.push(`- **Checked at**: ${audit.checkedAt}`)
+  lines.push(``)
+  lines.push(`This issue was automatically created by the daily SBOM verification workflow.`)
+  return lines.join('\n')
+}
+
+/**
  * Build a plan for creating/updating/closing GitHub issues based on SBOM
  * audit results.
  *
@@ -75,12 +112,20 @@ export function buildSbomIssuePlan(audit, openIssues) {
 
   const failedImages = audit.images.filter(img => img.status === 'unavailable')
   const failedTitles = new Set()
+  // Group failed images by title for deduplication
+  const titleToImages = new Map()
 
   for (const image of failedImages) {
     const title = issueTitle(image)
     failedTitles.add(title)
-    const body = issueBody(image, audit)
+    if (!titleToImages.has(title)) {
+      titleToImages.set(title, [])
+    }
+    titleToImages.get(title).push(image)
+  }
 
+  for (const [title, images] of titleToImages) {
+    const body = issueBodyMulti(images, audit)
     const existing = openIssues.find(i => i.title === title)
     if (existing) {
       plan.update.push({ number: existing.number, title, body })

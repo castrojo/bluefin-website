@@ -194,6 +194,30 @@ describe('buildSbomIssuePlan', () => {
     expect(plan.close).toHaveLength(1)
     expect(plan.close[0].number).toBe(42)
   })
+
+  it('deduplicates multiple images sharing the same product/failure-code title', () => {
+    const image1 = {
+      id: 'bluefin-lts',
+      product: 'bluefin',
+      image: 'ghcr.io/projectbluefin/bluefin-lts:stable',
+      status: 'unavailable',
+      error: 'No SPDX referrer found',
+    }
+    const image2 = {
+      id: 'bluefin-lts-hwe',
+      product: 'bluefin',
+      image: 'ghcr.io/projectbluefin/bluefin-lts-hwe:stable',
+      status: 'unavailable',
+      error: 'No SPDX referrer found',
+    }
+    const audit = makeAudit([image1, image2])
+    const plan = buildSbomIssuePlan(audit, [])
+
+    // Same title → single issue listing both images
+    expect(plan.create).toHaveLength(1)
+    expect(plan.create[0].body).toContain('bluefin-lts')
+    expect(plan.create[0].body).toContain('bluefin-lts-hwe')
+  })
 })
 
 // Helper to compute the expected title for an image (mirrors internal logic)

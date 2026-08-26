@@ -1,16 +1,12 @@
-# Stream version information for Bluefin releases
-# Source: verified OCI image SBOMs (cosign + SPDX referrers)
-# Last updated: 2026-08-26
-
-checkedAt: "2026-08-26T06:42:49.040Z"
+checkedAt: '2026-08-26T07:14:00.616Z'
 stable:
-  status: "verified"
-  base: "Fedora 44"
-  kernel: "7.1.6-201"
-  gnome: "50.3-1"
-  systemd: "259.8-1"
-  pipewire: "1.6.8-1"
-  flatpak: "1.18.0-1"
-  nvidia: "610.57.04-1"
+  status: verified
+  base: Fedora 44
+  kernel: 7.1.6-201
+  gnome: 50.3-1
+  systemd: 259.8-1
+  pipewire: 1.6.8-1
+  flatpak: 1.18.0-1
+  nvidia: 610.57.04-1
 lts:
-  status: "unavailable"
+  status: unavailable
