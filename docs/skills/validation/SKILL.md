@@ -45,6 +45,17 @@ npm run test:gate
 npm run build
 ```
 
+Image version live verification:
+
+```bash
+npm run check:image-sboms       # Read-only; exits nonzero when any evidence is missing
+npm run update:image-versions   # Regenerate; exits zero even with unavailable images
+```
+
+`check:image-sboms` verifies cosign signatures and SPDX referrer existence for
+every registered image. It performs no documentation or source-tree fallbacks.
+Missing evidence means the website does not display that product's versions.
+
 Full code checks:
 
 ```bash

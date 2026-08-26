@@ -276,46 +276,46 @@ onMounted(() => {
                   <div
                     v-if="
                       streamVersions
-                        && streamVersions[release.id as keyof StreamVersions]
-                        && streamVersions[release.id as keyof StreamVersions].status === 'verified'
+                        && streamVersions[release.id as 'stable' | 'lts']
+                        && streamVersions[release.id as 'stable' | 'lts'].status === 'verified'
                     "
                     class="version-info"
                   >
-                    <div v-if="streamVersions[release.id as keyof StreamVersions].base" class="version-item">
+                    <div v-if="streamVersions[release.id as 'stable' | 'lts'].base" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Base') }}:</span>
                       <span class="version-value">{{
-                        streamVersions[release.id as keyof StreamVersions].base
+                        streamVersions[release.id as 'stable' | 'lts'].base
                       }}</span>
                     </div>
-                    <div v-if="streamVersions[release.id as keyof StreamVersions].gnome" class="version-item">
+                    <div v-if="streamVersions[release.id as 'stable' | 'lts'].gnome" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Gnome') }}:</span>
                       <span class="version-value">{{
-                        streamVersions[release.id as keyof StreamVersions].gnome
+                        streamVersions[release.id as 'stable' | 'lts'].gnome
                       }}</span>
                     </div>
-                    <div v-if="streamVersions[release.id as keyof StreamVersions].kernel" class="version-item">
+                    <div v-if="streamVersions[release.id as 'stable' | 'lts'].kernel" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Kernel') }}:</span>
                       <span class="version-value">{{
-                        streamVersions[release.id as keyof StreamVersions].kernel
+                        streamVersions[release.id as 'stable' | 'lts'].kernel
                       }}</span>
                     </div>
-                    <div v-if="release.id === 'lts' && streamVersions[release.id as keyof StreamVersions].hwe" class="version-item">
+                    <div v-if="release.id === 'lts' && streamVersions[release.id as 'stable' | 'lts'].hwe" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.HWEKernel') }}:</span>
                       <span class="version-value">{{
-                        streamVersions[release.id as keyof StreamVersions].hwe
+                        streamVersions[release.id as 'stable' | 'lts'].hwe
                       }}</span>
                     </div>
 
-                    <div v-if="streamVersions[release.id as keyof StreamVersions].mesa" class="version-item">
+                    <div v-if="streamVersions[release.id as 'stable' | 'lts'].mesa" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Mesa') }}:</span>
                       <span class="version-value">{{
-                        streamVersions[release.id as keyof StreamVersions].mesa
+                        streamVersions[release.id as 'stable' | 'lts'].mesa
                       }}</span>
                     </div>
-                    <div v-if="streamVersions[release.id as keyof StreamVersions].nvidia" class="version-item">
+                    <div v-if="streamVersions[release.id as 'stable' | 'lts'].nvidia" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Nvidia') }}:</span>
                       <span class="version-value">{{
-                        streamVersions[release.id as keyof StreamVersions].nvidia
+                        streamVersions[release.id as 'stable' | 'lts'].nvidia
                       }}</span>
                     </div>
                   </div>

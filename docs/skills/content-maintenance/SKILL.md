@@ -139,6 +139,50 @@ source.
 - `../../reference/production-entrypoints.md`
 - `../design-gate/SKILL.md`
 
+## Image version pipeline
+
+### Registry ownership
+
+The image version registry lives in `scripts/lib/image-version-audit.js`. Each
+entry declares an OCI image reference, required and optional SPDX package names,
+and the `product` it belongs to (`bluefin` or `dakota`). To add a field:
+
+1. Add a `packages` entry to the relevant record in the registry.
+2. Mark it `required: true` if its absence should remove the product from display.
+3. Run `npm run update:image-versions` to regenerate outputs.
+
+### SBOM sources
+
+| Product | Registry | Image |
+|---|---|---|
+| Bluefin stable | `ghcr.io/ublue-os/bluefin` | Cosign-verified, SPDX referrer |
+| Bluefin stable NVIDIA | `ghcr.io/ublue-os/bluefin-nvidia-open` | Cosign-verified, SPDX referrer |
+| Dakota | `ghcr.io/projectbluefin/dakota` | Cosign-verified, SPDX referrer |
+| Dakota NVIDIA | `ghcr.io/projectbluefin/dakota-nvidia` | Cosign-verified, SPDX referrer |
+
+### Fail-closed behavior
+
+If an image's SPDX referrer is missing or cosign verification fails, the image
+is recorded as `status: "unavailable"` in the output. Unavailable evidence
+removes the corresponding website claims — no version is displayed for that
+product variant. The pipeline never falls back to documentation, source trees,
+or cached values.
+
+### Commands
+
+```bash
+npm run check:image-sboms       # Read-only live verification (exits nonzero on missing evidence)
+npm run update:image-versions   # Regenerate public/*-versions.json and stream-versions.yml
+```
+
+### Rule
+
+**Unavailable image evidence removes website claims.** A product whose SBOM
+cannot be verified does not display version data. This is intentional — showing
+unverifiable versions is worse than showing nothing.
+
 ## Sources
 
 - ORAS referrer discovery and JSON output: `/oras-project/oras`
+- Cosign verification and Sigstore transparency: `/sigstore/docs`
+- Supply-chain scorecard context: `/ossf/scorecard`
