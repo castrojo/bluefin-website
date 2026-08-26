@@ -75,4 +75,9 @@ describe('live-data cache wiring', () => {
     expect(save.paths).toContain('public/experiences')
     expect(save.paths).toContain('public/flickr-photos.json')
   })
+
+  it('caches the SBOM audit alongside the other generated feeds', () => {
+    const save = steps.find(step => step.kind === 'save')!
+    expect(save.paths).toContain('.cache/website-live-data/sbom-audit.json')
+  })
 })

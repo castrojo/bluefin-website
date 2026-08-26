@@ -1,7 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { EvidenceError } from './verified-image-sbom.js'
+import { dump as dumpYaml } from 'js-yaml'
 import { extractMappedVersions } from './spdx-version-extractor.js'
+import { EvidenceError } from './verified-image-sbom.js'
 
 /**
  * Verify all registry records by collecting their SBOMs.
@@ -25,8 +26,12 @@ export async function verifyRegistry(records, dependencies) {
 
   const checkedAt = now()
   const collectorDeps = {}
-  if (run != null) collectorDeps.run = run
-  if (fsImpl != null) collectorDeps.fs = fsImpl
+  if (run != null) {
+    collectorDeps.run = run
+  }
+  if (fsImpl != null) {
+    collectorDeps.fs = fsImpl
+  }
 
   const images = []
 
@@ -39,7 +44,8 @@ export async function verifyRegistry(records, dependencies) {
     let collected
     try {
       collected = await collectVerifiedImageSbom(record, collectorDeps)
-    } catch (err) {
+    }
+    catch (err) {
       if (!(err instanceof EvidenceError)) {
         // Non-evidence errors (programming errors, network failures, etc.) abort
         throw err
@@ -112,9 +118,11 @@ export function productStatus(auditResult) {
     const statuses = group.images.map(img => img.status)
     if (statuses.every(s => s === 'verified')) {
       group.status = 'ok'
-    } else if (statuses.some(s => s === 'unavailable')) {
+    }
+    else if (statuses.includes('unavailable')) {
       group.status = 'unavailable'
-    } else {
+    }
+    else {
       group.status = 'degraded'
     }
   }
@@ -122,16 +130,27 @@ export function productStatus(auditResult) {
   return byProduct
 }
 
+const DEFAULT_SERIALIZERS = {
+  '.json': content => `${JSON.stringify(content, null, 2)}\n`,
+  '.yml': content => dumpYaml(content, { lineWidth: -1 }),
+  '.yaml': content => dumpYaml(content, { lineWidth: -1 }),
+}
+
 /**
  * Write output files atomically using a temp directory, then rename into place.
  *
- * @param {Record<string, unknown>} outputs - filename → content (will be JSON-serialised)
+ * Supports nested paths in filenames (e.g. 'public/stream-versions.yml') and
+ * selects a serializer by file extension. Defaults: .json → JSON.stringify,
+ * .yml/.yaml → js-yaml dump.
+ *
+ * @param {Record<string, unknown>} outputs - filename → content
  * @param {string} destinationRoot - directory path for final files
- * @param {{ fs?: object, validate?: (filename: string, content: unknown) => void }} [options]
+ * @param {{ fs?: object, validate?: (filename: string, content: unknown) => void, serializers?: Record<string, (content: unknown) => string> }} [options]
  */
 export function writeOutputsAtomically(outputs, destinationRoot, options = {}) {
   const fsImpl = options.fs ?? fs
   const validate = options.validate ?? null
+  const serializers = options.serializers ?? DEFAULT_SERIALIZERS
 
   // Validate all outputs before touching any files
   if (validate != null) {
@@ -147,16 +166,37 @@ export function writeOutputsAtomically(outputs, destinationRoot, options = {}) {
   try {
     const staged = []
     for (const [filename, content] of Object.entries(outputs)) {
+      const ext = path.extname(filename)
+      const serialize = serializers[ext]
+      if (!serialize) {
+        throw new Error(`No serializer registered for extension '${ext}' (file: ${filename})`)
+      }
       const tmpPath = path.join(tmpDir, filename)
-      fsImpl.writeFileSync(tmpPath, JSON.stringify(content, null, 2) + '\n', 'utf8')
+      // Create nested directories within staging dir if needed
+      const tmpFileDir = path.dirname(tmpPath)
+      if (tmpFileDir !== tmpDir) {
+        fsImpl.mkdirSync(tmpFileDir, { recursive: true })
+      }
+      fsImpl.writeFileSync(tmpPath, serialize(content), 'utf8')
       staged.push({ tmpPath, finalPath: path.join(destinationRoot, filename) })
+    }
+    // Ensure final directories exist
+    for (const { finalPath } of staged) {
+      const finalDir = path.dirname(finalPath)
+      if (finalDir !== destinationRoot) {
+        fsImpl.mkdirSync(finalDir, { recursive: true })
+      }
     }
     // All writes succeeded; rename into place
     for (const { tmpPath, finalPath } of staged) {
       fsImpl.renameSync(tmpPath, finalPath)
     }
-  } finally {
+  }
+  finally {
     // Clean up tmp dir (files already renamed out are gone, leftover files mean failure)
-    try { fsImpl.rmSync(tmpDir, { recursive: true, force: true }) } catch (_) {}
+    try {
+      fsImpl.rmSync(tmpDir, { recursive: true, force: true })
+    }
+    catch { /* best-effort cleanup */ }
   }
 }

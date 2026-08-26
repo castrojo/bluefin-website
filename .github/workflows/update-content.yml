@@ -2,9 +2,9 @@ name: Update Live Data
 
 on:
   schedule:
-    # Run weekly on Sundays at 10:00 UTC — after projectbluefin/documentation SBOM
+    # Run daily at 10:00 UTC — after projectbluefin/documentation SBOM
     # pipeline completes at ~04:00–06:00 UTC so we always get fresh data.
-    - cron: '0 10 * * 0'
+    - cron: '0 10 * * *'
   workflow_dispatch:
 
 permissions: {}
@@ -13,6 +13,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     permissions:
+      contents: read # allow reading repository content
       issues: write  # allow github-script to create failure issues
       actions: write # allow triggering deploy.yml workflow
     steps:
@@ -38,19 +39,16 @@ jobs:
       - name: Install oras
         uses: oras-project/setup-oras@38de303aac69abb66f3e6255b7198bff35f323e3 # v2.0.0
 
+      - name: Install cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+
       - name: Download Bluefin Growth Chart
         run: |
           curl https://raw.githubusercontent.com/ublue-os/countme/refs/heads/main/growth_bluefins.svg --output src/assets/svg/growth_bluefins.svg
           sed -i 's/#ffffff/#0c1016/g; s/#cccccc/#272727/g; s/#616161/#bdbdbd/g; s/#77aadd/#4285f4/g; s/id="text_16">/id="text_16" style="fill: #bdbdbd">/' src/assets/svg/growth_bluefins.svg
 
-      - name: Update stream versions from SBOM
-        run: node scripts/update-stream-versions.js
-
-      - name: Update Dakota versions from SBOM
-        run: node scripts/update-dakota-versions.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify image SBOMs and update version data
+        run: npm run update:image-versions
 
       - name: Update Flickr photos
         run: node scripts/update-flickr-photos.js
@@ -73,12 +71,67 @@ jobs:
             public/flickr-photos.json
             public/experiences
             src/assets/svg/growth_bluefins.svg
+            .cache/website-live-data/sbom-audit.json
           key: website-live-data-${{ github.run_id }}
 
       - name: Trigger deployment
         run: gh workflow run deploy.yml
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Manage SBOM verification issues
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
+        with:
+          script: |
+            const fs = await import('node:fs')
+            const path = await import('node:path')
+            const { buildSbomIssuePlan } = await import('./scripts/lib/sbom-issue-report.js')
+
+            const auditPath = path.join(process.cwd(), '.cache', 'website-live-data', 'sbom-audit.json')
+            const audit = JSON.parse(fs.readFileSync(auditPath, 'utf8'))
+
+            const { data: openIssues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'bug,automation',
+              per_page: 100,
+            })
+
+            const issues = openIssues.map(i => ({ number: i.number, title: i.title, state: i.state }))
+            const plan = buildSbomIssuePlan(audit, issues)
+
+            for (const item of plan.create) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: item.title,
+                body: item.body,
+                labels: item.labels,
+              })
+              core.info(`Created issue: ${item.title}`)
+            }
+
+            for (const item of plan.update) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: item.number,
+                body: item.body,
+              })
+              core.info(`Updated issue #${item.number}: ${item.title}`)
+            }
+
+            for (const item of plan.close) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: item.number,
+                state: 'closed',
+                state_reason: item.state_reason,
+              })
+              core.info(`Closed issue #${item.number}`)
+            }
 
       # Escalates only after the cache and deployment are safely done, so the
       # resulting issue never costs a week of live data.

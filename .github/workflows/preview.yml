@@ -41,6 +41,7 @@ jobs:
             public/flickr-photos.json
             public/experiences
             src/assets/svg/growth_bluefins.svg
+            .cache/website-live-data/sbom-audit.json
           key: website-live-data-
           restore-keys: |
             website-live-data-
