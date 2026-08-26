@@ -1,22 +1,15 @@
 # Stream version information for Bluefin releases
-# Source: docs.projectbluefin.io/data/sbom-attestations.json
-#         (cosign-verified OCI SBOM attestations from ghcr.io/ublue-os)
-# Last updated: 2026-07-21
+# Source: verified OCI image SBOMs (cosign + SPDX referrers)
+# Last updated: 2026-08-26
 
 stable:
+  status: "verified"
   base: "Fedora 44"
-  kernel: "7.0.12-201"
-  gnome: "50.3-1"
-  mesa: "26.1.4-4"
-  nvidia: "unknown"
-  systemd: "259.7-1"
-  podman: "5.8.4-1"
-  pipewire: "1.6.8-1"
-  flatpak: "1.18.0-1"
+  kernel: "7.1.6-201.fc44"
+  gnome: "50.3-1.fc44"
+  systemd: "259.8-1.fc44"
+  pipewire: "1.6.8-1.fc44"
+  flatpak: "1.18.0-1.fc44"
+  nvidia: "3:610.57.04-1.fc44"
 lts:
-  base: "CentOS Stream 10"
-  kernel: "6.12.0-233.el10"
-  gnome: "49.5"
-  mesa: "25.2.7"
-  hwe: "7.0.8-100.fc43"
-  nvidia: "unknown"
+  status: "unavailable"

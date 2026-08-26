@@ -5,13 +5,9 @@ import { i18n } from '../locales/schema'
 
 const STREAM_VERSIONS_YAML = `
 lts:
-  base: CentOS Stream 10
-  gnome: '48'
-  kernel: 6.12.0
-  mesa: '25.0'
-  nvidia: '575.0'
-  hwe: 6.15.0
+  status: unavailable
 stable:
+  status: verified
   base: Fedora 42
   gnome: '50'
   kernel: 6.19.11
@@ -57,8 +53,8 @@ describe('imageChooser.vue', () => {
     expect(boxes[1].classes()).toContain('recommended')
     expect(boxes[1].get('.recommended-badge').text()).toBe('Recommended')
 
-    // Version information from stream-versions.yml is rendered into the boxes.
-    expect(boxes[0].text()).toContain('CentOS Stream 10')
+    // Version information from stream-versions.yml is rendered for verified streams only.
+    expect(boxes[0].find('.version-info').exists()).toBe(false)
     expect(boxes[1].text()).toContain('Fedora 42')
   })
 
@@ -155,6 +151,22 @@ describe('imageChooser.vue', () => {
     expect(fetchMock).toHaveBeenCalledWith('/stream-versions.yml')
     expect(wrapper.findAll('.release-box')).toHaveLength(2)
     expect(wrapper.find('.version-info').exists()).toBe(false)
+  })
+
+  it('does not render version chips for a stream with status unavailable', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => ({
+      ok: true,
+      text: async () => STREAM_VERSIONS_YAML,
+    })))
+
+    const wrapper = mountChooser()
+    await flushPromises()
+
+    const boxes = wrapper.findAll('.release-box')
+    // LTS is unavailable — no version-info rendered
+    expect(boxes[0].find('.version-info').exists()).toBe(false)
+    // Stable is verified — version-info rendered
+    expect(boxes[1].find('.version-info').exists()).toBe(true)
   })
 
   it('summarises the selection and links the release registry on the download step', async () => {

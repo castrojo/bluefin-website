@@ -19,12 +19,13 @@ const { t } = useI18n<MessageSchema>({
 
 // Version information interface
 interface VersionInfo {
-  base: string
-  gnome: string
-  kernel: string
-  mesa: string
-  nvidia: string
-  hwe: string | undefined
+  status?: string
+  base?: string
+  gnome?: string
+  kernel?: string
+  mesa?: string
+  nvidia?: string
+  hwe?: string
 }
 
 interface StreamVersions {
@@ -270,46 +271,47 @@ onMounted(() => {
                     {{ release.description }}
                   </p>
 
-                  <!-- Version Information -->
+                  <!-- Version Information (only for verified streams) -->
                   <div
                     v-if="
                       streamVersions
                         && streamVersions[release.id as keyof StreamVersions]
+                        && streamVersions[release.id as keyof StreamVersions].status === 'verified'
                     "
                     class="version-info"
                   >
-                    <div class="version-item">
+                    <div v-if="streamVersions[release.id as keyof StreamVersions].base" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Base') }}:</span>
                       <span class="version-value">{{
                         streamVersions[release.id as keyof StreamVersions].base
                       }}</span>
                     </div>
-                    <div class="version-item">
+                    <div v-if="streamVersions[release.id as keyof StreamVersions].gnome" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Gnome') }}:</span>
                       <span class="version-value">{{
                         streamVersions[release.id as keyof StreamVersions].gnome
                       }}</span>
                     </div>
-                    <div class="version-item">
+                    <div v-if="streamVersions[release.id as keyof StreamVersions].kernel" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Kernel') }}:</span>
                       <span class="version-value">{{
                         streamVersions[release.id as keyof StreamVersions].kernel
                       }}</span>
                     </div>
-                    <div v-if="release.id === 'lts'" class="version-item">
+                    <div v-if="release.id === 'lts' && streamVersions[release.id as keyof StreamVersions].hwe" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.HWEKernel') }}:</span>
                       <span class="version-value">{{
                         streamVersions[release.id as keyof StreamVersions].hwe
                       }}</span>
                     </div>
 
-                    <div class="version-item">
+                    <div v-if="streamVersions[release.id as keyof StreamVersions].mesa" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Mesa') }}:</span>
                       <span class="version-value">{{
                         streamVersions[release.id as keyof StreamVersions].mesa
                       }}</span>
                     </div>
-                    <div class="version-item">
+                    <div v-if="streamVersions[release.id as keyof StreamVersions].nvidia" class="version-item">
                       <span class="version-label">{{ t('TryBluefin.Label.Nvidia') }}:</span>
                       <span class="version-value">{{
                         streamVersions[release.id as keyof StreamVersions].nvidia

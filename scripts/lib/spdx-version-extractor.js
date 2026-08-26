@@ -88,11 +88,12 @@ export function extractMappedVersions(sbom, mappings) {
     // Normalise and partition into accepted / rejected
     const accepted = []
     for (const pkg of candidates) {
-      const v = normalizeVersion(pkg.versionInfo)
+      const raw = pkg.versionInfo ?? pkg.version
+      const v = normalizeVersion(raw)
       if (v != null) {
         accepted.push(v)
-      } else if (pkg.versionInfo != null) {
-        rejected.push({ field, value: pkg.versionInfo })
+      } else if (raw != null) {
+        rejected.push({ field, value: raw })
       }
     }
 
