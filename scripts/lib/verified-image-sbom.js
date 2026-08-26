@@ -62,7 +62,7 @@ export function verifyImageProvenance(imageAtDigest, policy, run = execFileSync)
   try {
     run('cosign', [
       'verify-attestation',
-      '--type', 'slsaprovenance',
+      '--type', 'https://slsa.dev/provenance/v1',
       '--certificate-identity-regexp', policy.certificateIdentityRegexp,
       '--certificate-oidc-issuer', policy.certificateOidcIssuer,
       imageAtDigest,

@@ -1,12 +1,33 @@
 {
-  "checkedAt": "2026-08-26T06:21:31.273Z",
-  "status": "unavailable",
-  "sources": [],
+  "checkedAt": "2026-08-26T06:23:16.368Z",
+  "status": "verified",
+  "sources": [
+    {
+      "id": "dakota",
+      "image": "ghcr.io/projectbluefin/dakota:latest",
+      "imageDigest": "sha256:06f5511bca3ce5b44cb9069c2f34d77823b300ae7aada9e177075e986103b28e",
+      "sbomDigest": "sha256:53c708cb97cc9949d1a66b1220f00c4e513553746f9beb0faaad3cbc51035e76"
+    },
+    {
+      "id": "dakota-nvidia",
+      "image": "ghcr.io/projectbluefin/dakota-nvidia:latest",
+      "imageDigest": "sha256:32a256e975ecd81bd01a47296f69141ca6355269a0de042d6ca8872c1d425266",
+      "sbomDigest": "sha256:878e28bf06219e37bcf50bd17b879024b1d6296752faa68c7cd08048655ba91d"
+    }
+  ],
   "isos": [
     {
       "label": "Download ISO",
       "filename": "dakota-live-alpha4.iso"
     }
   ],
-  "packages": {}
+  "packages": {
+    "kernel": "7.0.7",
+    "gnome": "50.2",
+    "podman": "5.8.2",
+    "pipewire": "1.6.1",
+    "flatpak": "1.16.6",
+    "bootc": "1.15.2",
+    "nvidia": "595.71.05"
+  }
 }
