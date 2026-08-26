@@ -51,7 +51,7 @@ describe('resolveImageDigest', () => {
     expect(result).toBe(`ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`)
     expect(run).toHaveBeenCalledWith(
       'oras',
-      ['manifest', 'fetch', '--descriptor', '--format', 'json', 'ghcr.io/projectbluefin/dakota:latest'],
+      ['manifest', 'fetch', '--descriptor', 'ghcr.io/projectbluefin/dakota:latest'],
       expect.objectContaining({ encoding: 'utf8' }),
     )
   })

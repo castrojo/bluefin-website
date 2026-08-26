@@ -22,7 +22,7 @@ export class EvidenceError extends Error {
  */
 export function resolveImageDigest(image, run = execFileSync) {
   try {
-    const result = JSON.parse(run('oras', ['manifest', 'fetch', '--descriptor', '--format', 'json', image], { encoding: 'utf8' }))
+    const result = JSON.parse(run('oras', ['manifest', 'fetch', '--descriptor', image], { encoding: 'utf8' }))
     const repository = image.replace(/[:@].*$/, '')
     return `${repository}@${result.digest}`
   } catch (err) {
