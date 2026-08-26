@@ -59,12 +59,7 @@ describe('resolveImageDigest', () => {
   it('throws EvidenceError with code image-not-found on failure', () => {
     const run = vi.fn().mockImplementation(() => { throw new Error('not found') })
     expect(() => resolveImageDigest('ghcr.io/projectbluefin/dakota:latest', run))
-      .toThrow(EvidenceError)
-    try {
-      resolveImageDigest('ghcr.io/projectbluefin/dakota:latest', run)
-    } catch (err) {
-      expect(err.code).toBe('image-not-found')
-    }
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'image-not-found' }))
   })
 })
 
@@ -79,6 +74,20 @@ describe('discoverReferrers', () => {
       expect.objectContaining({ encoding: 'utf8' }),
     )
     expect(result).toEqual(dakotaDiscovery.referrers)
+  })
+
+  it('throws EvidenceError image-not-found on command failure', () => {
+    const imageAtDigest = `ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`
+    const run = vi.fn().mockImplementation(() => { throw new Error('connection refused') })
+    expect(() => discoverReferrers(imageAtDigest, run))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'image-not-found' }))
+  })
+
+  it('throws EvidenceError invalid-sbom on malformed discovery JSON', () => {
+    const imageAtDigest = `ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`
+    const run = vi.fn().mockReturnValue('not json {{{')
+    expect(() => discoverReferrers(imageAtDigest, run))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'invalid-sbom' }))
   })
 })
 
@@ -112,12 +121,18 @@ describe('verifyImageProvenance', () => {
     }
     const run = vi.fn().mockImplementation(() => { throw new Error('no matching attestations') })
     expect(() => verifyImageProvenance(imageAtDigest, policy, run))
-      .toThrow(EvidenceError)
-    try {
-      verifyImageProvenance(imageAtDigest, policy, run)
-    } catch (err) {
-      expect(err.code).toBe('missing-provenance')
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'missing-provenance' }))
+  })
+
+  it('throws EvidenceError with code invalid-provenance on other cosign failures', () => {
+    const imageAtDigest = `ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`
+    const policy = {
+      certificateIdentityRegexp: '^https://github.com/projectbluefin/dakota/.+$',
+      certificateOidcIssuer: 'https://token.actions.githubusercontent.com',
     }
+    const run = vi.fn().mockImplementation(() => { throw new Error('certificate chain validation failed') })
+    expect(() => verifyImageProvenance(imageAtDigest, policy, run))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'invalid-provenance' }))
   })
 })
 
@@ -131,6 +146,7 @@ describe('pullSpdxReferrer', () => {
     }
     const run = vi.fn().mockReturnValue('')
     const result = pullSpdxReferrer('ghcr.io/projectbluefin/dakota', SBOM_DIGEST, run, mockFs)
+    expect(mockFs.rmSync).toHaveBeenCalledTimes(1)
     expect(mockFs.rmSync).toHaveBeenCalledWith('/mock-tmp/sbom-xyz', expect.objectContaining({ recursive: true }))
     expect(result).toMatchObject({ spdxVersion: 'SPDX-2.3' })
   })
@@ -145,6 +161,7 @@ describe('pullSpdxReferrer', () => {
     const run = vi.fn().mockReturnValue('')
     expect(() => pullSpdxReferrer('ghcr.io/projectbluefin/dakota', SBOM_DIGEST, run, mockFs))
       .toThrow(EvidenceError)
+    expect(mockFs.rmSync).toHaveBeenCalledTimes(1)
     expect(mockFs.rmSync).toHaveBeenCalledWith('/mock-tmp/sbom-xyz', expect.objectContaining({ recursive: true }))
   })
 })

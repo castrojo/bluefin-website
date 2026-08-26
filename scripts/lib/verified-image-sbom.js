@@ -37,7 +37,18 @@ export function resolveImageDigest(image, run = execFileSync) {
  * @returns {Array} referrers array
  */
 export function discoverReferrers(imageAtDigest, run = execFileSync) {
-  const result = JSON.parse(run('oras', ['discover', '--format', 'json', imageAtDigest], { encoding: 'utf8' }))
+  let raw
+  try {
+    raw = run('oras', ['discover', '--format', 'json', imageAtDigest], { encoding: 'utf8' })
+  } catch (err) {
+    throw new EvidenceError('image-not-found', imageAtDigest, `Cannot discover referrers for ${imageAtDigest}: ${err.message}`)
+  }
+  let result
+  try {
+    result = JSON.parse(raw)
+  } catch (err) {
+    throw new EvidenceError('invalid-sbom', imageAtDigest, `Malformed discovery JSON for ${imageAtDigest}: ${err.message}`)
+  }
   return result.referrers ?? []
 }
 
@@ -57,10 +68,11 @@ export function verifyImageProvenance(imageAtDigest, policy, run = execFileSync)
       imageAtDigest,
     ], { encoding: 'utf8' })
   } catch (err) {
-    const msg = err.message ?? ''
-    if (/no matching attestation|no attestation/i.test(msg) || /exit code 1/i.test(msg) || true) {
-      throw new EvidenceError('missing-provenance', imageAtDigest, `Provenance verification failed for ${imageAtDigest}: ${msg}`)
+    const msg = (err.message ?? '') + (err.stderr ?? '')
+    if (/no matching attestation|no attestations|not found/i.test(msg)) {
+      throw new EvidenceError('missing-provenance', imageAtDigest, `No provenance attestation found for ${imageAtDigest}: ${msg}`)
     }
+    throw new EvidenceError('invalid-provenance', imageAtDigest, `Provenance verification failed for ${imageAtDigest}: ${msg}`)
   }
 }
 
@@ -81,17 +93,12 @@ export function pullSpdxReferrer(repository, digest, run = execFileSync, fsImpl 
     if (!jsonFile) {
       throw new EvidenceError('invalid-sbom', repository, `No JSON file in SBOM referrer for ${repository}@${digest}`)
     }
-    const content = JSON.parse(fsImpl.readFileSync(path.join(outputDir, jsonFile), 'utf8'))
-    return content
+    return JSON.parse(fsImpl.readFileSync(path.join(outputDir, jsonFile), 'utf8'))
   } catch (err) {
-    if (err instanceof EvidenceError) {
-      fsImpl.rmSync(outputDir, { recursive: true, force: true })
-      throw err
-    }
-    fsImpl.rmSync(outputDir, { recursive: true, force: true })
+    if (err instanceof EvidenceError) throw err
     throw new EvidenceError('invalid-sbom', repository, `Failed to pull SPDX referrer ${digest}: ${err.message}`)
   } finally {
-    try { fsImpl.rmSync(outputDir, { recursive: true, force: true }) } catch {}
+    fsImpl.rmSync(outputDir, { recursive: true, force: true })
   }
 }
 
