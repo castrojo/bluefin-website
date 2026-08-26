@@ -77,8 +77,9 @@ export function pullImageSbom(image) {
  * @returns {number} negative, zero, or positive ordering value
  */
 export function compareVersions(a, b) {
-  const left = a.split('.').map(Number)
-  const right = b.split('.').map(Number)
+  // parseInt stops at the first non-digit, so "8-ogc1" correctly parses as 8.
+  const left = a.split('.').map(seg => parseInt(seg, 10))
+  const right = b.split('.').map(seg => parseInt(seg, 10))
   for (let i = 0; i < Math.max(left.length, right.length); i++) {
     const diff = (left[i] ?? 0) - (right[i] ?? 0)
     if (diff !== 0) {
@@ -89,21 +90,14 @@ export function compareVersions(a, b) {
 }
 
 /**
- * Highest version recorded for an SPDX package name.
+ * Return the single unambiguous version for a name-only SPDX lookup.
  *
- * BuildStream SBOMs list a package once per build element, so the same name can
- * carry several versions (and non-version refs such as commit hashes, which are
- * skipped).
- * @param {object} sbom - parsed SPDX document with a `packages` array
- * @param {string} name - SPDX package name
- * @returns {string|undefined} highest semantic-looking version
- */
-/**
- * Compatibility wrapper: return the single unambiguous version for a
- * name-only lookup, or the highest version when only one distinct value
- * survives after hash rejection.
+ * Returns undefined when:
+ *   - the package is not present in the SBOM
+ *   - all candidate versionInfo values are commit hashes or otherwise rejected
+ *   - multiple distinct accepted versions exist (ambiguous)
  *
- * Callers that need element-pinned or ambiguity-aware extraction should use
+ * Callers that need element-pinned or selector-based extraction should use
  * extractMappedVersions directly.
  *
  * @param {object} sbom - parsed SPDX document
@@ -111,15 +105,6 @@ export function compareVersions(a, b) {
  * @returns {string|undefined}
  */
 export function spdxPackageVersion(sbom, name) {
-  const { values, ambiguous } = extractMappedVersions(sbom, { _field: { name } })
-  if (ambiguous.includes('_field')) {
-    // Multiple distinct versions — pick the highest for backward compatibility.
-    const versions = (sbom.packages ?? [])
-      .filter(pkg => pkg.name === name)
-      .map(pkg => normalizeVersion(pkg.versionInfo))
-      .filter(Boolean)
-    if (versions.length === 0) return undefined
-    return versions.sort(compareVersions).at(-1)
-  }
+  const { values } = extractMappedVersions(sbom, { _field: { name } })
   return values._field
 }

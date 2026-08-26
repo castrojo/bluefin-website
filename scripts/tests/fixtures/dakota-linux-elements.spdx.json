@@ -31,7 +31,7 @@
     {
       "SPDXID": "SPDXRef-linux-patch",
       "name": "linux",
-      "versionInfo": "5d3ebfdaa692b0ed53a7a05ba772fa5e1c72271060ed4c11d9e9dbe7ad2bd218",
+      "versionInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "externalRefs": [
         {
           "referenceCategory": "OTHER",

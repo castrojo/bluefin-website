@@ -9,7 +9,7 @@ const SBOM = {
     // commit-hash refs both appear for the same name.
     { name: 'linux', versionInfo: '6.12.40' },
     { name: 'linux', versionInfo: '7.0.7' },
-    { name: 'linux', versionInfo: '5d3ebfdaa692b0ed53a7a05ba772fa5e1c72271060ed4c11d9e9dbe7ad2bd218' },
+    { name: 'linux', versionInfo: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
     { name: 'linux', versionInfo: null },
     { name: 'gnome-shell', versionInfo: '50.2' },
     { name: 'mesa', versionInfo: '26.0.6' },
@@ -30,10 +30,23 @@ describe('oci-sbom helpers', () => {
     expect(compareVersions('1.6.1', '1.6.1')).toBe(0)
   })
 
-  it('returns the highest version when a package appears more than once', () => {
-    expect(spdxPackageVersion(SBOM, 'linux')).toBe('7.0.7')
-    expect(spdxPackageVersion(SBOM, 'mesa')).toBe('26.1.0')
-    expect(spdxPackageVersion(SBOM, 'systemd')).toBe('260.2')
+  it('handles kernel suffixes without producing NaN', () => {
+    // "7.1.8-ogc1" — parseInt("8-ogc1") = 8, not NaN
+    expect(compareVersions('7.1.8-ogc1', '7.1.7')).toBeGreaterThan(0)
+    expect(compareVersions('7.0.7', '7.1.8-ogc1')).toBeLessThan(0)
+    expect(compareVersions('7.1.8-ogc1', '7.1.8-ogc1')).toBe(0)
+  })
+
+  it('returns undefined when a package has multiple distinct versions (ambiguous)', () => {
+    // linux appears as 6.12.40 and 7.0.7 — ambiguous, must not silently pick highest
+    expect(spdxPackageVersion(SBOM, 'linux')).toBeUndefined()
+    expect(spdxPackageVersion(SBOM, 'mesa')).toBeUndefined()
+    expect(spdxPackageVersion(SBOM, 'systemd')).toBeUndefined()
+  })
+
+  it('returns the version when a package has exactly one accepted version', () => {
+    expect(spdxPackageVersion(SBOM, 'gnome-shell')).toBe('50.2')
+    expect(spdxPackageVersion(SBOM, 'podman')).toBe('5.8.2')
   })
 
   it('ignores commit hashes and null versions', () => {
@@ -52,8 +65,9 @@ describe('oci-sbom helpers', () => {
 
 describe('update-dakota-versions helpers', () => {
   it('maps SBOM package names onto dakota-versions fields', () => {
+    // linux is ambiguous (6.12.40 and 7.0.7 are both distinct accepted versions)
+    // so kernel is omitted; gnome-shell has one version and resolves
     expect(versionsFromSbom(SBOM, { kernel: 'linux', gnome: 'gnome-shell' })).toEqual({
-      kernel: '7.0.7',
       gnome: '50.2',
     })
   })

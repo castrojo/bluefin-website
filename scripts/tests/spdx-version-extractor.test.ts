@@ -30,7 +30,8 @@ describe('normalizeVersion', () => {
   })
 
   it('rejects commit hashes', () => {
-    expect(normalizeVersion('5d3ebfdaa692b0ed53a7a05ba772fa5e1c72271060ed4c11d9e9dbe7ad2bd218')).toBeUndefined()
+    // SHA-256 of the empty string — unambiguously a valid 64-hex hash
+    expect(normalizeVersion('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')).toBeUndefined()
     expect(normalizeVersion('c9372e733d75cf3c5197a0dd29f8a4a422e2dddb9020cab3c179a6f3df03d4be')).toBeUndefined()
   })
 
@@ -113,7 +114,7 @@ describe('extractMappedVersions', () => {
   it('rejects fields and reports them', () => {
     const sbom = {
       packages: [
-        { name: 'linux', versionInfo: '5d3ebfdaa692b0ed53a7a05ba772fa5e1c72271060ed4c11d9e9dbe7ad2bd218' },
+        { name: 'linux', versionInfo: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
       ],
     }
     const result = extractMappedVersions(sbom, { kernel: { name: 'linux', required: true } })

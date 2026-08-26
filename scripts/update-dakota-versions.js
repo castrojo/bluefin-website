@@ -1,150 +1,124 @@
 #!/usr/bin/env node
 
 /**
- * Updates dakota-versions.json from the BST SPDX SBOM attached to the
- * :stable image on GHCR. Falls back to :latest if :stable has no SBOM.
+ * Updates dakota-versions.json from the SPDX SBOMs attached to the published
+ * Dakota images on GHCR.
  *
- * Requires: oras (installed by update-content.yml), gh CLI (pre-installed
- * in GitHub Actions runners) for auth token.
+ * Sources — and the only permitted ones:
+ * 1. ghcr.io/projectbluefin/dakota:latest        — OS package versions
+ * 2. ghcr.io/projectbluefin/dakota-nvidia:latest — NVIDIA driver version
  *
- * Sources:
- * 1. GHCR OCI SBOM referrer on ghcr.io/projectbluefin/dakota — BST SPDX
- * 2. projectbluefin/dakota elements/freedesktop-sdk.bst — sdk version
- * 3. Existing dakota-versions.json — fallback for fields not in SBOM
+ * Do not reintroduce parsing of projectbluefin/dakota `.bst` refs. Those
+ * describe the next build, not the image users are running, and reporting them
+ * shows versions that have never shipped.
+ *
+ * Requires: oras (installed by update-content.yml), authenticated against ghcr.io.
  */
 
-import { Buffer } from 'node:buffer'
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
+
+import { pullImageSbom, spdxPackageVersion } from './lib/oci-sbom.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/dakota-versions.json')
-const FDSDK_BST_URL = 'https://api.github.com/repos/projectbluefin/dakota/contents/elements/freedesktop-sdk.bst'
 
-// ---------------------------------------------------------------------------
-// Exported helpers
-// ---------------------------------------------------------------------------
+const OS_IMAGE = 'ghcr.io/projectbluefin/dakota:latest'
+const NVIDIA_IMAGE = 'ghcr.io/projectbluefin/dakota-nvidia:latest'
 
-export function decodeGitHubContent(content, encoding) {
-  return encoding === 'base64' ? Buffer.from(content, 'base64').toString() : content
+// dakota-versions.json field → SPDX package name in the BuildStream SBOM.
+const OS_PACKAGES = {
+  kernel: 'linux',
+  gnome: 'gnome-shell',
+  mesa: 'mesa',
+  systemd: 'systemd',
+  podman: 'podman',
+  pipewire: 'pipewire',
+  flatpak: 'flatpak',
+  bootc: 'bootc',
 }
 
-export function extractFreedesktopSdkVersion(text) {
-  return text.match(/ref:\s*freedesktop-sdk-([\d.]+)/)?.[1] ?? null
+const NVIDIA_PACKAGES = {
+  nvidia: 'NVIDIA-Linux-x86',
 }
 
 /**
- * Merge package versions from BST streams data into the current dakota-versions object.
- * @param {object} current  - existing dakota-versions.json contents
- * @param {object} streamsData - { streams: { 'dakota-latest': { releases: { latest: { packageVersions } } } } }
- * @param {string} date     - ISO date string to stamp generatedAt
+ * Read the mapped package versions out of one SPDX document.
+ * @param {object} sbom - parsed SPDX document
+ * @param {Record<string, string>} mapping - output field to SPDX package name
+ * @param {string} label - log prefix identifying the image
+ * @returns {Record<string, string>} resolved versions, omitting misses
  */
-export function applySbomVersions(current, streamsData, date) {
-  const streams = streamsData.streams || {}
-  const dakotaLatest = streams['dakota-latest']?.releases?.latest?.packageVersions
-  if (!dakotaLatest) {
-    return current
-  }
-  const packages = { ...current.packages }
-  for (const field of ['kernel', 'gnome', 'mesa', 'systemd', 'podman', 'pipewire', 'flatpak']) {
-    if (dakotaLatest[field]) {
-      packages[field] = dakotaLatest[field]
+export function versionsFromSbom(sbom, mapping, label = 'sbom') {
+  const resolved = {}
+  for (const [field, packageName] of Object.entries(mapping)) {
+    const version = spdxPackageVersion(sbom, packageName)
+    if (version) {
+      resolved[field] = version
+      console.info(`[dakota-versions] ${label}: ${field} -> ${version}`)
+    }
+    else {
+      console.warn(`[dakota-versions] ${label}: no version for "${packageName}"`)
     }
   }
-  if (dakotaLatest.allPackages) {
-    for (const [k, v] of Object.entries(dakotaLatest.allPackages)) {
-      packages[k] = v
-    }
+  return resolved
+}
+
+/**
+ * Merge SBOM-derived versions into the existing document.
+ * @param {object} current - existing dakota-versions.json contents
+ * @param {Record<string, string>} versions - SBOM-derived package versions
+ * @param {string} generatedAt - ISO timestamp to stamp
+ * @returns {object} updated document
+ */
+export function applyVersions(current, versions, generatedAt) {
+  const metadata = Object.fromEntries(
+    Object.entries(current.packages).filter(([field]) => field === 'baseline'),
+  )
+  return {
+    ...current,
+    packages: { ...versions, ...metadata },
+    generatedAt,
   }
-  const nvidiaVersions = streams['dakota-nvidia-latest']?.releases?.latest?.packageVersions
-  if (nvidiaVersions?.nvidia) {
-    packages.nvidia = nvidiaVersions.nvidia
-  }
-  return { ...current, packages, generatedAt: date }
 }
 
-// ---------------------------------------------------------------------------
-// Source helpers
-// ---------------------------------------------------------------------------
-
-export function extractSourceVersion(text, pattern) {
-  return text.match(pattern)?.[1] ?? null
+function isMainModule() {
+  return process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href
 }
-
-// ---------------------------------------------------------------------------
-// Source files
-// ---------------------------------------------------------------------------
-
-const SOURCE_FILES = {
-  gnome: 'elements/gnome-build-meta.bst',
-  bootc: 'elements/gnomeos-deps/bootc.bst',
-  nvidia: 'elements/bluefin-nvidia/nvidia-drivers.bst',
-}
-
-// ---------------------------------------------------------------------------
-// main
-// ---------------------------------------------------------------------------
 
 async function main() {
   const current = JSON.parse(fs.readFileSync(OUT, 'utf8'))
 
-  // 1. SBOM from GHCR — :stable then :latest
-  try {
-    // Source refs from upstream Dakota main. Keep existing values for packages
-    // that are only discoverable from a published image SBOM.
-    const headers = {
-      'User-Agent': 'bluefin-website-updater',
-      ...(process.env.GITHUB_TOKEN ? { Authorization: `token ${process.env.GITHUB_TOKEN}` } : {}),
-    }
-    const sourceVersions = {
-      gnome: { url: `https://api.github.com/repos/projectbluefin/dakota/contents/${SOURCE_FILES.gnome}`, pattern: /ref:\s*(\d+\.\d+)/ },
-      bootc: { url: `https://api.github.com/repos/projectbluefin/dakota/contents/${SOURCE_FILES.bootc}`, pattern: /ref:\s*v(\d+\.\d+\.\d+)-/ },
-      nvidia: { url: `https://api.github.com/repos/projectbluefin/dakota/contents/${SOURCE_FILES.nvidia}`, pattern: /nvidia-version:\s*['"]?(\d+\.\d+\.\d+)/ },
-    }
-    for (const [field, source] of Object.entries(sourceVersions)) {
-      const res = await fetch(source.url, { headers })
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status} from ${source.url}`)
-      }
-      const { content, encoding } = await res.json()
-      const version = extractSourceVersion(decodeGitHubContent(content, encoding), source.pattern)
-      if (version) {
-        current.packages[field] = version
-        console.info(`[dakota-versions] ${field} → ${version}`)
-      }
-    }
-  }
-  catch (e) {
-    console.warn('[dakota-versions] source ref fetch failed:', e.message)
+  const osVersions = versionsFromSbom(pullImageSbom(OS_IMAGE), OS_PACKAGES, 'dakota')
+
+  if (Object.keys(osVersions).length === 0) {
+    throw new Error(`no package versions resolved from ${OS_IMAGE}`)
   }
 
-  // 2. freedesktop-sdk from upstream dakota main
+  let nvidiaVersions = {}
   try {
-    const headers = {
-      'User-Agent': 'bluefin-website-updater',
-      ...(process.env.GITHUB_TOKEN ? { Authorization: `token ${process.env.GITHUB_TOKEN}` } : {}),
-    }
-    const res = await fetch(FDSDK_BST_URL, { headers })
-    if (res.ok) {
-      const { content, encoding } = await res.json()
-      const raw = decodeGitHubContent(content, encoding)
-      const ver = extractFreedesktopSdkVersion(raw)
-      if (ver) {
-        current.packages['freedesktop-sdk'] = ver
-        console.info(`[dakota-versions] freedesktop-sdk → ${ver}`)
-      }
-    }
+    nvidiaVersions = versionsFromSbom(pullImageSbom(NVIDIA_IMAGE), NVIDIA_PACKAGES, 'dakota-nvidia')
   }
-  catch (e) {
-    console.warn('[dakota-versions] freedesktop-sdk fetch failed:', e.message)
+  catch (error) {
+    // The NVIDIA variant lags the base image; keep the last known value rather
+    // than failing the whole update.
+    console.warn('[dakota-versions] dakota-nvidia SBOM unavailable:', error.message)
   }
 
-  fs.writeFileSync(OUT, `${JSON.stringify(current, null, 2)}\n`)
+  const updated = applyVersions(
+    current,
+    { ...osVersions, ...nvidiaVersions },
+    new Date().toISOString(),
+  )
+
+  fs.writeFileSync(OUT, `${JSON.stringify(updated, null, 2)}\n`)
   console.info('[dakota-versions] wrote', OUT)
 }
 
-main().catch((e) => {
-  console.error('[dakota-versions] error:', e.message)
-  process.exit(0)
-})
+if (isMainModule()) {
+  main().catch((e) => {
+    console.error('[dakota-versions] fatal:', e.message)
+    process.exit(1)
+  })
+}
