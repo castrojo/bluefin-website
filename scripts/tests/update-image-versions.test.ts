@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { verifyRegistry, productStatus, writeOutputsAtomically } from '../lib/image-version-audit.js'
 import { EvidenceError } from '../lib/verified-image-sbom.js'
 
@@ -160,10 +160,24 @@ describe('verifyRegistry — failure policy', () => {
     const image = result.images[0]
 
     // Only documented keys should be present
-    const allowedKeys = new Set(['id', 'image', 'imageDigest', 'sbomDigest', 'status', 'values', 'missingOptional'])
+    const allowedKeys = new Set(['id', 'product', 'image', 'imageDigest', 'sbomDigest', 'status', 'values', 'missingOptional'])
     for (const key of Object.keys(image)) {
       expect(allowedKeys).toContain(key)
     }
+  })
+
+  it('includes product on a verified image entry', async () => {
+    const collect = makeCollector(SBOM_WITH_ALL)
+    const result = await verifyRegistry([REQUIRED_RECORD], { collectVerifiedImageSbom: collect })
+    expect(result.images[0].product).toBe('dakota')
+  })
+
+  it('includes product on an unavailable image entry', async () => {
+    const err = new EvidenceError('image-not-found', REQUIRED_RECORD.image, 'not found')
+    const collect = vi.fn().mockRejectedValue(err)
+    const result = await verifyRegistry([REQUIRED_RECORD], { collectVerifiedImageSbom: collect })
+    expect(result.images[0].product).toBe('dakota')
+    expect(result.images[0].status).toBe('unavailable')
   })
 })
 
@@ -195,6 +209,48 @@ describe('productStatus', () => {
     const status = productStatus(result)
     expect(status.dakota.status).toBe('unavailable')
   })
+
+  it('throws an explicit error when an image entry has no product field', () => {
+    const result = {
+      checkedAt: '2026-08-26T00:00:00.000Z',
+      images: [{ id: 'orphan', status: 'verified' }],
+    }
+    expect(() => productStatus(result)).toThrow("audit image entry 'orphan' is missing a product field")
+  })
+
+  it('composes directly with verifyRegistry output without caller mutation', async () => {
+    const bluefinRecord = Object.freeze({
+      id: 'bluefin',
+      product: 'bluefin',
+      required: true,
+      image: 'ghcr.io/projectbluefin/bluefin:latest',
+      certificateIdentityRegexp: '^https://.*$',
+      certificateOidcIssuer: 'https://token.actions.githubusercontent.com',
+      packages: { kernel: { name: 'linux', required: true } },
+    })
+    const collect = vi.fn().mockResolvedValue({
+      id: 'bluefin',
+      image: 'ghcr.io/projectbluefin/bluefin:latest',
+      imageDigest: IMAGE_DIGEST,
+      sbomDigest: SBOM_DIGEST,
+      checkedAt: '2026-08-26T00:00:00.000Z',
+      sbom: { packages: [{ name: 'linux', versionInfo: '7.0.7' }] },
+    })
+
+    const auditResult = await verifyRegistry(
+      [REQUIRED_RECORD, bluefinRecord],
+      { collectVerifiedImageSbom: collect, now: () => '2026-08-26T00:00:00.000Z' },
+    )
+
+    // Must not mutate entries before calling productStatus
+    const imageCopies = auditResult.images.map(i => ({ ...i }))
+    const status = productStatus(auditResult)
+
+    expect(status.dakota.status).toBe('ok')
+    expect(status.bluefin.status).toBe('ok')
+    // Verify original entries were not mutated
+    expect(auditResult.images).toEqual(imageCopies)
+  })
 })
 
 // ---------------------------------------------------------------------------
@@ -207,7 +263,7 @@ describe('writeOutputsAtomically', () => {
     const renamed = {}
     const fsMock = {
       mkdirSync: vi.fn(),
-      mkdtempSync: vi.fn().mockReturnValue('/fake-tmp/abc'),
+      mkdtempSync: vi.fn().mockReturnValue('/dest/.tmp-abc'),
       writeFileSync: vi.fn((p, content) => { written[p] = content }),
       renameSync: vi.fn((src, dst) => { renamed[dst] = written[src] }),
       rmSync: vi.fn(),
@@ -217,8 +273,11 @@ describe('writeOutputsAtomically', () => {
     writeOutputsAtomically({ 'sbom-audit.json': audit }, '/dest', { fs: fsMock })
 
     expect(fsMock.mkdirSync).toHaveBeenCalledWith('/dest', { recursive: true })
+    // Temp dir must be created inside destinationRoot, not os.tmpdir()
+    const mkdtempArg = (fsMock.mkdtempSync as ReturnType<typeof vi.fn>).mock.calls[0][0] as string
+    expect(mkdtempArg).toMatch(/^\/dest[/\\]/)
     expect(fsMock.renameSync).toHaveBeenCalledWith(
-      '/fake-tmp/abc/sbom-audit.json',
+      '/dest/.tmp-abc/sbom-audit.json',
       '/dest/sbom-audit.json',
     )
     const content = JSON.parse(renamed['/dest/sbom-audit.json'])
@@ -228,7 +287,7 @@ describe('writeOutputsAtomically', () => {
   it('leaves existing files unchanged if validation throws', () => {
     const fsMock = {
       mkdirSync: vi.fn(),
-      mkdtempSync: vi.fn().mockReturnValue('/fake-tmp/abc'),
+      mkdtempSync: vi.fn().mockReturnValue('/dest/.tmp-abc'),
       writeFileSync: vi.fn(),
       renameSync: vi.fn(),
       rmSync: vi.fn(),
@@ -242,16 +301,45 @@ describe('writeOutputsAtomically', () => {
     expect(fsMock.writeFileSync).not.toHaveBeenCalled()
   })
 
-  it('cleans up the temp dir after a write error', () => {
+  it('cleans up only the staging subdirectory after a write error', () => {
     const fsMock = {
       mkdirSync: vi.fn(),
-      mkdtempSync: vi.fn().mockReturnValue('/fake-tmp/abc'),
+      mkdtempSync: vi.fn().mockReturnValue('/dest/.tmp-abc'),
       writeFileSync: vi.fn().mockImplementation(() => { throw new Error('disk full') }),
       renameSync: vi.fn(),
       rmSync: vi.fn(),
     }
 
     expect(() => writeOutputsAtomically({ 'sbom-audit.json': {} }, '/dest', { fs: fsMock })).toThrow('disk full')
-    expect(fsMock.rmSync).toHaveBeenCalledWith('/fake-tmp/abc', { recursive: true, force: true })
+    // Must clean only the staging subdir, not destinationRoot
+    expect(fsMock.rmSync).toHaveBeenCalledWith('/dest/.tmp-abc', { recursive: true, force: true })
+    expect(fsMock.rmSync).not.toHaveBeenCalledWith('/dest', expect.anything())
+  })
+})
+
+// ---------------------------------------------------------------------------
+// --check-only semantics
+// ---------------------------------------------------------------------------
+
+describe('--check-only semantics (productStatus + verifyRegistry)', () => {
+  it('has nonzero unavailable count when a required image fails', async () => {
+    const err = new EvidenceError('image-not-found', REQUIRED_RECORD.image, 'not found')
+    const collect = vi.fn().mockRejectedValue(err)
+
+    const result = await verifyRegistry([REQUIRED_RECORD], { collectVerifiedImageSbom: collect })
+    const unavailable = result.images.filter(img => img.status === 'unavailable')
+
+    expect(unavailable.length).toBeGreaterThan(0)
+  })
+
+  it('has zero unavailable count when only optional images fail', async () => {
+    const err = new EvidenceError('missing-sbom', OPTIONAL_RECORD.image, 'no sbom')
+    const collect = vi.fn().mockRejectedValue(err)
+
+    const result = await verifyRegistry([OPTIONAL_RECORD], { collectVerifiedImageSbom: collect })
+    const unavailable = result.images.filter(img => img.status === 'unavailable')
+
+    // Optional failures are omitted entirely, so unavailable count must be zero
+    expect(unavailable.length).toBe(0)
   })
 })

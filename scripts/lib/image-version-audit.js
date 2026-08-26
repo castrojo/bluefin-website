@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import os from 'node:os'
 import { EvidenceError } from './verified-image-sbom.js'
 import { extractMappedVersions } from './spdx-version-extractor.js'
 
@@ -48,6 +47,7 @@ export async function verifyRegistry(records, dependencies) {
       if (record.required) {
         images.push({
           id: record.id,
+          product: record.product,
           image: record.image,
           status: 'unavailable',
           error: err.message,
@@ -62,6 +62,7 @@ export async function verifyRegistry(records, dependencies) {
     if (extraction.missingRequired.length > 0) {
       images.push({
         id: record.id,
+        product: record.product,
         image: record.image,
         imageDigest: collected.imageDigest,
         sbomDigest: collected.sbomDigest,
@@ -73,6 +74,7 @@ export async function verifyRegistry(records, dependencies) {
 
     images.push({
       id: record.id,
+      product: record.product,
       image: record.image,
       imageDigest: collected.imageDigest,
       sbomDigest: collected.sbomDigest,
@@ -95,9 +97,10 @@ export function productStatus(auditResult) {
   const byProduct = {}
 
   for (const image of auditResult.images) {
-    // Find product from the image entry; callers may attach it or it can be
-    // derived separately. Here we use image.product if present.
-    const product = image.product ?? 'unknown'
+    const product = image.product
+    if (product == null) {
+      throw new Error(`audit image entry '${image.id}' is missing a product field`)
+    }
     if (!byProduct[product]) {
       byProduct[product] = { images: [] }
     }
@@ -139,7 +142,7 @@ export function writeOutputsAtomically(outputs, destinationRoot, options = {}) {
 
   fsImpl.mkdirSync(destinationRoot, { recursive: true })
 
-  const tmpDir = fsImpl.mkdtempSync(path.join(os.tmpdir(), 'website-image-versions-'))
+  const tmpDir = fsImpl.mkdtempSync(path.join(destinationRoot, '.tmp-'))
 
   try {
     const staged = []

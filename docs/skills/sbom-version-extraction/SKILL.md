@@ -171,9 +171,9 @@ Task 4 adds a registry-wide orchestrator on top of the extractor.
 - Missing *required* package in SBOM → `status: "unavailable"` with `missingRequired`.
 - Missing *optional* package in SBOM → omit that field, keep `status: "verified"`.
 
-**Atomic writes:** `writeOutputsAtomically` validates all outputs first, then writes to a `mkdtempSync` directory and renames each file into place. If validation throws, no file is written.
+**Atomic writes:** `writeOutputsAtomically` validates all outputs first, then writes to a `mkdtempSync` directory **inside `destinationRoot`** (not `os.tmpdir()`) and renames each file into place. Staging under the same filesystem as the destination guarantees `renameSync` cannot fail with `EXDEV`. If validation throws, no file is written; cleanup removes only the staging subdirectory, never `destinationRoot`.
 
 **Dependency injection:** `verifyRegistry` accepts `collectVerifiedImageSbom`, `now`, `run`, and `fs` so tests can run without network or disk I/O.
 
-**Do not** pass `product` from each image record through the raw audit output — `productStatus` is a separate view function that expects callers to attach `product` if needed.
+**`product` is required on every audit image entry.** `verifyRegistry` copies `record.product` onto each output entry (verified and unavailable). `productStatus` throws an explicit error if any entry lacks a `product` field — there is no silent `"unknown"` fallback. The composition `productStatus(await verifyRegistry(records, deps))` must work without caller mutation.
 
