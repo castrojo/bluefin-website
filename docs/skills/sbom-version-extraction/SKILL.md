@@ -1,6 +1,6 @@
 ---
 name: sbom-version-extraction
-description: Use when editing scripts/lib/spdx-version-extractor.js, scripts/lib/oci-sbom.js, scripts/update-dakota-versions.js, or their tests.
+description: Use when editing scripts/lib/spdx-version-extractor.js, scripts/lib/oci-sbom.js, scripts/lib/image-version-audit.js, scripts/update-dakota-versions.js, scripts/update-image-versions.js, or their tests.
 ---
 
 # SBOM version extraction
@@ -159,3 +159,21 @@ echo -n '' | sha256sum
 - A fixture hash is shorter than 64 hex characters.
 - `scripts/update-dakota-versions.js` is not committed but
   `update-dakota-versions.test.ts` is.
+
+## Orchestrator (`image-version-audit.js` / `update-image-versions.js`)
+
+Task 4 adds a registry-wide orchestrator on top of the extractor.
+
+**Failure policy (enforced by tests):**
+- `EvidenceError` from a *required* image → `status: "unavailable"` in the audit.
+- `EvidenceError` from an *optional* image → record omitted entirely.
+- Non-`EvidenceError` thrown by the collector → abort, no file written.
+- Missing *required* package in SBOM → `status: "unavailable"` with `missingRequired`.
+- Missing *optional* package in SBOM → omit that field, keep `status: "verified"`.
+
+**Atomic writes:** `writeOutputsAtomically` validates all outputs first, then writes to a `mkdtempSync` directory and renames each file into place. If validation throws, no file is written.
+
+**Dependency injection:** `verifyRegistry` accepts `collectVerifiedImageSbom`, `now`, `run`, and `fs` so tests can run without network or disk I/O.
+
+**Do not** pass `product` from each image record through the raw audit output — `productStatus` is a separate view function that expects callers to attach `product` if needed.
+
