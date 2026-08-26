@@ -20,7 +20,9 @@
     "generate:wolves-qrs": "node scripts/generate-qrs.js",
     "check:docs": "node scripts/check-docs.mjs",
     "check:git-hygiene": "node scripts/check-git-hygiene.mjs",
-    "test:git-hygiene": "node scripts/check-git-hygiene.mjs --self-test"
+    "test:git-hygiene": "node scripts/check-git-hygiene.mjs --self-test",
+    "update:image-versions": "node scripts/update-image-versions.js",
+    "check:image-sboms": "node scripts/update-image-versions.js --check-only"
   },
   "dependencies": {
     "@fontsource/michroma": "^5.2.8",

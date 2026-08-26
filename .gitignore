@@ -28,3 +28,6 @@ coverage
 
 # Guardian card intermediates: scene stills are re-capturable from the official embeds
 scripts/guardian-cards/scenes/
+
+# Generated live data cache
+.cache/website-live-data/
