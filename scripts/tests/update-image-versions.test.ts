@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
+import { projectDakotaVersions } from '../lib/dakota-version-projection.js'
 import { IMAGE_SBOM_REGISTRY } from '../lib/image-sbom-registry.js'
 import {
   annotateLastSuccessful,
@@ -650,6 +651,27 @@ describe('annotateLastSuccessful', () => {
     expect(annotated.images[0].lastSuccessfulAt).toBe('2026-08-25T10:00:00.000Z')
   })
 
+  it('preserves lastSuccessfulAt across consecutive failed runs', () => {
+    const previousFailure = {
+      checkedAt: '2026-08-26T10:00:00.000Z',
+      images: [{
+        id: 'dakota',
+        product: 'dakota',
+        status: 'unavailable',
+        errorCode: 'missing-sbom',
+        lastSuccessfulAt: '2026-08-25T10:00:00.000Z',
+      }],
+    }
+    const current = {
+      checkedAt: '2026-08-27T10:00:00.000Z',
+      images: [{ id: 'dakota', product: 'dakota', status: 'unavailable', errorCode: 'missing-sbom' }],
+    }
+
+    const annotated = annotateLastSuccessful(current, previousFailure)
+
+    expect(annotated.images[0].lastSuccessfulAt).toBe('2026-08-25T10:00:00.000Z')
+  })
+
   it('records nothing when the previous run never verified that image', () => {
     const current = {
       checkedAt: '2026-08-26T10:00:00.000Z',
@@ -782,6 +804,42 @@ describe('assertExplainedFieldLoss', () => {
       previous: { status: 'verified', kernel: '6.12.40', gnome: '48.1' },
       next: { status: 'unavailable' },
       audit: unavailableAudit,
+    })).not.toThrow()
+  })
+
+  it('accepts a Dakota packages block going unavailable when its required image fails', () => {
+    const unavailableAudit = {
+      checkedAt: '2026-08-26T10:00:00.000Z',
+      images: [
+        {
+          id: 'dakota',
+          product: 'dakota',
+          required: true,
+          status: 'unavailable',
+          errorCode: 'missing-sbom',
+          fields: ['kernel', 'gnome', 'mesa'],
+        },
+        {
+          id: 'dakota-nvidia',
+          product: 'dakota',
+          required: false,
+          status: 'verified',
+          fields: ['nvidia'],
+          values: { nvidia: '595.71.05' },
+        },
+      ],
+    }
+    const projected = projectDakotaVersions(unavailableAudit, { baseline: 'x86-64-v3' })
+
+    expect(projected.status).toBe('unavailable')
+    expect(() => assertExplainedFieldLoss({
+      label: 'dakota-versions.json packages',
+      product: 'dakota',
+      previous: { kernel: '7.0.7', nvidia: '595.71.05', baseline: 'x86-64-v3' },
+      next: projected.packages,
+      nextStatus: projected.status,
+      audit: unavailableAudit,
+      ignore: ['baseline'],
     })).not.toThrow()
   })
 

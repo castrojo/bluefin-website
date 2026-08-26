@@ -182,7 +182,6 @@ export async function verifyRegistry(records, dependencies) {
 export function annotateLastSuccessful(auditResult, previousAudit) {
   const previousById = new Map(
     (previousAudit?.images ?? [])
-      .filter(img => img.status === 'verified' || img.status === 'degraded')
       .map(img => [img.id, img]),
   )
   const previousCheckedAt = previousAudit?.checkedAt
@@ -194,8 +193,13 @@ export function annotateLastSuccessful(auditResult, previousAudit) {
         return { ...image }
       }
       const previous = previousById.get(image.id)
-      const lastSuccessfulAt = previous?.checkedAt ?? previousCheckedAt
-      if (previous == null || lastSuccessfulAt == null) {
+      if (previous == null) {
+        return { ...image }
+      }
+      const lastSuccessfulAt = previous.status === 'verified' || previous.status === 'degraded'
+        ? previous.checkedAt ?? previousCheckedAt
+        : previous.lastSuccessfulAt
+      if (lastSuccessfulAt == null) {
         return { ...image }
       }
       return { ...image, lastSuccessfulAt }
@@ -248,13 +252,23 @@ function explainedFields(auditResult, product) {
  *   product: string,
  *   previous: Record<string, unknown>,
  *   next: Record<string, unknown>,
+ *   nextStatus?: string,
  *   audit: { images: object[] },
  *   aliases?: Record<string, string>,
  *   ignore?: string[],
  * }} options
  */
 export function assertExplainedFieldLoss(options) {
-  const { label, product, previous, next, audit, aliases = {}, ignore = [] } = options
+  const {
+    label,
+    product,
+    previous,
+    next,
+    nextStatus = next?.status,
+    audit,
+    aliases = {},
+    ignore = [],
+  } = options
   if (previous == null || next == null) {
     return
   }
@@ -270,7 +284,7 @@ export function assertExplainedFieldLoss(options) {
   const productUnavailable = (audit.images ?? []).some(
     img => img.product === product && img.status === 'unavailable',
   )
-  if (next.status === 'unavailable' && productUnavailable) {
+  if (nextStatus === 'unavailable' && productUnavailable) {
     return
   }
 

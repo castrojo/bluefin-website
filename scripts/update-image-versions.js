@@ -20,7 +20,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { load as loadYaml } from 'js-yaml'
 import { projectBluefinStreams } from './lib/bluefin-version-projection.js'
 import { projectDakotaVersions } from './lib/dakota-version-projection.js'
@@ -36,7 +36,6 @@ import { collectVerifiedImageSbom, ToolingError } from './lib/verified-image-sbo
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const projectRoot = path.resolve(__dirname, '..')
 
-const checkOnly = process.argv.includes('--check-only')
 const DAKOTA_BASELINE = 'x86-64-v3'
 const AUDIT_RELATIVE_PATH = '.cache/website-live-data/sbom-audit.json'
 
@@ -55,7 +54,12 @@ function readGenerated(filePath, parse) {
   }
 }
 
-async function main() {
+/**
+ * Verify every registered image and atomically refresh all public projections.
+ *
+ * @param {{ checkOnly?: boolean }} [options]
+ */
+export async function updateImageVersions({ checkOnly = false } = {}) {
   const streamsOutPath = path.join(projectRoot, 'public', 'stream-versions.yml')
   const dakotaOutPath = path.join(projectRoot, 'public', 'dakota-versions.json')
   const auditOutPath = path.join(projectRoot, ...AUDIT_RELATIVE_PATH.split('/'))
@@ -104,6 +108,7 @@ async function main() {
       product: 'bluefin',
       previous: previousStreams?.stable,
       next: bluefinStreams.stable,
+      nextStatus: bluefinStreams.stable?.status,
       audit: result,
     })
     assertExplainedFieldLoss({
@@ -111,6 +116,7 @@ async function main() {
       product: 'bluefin',
       previous: previousStreams?.lts,
       next: bluefinStreams.lts,
+      nextStatus: bluefinStreams.lts?.status,
       audit: result,
       aliases: { hwe: 'kernel' },
     })
@@ -119,6 +125,7 @@ async function main() {
       product: 'dakota',
       previous: previousDakota?.packages,
       next: dakotaVersions.packages,
+      nextStatus: dakotaVersions.status,
       audit: result,
       ignore: ['baseline'],
     })
@@ -143,15 +150,21 @@ async function main() {
   }
 }
 
-try {
-  await main()
+function isMainModule() {
+  return process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href
 }
-catch (err) {
-  if (err instanceof ToolingError) {
-    console.error(`Blocked: ${err.tool} could not complete verification (${err.code}).`)
-    console.error(err.message)
-    console.error('No output file, cache entry, or deployment was updated.')
-    process.exit(2)
+
+if (isMainModule()) {
+  try {
+    await updateImageVersions({ checkOnly: process.argv.includes('--check-only') })
   }
-  throw err
+  catch (err) {
+    if (err instanceof ToolingError) {
+      console.error(`Blocked: ${err.tool} could not complete verification (${err.code}).`)
+      console.error(err.message)
+      console.error('No output file, cache entry, or deployment was updated.')
+      process.exit(2)
+    }
+    throw err
+  }
 }

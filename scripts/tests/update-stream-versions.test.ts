@@ -1,14 +1,28 @@
-import { describe, expect, it } from 'vitest'
-import { createHeader } from '../update-stream-versions.js'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
-describe('update-stream-versions', () => {
-  it('creates the generated header with a stable date', () => {
-    expect(createHeader('2025-02-14')).toContain('# Last updated: 2025-02-14')
+const { updateImageVersions } = vi.hoisted(() => ({
+  updateImageVersions: vi.fn(),
+}))
+
+vi.mock('../update-image-versions.js', () => ({
+  updateImageVersions,
+}))
+
+describe('update-stream-versions wrapper', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
   })
 
-  it('header references verified OCI image SBOMs', () => {
-    const header = createHeader()
-    expect(header).toContain('verified OCI image SBOMs')
-    expect(header).not.toContain('docs.projectbluefin.io')
+  it('exports updateProducts as the entry point', async () => {
+    const mod = await import('../update-stream-versions.js')
+    expect(typeof mod.updateProducts).toBe('function')
+  })
+
+  it('delegates to the unified atomic updater', async () => {
+    updateImageVersions.mockResolvedValue(undefined)
+    const { updateProducts } = await import('../update-stream-versions.js')
+    await updateProducts()
+
+    expect(updateImageVersions).toHaveBeenCalledOnce()
   })
 })

@@ -1,65 +1,22 @@
 #!/usr/bin/env node
 
 /**
- * Update stream-versions.yml from verified OCI image SBOMs.
+ * Compatibility wrapper for the unified image-version updater.
  *
- * Uses the shared SBOM verification orchestrator against the Bluefin
- * image-sbom-registry entries, then projects results into the public
- * stream-versions.yml shape via bluefin-version-projection.
- *
- * Requires: oras, cosign (installed by update-content.yml), authenticated
- * against ghcr.io.
+ * The old product-only write path bypassed the atomic audit and field-loss
+ * guards. Keep this command as an alias, but always refresh every product
+ * through update-image-versions.js.
  */
 
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
-import { dump as dumpYaml } from 'js-yaml'
+import { pathToFileURL } from 'node:url'
 
-import { projectBluefinStreams } from './lib/bluefin-version-projection.js'
-import { IMAGE_SBOM_REGISTRY } from './lib/image-sbom-registry.js'
-import { verifyRegistry } from './lib/image-version-audit.js'
-import { collectVerifiedImageSbom } from './lib/verified-image-sbom.js'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const OUT = path.join(__dirname, '../public/stream-versions.yml')
-
-export function createHeader(today = new Date().toISOString().split('T')[0]) {
-  return [
-    '# Stream version information for Bluefin releases',
-    '# Source: verified OCI image SBOMs (cosign + SPDX referrers)',
-    `# Last updated: ${today}`,
-    '',
-    '',
-  ].join('\n')
-}
+import { updateImageVersions } from './update-image-versions.js'
 
 /**
- * Run the shared orchestrator for Bluefin records and project results.
+ * Run the unified atomic updater.
  */
-export async function updateProducts({ products = ['bluefin'] } = {}) {
-  const records = IMAGE_SBOM_REGISTRY.filter(r => products.includes(r.product))
-  const auditResult = await verifyRegistry(records, { collectVerifiedImageSbom })
-  const projected = projectBluefinStreams(auditResult)
-
-  // Write YAML with checkedAt and stable/lts data
-  const yamlData = { checkedAt: projected.checkedAt }
-  if (projected.stable) {
-    yamlData.stable = projected.stable
-  }
-  if (projected.lts) {
-    yamlData.lts = projected.lts
-  }
-
-  fs.writeFileSync(
-    OUT,
-    createHeader() + dumpYaml(yamlData, { lineWidth: -1, quotingType: '"', forceQuotes: true }),
-  )
-
-  console.info('[stream-versions] wrote', OUT)
-  console.info('stable:', projected.stable)
-  console.info('lts:', projected.lts)
-  return projected
+export async function updateProducts() {
+  return updateImageVersions()
 }
 
 function isMainModule() {
@@ -67,7 +24,7 @@ function isMainModule() {
 }
 
 if (isMainModule()) {
-  updateProducts({ products: ['bluefin'] }).catch((e) => {
+  updateProducts().catch((e) => {
     console.error('[stream-versions] fatal:', e.message)
     process.exit(1)
   })

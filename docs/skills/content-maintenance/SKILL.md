@@ -92,9 +92,13 @@ instead of `7.0.7`.
 Refresh with the generators, never by editing `public/*-versions.json`:
 
 ```bash
-node scripts/update-dakota-versions.js   # dakota + dakota-nvidia SBOMs
-node scripts/update-stream-versions.js   # bluefin stream SBOM attestations
+node scripts/update-image-versions.js
 ```
+
+`update-dakota-versions.js` and `update-stream-versions.js` are compatibility
+aliases for that same unified command. They must never regain product-only
+write paths: the unified updater is what persists the audit, checks explained
+field loss, and promotes every output atomically.
 
 `public/dakota-versions.json` keeps `packages.baseline` as hardware metadata,
 not SBOM output. If a placeholder-generated file drops that field, the Dakota

@@ -1,20 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { compareVersions, spdxPackageVersion } from '../lib/oci-sbom.js'
 
-const { readFileSync, writeFileSync, verifyRegistry } = vi.hoisted(() => ({
-  readFileSync: vi.fn(),
-  writeFileSync: vi.fn(),
-  verifyRegistry: vi.fn(),
+const { updateImageVersions } = vi.hoisted(() => ({
+  updateImageVersions: vi.fn(),
 }))
 
-vi.mock('node:fs', () => ({
-  default: { readFileSync, writeFileSync },
-  readFileSync,
-  writeFileSync,
-}))
-
-vi.mock('../lib/image-version-audit.js', () => ({
-  verifyRegistry,
+vi.mock('../update-image-versions.js', () => ({
+  updateImageVersions,
 }))
 
 const SBOM = {
@@ -84,30 +76,11 @@ describe('update-dakota-versions wrapper', () => {
     expect(typeof mod.updateProducts).toBe('function')
   })
 
-  it('recovers missing baseline metadata as x86-64-v3', async () => {
-    readFileSync.mockReturnValue(JSON.stringify({
-      isos: [{ label: 'Download ISO', filename: 'dakota-live-alpha4.iso' }],
-      packages: { kernel: '7.0.7' },
-    }))
-    verifyRegistry.mockResolvedValue({
-      checkedAt: '2026-08-26T00:00:00.000Z',
-      images: [{
-        id: 'dakota',
-        product: 'dakota',
-        image: 'ghcr.io/projectbluefin/dakota:latest',
-        imageDigest: 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sbomDigest: 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-        status: 'verified',
-        values: { kernel: '7.0.7' },
-      }],
-    })
-
+  it('delegates to the unified atomic updater', async () => {
+    updateImageVersions.mockResolvedValue(undefined)
     const { updateProducts } = await import('../update-dakota-versions.js')
     await updateProducts()
 
-    expect(writeFileSync).toHaveBeenCalledTimes(1)
-    const output = JSON.parse(writeFileSync.mock.calls[0][1] as string)
-    expect(output.isos).toEqual([{ label: 'Download ISO', filename: 'dakota-live-alpha4.iso' }])
-    expect(output.packages.baseline).toBe('x86-64-v3')
+    expect(updateImageVersions).toHaveBeenCalledOnce()
   })
 })

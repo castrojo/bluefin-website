@@ -40,8 +40,8 @@ generated. Do not use for Wolves version data; that lives in
 
 ## Core Process
 
-1. Read the prohibited-sources comment at the top of `update-dakota-versions.js`.
-2. Run `npx vitest run scripts/tests/spdx-version-extractor.test.ts scripts/tests/update-dakota-versions.test.ts scripts/tests/bluefin-version-projection.test.ts scripts/tests/update-stream-versions.test.ts` before and after changes.
+1. Read the failure policy at the top of `update-image-versions.js`.
+2. Run `npx vitest run scripts/tests/spdx-version-extractor.test.ts scripts/tests/update-image-versions.test.ts scripts/tests/update-dakota-versions.test.ts scripts/tests/bluefin-version-projection.test.ts scripts/tests/update-stream-versions.test.ts` before and after changes.
 3. Commit the implementation file before or in the same commit as any test
    that imports it.
 4. Update this skill when you discover a new correctness rule.
@@ -53,8 +53,9 @@ generated. Do not use for Wolves version data; that lives in
 | `scripts/lib/spdx-version-extractor.js` | Core extraction: `normalizeVersion`, `packageElement`, `extractMappedVersions` |
 | `scripts/lib/bluefin-version-projection.js` | Bluefin projection: `projectBluefinStreams`, `normalizeUserVersion` |
 | `scripts/lib/oci-sbom.js` | OCI layer: `pullImageSbom`, `compareVersions`, `spdxPackageVersion` |
-| `scripts/update-dakota-versions.js` | Dakota updater: `versionsFromSbom`, `applyVersions`, `main` |
-| `scripts/update-stream-versions.js` | Bluefin updater: `updateProducts`, `createHeader` |
+| `scripts/update-image-versions.js` | Unified verifier, projection guard, audit writer, and atomic output promotion |
+| `scripts/update-dakota-versions.js` | Compatibility alias that delegates to the unified updater |
+| `scripts/update-stream-versions.js` | Compatibility alias that delegates to the unified updater |
 | `scripts/tests/spdx-version-extractor.test.ts` | Extractor unit tests |
 | `scripts/tests/bluefin-version-projection.test.ts` | Projection unit tests |
 | `scripts/tests/update-dakota-versions.test.ts` | Dakota updater integration tests |
@@ -234,6 +235,12 @@ change, not a content change.
 
 **`product` is required on every audit image entry.** `verifyRegistry` copies `record.product` onto each output entry (verified and unavailable). `productStatus` throws an explicit error if any entry lacks a `product` field — there is no silent `"unknown"` fallback. The composition `productStatus(await verifyRegistry(records, deps))` must work without caller mutation.
 
+**There is one write path.** `update-dakota-versions.js` and
+`update-stream-versions.js` are compatibility aliases that call
+`updateImageVersions()`. Product-only wrappers must not verify and write their
+own files: that bypasses the persisted audit, explained-field-loss checks, and
+atomic multi-output promotion.
+
 
 
 ## Evidence failure vs tooling failure
@@ -291,6 +298,11 @@ Anything else throws before promotion. The alias map handles projection-level
 renames (`hwe` ← the HWE image's `kernel` field); `baseline` is passed via
 `ignore` because it is static metadata, not SBOM evidence.
 
+When the projection status lives outside the guarded field map — Dakota stores
+`status` beside `packages`, not inside it — pass `nextStatus` explicitly.
+Otherwise a correctly unavailable whole-product projection can be mistaken for
+unexplained loss from an independently verified optional image.
+
 ## Image staleness: `checkedAt`, not image age
 
 The design document lists "maximum acceptable age" as a registry field. It is
@@ -339,8 +351,9 @@ relative specifier still fails there.
   this pipeline exists to surface.
 - Bodies carry the workflow run URL and the per-image last successful
   verification, or the literal `none recorded`.
-- `annotateLastSuccessful()` copies the previous audit's `checkedAt` onto
-  currently failing entries, which is why `update-content.yml` restores the
+- `annotateLastSuccessful()` copies the previous audit's `checkedAt` onto a
+  newly failing entry and carries an existing `lastSuccessfulAt` through every
+  consecutive failed run. This is why `update-content.yml` restores the
   live-data cache *before* verification, using the exact save path list in the
   same order.
 - Both `listForRepo` calls use `github.paginate`. Deduplication that only reads
