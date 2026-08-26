@@ -121,8 +121,10 @@ unverifiable and have been removed.
 
 `public/server-versions.json` and `scripts/update-server-versions.js` are
 deleted. `ServerVersion.vue` and `ServerHighlights.vue` no longer fetch version
-data. The `/server/` page retains only the GitHub releases link and non-version
-guidance. If Bluefin Server later publishes an image SBOM, a new updater can be
+data. When a product publishes no verifiable image SBOM, render no version
+rows. Keep only the existing release destination and an explicit status
+explaining that version details are withheld until verified image evidence
+exists. If Bluefin Server later publishes an image SBOM, a new updater can be
 written to source from it; do not reintroduce Flatcar or any substitute data
 source.
 

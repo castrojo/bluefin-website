@@ -43,5 +43,8 @@ describe('serverVersion.vue', () => {
     const text = wrapper.text()
 
     expect(text).toContain('GitHub')
+    expect(text).toContain(
+      'Version details will appear when Bluefin Server publishes a verifiable image SBOM.'
+    )
   })
 })
