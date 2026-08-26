@@ -1,6 +1,6 @@
 # Wolves slide scheduling and comic reader
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 Defect-derived invariants for `WolvesComicReader.vue`: locked slide windows,
 preload budgeting, beat grids for segments 1-6, buffer continuity at segment
@@ -92,9 +92,9 @@ check silently passes.
 
 ## The Director's Cut runs a second Track 0 schedule
 
-`/wolves/` plays two cuts of the same song through the same component, selected
-by `presentationProfile` (see `src/stores/cinematic.ts`). The standard cut keeps
-everything above. The Director's Cut runs
+`/wolves/experience/` plays two cuts of the same song through the same
+component, selected by `presentationProfile` (see `src/stores/cinematic.ts`).
+The standard cut keeps everything above. The Director's Cut runs
 `buildDirectorsCutTrackZeroSlides()` from
 `src/data/wolves-directors-cut-slides.ts` and drops **every** authored lock: no
 hero pins, no post-hero opening run, no Reza hold, no pivotal/bketelsen freezes,
@@ -131,8 +131,11 @@ Three constraints hold that schedule together, and none of them is taste:
   beats, not 12); it is the longest hold of the section either way.
 
 Pools are drawn in the section's declared order and fall through as each
-exhausts, with the live CNCF feed last. With today's 254 local wallpapers the
-feed is never reached; it exists so a shrinking local pool degrades into more
+exhausts, with the live CNCF feed last. The local pool is the generated
+wallpaper list minus entries whose names end in `.gif`; derive it from
+`WolvesComicReader.vue` after `node scripts/generate-wallpapers.js` instead of
+re-typing a count. With the current 254-slide pool, the feed is never reached;
+it exists so a shrinking local pool degrades into more
 photographs rather than into fewer slides. A feed photo whose id already appears
 inside a local filename (`wolves/people/kubecon-55168684055.webp`) is dropped, or
 the same frame plays twice under two ids.
@@ -238,8 +241,9 @@ presentation:
 true, so `mixedPhotos` is live for every non-Wolves album. It reads as dead
 legacy code beside the newer Wolves path, and an audit flagged ~113 lines of it
 for deletion; deleting it would have broken eleven experiences while leaving
-`/wolves/` working, so a `/wolves/` smoke test would not have caught it. Check
-whether the non-Wolves experiences reach a symbol before removing it. Likewise
+`/wolves/experience/` working, so a `/wolves/experience/` smoke test would not
+have caught it. Check whether the non-Wolves experiences reach a symbol before
+removing it. Likewise
 `isExperimental` is a permanently-true flag, not a licence to delete its branch.
 
 Gallery image crossfades must not run inside a `backdrop-filter` surface.

@@ -2,12 +2,7 @@
 
 ## Boundary
 
-**Agents edit content. Agents never edit design.**
-
-Content changes may update prose, translations, URLs, data values, registered
-records, and approved assets inside existing structures. They do not authorize
-layout, markup, component behavior, styles, typography, responsive behavior,
-navigation prominence, or animation changes.
+The canonical content/design boundary lives in [`AGENTS.md`](AGENTS.md).
 
 ## Setup
 

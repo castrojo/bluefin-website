@@ -28,8 +28,9 @@ Do not run the full application suite for documentation-only changes.
 4. For deletions, search manifest, import, timeline, and generated-data
    references before committing.
 5. Stage explicit paths only.
-6. For a push, verify the exact commit's deployment workflow and smoke-test the
-   affected route in Chromium for page errors.
+6. For a feature-branch push, verify PR CI/preview for the feature SHA. For a
+   production claim after squash merge, verify the deployment for the merged
+   `upstream/main` SHA and smoke-test the affected route in Chromium.
 
 Documentation-only check:
 
@@ -61,13 +62,14 @@ this command: it runs the same verification against the live registry every day
 and files deduplicated issues. `check:image-sboms` is its manual, read-only
 form — it writes nothing and deploys nothing.
 
-Both exit non-zero for different reasons, and the difference matters:
+The modes have different success semantics:
 
-| Exit | Meaning | Outputs |
-|---|---|---|
-| `0` | Verified, or evidence is genuinely missing | Written and sanitized |
-| `1` | `--check-only` found an unavailable image | Nothing written |
-| `2` | Tooling/transport failure — we could not look | Nothing written, nothing deployed |
+| Command | Exit | Meaning | Outputs |
+|---|---:|---|---|
+| `update:image-versions` | `0` | Verification completed; missing publisher evidence is sanitized and recorded | Written atomically |
+| `check:image-sboms` | `0` | No image is unavailable | Nothing written |
+| `check:image-sboms` | `1` | At least one image is unavailable | Nothing written |
+| either | `2` | Tooling/transport failure — verification could not run | Nothing written, nothing deployed |
 
 Exit `2` is never a reason to re-run with the check disabled. A missing `oras`
 or `cosign` binary, a timeout, a throttled registry, or malformed tool output
@@ -77,7 +79,7 @@ product has no verified versions".
 Full code checks:
 
 ```bash
-npm run lint:fix
+npm run lint
 npm run typecheck
 npm run test:gate
 npm run build
@@ -113,17 +115,18 @@ npm run build
 
 ## Verification
 
-After pushing, verify the exact commit:
+After squash merge, verify the merged commit:
 
 ```bash
-sha=$(git rev-parse HEAD)
+git fetch upstream main
+sha=$(git rev-parse upstream/main)
 gh run list --repo projectbluefin/website \
   --workflow "Deploy to GitHub Pages" --commit "$sha" --limit 1 \
   --json databaseId,headSha,status,conclusion,url
 ```
 
-Production is complete only when the run has the same SHA, status `completed`,
-and conclusion `success`. For multi-entry builds, also smoke-test every path
+Production is complete only when the deploy run has the same merged SHA,
+status `completed`, and conclusion `success`. For multi-entry builds, also smoke-test every path
 listed in `../../reference/production-entrypoints.md`; adding an HTML entry alone
 is insufficient unless the Vite Rollup input and directory redirect include it.
 For runtime manifests, the browser smoke must assert both a non-empty rendered

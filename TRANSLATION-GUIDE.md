@@ -2,11 +2,8 @@
 
 ## Boundary
 
-**Agents edit content. Agents never edit design.**
-
-Translations change locale values only. Do not change component templates,
-markup, styles, layout, typography, responsive behavior, or animation to fit a
-translation.
+Follow the canonical repository boundary in [`AGENTS.md`](AGENTS.md).
+Translations change locale values only.
 
 ## Locale files
 

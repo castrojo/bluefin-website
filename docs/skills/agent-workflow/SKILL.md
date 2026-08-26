@@ -60,18 +60,26 @@ does not replace `validation`, `design-gate`, or the Wolves skills.
    Carry both attribution trailers (see `## Commit attribution`).
    Do not leave a tested fix uncommitted.
 
-7. **Push the production remote.**
+7. **Publish only when requested.** Local-only work stays local. When the owner
+   asks to publish, push the named feature branch and open a PR against `main`;
+   never push the protected branch directly.
    ```bash
-   git push upstream main
-   sha=$(git rev-parse HEAD)
+   branch=$(git branch --show-current)
+   git push -u upstream "$branch"
    ```
-   Verify the deployment workflow for that exact SHA before calling it live.
+   PR readiness is proved by CI/preview for the feature-branch SHA. Production
+   verification happens only after the PR is squash-merged.
 
-8. **Verify production, not just localhost.** Check the deployed URL after the
-   workflow succeeds. Use a hard refresh when testing changed bundles. For a
-   route with eager manifest loading, open it in Chromium and assert there are
-   no page errors or failed module requests; a successful Vite build is not
-   sufficient.
+8. **Verify production, not just localhost.** After merge, fetch canonical
+   `main`, query the deployment for that merged SHA, then check the deployed
+   URL. The feature-branch SHA is not the squash-merge SHA.
+   ```bash
+   git fetch upstream main
+   sha=$(git rev-parse upstream/main)
+   ```
+   Use a hard refresh when testing changed bundles. For a route with eager
+   manifest loading, open it in Chromium and assert there are no page errors
+   or failed module requests; a successful Vite build is not sufficient.
 
 9. **Close the git session.** A squash merge does not make the feature branch
    an ancestor of `main`, so `git branch --merged` cannot identify completed
@@ -113,7 +121,7 @@ The factory names four gates. At any of them, stop and request explicit human
 approval; never guess past a gate. When in doubt, the gate applies.
 
 - **Design** — layout, components, styles, animation, navigation, or behavior
-  visible to users. The `/wolves/` presentation is frozen design. Load
+  visible to users. The `/wolves/experience/` presentation is frozen design. Load
   [`../design-gate/SKILL.md`](../design-gate/SKILL.md).
 - **Security** — credentials, secrets, tokens, signing, attestation, or
   third-party package and supply-chain sources. Maintainer review is required
@@ -126,8 +134,9 @@ approval; never guess past a gate. When in doubt, the gate applies.
   default. The exception is a merge authority the owner grants in the current
   session, in that session's words: it is session-scoped, never assumed, never
   inherited from a previous session, a handoff, or another agent's transcript,
-  and not implied by approval of the change itself. Absent a live grant, open
-  the PR and stop. When merging under a grant, name the grant in the report.
+  and not implied by approval of the change itself. If publication was
+  requested, open the PR and stop; otherwise preserve the work locally. When
+  merging under a grant, name the grant in the report.
 
 A gate asks the owner for a decision. When the owner has already made that
 decision — by requesting the change in their own words — implement it and note
@@ -145,13 +154,8 @@ verified. See [`../validation/SKILL.md`](../validation/SKILL.md).
    needed.
 2. Describe the gate: the proposed change, the property or surface affected,
    your approach, and any alternatives.
-3. Label the related issue `hold` (hold for human review) and
-   `needs-human/agent-ready` (ready for a human to pick up). `queue/hold` is
-   maintainer-set; agents do not apply it. Common's canonical signal label
-   `agent/blocked` is not provisioned on this repository — the local labels
-   above are the stand-in until it is. Provisioning `agent/blocked` is a
-   follow-up for the repo owner. Verify workflow labels with `gh label list`
-   before applying them.
+3. Do not mutate lifecycle labels unless a repository-owned workflow and an
+   explicit local procedure authorize it.
 4. Wait for explicit human approval before opening the PR.
 
 ## PR evidence
@@ -216,11 +220,12 @@ an API token scoped to the target zone. Do not compensate by deploying a Worker.
 - A PR opened speculatively past a factory gate, or review requested without
   the five evidence items.
 - A fork or feature-branch checkout of `common` cited as the shared contract.
+- Local-only work published without the owner's request.
 
 ## Verification
 
 - [ ] `git status --short` is clean or remaining files are explicitly explained.
-- [ ] The exact commit is on `upstream/main`.
+- [ ] For a production claim, the exact merged `upstream/main` SHA is verified.
 - [ ] Relevant unit and browser tests pass.
 - [ ] A browser smoke check opened every affected route with no page errors or
       failed module requests.
@@ -230,28 +235,10 @@ an API token scoped to the target zone. Do not compensate by deploying a Worker.
 - [ ] Every AI-authored commit carries both attribution trailers.
 - [ ] `npm run check:git-hygiene` passes after completed branches/worktrees are
       removed and `git worktree prune` runs.
-- [ ] Gate stops were signalled (`hold` + `needs-human/agent-ready`) and
-      explicitly approved before any PR was opened.
+- [ ] Gate stops described the blocked decision and were explicitly approved
+      before any PR was opened.
 
 ## Sources
 
 - Cloudflare Workers SDK: `/cloudflare/workers-sdk`
 - Cloudflare Wrangler deploy route configuration (`custom_domain = true`)
-
-## Lessons learned
-
-- Always state exactly which source is active; “restored” is ambiguous after a failed experiment.
-- Preserve dirty user edits and classify every path before staging.
-- For timing changes, document anchors, estimator rules, tests, generated output, and browser observations.
-- Never call focused green tests a full-suite pass.
-- A requirement that is not written down locally gets skipped: commits shipped
-  without `Assisted-by` trailers until the rule was documented here. Check
-  trailers on the exact range being pushed, not just the latest commit.
-- A sibling checkout of `projectbluefin/common` on a fork or feature branch is
-  not the pinned sidecar. Verify the remote and branch of any local `common`
-  checkout before citing it; when in doubt, fetch canonical `main` via the
-  GitHub API.
-- Label vocabulary is repo-local: common's canonical `agent/blocked` is not
-  provisioned on this repository. Verify workflow labels with `gh label list`
-  before documenting or applying them; a doc naming a nonexistent label is
-  stale guidance.

@@ -1,6 +1,6 @@
 # Wolves intro sequence and overlay
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 Defect-derived invariants for the Wolves intro sequences, the silent title
 card, presenter pacing, and the intro overlay's text treatments.
@@ -28,9 +28,9 @@ already bit the `119.5` / `1952.5` duration literals.
 
 `buildDirectorsCutVideoSequence()` is a second, separate list, and it now lives in
 its own module, `src/data/wolves-directors-cut-intro.ts`. It is **not** the standard
-list with extra segments: it is two segments (the full-length scored Gayane prologue
-and the Ikora-voiced Destiny handoff) with no opening title card at all, because the
-Director's Cut is a one-song cinematic rather than the presenter's slide deck. A
+list with extra segments: it is two segments (the scored Tribulation prologue
+and the Ikora-voiced Destiny handoff) with no opening title card at all, because
+the Director's Cut is its own cinematic rather than the presenter's slide deck. A
 segment meant to open the show therefore belongs in whichever list actually opens
 that show — adding it to both is a decision, not a default.
 
@@ -39,9 +39,9 @@ used to build `INTRO_TIMELINE` once at module load from the standard sequence
 only, while `WolvesApp.vue` can run the Director's Cut. `syncIntroStatus()` then
 clamped a Director's Cut index into the shorter standard timeline, so progress,
 `sequenceElapsed`, `overallElapsed`, `overallDuration`, and the transport's
-`TOTAL m:ss / m:ss` were wrong for the whole Director's Cut intro (2064.8 s
-reported for a 2195.8 s show). The store now exposes `setIntroSequence(segments)`,
-which rebuilds the intro timeline and re-runs `rebuildTimelines()`; `enterIntro()`
+`TOTAL m:ss / m:ss` were wrong for the whole Director's Cut intro. The store now
+exposes `setIntroSequence(segments)`, which rebuilds the intro timeline and
+re-runs `rebuildTimelines()`; `enterIntro()`
 and `restoreIntroForNavigation()` in `WolvesApp.vue` call it with
 `introVideos.value` **before** `store.enterIntro()` and before any status sync.
 
@@ -96,12 +96,12 @@ embed's `getCurrentTime()` — deliberately, because a pre-roll ad holds that cl
 from it. That is the right clock, and it is the only clock. It is not, on its own, a
 safe way to end a card.
 
-The Director's Cut prologue is authored to the Gayane source's full container
-(`GAYANE_TRACK_SECONDS = 325.6`, decoded 325.602s). `elapsed >= 325.6` therefore has
-about 2ms of margin against a player that plateaus a few hundredths short of the
-duration it reports — a routine YouTube behaviour. The failure is not a glitch: the
-closing title sits on a theater screen forever, unattended, with no way to recover
-live.
+The Director's Cut prologue is authored to the Tribulation source's full
+container (`TRIBULATION_TRACK_SECONDS = 134.65`). A player routinely plateaus a
+few hundredths short of the duration it reports — a routine YouTube behaviour —
+so `elapsed >= duration` alone has almost no margin. The failure is not a
+glitch: the closing title sits on a theater screen forever, unattended, with no
+way to recover live.
 
 `isTextSegmentComplete()` takes the player's own signals and ends the card two ways:
 
@@ -118,9 +118,9 @@ anywhere the clock had started would end a 325.6s scored act at, say, 120s — l
 unrecoverably — trading a hang for a truncation. An `ENDED` from the body of the
 piece is therefore not believed; the card is handed back to its own clock instead.
 
-The window itself sits entirely after the Gayane source's last audible sample
-(321.34s, against a 325.6s container), so the backstop can only ever give back
-silence, never a note.
+The window itself sits entirely after the source's last audible sample
+(`TRIBULATION_LAST_AUDIBLE_SECOND` = 130.82, against the 134.65s container), so
+the backstop can only ever give back silence, never a note.
 
 Three rules this encodes:
 
@@ -186,37 +186,31 @@ from both directions — the standard cut still publishes both switches.
 
 ## The prologue is scored to The Tribulation, and it opens on an image
 
-The Director's Cut prologue was recut on owner review (2026-08-10). Two facts
-about it changed at once, and both invalidate anything measured before that day.
+The prologue's track is `uvtR84x0kgw`, *Excerpt from The Tribulation*, measured
+at 134.65 s. `TRIBULATION_PROLOGUE_MARKS` was derived from the recording two
+independent ways — librosa Laplacian segmentation voted over k = 4..10, plus
+checkerboard-kernel MFCC novelty — and only marks the two methods agree on were
+kept, with four novelty-only marks admitted where the clustering found no
+boundary and a shot would otherwise run past twenty seconds on one still. Never
+scale a number across from another recording's grid: a ratio applied to a
+different piece of music lands on nothing in this one.
 
-**The track changed.** It is `uvtR84x0kgw`, *Excerpt from The Tribulation*,
-measured at 134.65 s, replacing the 325.6 s Gayane Adagio. This was a recut, not
-a retime: `TRIBULATION_PROLOGUE_MARKS` was derived from the new recording the
-same two independent ways the old grid was — librosa Laplacian segmentation
-voted over k = 4..10, plus checkerboard-kernel MFCC novelty — and only marks the
-two methods agree on were kept, with four novelty-only marks admitted where the
-clustering found no boundary and a shot would otherwise run past twenty seconds
-on one still. **Do not scale a number across from the old grid.** A ratio
-applied to a different piece of music lands on nothing in this one.
-
-**The black open is gone.** Act I used to be 108 s of narration on an empty
-frame — a third of the piece before an image. The montage now starts on the
-downbeat and the narration plays over it. `wolvesDirectorsCutIntro.test.ts`
-asserts the first concept painting is at index 0; that assertion used to require
-the opposite, which was the old cut's black open encoded as a test.
+There is no black open: the montage starts on the downbeat and the narration
+plays over it. `wolvesDirectorsCutIntro.test.ts` asserts the first concept
+painting is at index 0.
 
 Two consequences worth knowing before touching this file:
 
-- **Every text cue's hold now equals its full window.** `textHoldSeconds` is
+- **Every text cue's hold equals its full window.** `textHoldSeconds` is
   `min(window, cost * 1.8)`, and on a 134.65 s track the windows are shorter
-  than the stretched reading cost, so nothing clears early any more. The montage
-  breathes through six deliberately wordless shots instead. A test that assumed
-  "some cue has slack" no longer has one to find.
-- **The audible-second literal is gone.** `321.34` was typed into an assertion
-  and survived a track change silently; it derives from
-  `TRIBULATION_LAST_AUDIBLE_SECOND` now. The same rot took `140` and `200` as
-  seek targets in `wolvesIntroOverlay.test.ts` — both were valid mid-piece times
-  under Gayane and both are past the end of this track.
+  than the stretched reading cost, so nothing clears early. The montage
+  breathes through six deliberately wordless shots instead. A test that assumes
+  "some cue has slack" has none to find.
+- **Derive end-window expectations from the exported constants.** A typed-in
+  audible-second literal or seek target survives a track change silently:
+  `321.34`, `140`, and `200` were all valid against the old 325.6 s track and
+  are all past the end of this one. End-window assertions derive from
+  `TRIBULATION_LAST_AUDIBLE_SECOND`.
 
 ## The score is swappable; the cut is not
 
@@ -256,10 +250,9 @@ every time it was opened. Add `select` to that guard if it ever moves.
 
 ## The montage never shows the threat
 
-The concept-art registry is an allowlist, and since 2026-08-10 it is an
-allowlist with a rule: **the threat is never seen.** No Traveler, no aliens, no
-alien architecture or ships, nothing an audience can name as Destiny on sight.
-The devastation carries the prologue.
+The concept-art registry is an allowlist with a rule: **the threat is never
+seen.** No Traveler, no aliens, no alien architecture or ships, nothing an
+audience can name as Destiny on sight. The devastation carries the prologue.
 
 Six of the original ten records were cut under it — the Fallen citadel, the
 ice-shelf wreck, the Cabal ship crash, the throne-world citadel with its Hive
@@ -299,7 +292,7 @@ animated to 0.85 opacity and held there by `animation-fill-mode: both`. On the
 Collapse it measured 0.71 opacity by the end of the shot, on top of the day
 frame's own `brightness(0.33)` — between them the painting was crushed to
 silhouette, and it read as a dark filter laid over the art rather than as
-nightfall. Removed on owner instruction (2026-08-10).
+nightfall. Removed on owner instruction.
 
 The day-to-night crossfade already *is* the calamity: the day frame dims and
 fades while the night frame rises under it, so the shot opens in full sunset
@@ -359,7 +352,7 @@ dross / to shape the Garden of Earth.") is omitted from the projected sequence
 under the same rule, and survives in `src/data/lore/chris-aniszczyk.md` and
 `src/data/lore/ishtar-the-wager.md`.
 
-### Measured state of the projected narration (2026-08-10)
+### Measured state of the projected narration
 
 The overlay sets Michroma, uppercase, `letter-spacing: 0.05em`, in a box inset
 5% each side — 1152px at a 1280px projector. **That type measures about 25
@@ -405,9 +398,9 @@ on screen for 38s, which reads as the show having frozen. The closing title card
 is the one deliberate exception: it holds its full window, because it is the last
 thing on screen and has nothing to hand over to.
 
-The ten concept paintings no longer form a 142.42s textless interval. Complete
-authored thoughts recur across that movement, and the paintings are static.
-`DIRECTORS_CUT_MAX_TEXTLESS_SECONDS` (30) bounds the longest wordless stretch.
+Complete authored thoughts recur across the montage movement, and the paintings
+are static. `DIRECTORS_CUT_MAX_TEXTLESS_SECONDS` (30) bounds the longest
+wordless stretch.
 
 Paintings are framed whole, not cropped to fill. Cues carry
 `backgroundFraming: { fit: 'contain', sourceWidth, sourceHeight }` from the
@@ -453,8 +446,8 @@ column pages by, with every authored word intact.
 this one surface. `estimatePageSeconds` prices text for an audience reading it
 off a projector **in silence**, and nobody reads this card in silence — it is
 the presenter's own welcome slide and he speaks these lines from the stage. Held
-at full silent-reading cost the speaker waits on his own slide. It is halved on
-owner instruction (2026-08-09), taking the card from 37 s to 19 s.
+at full silent-reading cost the speaker waits on his own slide, so the pace is
+halved on owner instruction.
 
 This is the exception, not a licence. Every other Wolves text surface is read,
 not narrated, and the readability minimum there is not negotiable — do not
@@ -481,8 +474,8 @@ before. Input is an *affordance*, never a dependency — the regression test tha
 protects this is the one asserting the card still completes with no click at all.
 
 Two exclusions are load-bearing. **Scored cards** (`segment.audioYoutubeVideoId`)
-are excluded because the Director's Cut prologue is written against the Gayane
-Ballet Suite, and moving its text without moving the track desyncs the rest of
+are excluded because the Director's Cut prologue is written against The
+Tribulation, and moving its text without moving the track desyncs the rest of
 the segment. **Transport chrome** is excluded via
 `closest('button, a, input, [role=button]')` so Play/Pause/Next keep their own
 meaning. The handler binds to the root `.wolves-intro-overlay`, not the
@@ -546,8 +539,8 @@ the regression pass silently.
 
 `.wc-intro-nameplate` in `WolvesApp.vue` is `position: fixed` at `top: 3rem;
 left: 3rem`, and it renders `store.display.chapter` / `store.display.title` for
-whichever intro segment is on stage. For the scored Gayane prologue that was
-"PROLOGUE" / "Gayane Ballet Suite (Adagio)" — a slide-deck caption in the corner
+whichever intro segment is on stage. For the scored prologue that would be
+"PROLOGUE" / "Excerpt from The Tribulation" — a slide-deck caption in the corner
 of a cold open that is deliberately title-card-free.
 
 It is suppressed for `DIRECTORS_CUT_PROLOGUE_SEGMENT_ID` specifically, by

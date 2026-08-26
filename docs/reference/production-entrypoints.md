@@ -1,6 +1,6 @@
 # Production entry points
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 | Path | Entry | Visibility | Rule |
 |---|---|---|---|

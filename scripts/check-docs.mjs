@@ -33,6 +33,13 @@ for (const path of banned) {
   }
 }
 
+const bannedSessionDirectories = ['docs/superpowers/plans', 'docs/superpowers/specs']
+for (const path of bannedSessionDirectories) {
+  if (existsSync(join(root, path))) {
+    addError(`banned committed session directory: ${path} (use the agent session folder instead)`)
+  }
+}
+
 const router = existsSync(join(root, 'docs/SKILL.md'))
   ? readFileSync(join(root, 'docs/SKILL.md'), 'utf8')
   : ''

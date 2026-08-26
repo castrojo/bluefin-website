@@ -18,8 +18,8 @@ Grouped roughly by surface: boundaries and scheduling, transport and buffers, im
   beat in `TRACK_ZERO_SECTIONS`.
 - A cue window on a scored segment is picked by dividing the track evenly, or by
   ear, instead of from measured section boundaries. Measure the source: the
-  Director's Cut Gayane grid in `wolves-directors-cut-intro.ts` is the agreement
-  between a voted Laplacian structural segmentation (k = 4..10) and an
+  Director's Cut Tribulation grid in `wolves-directors-cut-intro.ts` is the
+  agreement between a voted Laplacian structural segmentation (k = 4..10) and an
   independent MFCC-novelty peak pick.
 - A scored `text` segment ends only on `elapsed >= duration`. A real player's
   `getCurrentTime()` routinely plateaus below the duration it reports for the
@@ -289,35 +289,11 @@ Grouped roughly by surface: boundaries and scheduling, transport and buffers, im
   concrete benefit is identified first (e.g. an import cycle these are
   currently trapped in); otherwise leave them where their nearest consumer
   already imports them from.
-- A computed derives a fraction of show progress from a hardcoded segment count
-  (`TheaterExperience.vue`'s `totalProgress` divides by `7`, sized for the
-  standard show's day/night wallpaper cycle). A single-segment presentation
-  (the Director's Cut) can never advance `segmentIndex` past `0`, so that
-  computed can only ever reach `~1/7` of its cycle. This shipped with the
-  presentation-profile boundary as a known, reported gap, not a fix — retiming
-  the wallpaper cycle for a variable segment count is a design/animation-cadence
-  change and needs its own approval.
-- A component correctly branches **one** of its `presentationProfile`-dependent
-  computeds and ships that as proof the component is profile-aware.
-  `TheaterExperience.vue`'s `displayedNarrativeSlot` called
-  `getNarrativeSlotForTime()` — the standard show's own narrative timeline —
-  unconditionally, with no profile branch, in the same file whose
-  `WolvesComicReader` slide-schedule prop *did* correctly switch on
-  `presentationProfile` (Task 7). The Director's Cut's nine registered
-  science-quote panel and closing bulletin
-  (`getDirectorsCutNarrativeSlotForTime()`, `wolves-directors-cut-timeline.ts`)
-  were fully built, scheduled, and covered by data-layer tests, but a live
-  Director's Cut run never reached them — it silently rendered whatever the
-  standard show's Jono/Marina/Hikari/Bluefin timeline resolves to at the same
-  clock reading instead, because nothing that mounts `WolvesLoreColumn` inside
-  `TheaterExperience.vue` had ever been given a real `artifact-id` probe for
-  the Director's Cut profile. Every existing test either stubbed
-  `WolvesLoreColumn` entirely (`wolvesHeroTypography.test.ts`'s Director's Cut
-  probe tests, added for the *comic-reader* wiring) or tested the timeline data
-  module in isolation (`wolvesNarrativeTimeline.test.ts`) — none mounted the
-  component and read what it actually passed down. A component with more than
-  one profile-dependent prop needs a probe test *per prop*, not one test that
-  happens to cover the prop most recently worked on.
+- A component with more than one `presentationProfile`-dependent prop needs a
+  probe test *per prop*, not one test that happens to cover the prop most
+  recently worked on. Mount the real component and read what it actually passes
+  down — stubbing `WolvesLoreColumn` or testing the timeline data module in
+  isolation cannot see an unbranched prop.
 - Segments are module-level state too (`activeSegments` in `cinematic.ts`), the
   same class of bug as the intro list documented in
   [`../../../reference/wolves-intro-and-overlay.md`](../../../reference/wolves-intro-and-overlay.md).

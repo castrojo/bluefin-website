@@ -5,10 +5,8 @@ sub-applications with Vue 3, TypeScript, Vite, SCSS, and Tailwind.
 
 ## Boundary
 
-**Agents edit content. Agents never edit design.**
-
-Read `AGENTS.md` before editing. Use `docs/SKILL.md` to load only the
-workflow needed for the task.
+Read [`AGENTS.md`](AGENTS.md) for the canonical repository boundary. Use
+`docs/SKILL.md` to load only the workflow needed for the task.
 
 ## Production entries
 

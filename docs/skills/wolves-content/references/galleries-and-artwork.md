@@ -72,8 +72,8 @@ of the rarest category actually lands.
 
 ## The Bluefin monthly wallpaper numbering does not match upstream, and pair 11 exists nowhere
 
-`public/img/wallpapers/bluefin-{01..12}-{day,night}.webp` (added by `cb85d6c6`,
-registered in `src/data/artwork-wallpapers.ts`) are the Bluefin monthly set
+`public/img/wallpapers/bluefin-{01..12}-{day,night}.webp` (registered in
+`src/data/artwork-wallpapers.ts`) are the Bluefin monthly set
 from `ublue-os/artwork` `wallpapers/bluefin/`, but the numbering has traps:
 
 - **Local 11 ≡ local 12, byte for byte.** Both are the December mammoth scene;
@@ -104,9 +104,10 @@ loss, which is expected.
 ## `wolves/people/` is hand-picked, and two thirds of it is CNCF photography
 
 `wolves/people/` is the owner's selection for the Wolves catalogue. It is **not**
-a CNCF mirror, and it is not all Bluefin work either: 136 of its 213 files came
+a CNCF mirror, and it is not all Bluefin work either: 136 of its 214 files came
 from CNCF albums and kept source-prefixed filenames (`flickr-`, `cncf-`,
-`kubecon-`) or `KC+CNC_...` export titles.
+`kubecon-`) or `KC+CNC_...` export titles. Count the directory and the prefixed
+filenames again before re-typing either number.
 
 So provenance cannot be inferred from the directory, and it cannot be inferred
 from whether the file is served locally. Both shortcuts credit someone else's
@@ -188,9 +189,7 @@ so species-derived ids would collide. Ids are pinned by
 
 Identifying pose-named art (`angry`, `intrigued`, `leaping`, `nest`, `pride`,
 `roaring`, the "You're Holding It Wrong" bookends, the PivotRaptor commission):
-all of it is the Bluefin mascot. Git history says so (`331867c3` "Add
-black-outlined bluefin nest", `3e033b7b` "Resize bluefins" touching
-intrigued/leaping/roaring) and a visual check against `bluefin.webp` confirms
+all of it is the Bluefin mascot; a visual check against `bluefin.webp` confirms
 the shared design. View the WebP directly; files that fail the viewer
 (>~300 KB) can be downscaled with `dwebp <file> -scale 512 512 -o out.png` into
 a scratch dir you delete afterwards.
@@ -206,12 +205,11 @@ never reshuffle the array to fix it.
 It is a bare Fisher-Yates. The event-diversity logic lives in
 `src/data/wolves-gallery-cycle.ts`.
 
-This matters because it has already gone wrong once: `33a63532` shipped the
-event cycle, and `255f61fb` ("retime intro and shuffle galleries") deleted the
-module and pointed the call site at the shuffle. The commit subject reads like a
-refactor, nothing flagged the lost guarantee, and the catalogue quietly served
-long same-event runs from then on. `src/tests/wolvesGalleryCycle.test.ts` now
-pins the behaviour.
+This matters because it has already gone wrong once: a change whose subject
+read like a refactor deleted the cycle module and pointed the call site at the
+bare shuffle, nothing flagged the lost guarantee, and the catalogue quietly
+served long same-event runs from then on. `src/tests/wolvesGalleryCycle.test.ts`
+now pins the behaviour.
 
 The cycle spreads each event across its own stratum of the run rather than
 dealing round-robin. Round-robin only behaves when events are similar sizes; the
@@ -219,16 +217,16 @@ live feed has hundreds of single-photo events, and dealing every bucket once per
 round put all of them in round one.
 
 
-## Wire every generated feed into the weekly refresh
+## Wire every generated feed into the daily refresh
 
-`update-content.yml` refreshed Flickr photos weekly while
-`update:back-catalogue` was wired into nothing, so album metadata sat at
-whatever a human last ran locally. A single regeneration then pulled six track
-changes and replaced a `[ Redacted ]` subtitle that had been resolved upstream
-long before.
+The "Update Live Data" workflow (`update-content.yml`) runs daily. It refreshed
+Flickr photos while `update:back-catalogue` was wired into nothing, so album
+metadata sat at whatever a human last ran locally. A single regeneration then
+pulled six track changes and replaced a `[ Redacted ]` subtitle that had been
+resolved upstream long before.
 
 The catalogue generator shells out to `yt-dlp`, which is unreliable from CI, so
-the weekly job runs `--metadata-only`: album prose and cover art over plain
+the daily job runs `--metadata-only`: album prose and cover art over plain
 `fetch`, no scraping. It exits non-zero when an upstream album is missing from
 the catalogue entirely, because that genuinely needs a human with `yt-dlp`.
 

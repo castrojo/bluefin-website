@@ -8,8 +8,8 @@ Back to [`../SKILL.md`](../SKILL.md).
 
 `buildIntroVideoSequence()` is the standard front-door intro: silent title-card
 quote slide, then the Destiny trailer. The Director's Cut replaces that opening
-with the Gayane Ballet Suite prologue, but it still ends with the same Destiny
-trailer.
+with the scored prologue (`uvtR84x0kgw`, *Excerpt from The Tribulation*,
+134.65 s), but it still ends with the same Destiny trailer.
 
 Do not build the Director's Cut by prepending the prologue to
 `...buildIntroVideoSequence()`. That places the standard title-card quote slide
@@ -36,7 +36,7 @@ assume the whole set shares one cause, or "restore" a Director-only record
 into the standard show believing it is an oversubscription fix.
 
 The pattern for one owner-approved batch of Director-only records (the
-nine-quote science/humanity panel, Task 6):
+nine-quote science/humanity panel):
 
 1. One Markdown lore file per record, same frontmatter shape and body
    convention as any other record of that `kind` (a `quote` record's body is

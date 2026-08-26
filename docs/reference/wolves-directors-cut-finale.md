@@ -1,9 +1,11 @@
 # The Director's Cut finale
 
-The last 68.8 seconds of the Director's Cut — `355.219 s` to the end of Track 0
-at `424 s` — are performed by one component, `WolvesDirectorFinale.vue`, over
+The last 68.8 seconds of Track 0 — `355.219 s` to the end of the segment at
+`424 s` — are performed by one component, `WolvesDirectorFinale.vue`, over
 anchors defined in `src/data/wolves-directors-cut-finale.ts` and re-exported
-from `src/data/wolves-directors-cut-timeline.ts`.
+from `src/data/wolves-directors-cut-timeline.ts`. The cut does not stop there:
+the finale's terminal black is the handoff into the Europa intro (see
+[`wolves-video-order.md`](wolves-video-order.md)).
 
 Read this before changing anything in that window.
 
@@ -107,7 +109,7 @@ That is why the terminal fade starts at 419.933 and ends at 422.301: the picture
 goes out with the sound, not before it and not after the track has already
 stopped.
 
-## The terminal fade completes from the finished state, never from a tick
+## The terminal fade completes from Track 0's own clock, never from a tick
 
 The transport stops publishing time in the last `PRE_END_THRESHOLD_S` (0.3 s) of
 a segment, and a YouTube clock routinely plateaus before that anyway. A fade
@@ -116,31 +118,38 @@ sitting on a grey frame in front of the room.
 
 So the fade is a **latched CSS transition**: one boolean crossing at
 `terminalFadeStart` applies a class, and the compositor finishes it with no
-further clock involvement. `store.directorTerminalBlack` — derived from
-`store.finished`, which `finish()` latches and `updateTime()` releases the moment
-an earlier time is published — pins the frame black if the clock stops early.
+further clock involvement. `store.directorTerminalBlack` then pins the frame
+black. It is derived from Track 0's own published time reaching
+`terminalFadeEnd` (422.301 s) — a tick that always arrives, because the anchor
+is authored 1.699 s before the 424 s segment ends, ahead of the final
+`PRE_END_THRESHOLD_S` the transport never publishes. It deliberately does not
+read `store.finished`: `finish()` belongs to the experience's last segment,
+which is no longer Track 0.
 
-The transport itself is untouched: the one-song Director's Cut stops on its final
-segment. No synthesized next segment, no loop, no return to the lobby.
+The transport itself is untouched, and the show does not stop at Track 0: the
+Europa intro (`DIRECTORS_CUT_EUROPA_INTRO_SEGMENT`) follows with
+`crossfadeMs: 0`, hitting the instant the terminal black lands — the piece
+opens on its own fade up, so crossfading would dissolve one black frame into
+another and read as a stall. No loop, no return to the lobby.
 
 ## Chrome suppression is store state, consumed in three places
 
 `directorFinalePrearmed`, `directorFinaleActive` and `directorTerminalBlack` are
-getters on the cinematic store, derived from `presentationProfile` + `phase` +
-`nativeTime` (+ `finished`). Three surfaces consume them:
+getters on the cinematic store, derived from `presentationProfile`, the
+cinematic phase, the Track 0 segment being on air, and `nativeTime`. Three
+surfaces consume them:
 
 - `WolvesApp.vue` — the media widget,
-- `CinematicStage.vue` — the nameplate, organization ads, captions, and the
-  mount of the finale itself,
+- `CinematicStage.vue` — the nameplate, the captions, and the mount of the
+  finale itself,
 - `TheaterExperience.vue` — the theater grid and the standard Track 0 sidecar.
 
 Deriving it once is what makes a backward seek restore all of them together. A
 component that latched its own "the finale started" flag would have to be told
 to unwind, and one of them would eventually not be.
 
-`WolvesOrgAds` and `CinematicCaptions` do not render during Track 0 of either
-cut anyway (the ads are gated to segments after the first; Track 0 ships no
-caption track), so their gate is proved by
+`CinematicCaptions` does not render during Track 0 of either cut anyway (Track 0
+ships no caption track), so its gate is proved by
 `src/tests/wolvesDirectorsCutFinaleStage.test.ts` rather than by a browser.
 
 ## Seeking after the show has finished needs the poll loop back

@@ -1,10 +1,8 @@
 # Documentation map
 
-**Agents edit content. Agents never edit design.**
-
 ## Start
 
-- `../AGENTS.md`: repository rules and boundaries.
+- [`../AGENTS.md`](../AGENTS.md): canonical repository rules and boundaries.
 - `SKILL.md`: task→skill router; choose one lazy-loaded workflow.
 - `reference/content-map.md`: locate production content.
 - `reference/production-entrypoints.md`: locate mounted applications.

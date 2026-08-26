@@ -1,6 +1,6 @@
 # Wolves lore display and timeline timing
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 Defect-derived invariants for the Wolves lore column: one page model, one type
 scale, how the timeline budget is allocated, and how anchored text is bound to
@@ -17,7 +17,7 @@ numbering, where Track 0 is the Destiny intro; see
 ## Lore display model
 
 The Wolves lore column is a theater text display, not a document. One panel,
-one metadata block, one page model, one type scale, no scrolling.
+one shared header, one page model, one type scale, no scrolling.
 
 - `src/components/wolves/lore/lore-pages.ts` is the single page model. Both the
   scheduler (`src/data/wolves-lore-timing.ts`) and every lore view cost content
@@ -36,8 +36,11 @@ one metadata block, one page model, one type scale, no scrolling.
   theater seats. Size lore type by measuring `getComputedStyle(el).fontSize` in
   Chromium, not by reading the clamp.
 - Every view renders `LoreRecordHeader.vue`: fixed uppercase kind eyebrow,
-  record title, and one inline spec row of at most three key/value pairs. No
-  footers, no telemetry (status, phase, resource name, fingerprint) - that is
+  record title, and one inline spec row of at most three key/value pairs. The
+  Guardian and Dinosaur dossiers intentionally add one boxed metadata block
+  (`lore-spec--boxed`) beneath that shared header — aliases, titles, the bond
+  id, a derived status line — which is part of the design, not drift. Beyond
+  that block there are no footers and no per-view chrome: anything further is
   noise on a theater screen.
 - Page budgets must include per-block chrome. `BLOCK_OVERHEAD_CHARACTERS`
   charges each block for its speaker label and block gap; without it a page of
@@ -60,7 +63,7 @@ text to the music" below — neither start is a round number.
 - **The floor is what makes oversubscription invisible.** When 27 records
   competed for ~400 seconds against ~900 seconds of authored pages, nothing
   errored. Every record was floored at one page, so a record with eight
-  authored pages rendered page one and vanished. 17 of 27 records were cut
+  authored pages rendered page one and vanished. 19 of 27 records were cut
   mid-record, including Sarah's closing line and the death of Dr. Anderson.
   A record that is cut looks exactly like a record that is short. No renderer
   change can fix that: cutting records or extending the range is a human
@@ -69,7 +72,7 @@ text to the music" below — neither start is a round number.
   cascades: freeing a slot lets survivors expand, so the fix is not "hide every
   record currently cut". Greedily drop the record showing the smallest fraction
   of itself (tie-break on largest ideal duration) and recompute until every
-  survivor shows 100%. That took 17 cut records down to 11 hidden.
+  survivor shows 100%. That took 19 cut records down to 11 hidden.
 - Hidden records live in `hiddenFromWolvesVideoArtifactIds`. Hiding is
   reversible and lossless; a fragment on screen is neither. **Audit with a probe,
   not by eye:** compare each slot's duration against `affordablePageCount()`

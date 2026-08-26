@@ -1,6 +1,6 @@
 # Application map
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 ## Production entries
 

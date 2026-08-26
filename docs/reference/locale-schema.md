@@ -1,6 +1,6 @@
 # Locale schema
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 `src/locales/en-US.json` is the source locale. Other locale files must preserve
 its key and object structure.

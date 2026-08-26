@@ -67,71 +67,6 @@ A card's title and description must be classed `<span>`s, not `<p>`. The global
 id specificity beats any scoped component class, so a bare `<p>` silently
 ignores the component's own alignment.
 
-## Version data sourcing
-
-Every variant's versions come from that variant's **published image SBOM**. Any
-other source is a bug, including upstream `.bst` refs, release notes, and hand
-edits. A `.bst` ref describes the *next* build, so it reports versions that have
-never shipped — that is how the NVIDIA row briefly read `610.57.04` when the
-published `dakota-nvidia` image contained `595.71.05`.
-
-`scripts/lib/oci-sbom.js` is the shared reader. Images attach an
-`application/vnd.spdx+json` referrer:
-
-```bash
-oras discover --artifact-type application/vnd.spdx+json --format json \
-  ghcr.io/projectbluefin/dakota:latest
-```
-
-`pullImageSbom()` resolves and pulls it; `spdxPackageVersion()` reads one
-package. BuildStream SBOMs list a package once per element, so a name carries
-several `versionInfo` values plus commit hashes — take the highest numeric
-version and skip non-numeric refs, otherwise `linux` resolves to `6.12.40`
-instead of `7.0.7`.
-
-Refresh with the generators, never by editing `public/*-versions.json`:
-
-```bash
-node scripts/update-image-versions.js
-```
-
-`update-dakota-versions.js` and `update-stream-versions.js` are compatibility
-aliases for that same unified command. They must never regain product-only
-write paths: the unified updater is what persists the audit, checks explained
-field loss, and promotes every output atomically.
-
-`public/dakota-versions.json` keeps `packages.baseline` as hardware metadata,
-not SBOM output. If a placeholder-generated file drops that field, the Dakota
-updater must recover it from a static fallback (`x86-64-v3`) before projecting
-the public JSON again.
-
-If a package is absent from the SBOM it must not be displayed. `freedesktop-sdk`
-and Homebrew are not in the Dakota SBOM, so they carry no version row.
-The `dakota-gaming` and `dakota-nvidia-gaming` images currently publish
-provenance referrers but no SPDX SBOM referrer, so an OGC kernel version must
-not be inferred from the NVIDIA driver or source tree.
-
-Display names come from upstream docs or element sources, never invented. The
-NVIDIA row is `NVidia Driver` (`elements/bluefin-nvidia/nvidia-drivers.bst`
-declares `nvidia-version`), not a coined phrase like "Open GPU Kernel".
-
-### Bluefin Server version data is retired
-
-`projectbluefin/server` is an **FSDK/BuildStream 2, DDI-first** OS. It does not
-publish a container image or SBOM. The previous `update-server-versions.js`
-fetched Flatcar Container Linux release streams and wrote `docker`/`containerd`/
-`ignition`/`etcd` fields that do not exist in the product — those claims were
-unverifiable and have been removed.
-
-`public/server-versions.json` and `scripts/update-server-versions.js` are
-deleted. `ServerVersion.vue` and `ServerHighlights.vue` no longer fetch version
-data. When a product publishes no verifiable image SBOM, render no version
-rows. Keep only the existing release destination and an explicit status
-explaining that version details are withheld until verified image evidence
-exists. If Bluefin Server later publishes an image SBOM, a new updater can be
-written to source from it; do not reintroduce Flatcar or any substitute data
-source.
-
 ## Verification
 
 - [ ] Diff contains only content, data, or approved assets.
@@ -161,6 +96,10 @@ names, and the `product` it belongs to (`bluefin` or `dakota`). To add a field:
    evidence in `scripts/tests/image-sbom-registry.test.ts`.
 4. Run `npm run update:image-versions` to regenerate outputs.
 
+BuildStream SBOMs can contain the same package name in several elements.
+Name-only lookup is ambiguous when accepted versions differ and must publish
+nothing. Add an `element` selector instead of choosing the highest version.
+
 ### SBOM sources
 
 | Product | Registry | Image |
@@ -188,6 +127,16 @@ A record with `pendingSbom: true` or an empty `packages` map stays
 `unavailable` with `errorCode: "pending-mapping"` even after the image starts
 publishing an SBOM. Publication is not a mapping; someone has to review which
 package names map to which website fields.
+
+`public/dakota-versions.json` keeps `packages.baseline` as static hardware
+metadata. Preserve it while regenerating SBOM-derived fields. If gaming-image
+evidence is unavailable, do not infer OGC Kernel from the NVIDIA driver or a
+source tree.
+
+Bluefin Server has no version updater or generated version file. Until it
+publishes verifiable image SBOM evidence, render no version rows and retain
+only its release destination plus the explicit unavailable status. Never
+substitute Flatcar or another product's data.
 
 ### Commands
 

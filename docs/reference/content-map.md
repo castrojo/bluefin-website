@@ -1,6 +1,6 @@
 # Content map
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 | Area | Source | Allowed change |
 |---|---|---|
@@ -11,8 +11,9 @@
 | Dakota versions | `public/dakota-versions.json` (generated) | Regenerate with `npm run update:image-versions`; do not hand-edit. |
 | Image version registry | `scripts/lib/image-sbom-registry.js` | Add/remove image records and package mappings. |
 | Wolves lore | `src/data/lore/*.md` and `src/data/wolves-lore-records.ts` | Authored records and manifest entries. |
-| Wolves signal text | `src/data/wolves-incoming-signal.txt` | Authored signal lines only. |
+| Wolves Track 0 signal plan | `src/data/wolves-track-zero-manifest.ts` | Authored plan lines only. (`src/data/wolves-incoming-signal.txt` is no longer a runtime source.) |
 | Wolves intro data | `src/data/wolves-intro-sequence.ts` | User-supplied media and cue data only. |
+| Wolves Director's Cut intro | `src/data/wolves-directors-cut-intro.ts` | User-supplied media and cue data only. |
 | Wolves dinosaur registry | `src/data/wolves-dinosaur-species.ts` | Supplied registry facts only. |
 | Wolves soundtrack | `public/wolves-playlist.json` and updater inputs | Regenerate; do not patch generated output. |
 | Wolves wallpapers | `public/img/wallpapers/wolves/` | Approved WebP assets and curated values. |

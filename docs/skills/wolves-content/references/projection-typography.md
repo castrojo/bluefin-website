@@ -21,7 +21,7 @@ between them they cut the show's central reveal into pieces.
   end badly; a page ending on a complete thought is already a good page.
 
 The measurable target: **no page ends on a dangling function word.** At the time
-of writing that holds for all 338 pages in the show.
+of writing that holds for all 347 pages across the registered records.
 
 When touching this file, verify no page overflows its budget afterwards. A fuse
 that is too greedy silently produces pages too tall to read from the back row:
@@ -31,8 +31,11 @@ npx vite-node <probe that pages every record and compares against
 PROSE_PAGE_CHARACTERS / CHAT_PAGE_CHARACTERS>
 ```
 
-At the time of writing: 338 pages, zero over budget, zero ending on a dangling
-word, worst page 150 characters against a 190 budget.
+At the time of writing: 347 pages, zero over budget, zero ending on a dangling
+word, worst page 150 characters against a 190 budget. Derivation: page every
+record returned by `loadAllLoreRecords()` through `loreProsePages()` (or
+`loreChatPages()` for chatlogs) and count; do not re-type the number without
+re-running the count.
 
 `src/tests/wolvesFinaleReveal.test.ts` asserts the dangling-word rule across
 every record, so a greedy change to the splitter fails immediately.

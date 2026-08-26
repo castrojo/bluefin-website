@@ -1,11 +1,11 @@
 # Wolves browser harnesses and player mocks
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
-Defect-derived invariants for driving `/wolves/` from Playwright and unit
-tests: reaching Track 0, keeping the movie-flow harness alive, emitting a real
-player load lifecycle from a mock, and deriving expectations from live modules
-instead of constants.
+Defect-derived invariants for driving `/wolves/experience/` from Playwright and
+unit tests: reaching Track 0, keeping the movie-flow harness alive, emitting a
+real player load lifecycle from a mock, and deriving expectations from live
+modules instead of constants.
 
 Procedure and approval gate: [`../skills/wolves-runtime-engineering/SKILL.md`](../skills/wolves-runtime-engineering/SKILL.md).
 Show-wide production facts: [`wolves-runtime.md`](wolves-runtime.md).
@@ -55,15 +55,17 @@ Sarah-on-`bridgeStart` regression test already lives, and reserve browser runs
 for the existing `tests/wolves-movie-flow.mjs`.
 
 To reach the welcome card in a probe, click the lobby's **Meet your Teammates**
-button (`emit('enter')`); the Director's Cut button opens the same card first.
-The card's prose renders as `.wolves-intro-title-card-quote`, *not*
-`.wolves-intro-overlay-text` — waiting on the latter silently burns the card's
-whole runtime before matching the segment after it.
+button (`emit('enter')`). The Director's Cut button opens on the scored
+prologue instead — its intro carries no welcome card. The card's prose renders
+as `.wolves-intro-title-card-quote`, *not* `.wolves-intro-overlay-text` —
+waiting on the latter silently burns the card's whole runtime before matching
+the segment after it.
 
-`tests/wolves-movie-flow.mjs` asserts Track 0 beats but stops at 196.36 (Jorge),
-one slide before the Laura -> Tophee -> Reza boundary. That blind spot is exactly
-where a dropped portrait shipped unnoticed. Extend coverage past any boundary you
-change.
+`tests/wolves-movie-flow.mjs` reads the contributor hero windows live from
+`wolves-track-zero-slides.ts` and straddles each one from Jono through Jorge by
+a small epsilon. The Laura -> Tophee -> Reza windows beyond that are still not
+covered, and that kind of blind spot is exactly where a dropped portrait once
+shipped unnoticed. Extend coverage past any boundary you change.
 
 ## Adding a segment breaks the movie-flow harness at the front
 
@@ -103,9 +105,9 @@ Three traps in that harness, all of which cost real time:
 a mock whose `loadVideoById` only records the video id never emits that
 transition, so `start()` never settles, `handleIntroComplete()` in
 `WolvesApp.vue` never reaches `introTransparent = true`, and
-`.wolves-intro-overlay--transparent-handoff` never appears. That is issue
-#706's exact failure: the harness dies at the intro handoff with the overlay
-stuck opaque, and every Track 0 assertion after it silently never runs.
+`.wolves-intro-overlay--transparent-handoff` never appears. That failure has
+shipped: the harness dies at the intro handoff with the overlay stuck opaque,
+and every Track 0 assertion after it silently never runs.
 
 When writing or copying the mock (`tests/wolves-movie-flow.mjs` has the
 canonical one):
@@ -153,8 +155,8 @@ visible slide once the incoming image has decoded (the decode gate that keeps
 the wallpaper from flashing through an empty buffer), so a unit test running
 on the stock global `Image` never advances: every "slide at time T" assertion
 observes the first slide forever, and the failure reads like a content drift
-when it is really a harness stall. This one gap put 17 entries into
-`tests/known-failures.txt` (issue #705).
+when it is really a harness stall. This one gap once put 17 entries into
+`tests/known-failures.txt`.
 
 - Stub a self-completing image (`AutoImage` in
   `src/tests/wolvesComicReader.test.ts`: fire `onload` in a microtask from the
@@ -336,22 +338,33 @@ CI (`.github/workflows/ci.yml`); the rest are run by hand, which is why they go
 stale unnoticed. All of them take `WOLVES_BASE_URL` (default
 `http://127.0.0.1:5173`), so a baseline worktree can be served on another port.
 
-| Harness | Covers |
-|---|---|
-| `wolves-movie-flow.mjs` | The show end to end from the lobby door. The CI job. |
-| `wolves-buffer-parking.mjs` | No prewarmed buffer runs away under the show. |
-| `wolves-ghosts-boundary.mjs` | The on-air buffer really holds the segment named on screen. |
-| `wolves-intro-silence.mjs` | The cinematic stays inaudible under the intro. |
-| `wolves-intro-segments.mjs` | Intro sequence segments and cue windows. Fails on `main` here. |
-| `wolves-intro-destiny-toggle.mjs` | Director's Cut toggle and widget bounds. Fails on `main` here. |
-| `wolves-transition-chat.mjs` | Authored transition lore between parts. |
-| `wolves-lobby-progress.mjs` | Lobby and progress readouts; reads live durations, never constants. |
-| `wolves-immersive-layout.mjs` | Track 0 immersive grid layout. |
-| `wolves-trackzero-sidecar-real-player.mjs` | Track 0 against a real player; source of the canonical mock. |
-| `wolves-directors-cut-slides.mjs` | Director's Cut Track 0 cut boundaries, the covered finale interval, the warm final pre-finale window, and the standard cut's hero locks. |
-| `wolves-directors-cut-finale.mjs` | Director's Cut finale: every named anchor, the companion player's source seconds, chrome suppression, narrow-viewport placement and the terminal black. |
-| `wolves-directors-cut-prologue.mjs` | Director's Cut scored prologue: every painting framed whole at source geometry, full brightness plus scrim, every cue rendering the lines it authored, the reading hold clearing while its shot runs, the warm-silent-promoted Ikora handoff, and the narration surviving a 390px viewport. |
-| `navbar-visual.mjs` | Main-site navbar, not Wolves. |
+The **Player** column is the load-bearing distinction. A *mock* harness installs
+a deterministic `window.YT` fake via `addInitScript`: it can drive the whole
+show offline, but the mock *is* the runtime's bookkeeping, so it can never see a
+buffer holding the wrong video, audible prewarm bleed, or a real ad break. A
+*real* harness talks to live YouTube embeds, which is the only evidence for
+those classes — and on codec-free Chromium (Playwright's bundled build) it must
+tolerate error 150, so a clean local run there is weaker evidence than it
+looks.
+
+| Harness | Player | Covers |
+|---|---|---|
+| `wolves-movie-flow.mjs` | Mock | The show end to end from the lobby door. The CI job. |
+| `wolves-buffer-parking.mjs` | Mock | No prewarmed buffer runs away under the show. |
+| `wolves-ghosts-boundary.mjs` | Real | The on-air buffer really holds the segment named on screen. |
+| `wolves-intro-silence.mjs` | Real | The cinematic stays inaudible under the intro. |
+| `wolves-intro-segments.mjs` | Mock | Intro sequence segments and cue windows. Fails on `main` here. |
+| `wolves-intro-destiny-toggle.mjs` | Mock | Destiny voice-over toggle and widget bounds. Fails on `main` here. |
+| `wolves-transition-chat.mjs` | Mock | Authored transition lore between parts. |
+| `wolves-lobby-progress.mjs` | Mock | Lobby and progress readouts; reads live durations, never constants. |
+| `wolves-immersive-layout.mjs` | Real | Track 0 immersive grid layout and widget bounds. |
+| `wolves-trackzero-sidecar-real-player.mjs` | Mock | Track 0 desktop lore/video sidecar split; source of the canonical mock. |
+| `wolves-lobby-directors-cut-cta.mjs` | None (lobby only) | Director's Cut CTA teaser bounds at fixed viewports. |
+| `wolves-trackzero-handoff-probe.mjs` | Real (CDP) | Diagnostic probe: where the prologue → Track 0 handoff stops under a real embed. Reports, does not assert. |
+| `wolves-directors-cut-slides.mjs` | Mock | Director's Cut Track 0 cut boundaries, the covered finale interval, the warm final pre-finale window, and the standard cut's hero locks. |
+| `wolves-directors-cut-finale.mjs` | Both (mock default; `WOLVES_REAL_MEDIA=1` for real) | Director's Cut finale: every named anchor, the companion player's source seconds, chrome suppression, narrow-viewport placement and the terminal black. |
+| `wolves-directors-cut-prologue.mjs` | Mock | Director's Cut scored prologue: every painting framed whole at source geometry, full brightness plus scrim, every cue rendering the lines it authored, the reading hold clearing while its shot runs, the warm-silent-promoted Ikora handoff, and the narration surviving a 390px viewport. |
+| `navbar-visual.mjs` | None | Main-site navbar, not Wolves. |
 
 ## Answering "what is on screen at m:ss" without a browser
 The harnesses above seek and screenshot. That is the right tool for *how it

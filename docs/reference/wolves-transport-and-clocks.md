@@ -1,6 +1,6 @@
 # Wolves transport and clocks
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 Defect-derived invariants for the Wolves dual-buffer player, the transport
 clock, and the mapping between segment indices and playlist tracks. Every rule
@@ -145,17 +145,15 @@ takes over. Unmuting at load time makes the incoming segment audible *underneath
 outgoing one for the whole bounded wait. Put the `unMute()` in the shared `commit()`
 closure, which both the warm and cold paths run, rather than in either path's setup.
 
-**Both buffers prewarm, and startup waits for the active side's park.** Gating
-the prewarm on `side !== activeSide` left Track 0 — the first thing the audience
-hears — as the only buffer that ever entered cold, while a track needed seven
-minutes later was buffered eagerly. The trailer's audio stopped and the room sat
-in silence on a black overlay. Prewarm both sides, then have `start()` await the
-active side's park before it raises the volume: a park that lands *after*
-startup pauses the show and sets volume 0. Promote the parked buffer with
-`startIncoming()` (seek to the authored opening frame, then play) instead of a
-cold `loadVideoById`; the seek, not the load, is what makes album entry
-deterministic. Clear the side's `prewarming` flag at startup as a second guard,
-and keep the hard-load path for when no park landed in time.
+**Both buffers prewarm.** Gating the prewarm on `side !== activeSide` left
+Track 0 — the first thing the audience hears — as the only buffer that ever
+entered cold, while a track needed seven minutes later was buffered eagerly. The
+trailer's audio stopped and the room sat in silence on a black overlay. Prewarm
+both sides during the intro, and promote a parked buffer with `startIncoming()`
+(seek to the authored opening frame, then play) instead of a cold
+`loadVideoById`; the seek, not the load, is what makes album entry
+deterministic. Startup itself never waits on the park — see "A prewarm is an
+optimisation and must never become a gate" below.
 
 **The fade for a boundary belongs to the INCOMING segment.** It is authored on
 the same config record as `transitionLore`, which is per-incoming. Reading it
@@ -214,7 +212,9 @@ dead air: the show waited out the settle timeout before it even asked to play,
 while the intro was already fading its audio out underneath. Let the prewarm settle
 during the intro, where there are minutes of runway. At the handoff read the parked
 flag once — parked, promote by seek; not parked, clear `prewarming` and play
-immediately. Never wait.
+immediately. Never wait. Clearing `prewarming` at startup is also the guard that
+stops a park landing *late* from pausing and muting the show after the volume is
+up.
 
 **A cold skip must not fade out a transport that is working.** The warm path
 promotes an already-parked buffer and can swap synchronously. The cold path
@@ -262,7 +262,7 @@ Three shipped defects came from indexing the playlist by segment index:
   under-reported by 78 s.
 - `WolvesComicReader.vue` read `manifest.tracks[props.trackIndex]` and paced the
   174 BPM finale on Soulbound's 124 BPM grid, with the wrong crossfade.
-- The same shape has now been fixed three separate times in this repository.
+- The same shape has been fixed three separate times in this repository.
 
 The rule: **anything that reaches into the playlist resolves by identity.**
 `TheaterExperience.vue` passes `:track-id="store.segment.youtubeId"` and the
@@ -291,15 +291,11 @@ Rules:
 ## A gap in an authored sequence is evidence of a deletion
 
 The most expensive Wolves defect so far was not a race or a clock: **the show
-was missing an entire song, and nobody noticed for a long time.**
-
-What happened. Commit `c427f048` built `/wolves/` as a seven-pillar cinematic.
-Commit `24cf26b5`, an AI-assisted change titled "remove the extra ending
-segment", deleted a **middle** segment — `end-of-you`, Poppy, then PART V —
-together with its authored `TRANSITION_FOUR` lore, its team-chat entry, and its
-tests, then renumbered PART VI and PART VII down to PART V and PART VI. The
-commit message described the removal as an *ending* segment. It was not. The
-loss then propagated quietly: `CINEMATIC_AUTHORED_DURATIONS`, a **derived**
+was missing an entire song, and nobody noticed for a long time.** A change
+justified as removing an *ending* segment deleted a **middle** segment —
+`end-of-you`, then PART V — together with its authored `TRANSITION_FOUR` lore,
+its team-chat entry, and its tests, and renumbered the surviving chapters down.
+The loss then propagated quietly: `CINEMATIC_AUTHORED_DURATIONS`, a **derived**
 array, kept the deleted track's runtime in place and shifted every value after
 it, and later readers rationalised the resulting mismatch as deliberate
 curation and wrote it down as a permanent trap.
@@ -307,11 +303,11 @@ curation and wrote it down as a permanent trap.
 How to catch this class of loss:
 
 - **A gap in an authored sequence is evidence of a deletion, not a style.** The
-  surviving tell sat in the config for months: `TRANSITION_FIVE` assigned to
-  Soulbound with no `TRANSITION_FOUR` anywhere in the file. Authored constants
-  numbered ONE, TWO, THREE, FIVE mean FOUR was removed. The same goes for
-  chapter labels that stop short of the known part count, and for ids present in
-  the playlist but absent from the segment list.
+  surviving tell sat in the config: `TRANSITION_FIVE` assigned to Soulbound
+  with no `TRANSITION_FOUR` anywhere in the file. Authored constants numbered
+  ONE, TWO, THREE, FIVE mean FOUR was removed. The same goes for chapter labels
+  that stop short of the known part count, and for ids present in the playlist
+  but absent from the segment list.
 - **Count against the authored source, not the code.** `CINEMATIC_SEGMENTS`
   cannot vouch for itself. Verify the segment count and id order against
   `public/wolves-playlist.json`, which is the authored manifest.
@@ -324,6 +320,3 @@ How to catch this class of loss:
   authored lore is three separate content losses in one change. Authored content
   is never removed to make code tidier; if a change deletes authored prose,
   lore, or a track, it needs the owner's explicit word.
-
-Restoring the segment restored the seven-pillar show, `TRANSITION_FOUR`, the
-PART I..PART VII chapter labels, and the 1:1 segment-to-track alignment.

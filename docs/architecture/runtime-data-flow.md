@@ -1,6 +1,6 @@
 # Runtime data flow
 
-**Agents edit content. Agents never edit design.**
+Repository boundary: [`../../AGENTS.md`](../../AGENTS.md).
 
 ## Main site
 
@@ -10,10 +10,12 @@ values and fixed content data.
 
 ## Wolves
 
-`wolves/index.html` loads `src/wolves-main.ts`. `src/WolvesApp.vue` owns the
-runtime shell. `src/stores/cinematic.ts` owns phase and playback state. The
-cinematic stage and intro publish clock state into the store; transport and
-synchronized surfaces read that state.
+`wolves/experience/index.html` loads `src/wolves-main.ts`, which mounts
+`src/WolvesApp.vue`; the teaser at `wolves/index.html` loads
+`src/wolves-teaser-main.ts` (`src/WolvesTeaserApp.vue`). `src/WolvesApp.vue`
+owns the presentation's runtime shell. `src/stores/cinematic.ts` owns phase and
+playback state. The cinematic stage and intro publish clock state into the
+store; transport and synchronized surfaces read that state.
 
 The active media player's clock drives synchronized content. Do not add a second
 clock or a second transport for a content change.

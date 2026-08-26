@@ -89,6 +89,9 @@ Delete these on sight; they collect stale text instead of updating skills.
 - Changelog-style agent files: `IMPROVEMENTS.md`, `CHANGELOG.md`, `CHANGES.md`,
   `SESSION.md`.
 - Committed session logs: `NOTES.md`, `PLAN.md`, `TODO.md`, progress files.
+- Superpowers session records under `docs/superpowers/plans/` or
+  `docs/superpowers/specs/`. Keep plans and design drafts in the agent session
+  folder; durable rules belong in the owning skill.
 - Any doc instructing an agent to "append here" — route to `docs/skills/`
   instead.
 
@@ -123,9 +126,10 @@ Before reporting completion:
 
 ```bash
 git ls-files 'IMPROVEMENTS.md' 'CHANGELOG.md' 'CHANGES.md' 'SESSION.md' 'NOTES.md' 'PLAN.md' 'TODO.md'
+git ls-files 'docs/superpowers/plans/**' 'docs/superpowers/specs/**'
 ```
 
-The command must return no output.
+Both commands must return no output.
 
 ## References
 

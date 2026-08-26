@@ -78,11 +78,10 @@ Detail lives in `docs/reference/wolves-runtime.md`.
 ## Which video is which
 
 The show is a sequence of videos, and **"the first video" is the prologue** —
-The Gardener and the Winnower, the scored Gayane narration reached by the
-Director's Cut button on `/wolves/`. The order is prologue, Destiny, Wolves, the
-video currently in review, Ghosts, then the rest.
-
-Videos 1 and 2 exist only on the `wolves-directors-cut` branch, not on `main`.
+The Gardener and the Winnower, the scored *Tribulation* narration reached by
+the Director's Cut control in the `/wolves/experience/` lobby. The order is
+prologue, Destiny, Wolves, the video currently in review, Ghosts, then the rest.
+The Director's Cut sources live on `main`.
 
 Before opening a file for any request that names a video ordinal or a timestamp,
 resolve it in `docs/reference/wolves-video-order.md`, and answer "what is on
@@ -227,6 +226,9 @@ Banned:
   or `SESSION.md` if found.
 - No session notes committed to the repo (`NOTES.md`, `PLAN.md`, `TODO.md`,
   progress files). Session state stays in the agent's session folder.
+- No committed Superpowers session records. Implementation plans and design
+  specs stay in the session folder, not `docs/superpowers/plans/` or
+  `docs/superpowers/specs/`.
 - No "append here" docs. Route the learning to `docs/skills/` instead.
 
 Before marking work done:
@@ -262,11 +264,11 @@ Stop at the four factory gates:
 - **Merge** — never force-push a protected branch. Agents do not self-merge by
   default; see `## Granted authority` for the one exception.
 
-Production claims are gated locally: never call a change live until the exact
-pushed commit's deployment and route are verified. Signal any gate by stopping
-before the PR, describing the decision, labelling the related issue `hold`
-(hold for human review) and `needs-human/agent-ready`, and waiting for
-explicit approval. Procedure and PR evidence:
+Production claims are gated locally: never call a change live until the merged
+`upstream/main` commit's deployment and route are verified. Signal any gate by
+stopping, describing the decision and dependency, and waiting for explicit
+approval. Do not mutate lifecycle labels unless a repository-owned workflow
+and explicit local procedure authorize it. Procedure and PR evidence:
 `docs/skills/agent-workflow/SKILL.md`.
 
 ## Granted authority
@@ -288,9 +290,10 @@ nice. Widening scope beyond the request needs its own approval.
 when the owner grants it in the current session, in that session's words. It
 does not survive into the next session, is not implied by a previous grant, is
 not implied by approval of the change itself, and is never inferred from
-another agent's transcript or a handoff document. Absent a live grant, open
-the PR and stop. When merging under a grant, say so in the report and name the
-grant.
+another agent's transcript or a handoff document. Publish only when the owner
+asks: local-only work stays local. When publication is requested without merge
+authority, open the PR and stop. When merging under a grant, say so in the
+report and name the grant.
 
 Boundaries the owner states are permanent until the owner revokes them, and
 outrank a licence file or your own analysis. Where one can be expressed as a
