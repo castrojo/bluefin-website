@@ -1,6 +1,6 @@
 ---
 name: sbom-version-extraction
-description: Use when editing scripts/lib/spdx-version-extractor.js, scripts/lib/oci-sbom.js, scripts/lib/image-version-audit.js, scripts/lib/bluefin-version-projection.js, scripts/update-dakota-versions.js, scripts/update-stream-versions.js, scripts/update-image-versions.js, or their tests.
+description: Use when editing scripts/lib/spdx-version-extractor.js, scripts/lib/oci-sbom.js, scripts/lib/image-sbom-registry.js, scripts/lib/image-version-audit.js, scripts/lib/verified-image-sbom.js, scripts/lib/sbom-issue-report.js, scripts/lib/sbom-issue-sync.js, scripts/lib/bluefin-version-projection.js, scripts/lib/dakota-version-projection.js, scripts/update-dakota-versions.js, scripts/update-stream-versions.js, scripts/update-image-versions.js, .github/workflows/update-content.yml, or their tests.
 ---
 
 # SBOM version extraction
@@ -198,16 +198,35 @@ Task 4 adds a registry-wide orchestrator on top of the extractor.
 **Failure policy (enforced by tests):**
 - `pendingSbom` records are NOT skipped — they are attempted like all others.
 - `EvidenceError` from any image (required or optional) → `status: "unavailable"` in the audit with `required`, `errorCode`, and `error` fields.
-- Non-`EvidenceError` thrown by the collector → abort, no file written.
-- Missing *required* package in SBOM → `status: "unavailable"` with `missingRequired`.
-- Missing *optional* package in SBOM → omit that field, keep `status: "verified"`.
+- `ToolingError` or any other non-`EvidenceError` → abort, no file written.
+- Missing or ambiguous *required* package → `status: "unavailable"` with
+  `missingRequired` / `ambiguousRequired` and errorCode `missing-required` /
+  `ambiguous-required`. Missing wins when both apply.
+- Missing or ambiguous *optional* package → `status: "degraded"`, verified
+  values kept, unresolved fields omitted, errorCode `ambiguous-optional` /
+  `missing-optional`. Ambiguous wins when both apply.
+- `pendingSbom: true` or an empty `packages` map → `status: "unavailable"`,
+  errorCode `pending-mapping`, digests retained — even when the image now
+  publishes an SPDX referrer.
+- Every entry carries `fields` (the mapped field names) so the field-loss guard
+  can tell an explained removal from a broken verifier.
+- Unavailable entries never carry `values`. A projection cannot leak what the
+  audit does not hold.
+
+**Status vocabulary is audit-only.** `public/stream-versions.yml` and
+`public/dakota-versions.json` still use `verified` / `unavailable`, because
+`ImageChooser.vue` and `DakotaVersionCard.vue` gate rendering on
+`status === 'verified'`. Degradation is expressed by the *absence* of the
+unresolved field, plus the audit record and its issue. Do not emit `degraded`
+into a public file without changing those components first — that is a design
+change, not a content change.
 
 **`productStatus` logic:**
 - All verified → `ok`
 - Any *required* unavailable → `unavailable`
-- Only *optional* unavailable → `degraded`
+- Otherwise (degraded or optional unavailable) → `degraded`
 
-**`--check-only` exits nonzero when ANY audit entry is unavailable**, including optional pending evidence. Normal mode exits zero for EvidenceErrors so deployment proceeds and issues alert.
+**`--check-only` exits nonzero when ANY audit entry is unavailable**, including optional pending evidence. Normal mode exits zero for EvidenceErrors so deployment proceeds and issues alert. Exit code `2` is reserved for a `ToolingError`: nothing was written.
 
 **Atomic writes:** `writeOutputsAtomically` validates all outputs first, then writes to a `mkdtempSync` directory **inside `destinationRoot`** (not `os.tmpdir()`) and renames each file into place. Staging under the same filesystem as the destination guarantees `renameSync` cannot fail with `EXDEV`. If validation throws, no file is written; cleanup removes only the staging subdirectory, never `destinationRoot`.
 
@@ -215,3 +234,116 @@ Task 4 adds a registry-wide orchestrator on top of the extractor.
 
 **`product` is required on every audit image entry.** `verifyRegistry` copies `record.product` onto each output entry (verified and unavailable). `productStatus` throws an explicit error if any entry lacks a `product` field — there is no silent `"unknown"` fallback. The composition `productStatus(await verifyRegistry(records, deps))` must work without caller mutation.
 
+
+
+## Evidence failure vs tooling failure
+
+`scripts/lib/verified-image-sbom.js` exports two error types and the difference
+decides whether the website loses a version claim:
+
+| Type | Means | Effect |
+|---|---|---|
+| `EvidenceError` | The publisher did not publish usable evidence | Recorded in the audit, field/product sanitized out, issue opened |
+| `ToolingError` | We could not look | Aborts the run before any output, cache, or deploy |
+
+`classifyToolFailure(err, tool)` runs first on every child-process failure and
+returns a `ToolingError` for:
+
+- `tool-missing` — spawn `ENOENT` (oras/cosign absent from PATH)
+- `tool-timeout` — `ETIMEDOUT`, a killed process, or "context deadline exceeded"
+- `registry-unavailable` — 429/500/502/503/504, `TOOMANYREQUESTS`
+- `transport` — `ECONNRESET`/`ECONNREFUSED`/`EAI_AGAIN`, "no such host",
+  "dial tcp", "tls: handshake failure", "certificate signed by unknown authority"
+- `tool-io` — local `EACCES`/`EIO`/`ENOSPC`/`EMFILE`
+- `malformed-output` — `oras discover` returned unparseable JSON
+- `tool-failure` — anything unrecognised. **Unknown failures block.** We cannot
+  tell "absent" from "unreachable", and blocking is the only safe default.
+
+Only these stay `EvidenceError`:
+
+- `image-not-found` — `NAME_UNKNOWN` / `MANIFEST_UNKNOWN` / "manifest unknown" / 404
+- `missing-sbom`, `ambiguous-sbom` — referrer count is not exactly one
+- `missing-provenance` — cosign found no matching attestation
+- `invalid-provenance` — cosign rejected the identity (wrong publisher)
+- `invalid-sbom` — the discovered SBOM artifact is absent or corrupt
+
+Note the deliberate asymmetry in `pullSpdxReferrer`: a *network* failure while
+pulling blocks, but a discovered artifact that is missing or unparseable is an
+evidence failure, because the publisher attached a referrer it cannot serve.
+
+Do not widen the transport pattern to bare `certificate` or `x509`: cosign
+reports identity failures with those words, and misclassifying one as transport
+would turn a wrong-publisher signature into a silent retry.
+
+## Explained field loss
+
+`assertExplainedFieldLoss()` runs in `update-image-versions.js` before any
+output is promoted. Every field present in the previous public file and absent
+from the new one must be explained by the current audit:
+
+- listed in `missingRequired`, `missingOptional`, `ambiguousRequired`, or
+  `ambiguousOptional` for that product, or
+- mapped by an image of that product whose status is `unavailable`, or
+- part of a block that is now explicitly `status: unavailable` while the product
+  has an unavailable image.
+
+Anything else throws before promotion. The alias map handles projection-level
+renames (`hwe` ← the HWE image's `kernel` field); `baseline` is passed via
+`ignore` because it is static metadata, not SBOM evidence.
+
+## Image staleness: `checkedAt`, not image age
+
+The design document lists "maximum acceptable age" as a registry field. It is
+deliberately not implemented as an image-publication-age threshold, and adding
+one would be wrong:
+
+- What must be fresh is the **evidence**, and the daily run records that
+  directly as `checkedAt` on every audit entry and every public file. A run
+  older than a day is visible without inventing a number.
+- Image publication age is **release cadence**, not staleness. A stable image
+  that has not been rebuilt in six weeks because nothing changed is correct, not
+  stale; failing it would remove accurate version data from the website and
+  open an issue nobody can fix.
+- Any threshold would be an invented constant with no upstream contract behind
+  it, and the first long holiday freeze would turn it into noise everyone learns
+  to ignore.
+
+If upstream ever publishes a rebuild SLA, that SLA — not a guess — becomes the
+threshold.
+
+## github-script must not import relative paths
+
+`actions/github-script` compiles the YAML `script` body inside its own bundled
+module under `_actions/`, so `await import('./scripts/lib/x.js')` resolves
+against the action, not the checkout, and throws `ERR_MODULE_NOT_FOUND` at
+runtime while every YAML assertion passes.
+
+Two rules:
+
+1. Resolve from the working directory:
+   `pathToFileURL(path.join(process.cwd(), 'scripts', 'lib', 'x.js')).href`.
+2. Keep the body to a loader. The logic lives in `scripts/lib/sbom-issue-sync.js`
+   so it can be tested directly.
+
+`scripts/tests/workflow-sbom-policy.test.ts` executes the real script bodies
+through `scripts/tests/fixtures/github-script-runner.mjs`, which reproduces the
+action's referrer semantics (compiled in a module away from the repo root, run
+with the repo root as cwd). It carries a negative-control test proving a
+relative specifier still fails there.
+
+## Issue alerts
+
+- Title is `[SBOM verification] <product>: <errorCode>` — the **exact** audit
+  code, so two different failures never share an issue.
+- `degraded` images alert too; a silently omitted optional field is the loss
+  this pipeline exists to surface.
+- Bodies carry the workflow run URL and the per-image last successful
+  verification, or the literal `none recorded`.
+- `annotateLastSuccessful()` copies the previous audit's `checkedAt` onto
+  currently failing entries, which is why `update-content.yml` restores the
+  live-data cache *before* verification, using the exact save path list in the
+  same order.
+- Both `listForRepo` calls use `github.paginate`. Deduplication that only reads
+  the first 100 open issues silently starts opening duplicates.
+- The generic run-failure issue is deduplicated by exact title too, via
+  `syncWorkflowFailureIssue()`.

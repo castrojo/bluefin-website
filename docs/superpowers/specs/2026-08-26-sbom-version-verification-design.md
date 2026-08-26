@@ -40,7 +40,8 @@ Each registry entry defines:
 - Package-to-output-field mappings.
 - Whether each field is required or optional.
 - Output projection: Bluefin streams, Dakota, or a future product.
-- Maximum acceptable age.
+- Maximum acceptable age. **Resolved during implementation as evidence
+  freshness, not image age — see Implementation Notes.**
 
 The collector resolves every moving tag to an immutable digest before doing any
 other work. All discovery, provenance verification, SBOM retrieval, extraction,
@@ -181,8 +182,9 @@ The system fails closed.
 - Missing optional package: omit the field and record it.
 - Ambiguous package match: mark that product unavailable and remove its version
   fields.
-- Stale SBOM or image beyond the configured threshold: mark that product
-  unavailable and remove its version fields.
+- Stale evidence: the daily run stamps `checkedAt` on every audit entry and
+  every generated file, so freshness is observable directly. Image publication
+  age is not used as a proxy — see Implementation Notes.
 - Registry/schema mismatch: fail before writing outputs.
 - Large unexplained field loss without a matching evidence failure: fail the
   diff guard.
@@ -264,6 +266,52 @@ The affected routes assert:
 - Daily failures create actionable, deduplicated alerts.
 - Existing Bluefin and Dakota routes render correctly when optional fields are
   omitted.
+
+## Implementation Notes
+
+### Maximum acceptable age resolves to `checkedAt`
+
+The registry has no image-age threshold and must not gain one.
+
+What has to be fresh is the *evidence*: the daily workflow re-verifies every
+image and records `checkedAt` on each audit entry and on both public files, so
+"verified today" is a fact in the data rather than an inference from a
+constant.
+
+Image publication age measures release cadence instead. A stable image that has
+not been rebuilt for weeks because nothing changed is correct, and failing it
+would delete accurate version data from the website and open an issue no one
+can act on. Any number chosen here would be invented rather than derived from
+an upstream contract, and the first release freeze would train everyone to
+ignore the resulting alerts.
+
+If upstream publishes a rebuild SLA, that SLA becomes the threshold.
+
+### Degraded is an audit status, not a public one
+
+The public files keep the two-value `verified` / `unavailable` contract that
+`ImageChooser.vue` and `DakotaVersionCard.vue` already gate on. An image whose
+optional evidence did not resolve is `degraded` in the audit: its verified
+values are still published, the unresolved fields are simply absent, and an
+issue is opened. Publishing a third status string would be a component
+behaviour change.
+
+### Tooling failure is not evidence failure
+
+`EvidenceError` means the publisher did not publish; it sanitizes fields and
+alerts. `ToolingError` means verification could not run — missing binary,
+timeout, throttled or unreachable registry, malformed tool output — and aborts
+before any output, cache, or deployment. Unrecognised tool failures are treated
+as tooling failures, because "absent" and "unreachable" cannot be told apart
+and only one of them is safe to publish.
+
+### Pending mappings never verify
+
+A record with `pendingSbom: true` or an empty `packages` map stays
+`unavailable` with `pending-mapping` even after its image starts publishing an
+SPDX referrer. Publication is not a mapping: someone still has to decide which
+package names back which website fields. Its issue therefore stays open, and
+the resolved digests are recorded so the new artifact can be inspected.
 
 ## Sources
 

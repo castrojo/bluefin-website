@@ -110,9 +110,15 @@ export const IMAGE_SBOM_REGISTRY = Object.freeze([
       base: { name: 'kernel-core', type: 'rpm', required: true },
       kernel: { name: 'kernel-core', type: 'rpm', required: true },
       gnome: { name: 'gnome-shell', type: 'rpm', required: true },
+      // Two distinct mesa builds are reported by the same Syft cataloger, so no
+      // selector resolves them. The field stays optional: it is audited,
+      // degrades the image, and is omitted from the website.
       mesa: { name: 'mesa', type: 'rpm', required: false },
       systemd: { name: 'systemd', required: false },
-      podman: { name: 'podman', required: false },
+      // The RPM database is the shipped-package authority; the ELF binary
+      // cataloger reports the same build without its epoch, which reads as an
+      // ambiguity. The projection strips the epoch for display.
+      podman: { name: 'podman', type: 'rpm', foundBy: 'rpm-db-cataloger', required: false },
       pipewire: { name: 'pipewire', required: false },
       flatpak: { name: 'flatpak', required: false },
     },
@@ -168,8 +174,8 @@ export const IMAGE_SBOM_REGISTRY = Object.freeze([
     packages: {
       kernel: { name: 'linux', element: 'freedesktop-sdk.bst:components/linux.bst', required: true },
       gnome: { name: 'gnome-shell', required: true },
-      mesa: { name: 'mesa', required: true },
-      systemd: { name: 'systemd', required: false },
+      mesa: { name: 'mesa', element: 'freedesktop-sdk.bst:extensions/mesa/mesa.bst', required: true },
+      systemd: { name: 'systemd', element: 'gnome-build-meta.bst:core-deps/systemd-base.bst', required: false },
       podman: { name: 'podman', required: false },
       pipewire: { name: 'pipewire', required: false },
       flatpak: { name: 'flatpak', required: false },

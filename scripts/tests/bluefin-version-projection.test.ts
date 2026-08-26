@@ -184,3 +184,85 @@ describe('yAML serialization', () => {
     expect(yaml).toContain('unavailable')
   })
 })
+
+describe('projectBluefinStreams — degraded evidence', () => {
+  it('publishes the verified values of a degraded base image', () => {
+    const degradedStable = {
+      ...STABLE_BASE,
+      status: 'degraded',
+      errorCode: 'ambiguous-optional',
+      ambiguousOptional: ['mesa'],
+      values: { ...STABLE_BASE.values },
+    }
+    delete degradedStable.values.mesa
+
+    const result = projectBluefinStreams({ checkedAt: '2026-08-26T00:00:00Z', images: [degradedStable] })
+
+    expect(result.stable.status).toBe('verified')
+    expect(result.stable.kernel).toBe('7.0.12-201')
+    expect(result.stable).not.toHaveProperty('mesa')
+  })
+
+  it('merges a degraded optional image without publishing its unresolved field', () => {
+    const degradedNvidia = {
+      ...STABLE_NVIDIA,
+      status: 'degraded',
+      errorCode: 'missing-optional',
+      missingOptional: ['nvidiaExtra'],
+    }
+
+    const result = projectBluefinStreams({
+      checkedAt: '2026-08-26T00:00:00Z',
+      images: [STABLE_BASE, degradedNvidia],
+    })
+
+    expect(result.stable.nvidia).toBe('610.57.04-1')
+    expect(result.stable).not.toHaveProperty('nvidiaExtra')
+  })
+
+  it('never publishes values from an unavailable required base image', () => {
+    const unavailableStable = {
+      id: 'bluefin-stable',
+      product: 'bluefin',
+      image: 'ghcr.io/ublue-os/bluefin:stable',
+      required: true,
+      status: 'unavailable',
+      errorCode: 'ambiguous-required',
+      ambiguousRequired: ['kernel'],
+    }
+
+    const result = projectBluefinStreams({
+      checkedAt: '2026-08-26T00:00:00Z',
+      images: [unavailableStable, STABLE_NVIDIA],
+    })
+
+    expect(result.stable).toEqual({ status: 'unavailable' })
+  })
+
+  it('ignores values on an unavailable optional image even if the audit kept them', () => {
+    const unavailableNvidia = {
+      ...STABLE_NVIDIA,
+      status: 'unavailable',
+      errorCode: 'ambiguous-required',
+      values: { nvidia: '3:610.57.04-1.fc44' },
+    }
+
+    const result = projectBluefinStreams({
+      checkedAt: '2026-08-26T00:00:00Z',
+      images: [STABLE_BASE, unavailableNvidia],
+    })
+
+    expect(result.stable).not.toHaveProperty('nvidia')
+  })
+
+  it('normalizes an RPM epoch on a podman value pinned by foundBy', () => {
+    const withPodman = {
+      ...STABLE_BASE,
+      values: { ...STABLE_BASE.values, podman: '5:5.8.4-1.fc44' },
+    }
+
+    const result = projectBluefinStreams({ checkedAt: '2026-08-26T00:00:00Z', images: [withPodman] })
+
+    expect(result.stable.podman).toBe('5.8.4-1')
+  })
+})

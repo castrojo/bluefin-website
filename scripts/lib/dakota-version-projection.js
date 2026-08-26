@@ -12,6 +12,20 @@ const DAKOTA_IDS = IMAGE_SBOM_REGISTRY
   .map(r => r.id)
 
 /**
+ * Values may be published from a `verified` image and from a `degraded` one —
+ * degraded means every required field resolved and only optional fields were
+ * omitted. An `unavailable` image publishes nothing, whatever it carries.
+ *
+ * @param {{ status: string, values?: Record<string,string> }} image
+ * @returns {boolean}
+ */
+function hasPublishableValues(image) {
+  return image != null
+    && (image.status === 'verified' || image.status === 'degraded')
+    && image.values != null
+}
+
+/**
  * @param {{ checkedAt: string, images: Array<{ id: string, product?: string, image: string, imageDigest?: string, sbomDigest?: string, status: string, values?: Record<string,string> }> }} auditResult
  * @param {{ isos?: Array<{ label: string, filename: string }>, baseline?: string }} previousMetadata
  * @param {string} [checkedAt] - override timestamp (defaults to auditResult.checkedAt)
@@ -26,7 +40,7 @@ export function projectDakotaVersions(auditResult, previousMetadata = {}, checke
   // Find the base dakota record — required for verified status
   const baseImage = dakotaImages.find(img => img.id === 'dakota')
 
-  if (!baseImage || baseImage.status !== 'verified') {
+  if (!hasPublishableValues(baseImage)) {
     return {
       checkedAt: timestamp,
       status: 'unavailable',
@@ -38,7 +52,7 @@ export function projectDakotaVersions(auditResult, previousMetadata = {}, checke
 
   // Collect sources from all verified dakota images
   const sources = dakotaImages
-    .filter(img => img.status === 'verified' && img.imageDigest && img.sbomDigest)
+    .filter(img => hasPublishableValues(img) && img.imageDigest && img.sbomDigest)
     .map(img => ({
       id: img.id,
       image: img.image,
@@ -50,12 +64,12 @@ export function projectDakotaVersions(auditResult, previousMetadata = {}, checke
   const packages = { ...baseImage.values }
 
   const nvidiaImage = dakotaImages.find(img => img.id === 'dakota-nvidia')
-  if (nvidiaImage && nvidiaImage.status === 'verified' && nvidiaImage.values) {
+  if (hasPublishableValues(nvidiaImage)) {
     Object.assign(packages, nvidiaImage.values)
   }
 
   const gamingImage = dakotaImages.find(img => img.id === 'dakota-gaming')
-  if (gamingImage && gamingImage.status === 'verified' && gamingImage.values) {
+  if (hasPublishableValues(gamingImage)) {
     Object.assign(packages, gamingImage.values)
   }
 

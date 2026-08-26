@@ -143,13 +143,17 @@ source.
 
 ### Registry ownership
 
-The image version registry lives in `scripts/lib/image-version-audit.js`. Each
-entry declares an OCI image reference, required and optional SPDX package names,
-and the `product` it belongs to (`bluefin` or `dakota`). To add a field:
+The image version registry lives in `scripts/lib/image-sbom-registry.js`
+(`scripts/lib/image-version-audit.js` is the orchestrator that consumes it).
+Each entry declares an OCI image reference, required and optional SPDX package
+names, and the `product` it belongs to (`bluefin` or `dakota`). To add a field:
 
 1. Add a `packages` entry to the relevant record in the registry.
 2. Mark it `required: true` if its absence should remove the product from display.
-3. Run `npm run update:image-versions` to regenerate outputs.
+3. If the package name resolves to more than one version, add an `element`
+   (BuildStream) or `type`/`foundBy` (Syft) selector and pin the fixture
+   evidence in `scripts/tests/image-sbom-registry.test.ts`.
+4. Run `npm run update:image-versions` to regenerate outputs.
 
 ### SBOM sources
 
@@ -163,17 +167,35 @@ and the `product` it belongs to (`bluefin` or `dakota`). To add a field:
 ### Fail-closed behavior
 
 If an image's SPDX referrer is missing or cosign verification fails, the image
-is recorded as `status: "unavailable"` in the output. Unavailable evidence
+is recorded as `status: "unavailable"` in the audit. Unavailable evidence
 removes the corresponding website claims — no version is displayed for that
 product variant. The pipeline never falls back to documentation, source trees,
 or cached values.
 
+An image whose required fields all resolved but whose *optional* fields did not
+is `status: "degraded"`: its verified values are still published, the
+unresolved fields are omitted, and an issue is opened. Ambiguity counts as
+failure at both levels — a required ambiguous field makes the image
+unavailable, an optional one degrades it.
+
+A record with `pendingSbom: true` or an empty `packages` map stays
+`unavailable` with `errorCode: "pending-mapping"` even after the image starts
+publishing an SBOM. Publication is not a mapping; someone has to review which
+package names map to which website fields.
+
 ### Commands
 
 ```bash
-npm run check:image-sboms       # Read-only live verification (exits nonzero on missing evidence)
+npm run check:image-sboms       # Manual, read-only live verification (exits nonzero on missing evidence)
 npm run update:image-versions   # Regenerate public/*-versions.json and stream-versions.yml
 ```
+
+The scheduled live smoke test is the daily `Update Live Data` workflow
+(`.github/workflows/update-content.yml`), which runs `update:image-versions`
+against the live registry every day at 10:00 UTC and files deduplicated issues.
+`check:image-sboms` is the manual, read-only form of the same verification: it
+writes no file and triggers no deployment, so run it locally before changing
+the registry.
 
 ### Rule
 

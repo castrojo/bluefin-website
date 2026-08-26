@@ -57,6 +57,20 @@ function deriveFedoraBase(kernelVersion) {
 }
 
 /**
+ * Values may be published from a `verified` image and from a `degraded` one —
+ * degraded means every required field resolved and only optional fields were
+ * omitted. An `unavailable` image publishes nothing, whatever it carries.
+ *
+ * @param {{ status: string, values?: Record<string,string> }} image
+ * @returns {boolean}
+ */
+function hasPublishableValues(image) {
+  return image != null
+    && (image.status === 'verified' || image.status === 'degraded')
+    && image.values != null
+}
+
+/**
  * @param {{ checkedAt: string, images: Array<{ id: string, product?: string, image: string, imageDigest?: string, sbomDigest?: string, status: string, values?: Record<string,string>, rawKernelVersion?: string }> }} auditResult
  * @param {string} [checkedAt] - override timestamp
  * @returns {{ checkedAt: string, stable: object, lts: object }}
@@ -86,7 +100,7 @@ export function projectBluefinStreams(auditResult, checkedAt) {
 
   // Build stable stream
   let stable
-  if (stableBase && stableBase.status === 'verified' && stableBase.values) {
+  if (hasPublishableValues(stableBase)) {
     const vals = { ...stableBase.values }
 
     if (vals.base) {
@@ -97,7 +111,7 @@ export function projectBluefinStreams(auditResult, checkedAt) {
     }
 
     // Merge nvidia from its dedicated image
-    if (stableNvidia && stableNvidia.status === 'verified' && stableNvidia.values) {
+    if (hasPublishableValues(stableNvidia)) {
       Object.assign(vals, stableNvidia.values)
     }
 
@@ -112,13 +126,13 @@ export function projectBluefinStreams(auditResult, checkedAt) {
 
   // Build LTS stream
   let lts
-  if (ltsBase && ltsBase.status === 'verified' && ltsBase.values) {
+  if (hasPublishableValues(ltsBase)) {
     const vals = { ...ltsBase.values }
 
-    if (ltsHwe && ltsHwe.status === 'verified' && ltsHwe.values) {
+    if (hasPublishableValues(ltsHwe) && ltsHwe.values.kernel != null) {
       vals.hwe = ltsHwe.values.kernel
     }
-    if (ltsNvidia && ltsNvidia.status === 'verified' && ltsNvidia.values) {
+    if (hasPublishableValues(ltsNvidia)) {
       Object.assign(vals, ltsNvidia.values)
     }
 

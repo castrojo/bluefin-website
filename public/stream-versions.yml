@@ -1,10 +1,11 @@
-checkedAt: '2026-08-26T07:20:35.626Z'
+checkedAt: '2026-08-26T08:19:25.284Z'
 stable:
   status: verified
   base: Fedora 44
   kernel: 7.1.6-201
   gnome: 50.3-1
   systemd: 259.8-1
+  podman: 5.8.4-1
   pipewire: 1.6.8-1
   flatpak: 1.18.0-1
   nvidia: 610.57.04-1

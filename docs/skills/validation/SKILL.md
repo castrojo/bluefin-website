@@ -48,13 +48,31 @@ npm run build
 Image version live verification:
 
 ```bash
-npm run check:image-sboms       # Read-only; exits nonzero when any evidence is missing
+npm run check:image-sboms       # Manual, read-only; exits nonzero when any evidence is missing
 npm run update:image-versions   # Regenerate; exits zero even with unavailable images
 ```
 
 `check:image-sboms` verifies cosign signatures and SPDX referrer existence for
 every registered image. It performs no documentation or source-tree fallbacks.
 Missing evidence means the website does not display that product's versions.
+
+The **scheduled** live smoke test is the daily `Update Live Data` workflow, not
+this command: it runs the same verification against the live registry every day
+and files deduplicated issues. `check:image-sboms` is its manual, read-only
+form — it writes nothing and deploys nothing.
+
+Both exit non-zero for different reasons, and the difference matters:
+
+| Exit | Meaning | Outputs |
+|---|---|---|
+| `0` | Verified, or evidence is genuinely missing | Written and sanitized |
+| `1` | `--check-only` found an unavailable image | Nothing written |
+| `2` | Tooling/transport failure — we could not look | Nothing written, nothing deployed |
+
+Exit `2` is never a reason to re-run with the check disabled. A missing `oras`
+or `cosign` binary, a timeout, a throttled registry, or malformed tool output
+all block promotion on purpose: an outage must not be published as "this
+product has no verified versions".
 
 Full code checks:
 

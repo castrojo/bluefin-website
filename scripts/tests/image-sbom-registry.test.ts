@@ -1,6 +1,9 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
-import { validateImageSbomRegistry } from '../lib/image-sbom-registry.js'
+import { IMAGE_SBOM_REGISTRY, validateImageSbomRegistry } from '../lib/image-sbom-registry.js'
+import { extractMappedVersions } from '../lib/spdx-version-extractor.js'
 
 const record = {
   id: 'bluefin-stable',
@@ -85,5 +88,87 @@ describe('validateImageSbomRegistry', () => {
         packages: {},
       },
     ])).not.toThrow()
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Live-evidence selectors
+//
+// These fixtures are trimmed copies of the published SBOMs. They exist so the
+// selectors that disambiguate a real package name stay pinned to the evidence
+// that justified them, and so a regression is a test failure rather than a
+// silently omitted version on the website.
+// ---------------------------------------------------------------------------
+
+const dakotaElements = JSON.parse(
+  readFileSync(join(import.meta.dirname, 'fixtures/dakota-mesa-systemd-elements.spdx.json'), 'utf8'),
+)
+const bluefinCatalogers = JSON.parse(
+  readFileSync(join(import.meta.dirname, 'fixtures/bluefin-stable-catalogers.syft.json'), 'utf8'),
+)
+
+function recordFor(id: string) {
+  const record = IMAGE_SBOM_REGISTRY.find(r => r.id === id)
+  expect(record, `registry record ${id} not found`).toBeDefined()
+  return record!
+}
+
+describe('registry selectors resolve known live ambiguities', () => {
+  it('pins Dakota mesa to the mesa extension element', () => {
+    const { packages } = recordFor('dakota')
+    expect(packages.mesa.element).toBe('freedesktop-sdk.bst:extensions/mesa/mesa.bst')
+
+    const result = extractMappedVersions(dakotaElements, { mesa: packages.mesa })
+    expect(result.ambiguous).toEqual([])
+    expect(result.values.mesa).toBe('26.0.6')
+  })
+
+  it('pins Dakota systemd to the gnome-build-meta systemd-base element', () => {
+    const { packages } = recordFor('dakota')
+    expect(packages.systemd.element).toBe('gnome-build-meta.bst:core-deps/systemd-base.bst')
+
+    const result = extractMappedVersions(dakotaElements, { systemd: packages.systemd })
+    expect(result.ambiguous).toEqual([])
+    expect(result.values.systemd).toBe('260.2')
+  })
+
+  it('is ambiguous for Dakota mesa and systemd without the element pins', () => {
+    const result = extractMappedVersions(dakotaElements, {
+      mesa: { name: 'mesa', required: true },
+      systemd: { name: 'systemd', required: false },
+    })
+    expect(result.ambiguous.sort()).toEqual(['mesa', 'systemd'])
+  })
+
+  it('pins Bluefin podman to the RPM database cataloger', () => {
+    const { packages } = recordFor('bluefin-stable')
+    expect(packages.podman.foundBy).toBe('rpm-db-cataloger')
+
+    const result = extractMappedVersions(bluefinCatalogers, { podman: packages.podman })
+    expect(result.ambiguous).toEqual([])
+    // Raw RPM evidence keeps its epoch; the projection strips it for display.
+    expect(result.values.podman).toBe('5:5.8.4-1.fc44')
+  })
+
+  it('leaves Bluefin mesa optional and genuinely ambiguous', () => {
+    const { packages } = recordFor('bluefin-stable')
+    expect(packages.mesa.required).toBe(false)
+
+    const result = extractMappedVersions(bluefinCatalogers, { mesa: packages.mesa })
+    // Two distinct mesa builds are reported by the same cataloger, so no
+    // selector can resolve it: the field must be omitted, not guessed.
+    expect(result.ambiguous).toEqual(['mesa'])
+    expect(result.values).not.toHaveProperty('mesa')
+  })
+
+  it('resolves Bluefin kernel-core and systemd unambiguously', () => {
+    const { packages } = recordFor('bluefin-stable')
+    const result = extractMappedVersions(bluefinCatalogers, {
+      kernel: packages.kernel,
+      systemd: packages.systemd,
+    })
+    expect(result.ambiguous).toEqual([])
+    expect(result.values.kernel).toBe('7.1.6-201.fc44')
+    expect(result.values.systemd).toBe('259.8-1.fc44')
   })
 })

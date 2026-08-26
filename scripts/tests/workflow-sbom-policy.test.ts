@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { load } from 'js-yaml'
@@ -121,5 +122,127 @@ describe('update-content.yml workflow policy', () => {
     expect(cacheSave, 'cache save step not found').toBeDefined()
     const paths = (cacheSave!.with!.path ?? '').trim().split('\n').map(l => l.trim())
     expect(paths).toContain('.cache/website-live-data/sbom-audit.json')
+  })
+})
+
+// ---------------------------------------------------------------------------
+// github-script execution seam
+//
+// Parsing the YAML proves the step exists; it does not prove the step runs.
+// A relative `await import('./scripts/...')` inside actions/github-script
+// resolves against the action's bundle directory and throws ERR_MODULE_NOT_FOUND
+// at runtime, which no YAML assertion can catch. These tests execute the
+// script body exactly as github-script does — as an async function body with
+// `github`, `context`, `core`, and `require` in scope — so the import seam is
+// exercised for real.
+// ---------------------------------------------------------------------------
+
+const AUDIT_FIXTURE = resolve(process.cwd(), 'scripts/tests/fixtures/sbom-audit-degraded.json')
+const RUNNER = resolve(process.cwd(), 'scripts/tests/fixtures/github-script-runner.mjs')
+
+function scriptBodyFor(name: string): string {
+  const step = getAllSteps(loadWorkflow()).find(s => s.name === name)
+  expect(step, `step '${name}' not found`).toBeDefined()
+  const script = step!.with?.script
+  expect(script, `step '${name}' has no script body`).toBeDefined()
+  return script!
+}
+
+interface RecordedCalls {
+  created: Record<string, unknown>[]
+  updated: Record<string, unknown>[]
+}
+
+/**
+ * Run a github-script body through `fixtures/github-script-runner.mjs`, which
+ * reproduces the action's referrer semantics: the function is compiled inside a
+ * module that does not live at the repository root, while the process working
+ * directory is the checkout.
+ */
+function runScriptBody(body: string, openIssues: unknown[], env: Record<string, string> = {}): RecordedCalls {
+  const stdout = execFileSync(process.execPath, [RUNNER], {
+    cwd: process.cwd(),
+    encoding: 'utf8',
+    env: { ...process.env, ...env, GH_SCRIPT_BODY: body, GH_OPEN_ISSUES: JSON.stringify(openIssues) },
+  })
+  return JSON.parse(stdout) as RecordedCalls
+}
+
+describe('github-script bodies resolve their imports from the checkout', () => {
+  it('runs the SBOM issue management script end to end', () => {
+    const { created } = runScriptBody(
+      scriptBodyFor('Manage SBOM verification issues'),
+      [],
+      { SBOM_AUDIT_PATH: AUDIT_FIXTURE },
+    )
+
+    expect(created.map(c => c.title).sort()).toEqual([
+      '[SBOM verification] bluefin: ambiguous-optional',
+      '[SBOM verification] dakota: missing-sbom',
+    ])
+    expect(created.every(c => String(c.body).includes('actions/runs/987654321'))).toBe(true)
+  })
+
+  it('runs the failure-issue script end to end and deduplicates by exact title', () => {
+    const { created, updated } = runScriptBody(
+      scriptBodyFor('Create issue on failure'),
+      [{ number: 314, title: 'Failed to update live data from SBOM sources', state: 'open' }],
+    )
+
+    expect(created).toHaveLength(0)
+    expect(updated).toHaveLength(1)
+    expect(updated[0]).toMatchObject({ issue_number: 314 })
+  })
+
+  it('opens exactly one failure issue when none is open yet', () => {
+    const { created } = runScriptBody(scriptBodyFor('Create issue on failure'), [])
+
+    expect(created).toHaveLength(1)
+    expect(created[0].title).toBe('Failed to update live data from SBOM sources')
+  })
+
+  it('fails a body that imports a bare relative specifier (harness negative control)', () => {
+    expect(() => runScriptBody(
+      'const mod = await import(\'./scripts/lib/sbom-issue-report.js\')\n',
+      [],
+    )).toThrow(/ERR_MODULE_NOT_FOUND|Cannot find module/)
+  })
+
+  it('never uses a bare relative specifier in a github-script body', () => {
+    for (const step of getAllSteps(loadWorkflow())) {
+      const script = step.with?.script
+      if (script == null) {
+        continue
+      }
+      expect(
+        /import\(\s*['"`]\.\.?\//.test(script),
+        `step '${step.name}' imports a relative path, which resolves against the action bundle at runtime`,
+      ).toBe(false)
+    }
+  })
+})
+
+describe('update-content.yml restores the previous live data', () => {
+  const workflow = loadWorkflow()
+
+  it('restores the live-data cache before verification runs', () => {
+    const steps = getAllSteps(workflow)
+    const restoreIndex = steps.findIndex(s => s.uses?.includes('actions/cache/restore'))
+    const verifyIndex = steps.findIndex(s => s.run?.includes('update:image-versions'))
+    expect(restoreIndex, 'no cache restore step in update-content.yml').toBeGreaterThanOrEqual(0)
+    expect(restoreIndex).toBeLessThan(verifyIndex)
+  })
+
+  it('restores with the exact save path list, order included', () => {
+    const steps = getAllSteps(workflow)
+    const restore = steps.find(s => s.uses?.includes('actions/cache/restore'))!
+    const save = steps.find(s => s.uses?.includes('actions/cache/save'))!
+    const paths = (step: WorkflowStep) => (step.with!.path ?? '').trim().split('\n').map(l => l.trim())
+    expect(paths(restore)).toEqual(paths(save))
+  })
+
+  it('does not fail the run when no cache exists yet', () => {
+    const restore = getAllSteps(workflow).find(s => s.uses?.includes('actions/cache/restore'))!
+    expect(String(restore.with!['fail-on-cache-miss'])).toBe('false')
   })
 })

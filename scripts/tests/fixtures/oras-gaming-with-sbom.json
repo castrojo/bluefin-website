@@ -1,0 +1,18 @@
+{
+  "reference": "ghcr.io/projectbluefin/dakota-gaming@sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "referrers": [
+    {
+      "reference": "ghcr.io/projectbluefin/dakota-gaming@sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "mediaType": "application/vnd.dev.sigstore.bundle.v0.3+json",
+      "artifactType": "application/vnd.dev.sigstore.bundle.v0.3+json"
+    },
+    {
+      "reference": "ghcr.io/projectbluefin/dakota-gaming@sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "mediaType": "application/vnd.spdx+json",
+      "artifactType": "application/vnd.spdx+json"
+    }
+  ]
+}

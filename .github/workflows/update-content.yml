@@ -27,6 +27,26 @@ jobs:
         with:
           persist-credentials: false
 
+      # The previous run's audit is the only record of when each image last
+      # verified, and failure issues have to state that. Restoring uses the
+      # exact save path list, in the same order: actions/cache derives the
+      # cache version from the path list, so any divergence silently restores
+      # nothing.
+      - name: Restore previous live data
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: |
+            public/stream-versions.yml
+            public/dakota-versions.json
+            public/flickr-photos.json
+            public/experiences
+            src/assets/svg/growth_bluefins.svg
+            .cache/website-live-data/sbom-audit.json
+          key: website-live-data-
+          restore-keys: |
+            website-live-data-
+          fail-on-cache-miss: false
+
       - name: Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
@@ -79,59 +99,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # The script body stays two lines on purpose. A relative dynamic import
+      # inside github-script resolves against the action's own bundle, not the
+      # checkout, so the real logic lives in a checked-in module that the test
+      # suite executes directly.
       - name: Manage SBOM verification issues
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
         with:
           script: |
-            const fs = await import('node:fs')
             const path = await import('node:path')
-            const { buildSbomIssuePlan } = await import('./scripts/lib/sbom-issue-report.js')
-
-            const auditPath = path.join(process.cwd(), '.cache', 'website-live-data', 'sbom-audit.json')
-            const audit = JSON.parse(fs.readFileSync(auditPath, 'utf8'))
-
-            const { data: openIssues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: 'bug,automation',
-              per_page: 100,
-            })
-
-            const issues = openIssues.map(i => ({ number: i.number, title: i.title, state: i.state }))
-            const plan = buildSbomIssuePlan(audit, issues)
-
-            for (const item of plan.create) {
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: item.title,
-                body: item.body,
-                labels: item.labels,
-              })
-              core.info(`Created issue: ${item.title}`)
-            }
-
-            for (const item of plan.update) {
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: item.number,
-                body: item.body,
-              })
-              core.info(`Updated issue #${item.number}: ${item.title}`)
-            }
-
-            for (const item of plan.close) {
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: item.number,
-                state: 'closed',
-                state_reason: item.state_reason,
-              })
-              core.info(`Closed issue #${item.number}`)
-            }
+            const { pathToFileURL } = await import('node:url')
+            const moduleUrl = pathToFileURL(path.join(process.cwd(), 'scripts', 'lib', 'sbom-issue-sync.js')).href
+            const { syncSbomIssues } = await import(moduleUrl)
+            await syncSbomIssues({ github, context, core })
 
       # Escalates only after the cache and deployment are safely done, so the
       # resulting issue never costs a week of live data.
@@ -149,11 +129,8 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
         with:
           script: |
-            const runUrl = `${context.payload.repository.html_url}/actions/runs/${context.runId}`;
-            github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'Failed to update live data from SBOM sources',
-              body: `The automated data update failed. Please check the [workflow run](${runUrl}) for details.`,
-              labels: ['bug', 'automation']
-            })
+            const path = await import('node:path')
+            const { pathToFileURL } = await import('node:url')
+            const moduleUrl = pathToFileURL(path.join(process.cwd(), 'scripts', 'lib', 'sbom-issue-sync.js')).href
+            const { syncWorkflowFailureIssue } = await import(moduleUrl)
+            await syncWorkflowFailureIssue({ github, context, core })

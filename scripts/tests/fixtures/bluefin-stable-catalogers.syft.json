@@ -1,0 +1,68 @@
+{
+  "artifacts": [
+    {
+      "id": "78bdee422dd643fc",
+      "name": "kernel-core",
+      "version": "7.1.6-201.fc44",
+      "type": "rpm",
+      "foundBy": "rpm-db-cataloger",
+      "purl": "pkg:rpm/kernel-core@7.1.6-201.fc44?arch=x86_64&upstream=kernel-core-7.1.6-201.fc44.src.rpm"
+    },
+    {
+      "id": "be145d69303f20ac",
+      "name": "mesa",
+      "version": "26.1.4-4.fc44",
+      "type": "rpm",
+      "foundBy": "elf-binary-package-cataloger",
+      "purl": "pkg:rpm/fedora/mesa@26.1.4-4.fc44?distro=fedora-44"
+    },
+    {
+      "id": "88a31204f0227a70",
+      "name": "mesa",
+      "version": "26.1.5-1.fc44",
+      "type": "rpm",
+      "foundBy": "elf-binary-package-cataloger",
+      "purl": "pkg:rpm/fedora/mesa@26.1.5-1.fc44?distro=fedora-44"
+    },
+    {
+      "id": "5fe6f6d522de43b7",
+      "name": "podman",
+      "version": "5.8.4-1.fc44",
+      "type": "rpm",
+      "foundBy": "elf-binary-package-cataloger",
+      "purl": "pkg:rpm/fedora/podman@5.8.4-1.fc44?distro=fedora-44"
+    },
+    {
+      "id": "134ea7d09e2d7cea",
+      "name": "podman",
+      "version": "5:5.8.4-1.fc44",
+      "type": "rpm",
+      "foundBy": "rpm-db-cataloger",
+      "purl": "pkg:rpm/podman@5.8.4-1.fc44?arch=x86_64&epoch=5&upstream=podman-5.8.4-1.fc44.src.rpm"
+    },
+    {
+      "id": "e7412d12b914be82",
+      "name": "systemd",
+      "version": "259.8-1.fc44",
+      "type": "rpm",
+      "foundBy": "elf-binary-package-cataloger",
+      "purl": "pkg:rpm/fedora/systemd@259.8-1.fc44?distro=fedora-44"
+    },
+    {
+      "id": "ac8a42bb8929c6e9",
+      "name": "systemd",
+      "version": "259.8-1.fc44",
+      "type": "rpm",
+      "foundBy": "rpm-db-cataloger",
+      "purl": "pkg:rpm/systemd@259.8-1.fc44?arch=x86_64&upstream=systemd-259.8-1.fc44.src.rpm"
+    }
+  ],
+  "distro": {},
+  "descriptor": {
+    "name": "syft"
+  },
+  "schema": {
+    "version": "16.1.2",
+    "url": "https://raw.githubusercontent.com/anchore/syft/main/schema/json/schema-16.1.2.json"
+  }
+}

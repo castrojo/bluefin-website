@@ -7,6 +7,7 @@ import {
   EvidenceError,
   pullSpdxReferrer,
   resolveImageDigest,
+  ToolingError,
   verifyImageProvenance,
 } from '../lib/verified-image-sbom.js'
 
@@ -15,6 +16,12 @@ const dakotaDiscovery = JSON.parse(
 )
 const gamingDiscovery = JSON.parse(
   readFileSync(join(import.meta.dirname, 'fixtures/oras-gaming-no-sbom.json'), 'utf8'),
+)
+const gamingWithSbomDiscovery = JSON.parse(
+  readFileSync(join(import.meta.dirname, 'fixtures/oras-gaming-with-sbom.json'), 'utf8'),
+)
+const gamingOgcSbom = JSON.parse(
+  readFileSync(join(import.meta.dirname, 'fixtures/dakota-gaming-ogc.spdx.json'), 'utf8'),
 )
 
 const DAKOTA_DIGEST = 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -78,20 +85,20 @@ describe('discoverReferrers', () => {
     expect(result).toEqual(dakotaDiscovery.referrers)
   })
 
-  it('throws EvidenceError image-not-found on command failure', () => {
+  it('throws ToolingError on a transport failure rather than sanitizing the image', () => {
     const imageAtDigest = `ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`
     const run = vi.fn().mockImplementation(() => {
       throw new Error('connection refused')
     })
     expect(() => discoverReferrers(imageAtDigest, run))
-      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'image-not-found' }))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'transport' }))
   })
 
-  it('throws EvidenceError invalid-sbom on malformed discovery JSON', () => {
+  it('throws ToolingError malformed-output on unparseable discovery JSON', () => {
     const imageAtDigest = `ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`
     const run = vi.fn().mockReturnValue('not json {{{')
     expect(() => discoverReferrers(imageAtDigest, run))
-      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'invalid-sbom' }))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'malformed-output' }))
   })
 })
 
@@ -236,5 +243,243 @@ describe('collectVerifiedImageSbom', () => {
         .mockReturnValue(''),
     }
     await expect(collectVerifiedImageSbom(DAKOTA_RECORD, deps)).rejects.toMatchObject({ code: 'ambiguous-sbom' })
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Tooling and transport failures must block, never sanitize
+//
+// An evidence failure says "the publisher did not publish this"; a tooling
+// failure says "we could not look". Only the first may remove a field from the
+// website, so every non-answer has to be classified before it reaches the
+// audit.
+// ---------------------------------------------------------------------------
+
+function spawnEnoent(binary: string) {
+  const err = new Error(`spawnSync ${binary} ENOENT`) as NodeJS.ErrnoException & { syscall?: string }
+  err.code = 'ENOENT'
+  err.syscall = `spawnSync ${binary}`
+  err.path = binary
+  return err
+}
+
+function withStderr(message: string, stderr: string) {
+  const err = new Error(message) as Error & { stderr?: string }
+  err.stderr = stderr
+  return err
+}
+
+describe('tooling failures block', () => {
+  const imageAtDigest = `ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`
+  const policy = {
+    certificateIdentityRegexp: '^https://github.com/projectbluefin/dakota/.+$',
+    certificateOidcIssuer: 'https://token.actions.githubusercontent.com',
+  }
+
+  it('classifies a missing oras binary as tool-missing', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw spawnEnoent('oras')
+    })
+    expect(() => resolveImageDigest('ghcr.io/projectbluefin/dakota:latest', run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'tool-missing' }))
+  })
+
+  it('classifies a missing cosign binary as tool-missing', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw spawnEnoent('cosign')
+    })
+    expect(() => verifyImageProvenance(imageAtDigest, policy, run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'tool-missing' }))
+  })
+
+  it('classifies registry rate limiting as registry-unavailable', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr('oras failed', 'TOOMANYREQUESTS: retry-after 60s: unexpected status code 429')
+    })
+    expect(() => resolveImageDigest('ghcr.io/projectbluefin/dakota:latest', run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'registry-unavailable' }))
+  })
+
+  it('classifies a registry 503 as registry-unavailable', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr('oras failed', 'response status code 503: Service Unavailable')
+    })
+    expect(() => discoverReferrers(imageAtDigest, run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'registry-unavailable' }))
+  })
+
+  it('classifies a TLS handshake failure as transport', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr('oras failed', 'remote error: tls: handshake failure')
+    })
+    expect(() => discoverReferrers(imageAtDigest, run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'transport' }))
+  })
+
+  it('classifies a DNS failure as transport', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr('oras failed', 'dial tcp: lookup ghcr.io: no such host')
+    })
+    expect(() => resolveImageDigest('ghcr.io/projectbluefin/dakota:latest', run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'transport' }))
+  })
+
+  it('classifies a killed process as tool-timeout', () => {
+    const run = vi.fn().mockImplementation(() => {
+      const err = new Error('oras timed out') as Error & { killed?: boolean, signal?: string }
+      err.killed = true
+      err.signal = 'SIGTERM'
+      throw err
+    })
+    expect(() => discoverReferrers(imageAtDigest, run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'tool-timeout' }))
+  })
+
+  it('blocks on an unrecognised oras failure rather than guessing absence', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw new Error('oras exited with an unfamiliar message')
+    })
+    expect(() => discoverReferrers(imageAtDigest, run))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'tool-failure' }))
+  })
+
+  it('blocks when oras pull fails for transport reasons', () => {
+    const mockFs = {
+      mkdtempSync: vi.fn().mockReturnValue('/mock-tmp/sbom-xyz'),
+      readdirSync: vi.fn(),
+      readFileSync: vi.fn(),
+      rmSync: vi.fn(),
+    }
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr('oras pull failed', 'connection reset by peer')
+    })
+    expect(() => pullSpdxReferrer('ghcr.io/projectbluefin/dakota', SBOM_DIGEST, run, mockFs))
+      .toThrow(expect.objectContaining({ name: 'ToolingError', code: 'transport' }))
+    expect(mockFs.rmSync).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps a genuinely absent referrer artifact an evidence failure', () => {
+    const mockFs = {
+      mkdtempSync: vi.fn().mockReturnValue('/mock-tmp/sbom-xyz'),
+      readdirSync: vi.fn(),
+      readFileSync: vi.fn(),
+      rmSync: vi.fn(),
+    }
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr('oras pull failed', 'MANIFEST_UNKNOWN: manifest unknown')
+    })
+    expect(() => pullSpdxReferrer('ghcr.io/projectbluefin/dakota', SBOM_DIGEST, run, mockFs))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'invalid-sbom' }))
+  })
+
+  it('keeps a corrupt discovered SBOM document an evidence failure', () => {
+    const mockFs = {
+      mkdtempSync: vi.fn().mockReturnValue('/mock-tmp/sbom-xyz'),
+      readdirSync: vi.fn().mockReturnValue(['sbom.spdx.json']),
+      readFileSync: vi.fn().mockReturnValue('{ truncated'),
+      rmSync: vi.fn(),
+    }
+    const run = vi.fn().mockReturnValue('')
+    expect(() => pullSpdxReferrer('ghcr.io/projectbluefin/dakota', SBOM_DIGEST, run, mockFs))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'invalid-sbom' }))
+  })
+
+  it('keeps a genuinely absent image an evidence failure', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr('oras failed', 'ghcr.io/projectbluefin/nope:latest: not found: NAME_UNKNOWN: repository name not known to registry')
+    })
+    expect(() => resolveImageDigest('ghcr.io/projectbluefin/nope:latest', run))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'image-not-found' }))
+  })
+
+  it('keeps a missing attestation an evidence failure', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw new Error('no matching attestations found')
+    })
+    expect(() => verifyImageProvenance(imageAtDigest, policy, run))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'missing-provenance' }))
+  })
+
+  it('keeps a wrong publisher identity an evidence failure', () => {
+    const run = vi.fn().mockImplementation(() => {
+      throw withStderr(
+        'cosign failed',
+        'none of the expected identities matched what was in the certificate, got subjects [https://github.com/attacker/evil/.github/workflows/build.yml@refs/heads/main]',
+      )
+    })
+    expect(() => verifyImageProvenance(imageAtDigest, policy, run))
+      .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'invalid-provenance' }))
+  })
+
+  it('exports ToolingError as a distinct type from EvidenceError', () => {
+    const tooling = new ToolingError('transport', 'oras', 'boom')
+    expect(tooling).toBeInstanceOf(Error)
+    expect(tooling).not.toBeInstanceOf(EvidenceError)
+    expect(tooling.name).toBe('ToolingError')
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Publisher identity and future SBOM publication, at the collector seam
+// ---------------------------------------------------------------------------
+
+describe('collectVerifiedImageSbom — publisher identity', () => {
+  it('rejects an image whose provenance was signed by the wrong publisher', async () => {
+    const identityFailure = new Error('cosign failed') as Error & { stderr?: string }
+    identityFailure.stderr = 'none of the expected identities matched what was in the certificate, '
+      + 'got subjects [https://github.com/attacker/evil/.github/workflows/build.yml@refs/heads/main]'
+
+    const run = vi.fn()
+      .mockReturnValueOnce(JSON.stringify({ digest: DAKOTA_DIGEST }))
+      .mockReturnValueOnce(JSON.stringify(dakotaDiscovery))
+      .mockImplementationOnce(() => {
+        throw identityFailure
+      })
+
+    await expect(collectVerifiedImageSbom(DAKOTA_RECORD, { run })).rejects.toMatchObject({
+      name: 'EvidenceError',
+      code: 'invalid-provenance',
+    })
+  })
+
+  it('passes the record identity policy to cosign verbatim', async () => {
+    const mockFs = {
+      mkdtempSync: vi.fn().mockReturnValue('/mock-tmp/sbom-abc'),
+      readdirSync: vi.fn().mockReturnValue(['sbom.spdx.json']),
+      readFileSync: vi.fn().mockReturnValue(JSON.stringify({ packages: [] })),
+      rmSync: vi.fn(),
+    }
+    const run = vi.fn()
+      .mockReturnValueOnce(JSON.stringify({ digest: DAKOTA_DIGEST }))
+      .mockReturnValueOnce(JSON.stringify(dakotaDiscovery))
+      .mockReturnValue('')
+
+    await collectVerifiedImageSbom(DAKOTA_RECORD, { run, fs: mockFs })
+
+    const cosignCall = run.mock.calls.find(call => call[0] === 'cosign')
+    expect(cosignCall![1]).toContain(DAKOTA_RECORD.certificateIdentityRegexp)
+    expect(cosignCall![1]).toContain(DAKOTA_RECORD.certificateOidcIssuer)
+    expect(cosignCall![1]).toContain(`ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`)
+  })
+})
+
+describe('collectVerifiedImageSbom — a pending image starts publishing an SBOM', () => {
+  it('collects the newly published SPDX document', async () => {
+    const mockFs = {
+      mkdtempSync: vi.fn().mockReturnValue('/mock-tmp/sbom-gaming'),
+      readdirSync: vi.fn().mockReturnValue(['sbom.spdx.json']),
+      readFileSync: vi.fn().mockReturnValue(JSON.stringify(gamingOgcSbom)),
+      rmSync: vi.fn(),
+    }
+    const run = vi.fn()
+      .mockReturnValueOnce(JSON.stringify({ digest: GAMING_DIGEST }))
+      .mockReturnValueOnce(JSON.stringify(gamingWithSbomDiscovery))
+      .mockReturnValue('')
+
+    const result = await collectVerifiedImageSbom(GAMING_RECORD, { run, fs: mockFs })
+
+    expect(result.imageDigest).toBe(GAMING_DIGEST)
+    expect(result.sbomDigest).toBe(`sha256:${'f'.repeat(64)}`)
+    expect(result.sbom.packages).toHaveLength(2)
   })
 })

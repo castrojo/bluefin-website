@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-26T07:20:35.626Z",
+  "checkedAt": "2026-08-26T08:19:25.284Z",
   "status": "verified",
   "sources": [
     {
@@ -24,6 +24,8 @@
   "packages": {
     "kernel": "7.0.7",
     "gnome": "50.2",
+    "mesa": "26.0.6",
+    "systemd": "260.2",
     "podman": "5.8.2",
     "pipewire": "1.6.1",
     "flatpak": "1.16.6",

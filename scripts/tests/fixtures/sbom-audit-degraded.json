@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-08-26T10:00:00.000Z",
+  "images": [
+    {
+      "id": "bluefin-stable",
+      "product": "bluefin",
+      "image": "ghcr.io/ublue-os/bluefin:stable",
+      "required": true,
+      "fields": ["base", "kernel", "gnome", "mesa", "systemd", "podman", "pipewire", "flatpak"],
+      "imageDigest": "sha256:282ef6bd9f73e9ea130b2cd5597649a123eeb2f8012dd172c59cbb9f8a9ecd2b",
+      "sbomDigest": "sha256:dddd4444eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000eeee1111",
+      "status": "degraded",
+      "errorCode": "ambiguous-optional",
+      "error": "ghcr.io/ublue-os/bluefin:stable has ambiguous optional fields: mesa",
+      "missingRequired": [],
+      "missingOptional": [],
+      "ambiguousRequired": [],
+      "ambiguousOptional": ["mesa"],
+      "rejected": [],
+      "values": { "kernel": "7.1.6-201.fc44" },
+      "lastSuccessfulAt": "2026-08-25T10:00:00.000Z"
+    },
+    {
+      "id": "dakota-gaming",
+      "product": "dakota",
+      "image": "ghcr.io/projectbluefin/dakota-gaming:testing",
+      "required": false,
+      "fields": [],
+      "status": "unavailable",
+      "errorCode": "missing-sbom",
+      "error": "No SPDX referrer found for ghcr.io/projectbluefin/dakota-gaming:testing"
+    }
+  ]
+}

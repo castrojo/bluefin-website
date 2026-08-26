@@ -1,0 +1,110 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "dakota-mesa-systemd-elements",
+  "documentNamespace": "https://github.com/projectbluefin/dakota/sbom/5e32a3528befb0d60a42cfa3ccd8c8b90e999be6",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-freedesktop-sdk.bst-components-dummy-gbm.bst-0",
+      "filesAnalyzed": false,
+      "name": "mesa",
+      "downloadLocation": "https://gitlab.freedesktop.org/mesa/mesa.git",
+      "versionInfo": "26.1.0",
+      "sourceInfo": "git_repo",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "freedesktop-sdk.bst:components/dummy-gbm.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-freedesktop-sdk.bst-components-mesa-headers.bst-0",
+      "filesAnalyzed": false,
+      "name": "mesa",
+      "downloadLocation": "https://gitlab.freedesktop.org/mesa/mesa.git",
+      "versionInfo": "26.1.0",
+      "sourceInfo": "git_repo",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "freedesktop-sdk.bst:components/mesa-headers.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-freedesktop-sdk.bst-components-systemd-stage1.bst-0",
+      "filesAnalyzed": false,
+      "name": "systemd",
+      "downloadLocation": "https://github.com/systemd/systemd.git",
+      "versionInfo": "257.13",
+      "sourceInfo": "git_repo",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "freedesktop-sdk.bst:components/systemd-stage1.bst"
+        }
+      ]
+    },
+    {
+      "name": "mesa",
+      "SPDXID": "SPDXRef-freedesktop-sdk.bst-extensions-mesa-mesa.bst",
+      "filesAnalyzed": false,
+      "downloadLocation": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "freedesktop-sdk.bst:extensions/mesa/mesa.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-freedesktop-sdk.bst-extensions-mesa-mesa.bst-0",
+      "filesAnalyzed": false,
+      "name": "mesa",
+      "downloadLocation": "https://gitlab.freedesktop.org/mesa/mesa.git",
+      "versionInfo": "26.0.6",
+      "sourceInfo": "git_repo",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "freedesktop-sdk.bst:extensions/mesa/mesa.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-gnome-build-meta.bst-core-deps-systemd-base.bst-0",
+      "filesAnalyzed": false,
+      "name": "systemd",
+      "downloadLocation": "https://github.com/systemd/systemd.git",
+      "versionInfo": "260.2",
+      "sourceInfo": "git_repo",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "gnome-build-meta.bst:core-deps/systemd-base.bst"
+        }
+      ]
+    },
+    {
+      "name": "systemd",
+      "SPDXID": "SPDXRef-gnome-build-meta.bst-core-deps-systemd.bst",
+      "filesAnalyzed": false,
+      "downloadLocation": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "gnome-build-meta.bst:core-deps/systemd.bst"
+        }
+      ]
+    }
+  ]
+}

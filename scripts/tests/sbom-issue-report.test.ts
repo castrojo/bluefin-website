@@ -28,6 +28,7 @@ const MISSING_SBOM_IMAGE = {
   imageDigest: 'sha256:cccc3333dddd4444eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000',
   sbomDigest: 'sha256:dddd4444eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000eeee1111',
   status: 'unavailable',
+  errorCode: 'missing-required',
   missingRequired: ['kernel', 'gnome'],
 }
 
@@ -36,8 +37,35 @@ const EVIDENCE_ERROR_IMAGE = {
   product: 'dakota',
   image: 'ghcr.io/projectbluefin/dakota-nvidia:latest',
   status: 'unavailable',
+  errorCode: 'image-not-found',
   error: 'image-not-found: no SBOM attestations found',
 }
+
+const DEGRADED_IMAGE = {
+  id: 'bluefin-stable',
+  product: 'bluefin',
+  image: 'ghcr.io/ublue-os/bluefin:stable',
+  imageDigest: 'sha256:cccc3333dddd4444eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000',
+  sbomDigest: 'sha256:dddd4444eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000eeee1111',
+  status: 'degraded',
+  errorCode: 'ambiguous-optional',
+  error: 'ghcr.io/ublue-os/bluefin:stable has ambiguous optional fields: mesa',
+  ambiguousOptional: ['mesa'],
+  values: { kernel: '7.1.6-201.fc44' },
+  lastSuccessfulAt: '2026-08-25T10:00:00.000Z',
+}
+
+const PENDING_IMAGE = {
+  id: 'dakota-gaming',
+  product: 'dakota',
+  image: 'ghcr.io/projectbluefin/dakota-gaming:testing',
+  imageDigest: 'sha256:eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000eeee1111ffff2222',
+  status: 'unavailable',
+  errorCode: 'pending-mapping',
+  error: 'ghcr.io/projectbluefin/dakota-gaming:testing publishes an SBOM but has no reviewed package mapping yet',
+}
+
+const WORKFLOW_URL = 'https://github.com/projectbluefin/website/actions/runs/1234567890'
 
 // ---------------------------------------------------------------------------
 // buildSbomIssuePlan
@@ -114,7 +142,7 @@ describe('buildSbomIssuePlan', () => {
     const audit = makeAudit([VERIFIED_IMAGE])
     const openIssues = [
       { number: 10, title: 'Unrelated bug report', state: 'open' },
-      { number: 11, title: '[SBOM verification] bluefin: missing-sbom', state: 'open' },
+      { number: 11, title: '[SBOM verification] bluefin: missing-required', state: 'open' },
     ]
     const plan = buildSbomIssuePlan(audit, openIssues)
 
@@ -173,8 +201,8 @@ describe('buildSbomIssuePlan', () => {
   it('closes multiple recovered issues at once', () => {
     const audit = makeAudit([VERIFIED_IMAGE])
     const openIssues = [
-      { number: 10, title: '[SBOM verification] bluefin: missing-sbom', state: 'open' },
-      { number: 20, title: '[SBOM verification] dakota: evidence-error', state: 'open' },
+      { number: 10, title: '[SBOM verification] bluefin: missing-required', state: 'open' },
+      { number: 20, title: '[SBOM verification] dakota: image-not-found', state: 'open' },
     ]
     const plan = buildSbomIssuePlan(audit, openIssues)
 
@@ -201,6 +229,7 @@ describe('buildSbomIssuePlan', () => {
       product: 'bluefin',
       image: 'ghcr.io/projectbluefin/bluefin-lts:stable',
       status: 'unavailable',
+      errorCode: 'missing-sbom',
       error: 'No SPDX referrer found',
     }
     const image2 = {
@@ -208,6 +237,7 @@ describe('buildSbomIssuePlan', () => {
       product: 'bluefin',
       image: 'ghcr.io/projectbluefin/bluefin-lts-hwe:stable',
       status: 'unavailable',
+      errorCode: 'missing-sbom',
       error: 'No SPDX referrer found',
     }
     const audit = makeAudit([image1, image2])
@@ -220,13 +250,81 @@ describe('buildSbomIssuePlan', () => {
   })
 })
 
+describe('buildSbomIssuePlan — exact error codes, degraded entries, and evidence', () => {
+  it('uses the exact errorCode in the title', () => {
+    const plan = buildSbomIssuePlan(makeAudit([EVIDENCE_ERROR_IMAGE]), [])
+    expect(plan.create[0].title).toBe('[SBOM verification] dakota: image-not-found')
+  })
+
+  it('separates two failure codes for the same product into two issues', () => {
+    const plan = buildSbomIssuePlan(makeAudit([MISSING_SBOM_IMAGE, {
+      ...MISSING_SBOM_IMAGE,
+      id: 'bluefin-lts',
+      errorCode: 'missing-sbom',
+      missingRequired: undefined,
+      error: 'no sbom',
+    }]), [])
+    expect(plan.create.map(i => i.title).sort()).toEqual([
+      '[SBOM verification] bluefin: missing-required',
+      '[SBOM verification] bluefin: missing-sbom',
+    ])
+  })
+
+  it('opens an issue for a degraded image', () => {
+    const plan = buildSbomIssuePlan(makeAudit([DEGRADED_IMAGE]), [])
+    expect(plan.create).toHaveLength(1)
+    expect(plan.create[0].title).toBe('[SBOM verification] bluefin: ambiguous-optional')
+    expect(plan.create[0].body).toContain('degraded')
+    expect(plan.create[0].body).toContain('mesa')
+  })
+
+  it('does not close a degraded image issue', () => {
+    const openIssues = [{ number: 7, title: '[SBOM verification] bluefin: ambiguous-optional', state: 'open' }]
+    const plan = buildSbomIssuePlan(makeAudit([DEGRADED_IMAGE]), openIssues)
+    expect(plan.close).toHaveLength(0)
+    expect(plan.update.map(u => u.number)).toEqual([7])
+  })
+
+  it('keeps a pending-mapping issue open rather than closing it', () => {
+    const openIssues = [{ number: 8, title: '[SBOM verification] dakota: pending-mapping', state: 'open' }]
+    const plan = buildSbomIssuePlan(makeAudit([PENDING_IMAGE]), openIssues)
+    expect(plan.close).toHaveLength(0)
+    expect(plan.update.map(u => u.number)).toEqual([8])
+  })
+
+  it('includes the workflow run URL when one is supplied', () => {
+    const plan = buildSbomIssuePlan(makeAudit([MISSING_SBOM_IMAGE]), [], { workflowUrl: WORKFLOW_URL })
+    expect(plan.create[0].body).toContain(WORKFLOW_URL)
+  })
+
+  it('includes the last successful verification timestamp', () => {
+    const plan = buildSbomIssuePlan(makeAudit([DEGRADED_IMAGE]), [], { workflowUrl: WORKFLOW_URL })
+    expect(plan.create[0].body).toContain('2026-08-25T10:00:00.000Z')
+  })
+
+  it('says none recorded when no previous verification exists', () => {
+    const plan = buildSbomIssuePlan(makeAudit([PENDING_IMAGE]), [], { workflowUrl: WORKFLOW_URL })
+    expect(plan.create[0].body).toContain('none recorded')
+  })
+
+  it('states the last successful verification for every image in a multi-image issue', () => {
+    const audit = makeAudit([
+      { ...PENDING_IMAGE, id: 'dakota-gaming' },
+      { ...PENDING_IMAGE, id: 'dakota-nvidia-gaming', lastSuccessfulAt: '2026-08-20T10:00:00.000Z' },
+    ])
+    const plan = buildSbomIssuePlan(audit, [], { workflowUrl: WORKFLOW_URL })
+    expect(plan.create).toHaveLength(1)
+    expect(plan.create[0].body).toContain('none recorded')
+    expect(plan.create[0].body).toContain('2026-08-20T10:00:00.000Z')
+  })
+
+  it('reports the pending-mapping digest so the artifact can be inspected', () => {
+    const plan = buildSbomIssuePlan(makeAudit([PENDING_IMAGE]), [])
+    expect(plan.create[0].body).toContain(PENDING_IMAGE.imageDigest)
+  })
+})
+
 // Helper to compute the expected title for an image (mirrors internal logic)
-function plan_title_for(image: { product: string, error?: string, missingRequired?: string[] }): string {
-  if (image.error) {
-    return `[SBOM verification] ${image.product}: evidence-error`
-  }
-  if (image.missingRequired?.length) {
-    return `[SBOM verification] ${image.product}: missing-sbom`
-  }
-  return `[SBOM verification] ${image.product}: unknown`
+function plan_title_for(image: { product: string, errorCode?: string }): string {
+  return `[SBOM verification] ${image.product}: ${image.errorCode ?? 'unknown'}`
 }

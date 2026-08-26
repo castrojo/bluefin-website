@@ -132,3 +132,57 @@ describe('projectDakotaVersions', () => {
     expect(result.checkedAt).toBe('2026-08-27T12:00:00Z')
   })
 })
+
+describe('projectDakotaVersions — degraded evidence', () => {
+  it('publishes the verified values of a degraded base image and lists it as a source', () => {
+    const degraded = {
+      id: 'dakota',
+      product: 'dakota',
+      image: 'ghcr.io/projectbluefin/dakota:latest',
+      required: true,
+      imageDigest: IMAGE_DIGEST,
+      sbomDigest: SBOM_DIGEST,
+      status: 'degraded',
+      errorCode: 'missing-optional',
+      missingOptional: ['bootc'],
+      values: { kernel: '7.0.7', gnome: '50.2', mesa: '26.0.6', systemd: '260.2' },
+    }
+
+    const result = projectDakotaVersions({ checkedAt: '2026-08-26T00:00:00Z', images: [degraded] })
+
+    expect(result.status).toBe('verified')
+    expect(result.packages.mesa).toBe('26.0.6')
+    expect(result.packages.systemd).toBe('260.2')
+    expect(result.packages).not.toHaveProperty('bootc')
+    expect(result.sources.map(s => s.id)).toEqual(['dakota'])
+  })
+
+  it('never publishes values from an unavailable image', () => {
+    const base = {
+      id: 'dakota',
+      product: 'dakota',
+      image: 'ghcr.io/projectbluefin/dakota:latest',
+      required: true,
+      imageDigest: IMAGE_DIGEST,
+      sbomDigest: SBOM_DIGEST,
+      status: 'verified',
+      values: { kernel: '7.0.7' },
+    }
+    const unavailableNvidia = {
+      id: 'dakota-nvidia',
+      product: 'dakota',
+      image: 'ghcr.io/projectbluefin/dakota-nvidia:latest',
+      required: false,
+      imageDigest: IMAGE_DIGEST,
+      sbomDigest: SBOM_DIGEST,
+      status: 'unavailable',
+      errorCode: 'pending-mapping',
+      values: { nvidia: '595.71.05' },
+    }
+
+    const result = projectDakotaVersions({ checkedAt: '2026-08-26T00:00:00Z', images: [base, unavailableNvidia] })
+
+    expect(result.packages).not.toHaveProperty('nvidia')
+    expect(result.sources.map(s => s.id)).toEqual(['dakota'])
+  })
+})
