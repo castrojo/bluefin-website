@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T03:00:40.909Z",
+  "generatedAt": "2026-07-21T05:57:06.159Z",
   "isos": [
     {
       "label": "Download ISO",
@@ -9,14 +9,14 @@
   "packages": {
     "kernel": "7.0.7",
     "gnome": "50.2",
-    "mesa": "26.1.0",
+    "freedesktop-sdk": "25.08.14",
+    "mesa": "26.0.6",
     "bootc": "1.15.2",
     "nvidia": "595.71.05",
     "systemd": "260.2",
     "podman": "5.8.2",
     "pipewire": "1.6.1",
     "flatpak": "1.16.6",
-    "baseline": "x86-64-v3",
-    "ogc-kernel": "595.71.05"
+    "baseline": "x86-64-v3"
   }
 }
