@@ -38,15 +38,37 @@ describe('validateImageSbomRegistry', () => {
     ])).toThrow('image registry id "bluefin-stable" must define certificateOidcIssuer')
   })
 
-  it('rejects a package mapping without a package name and required flag', () => {
+  it('rejects package mappings without a name', () => {
     expect(() => validateImageSbomRegistry([
       {
         ...record,
         packages: {
-          base: { element: 'freedesktop-sdk.bst:components/linux.bst' },
+          base: { required: true },
         },
       },
-    ])).toThrow('image registry id "bluefin-stable" package "base" must define name and required')
+    ])).toThrow('image registry id "bluefin-stable" package "base" must define name')
+  })
+
+  it('rejects package mappings without a required flag', () => {
+    expect(() => validateImageSbomRegistry([
+      {
+        ...record,
+        packages: {
+          base: { name: 'kernel-core' },
+        },
+      },
+    ])).toThrow('image registry id "bluefin-stable" package "base" must define required as a boolean')
+  })
+
+  it('rejects package mappings with non-boolean required flags', () => {
+    expect(() => validateImageSbomRegistry([
+      {
+        ...record,
+        packages: {
+          base: { name: 'kernel-core', required: 'yes' as unknown as boolean },
+        },
+      },
+    ])).toThrow('image registry id "bluefin-stable" package "base" must define required as a boolean')
   })
 
   it('rejects an empty packages object unless pendingSbom is true', () => {

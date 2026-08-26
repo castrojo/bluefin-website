@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+import { createVitestExclude } from './scripts/lib/vitest-exclude.js'
 
 const directoryEntryPaths = new Set(['/dakota', '/server', '/wolves'])
 
@@ -29,13 +30,7 @@ function redirectDirectoryEntries(): Plugin {
 export default defineConfig({
   test: {
     environment: 'happy-dom',
-    exclude: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/cypress/**',
-      '**/.{idea,git,cache,output,temp}/**',
-      '**/.worktrees/**',
-    ],
+    exclude: createVitestExclude(),
     coverage: {
       provider: 'v8',
       // Count every source file, not only files imported by tests, so that

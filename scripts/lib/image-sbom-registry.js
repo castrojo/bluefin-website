@@ -83,8 +83,8 @@ export function validateImageSbomRegistry(records) {
 
     for (const [field, packageRecord] of Object.entries(record.packages)) {
       assert(isRecord(packageRecord), `image registry id "${record.id}" package "${field}" must be an object`)
-      assert(typeof packageRecord.name === 'string' && packageRecord.name.trim() !== '', `image registry id "${record.id}" package "${field}" must define name and required`)
-      assert(typeof packageRecord.required === 'boolean', `image registry id "${record.id}" package "${field}" must define name and required`)
+      assert(typeof packageRecord.name === 'string' && packageRecord.name.trim() !== '', `image registry id "${record.id}" package "${field}" must define name`)
+      assert(typeof packageRecord.required === 'boolean', `image registry id "${record.id}" package "${field}" must define required as a boolean`)
       if (packageRecord.element !== undefined) {
         assert(typeof packageRecord.element === 'string' && packageRecord.element.trim() !== '', `image registry id "${record.id}" package "${field}" must define element as a string`)
       }

@@ -77,6 +77,14 @@ correctly there (verified 2026-08-10, vitest 4.1.7 + happy-dom: the selector
 matched exactly the first parent's child). Indexing into
 `.findAll('.parent')` remains a readability choice, not a workaround.
 
+### Vitest in linked worktrees
+
+Do not exclude `**/.worktrees/**` unconditionally in the Vitest config. When the
+cwd itself is a linked worktree, that pattern can hide every test file from a
+normal `npx vitest run <file>` invocation. Gate the exclusion on `process.cwd()`
+so root-checkout runs still skip nested worktrees while the current worktree
+remains testable.
+
 ---
 
 Procedure and gate: [`../SKILL.md`](../SKILL.md).
