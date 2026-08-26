@@ -50,7 +50,7 @@ describe('projectDakotaVersions', () => {
     expect(result.packages.gnome).toBe('50.2')
   })
 
-  it('NVIDIA comes only from dakota-nvidia', () => {
+  it('nVIDIA comes only from dakota-nvidia', () => {
     const result = projectDakotaVersions(
       { checkedAt: '2026-08-26T00:00:00Z', images: [BASE_VERIFIED, NVIDIA_VERIFIED] },
       METADATA,
@@ -64,7 +64,7 @@ describe('projectDakotaVersions', () => {
     expect(baseOnly.packages.nvidia).toBeUndefined()
   })
 
-  it('OGC appears only from verified dakota-gaming', () => {
+  it('oGC appears only from verified dakota-gaming', () => {
     const result = projectDakotaVersions(
       { checkedAt: '2026-08-26T00:00:00Z', images: [BASE_VERIFIED, GAMING_VERIFIED] },
       METADATA,

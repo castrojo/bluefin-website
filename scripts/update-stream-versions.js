@@ -44,8 +44,12 @@ export async function updateProducts({ products = ['bluefin'] } = {}) {
 
   // Write YAML with checkedAt and stable/lts data
   const yamlData = { checkedAt: projected.checkedAt }
-  if (projected.stable) yamlData.stable = projected.stable
-  if (projected.lts) yamlData.lts = projected.lts
+  if (projected.stable) {
+    yamlData.stable = projected.stable
+  }
+  if (projected.lts) {
+    yamlData.lts = projected.lts
+  }
 
   fs.writeFileSync(
     OUT,

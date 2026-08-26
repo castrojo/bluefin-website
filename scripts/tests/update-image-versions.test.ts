@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest'
-import { verifyRegistry, productStatus, writeOutputsAtomically } from '../lib/image-version-audit.js'
+import { describe, expect, it, vi } from 'vitest'
+import { productStatus, verifyRegistry, writeOutputsAtomically } from '../lib/image-version-audit.js'
 import { EvidenceError } from '../lib/verified-image-sbom.js'
 
 // ---------------------------------------------------------------------------
@@ -234,7 +234,7 @@ describe('productStatus', () => {
       checkedAt: '2026-08-26T00:00:00.000Z',
       images: [{ id: 'orphan', status: 'verified' }],
     }
-    expect(() => productStatus(result)).toThrow("audit image entry 'orphan' is missing a product field")
+    expect(() => productStatus(result)).toThrow('audit image entry \'orphan\' is missing a product field')
   })
 
   it('composes directly with verifyRegistry output without caller mutation', async () => {
@@ -311,7 +311,9 @@ describe('writeOutputsAtomically', () => {
       renameSync: vi.fn(),
       rmSync: vi.fn(),
     }
-    const validate = vi.fn().mockImplementation(() => { throw new Error('invalid') })
+    const validate = vi.fn().mockImplementation(() => {
+      throw new Error('invalid')
+    })
 
     expect(() => writeOutputsAtomically({ 'sbom-audit.json': {} }, '/dest', { fs: fsMock, validate })).toThrow('invalid')
     // renameSync must never have been called

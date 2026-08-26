@@ -1,7 +1,7 @@
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { execFileSync } from 'node:child_process'
 
 const SPDX_ARTIFACT_TYPE = 'application/vnd.spdx+json'
 
@@ -25,7 +25,8 @@ export function resolveImageDigest(image, run = execFileSync) {
     const result = JSON.parse(run('oras', ['manifest', 'fetch', '--descriptor', image], { encoding: 'utf8' }))
     const repository = image.replace(/[:@].*$/, '')
     return `${repository}@${result.digest}`
-  } catch (err) {
+  }
+  catch (err) {
     throw new EvidenceError('image-not-found', image, `Cannot resolve ${image}: ${err.message}`)
   }
 }
@@ -40,13 +41,15 @@ export function discoverReferrers(imageAtDigest, run = execFileSync) {
   let raw
   try {
     raw = run('oras', ['discover', '--format', 'json', imageAtDigest], { encoding: 'utf8' })
-  } catch (err) {
+  }
+  catch (err) {
     throw new EvidenceError('image-not-found', imageAtDigest, `Cannot discover referrers for ${imageAtDigest}: ${err.message}`)
   }
   let result
   try {
     result = JSON.parse(raw)
-  } catch (err) {
+  }
+  catch (err) {
     throw new EvidenceError('invalid-sbom', imageAtDigest, `Malformed discovery JSON for ${imageAtDigest}: ${err.message}`)
   }
   return result.referrers ?? []
@@ -62,12 +65,16 @@ export function verifyImageProvenance(imageAtDigest, policy, run = execFileSync)
   try {
     run('cosign', [
       'verify-attestation',
-      '--type', 'https://slsa.dev/provenance/v1',
-      '--certificate-identity-regexp', policy.certificateIdentityRegexp,
-      '--certificate-oidc-issuer', policy.certificateOidcIssuer,
+      '--type',
+      'https://slsa.dev/provenance/v1',
+      '--certificate-identity-regexp',
+      policy.certificateIdentityRegexp,
+      '--certificate-oidc-issuer',
+      policy.certificateOidcIssuer,
       imageAtDigest,
     ], { encoding: 'utf8' })
-  } catch (err) {
+  }
+  catch (err) {
     const msg = (err.message ?? '') + (err.stderr ?? '')
     if (/no matching attestation|no attestations|not found/i.test(msg)) {
       throw new EvidenceError('missing-provenance', imageAtDigest, `No provenance attestation found for ${imageAtDigest}: ${msg}`)
@@ -94,10 +101,14 @@ export function pullSpdxReferrer(repository, digest, run = execFileSync, fsImpl 
       throw new EvidenceError('invalid-sbom', repository, `No JSON file in SBOM referrer for ${repository}@${digest}`)
     }
     return JSON.parse(fsImpl.readFileSync(path.join(outputDir, jsonFile), 'utf8'))
-  } catch (err) {
-    if (err instanceof EvidenceError) throw err
+  }
+  catch (err) {
+    if (err instanceof EvidenceError) {
+      throw err
+    }
     throw new EvidenceError('invalid-sbom', repository, `Failed to pull SPDX referrer ${digest}: ${err.message}`)
-  } finally {
+  }
+  finally {
     fsImpl.rmSync(outputDir, { recursive: true, force: true })
   }
 }

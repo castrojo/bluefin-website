@@ -29,7 +29,7 @@ export function normalizeVersion(raw) {
     return undefined
   }
   // Accept: optional epoch, numeric segments, optional suffix (-ogc1, -rc2, -1, etc.)
-  if (/^(?:\d+:)?\d+(?:\.\d+)*(?:-[A-Za-z0-9.]+)?$/.test(raw)) {
+  if (/^(?:\d+:)?\d+(?:\.\d+)*(?:-[A-Z0-9.]+)?$/i.test(raw)) {
     return raw
   }
   return undefined
@@ -92,7 +92,8 @@ export function extractMappedVersions(sbom, mappings) {
       const v = normalizeVersion(raw)
       if (v != null) {
         accepted.push(v)
-      } else if (raw != null) {
+      }
+      else if (raw != null) {
         rejected.push({ field, value: raw })
       }
     }
@@ -103,12 +104,15 @@ export function extractMappedVersions(sbom, mappings) {
     if (distinct.length === 0) {
       if (mapping.required) {
         missingRequired.push(field)
-      } else {
+      }
+      else {
         missingOptional.push(field)
       }
-    } else if (distinct.length > 1) {
+    }
+    else if (distinct.length > 1) {
       ambiguous.push(field)
-    } else {
+    }
+    else {
       values[field] = distinct[0]
     }
   }

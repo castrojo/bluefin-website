@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import {
+  extractMappedVersions,
   normalizeVersion,
   packageElement,
-  extractMappedVersions,
 } from '../lib/spdx-version-extractor.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -142,7 +142,7 @@ describe('extractMappedVersions', () => {
     expect(result.values.kernel).toBe('7.1.6-201.fc44')
   })
 
-  it('Dakota SPDX extraction uses versionInfo from BuildStream packages', () => {
+  it('dakota SPDX extraction uses versionInfo from BuildStream packages', () => {
     // Verify the existing fixture still works — versionInfo is the standard SPDX field
     const result = extractMappedVersions(FIXTURE, {
       kernel: { name: 'linux', element: 'components/linux.bst' },

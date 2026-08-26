@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
-import { projectBluefinStreams, normalizeUserVersion } from '../lib/bluefin-version-projection.js'
 import { dump as dumpYaml } from 'js-yaml'
+import { describe, expect, it } from 'vitest'
+import { normalizeUserVersion, projectBluefinStreams } from '../lib/bluefin-version-projection.js'
 
 const IMAGE_DIGEST = 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 const SBOM_DIGEST = 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
@@ -120,7 +120,7 @@ describe('projectBluefinStreams', () => {
     expect(yaml).not.toContain('unknown')
   })
 
-  it('LTS fields come from their respective images when verified', () => {
+  it('lTS fields come from their respective images when verified', () => {
     const result = projectBluefinStreams(
       { checkedAt: '2026-08-26T00:00:00Z', images: [STABLE_BASE, LTS_BASE, LTS_HWE, LTS_NVIDIA] },
     )
@@ -170,7 +170,7 @@ describe('normalizeUserVersion', () => {
   })
 })
 
-describe('YAML serialization', () => {
+describe('yAML serialization', () => {
   it('full serialization with partial optional data contains no literal unknown', () => {
     // Stable verified with NVIDIA, LTS unavailable (partial data)
     const result = projectBluefinStreams(

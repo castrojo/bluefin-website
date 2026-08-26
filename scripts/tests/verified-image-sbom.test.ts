@@ -1,13 +1,13 @@
-import { describe, it, expect, vi } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { describe, expect, it, vi } from 'vitest'
 import {
-  EvidenceError,
-  resolveImageDigest,
-  discoverReferrers,
-  verifyImageProvenance,
-  pullSpdxReferrer,
   collectVerifiedImageSbom,
+  discoverReferrers,
+  EvidenceError,
+  pullSpdxReferrer,
+  resolveImageDigest,
+  verifyImageProvenance,
 } from '../lib/verified-image-sbom.js'
 
 const dakotaDiscovery = JSON.parse(
@@ -57,7 +57,9 @@ describe('resolveImageDigest', () => {
   })
 
   it('throws EvidenceError with code image-not-found on failure', () => {
-    const run = vi.fn().mockImplementation(() => { throw new Error('not found') })
+    const run = vi.fn().mockImplementation(() => {
+      throw new Error('not found')
+    })
     expect(() => resolveImageDigest('ghcr.io/projectbluefin/dakota:latest', run))
       .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'image-not-found' }))
   })
@@ -78,7 +80,9 @@ describe('discoverReferrers', () => {
 
   it('throws EvidenceError image-not-found on command failure', () => {
     const imageAtDigest = `ghcr.io/projectbluefin/dakota@${DAKOTA_DIGEST}`
-    const run = vi.fn().mockImplementation(() => { throw new Error('connection refused') })
+    const run = vi.fn().mockImplementation(() => {
+      throw new Error('connection refused')
+    })
     expect(() => discoverReferrers(imageAtDigest, run))
       .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'image-not-found' }))
   })
@@ -104,9 +108,12 @@ describe('verifyImageProvenance', () => {
       'cosign',
       [
         'verify-attestation',
-        '--type', 'https://slsa.dev/provenance/v1',
-        '--certificate-identity-regexp', policy.certificateIdentityRegexp,
-        '--certificate-oidc-issuer', policy.certificateOidcIssuer,
+        '--type',
+        'https://slsa.dev/provenance/v1',
+        '--certificate-identity-regexp',
+        policy.certificateIdentityRegexp,
+        '--certificate-oidc-issuer',
+        policy.certificateOidcIssuer,
         imageAtDigest,
       ],
       expect.objectContaining({ encoding: 'utf8' }),
@@ -119,7 +126,9 @@ describe('verifyImageProvenance', () => {
       certificateIdentityRegexp: '^https://github.com/projectbluefin/dakota/.+$',
       certificateOidcIssuer: 'https://token.actions.githubusercontent.com',
     }
-    const run = vi.fn().mockImplementation(() => { throw new Error('no matching attestations') })
+    const run = vi.fn().mockImplementation(() => {
+      throw new Error('no matching attestations')
+    })
     expect(() => verifyImageProvenance(imageAtDigest, policy, run))
       .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'missing-provenance' }))
   })
@@ -130,7 +139,9 @@ describe('verifyImageProvenance', () => {
       certificateIdentityRegexp: '^https://github.com/projectbluefin/dakota/.+$',
       certificateOidcIssuer: 'https://token.actions.githubusercontent.com',
     }
-    const run = vi.fn().mockImplementation(() => { throw new Error('certificate chain validation failed') })
+    const run = vi.fn().mockImplementation(() => {
+      throw new Error('certificate chain validation failed')
+    })
     expect(() => verifyImageProvenance(imageAtDigest, policy, run))
       .toThrow(expect.objectContaining({ name: 'EvidenceError', code: 'invalid-provenance' }))
   })

@@ -78,8 +78,8 @@ export function pullImageSbom(image) {
  */
 export function compareVersions(a, b) {
   // parseInt stops at the first non-digit, so "8-ogc1" correctly parses as 8.
-  const left = a.split('.').map(seg => parseInt(seg, 10))
-  const right = b.split('.').map(seg => parseInt(seg, 10))
+  const left = a.split('.').map(seg => Number.parseInt(seg, 10))
+  const right = b.split('.').map(seg => Number.parseInt(seg, 10))
   for (let i = 0; i < Math.max(left.length, right.length); i++) {
     const diff = (left[i] ?? 0) - (right[i] ?? 0)
     if (diff !== 0) {

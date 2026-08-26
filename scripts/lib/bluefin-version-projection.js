@@ -26,7 +26,9 @@ const BLUEFIN_IDS = IMAGE_SBOM_REGISTRY
  * @returns {string}
  */
 export function normalizeUserVersion(v) {
-  if (typeof v !== 'string') return v
+  if (typeof v !== 'string') {
+    return v
+  }
   let out = v
   // Strip leading numeric epoch (e.g. "3:")
   out = out.replace(/^\d+:/, '')
@@ -44,9 +46,13 @@ export function normalizeUserVersion(v) {
  * @returns {string|undefined}
  */
 function deriveFedoraBase(kernelVersion) {
-  if (!kernelVersion) return undefined
+  if (!kernelVersion) {
+    return undefined
+  }
   const match = kernelVersion.match(/\.fc(\d+)$/)
-  if (match) return `Fedora ${match[1]}`
+  if (match) {
+    return `Fedora ${match[1]}`
+  }
   return undefined
 }
 
