@@ -1,5 +1,21 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi, afterEach } from 'vitest'
 import { compareVersions, spdxPackageVersion } from '../lib/oci-sbom.js'
+
+const { readFileSync, writeFileSync, verifyRegistry } = vi.hoisted(() => ({
+  readFileSync: vi.fn(),
+  writeFileSync: vi.fn(),
+  verifyRegistry: vi.fn(),
+}))
+
+vi.mock('node:fs', () => ({
+  default: { readFileSync, writeFileSync },
+  readFileSync,
+  writeFileSync,
+}))
+
+vi.mock('../lib/image-version-audit.js', () => ({
+  verifyRegistry,
+}))
 
 const SBOM = {
   spdxVersion: 'SPDX-2.3',
@@ -59,8 +75,39 @@ describe('oci-sbom helpers', () => {
 })
 
 describe('update-dakota-versions wrapper', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('exports updateProducts as the entry point', async () => {
     const mod = await import('../update-dakota-versions.js')
     expect(typeof mod.updateProducts).toBe('function')
+  })
+
+  it('recovers missing baseline metadata as x86-64-v3', async () => {
+    readFileSync.mockReturnValue(JSON.stringify({
+      isos: [{ label: 'Download ISO', filename: 'dakota-live-alpha4.iso' }],
+      packages: { kernel: '7.0.7' },
+    }))
+    verifyRegistry.mockResolvedValue({
+      checkedAt: '2026-08-26T00:00:00.000Z',
+      images: [{
+        id: 'dakota',
+        product: 'dakota',
+        image: 'ghcr.io/projectbluefin/dakota:latest',
+        imageDigest: 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        sbomDigest: 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+        status: 'verified',
+        values: { kernel: '7.0.7' },
+      }],
+    })
+
+    const { updateProducts } = await import('../update-dakota-versions.js')
+    await updateProducts()
+
+    expect(writeFileSync).toHaveBeenCalledTimes(1)
+    const output = JSON.parse(writeFileSync.mock.calls[0][1] as string)
+    expect(output.isos).toEqual([{ label: 'Download ISO', filename: 'dakota-live-alpha4.iso' }])
+    expect(output.packages.baseline).toBe('x86-64-v3')
   })
 })

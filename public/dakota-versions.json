@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-26T06:23:16.368Z",
+  "checkedAt": "2026-08-26T06:27:57.812Z",
   "status": "verified",
   "sources": [
     {
@@ -28,6 +28,7 @@
     "pipewire": "1.6.1",
     "flatpak": "1.16.6",
     "bootc": "1.15.2",
-    "nvidia": "595.71.05"
+    "nvidia": "595.71.05",
+    "baseline": "x86-64-v3"
   }
 }

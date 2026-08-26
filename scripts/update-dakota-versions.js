@@ -19,6 +19,7 @@ import { collectVerifiedImageSbom } from './lib/verified-image-sbom.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/dakota-versions.json')
+const DAKOTA_BASELINE = 'x86-64-v3'
 
 /**
  * Run the shared orchestrator for Dakota records only and project results.
@@ -30,7 +31,7 @@ export async function updateProducts({ products = ['dakota'] } = {}) {
   const current = JSON.parse(fs.readFileSync(OUT, 'utf8'))
   const previousMetadata = {
     isos: current.isos,
-    baseline: current.packages?.baseline,
+    baseline: current.packages?.baseline ?? DAKOTA_BASELINE,
   }
 
   const projected = projectDakotaVersions(auditResult, previousMetadata)
