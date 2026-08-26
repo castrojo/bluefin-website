@@ -1,31 +1,5 @@
 <script setup lang="ts">
 import { IconServerNetwork } from '@iconify-prerendered/vue-mdi'
-import { onMounted, ref } from 'vue'
-
-interface NvidiaDriver {
-  label: string
-  version: string
-}
-
-const nvidiaDrivers = ref<NvidiaDriver[] | null>(null)
-
-onMounted(async () => {
-  try {
-    const res = await fetch(`${import.meta.env.BASE_URL}server-versions.json`)
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`)
-    }
-    const data = await res.json()
-    if (Array.isArray(data.nvidiaDrivers)) {
-      nvidiaDrivers.value = data.nvidiaDrivers
-    }
-  }
-  catch (e) {
-    if (import.meta.env.DEV) {
-      console.warn('[ServerHighlights] failed to load versions', e)
-    }
-  }
-})
 </script>
 
 <template>
@@ -53,16 +27,6 @@ onMounted(async () => {
             <a class="brand-title" href="https://github.com/NVIDIA/go-nvlib" target="_blank" rel="noopener noreferrer">NVIDIA Autodetection</a>
           </div>
           <p>GPU automatically detected at install. NVIDIA and AMD. Shared across your entire cluster for inference, transcoding, and compute.</p>
-          <div v-if="nvidiaDrivers" class="nvidia-chips">
-            <span
-              v-for="driver in nvidiaDrivers"
-              :key="driver.version"
-              class="chip nvidia"
-            >
-              <span class="chip-k">{{ driver.label }}</span>
-              <span class="chip-v">{{ driver.version }}</span>
-            </span>
-          </div>
         </div>
 
         <!-- Row 2: KubeStellar | CNCF -->
