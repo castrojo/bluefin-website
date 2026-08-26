@@ -1,0 +1,68 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "dakota-linux-elements-fixture",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-linux-headers",
+      "name": "linux",
+      "versionInfo": "6.12.40",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "bootstrap/linux-headers.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-linux-kernel",
+      "name": "linux",
+      "versionInfo": "7.0.7",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "components/linux.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-linux-patch",
+      "name": "linux",
+      "versionInfo": "5d3ebfdaa692b0ed53a7a05ba772fa5e1c72271060ed4c11d9e9dbe7ad2bd218",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "patches/linux-some-fix.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-nvidia",
+      "name": "NVIDIA-Linux-x86",
+      "versionInfo": "595.71.05",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "components/nvidia.bst"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-linux-ogc",
+      "name": "linux",
+      "versionInfo": "7.1.8-ogc1",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceType": "bst-element",
+          "referenceLocator": "core/linux-ogc.bst"
+        }
+      ]
+    }
+  ]
+}

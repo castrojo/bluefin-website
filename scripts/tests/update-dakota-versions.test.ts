@@ -1,82 +1,88 @@
-import { Buffer } from 'node:buffer'
 import { describe, expect, it } from 'vitest'
-import {
-  applySbomVersions,
-  decodeGitHubContent,
-  extractFreedesktopSdkVersion,
-} from '../update-dakota-versions.js'
+import { compareVersions, spdxPackageVersion } from '../lib/oci-sbom.js'
+import { applyVersions, versionsFromSbom } from '../update-dakota-versions.js'
+
+const SBOM = {
+  spdxVersion: 'SPDX-2.3',
+  packages: [
+    // BuildStream lists a package once per element, so duplicates and
+    // commit-hash refs both appear for the same name.
+    { name: 'linux', versionInfo: '6.12.40' },
+    { name: 'linux', versionInfo: '7.0.7' },
+    { name: 'linux', versionInfo: '5d3ebfdaa692b0ed53a7a05ba772fa5e1c72271060ed4c11d9e9dbe7ad2bd218' },
+    { name: 'linux', versionInfo: null },
+    { name: 'gnome-shell', versionInfo: '50.2' },
+    { name: 'mesa', versionInfo: '26.0.6' },
+    { name: 'mesa', versionInfo: '26.1.0' },
+    { name: 'systemd', versionInfo: '257.13' },
+    { name: 'systemd', versionInfo: '260.2' },
+    { name: 'podman', versionInfo: '5.8.2' },
+    { name: 'pipewire', versionInfo: '1.6.1' },
+    { name: 'flatpak', versionInfo: '1.16.6' },
+    { name: 'bootc', versionInfo: '1.15.2' },
+  ],
+}
+
+describe('oci-sbom helpers', () => {
+  it('orders versions by numeric segment, not lexically', () => {
+    expect(compareVersions('7.0.7', '6.12.40')).toBeGreaterThan(0)
+    expect(compareVersions('26.0.6', '26.1.0')).toBeLessThan(0)
+    expect(compareVersions('1.6.1', '1.6.1')).toBe(0)
+  })
+
+  it('returns the highest version when a package appears more than once', () => {
+    expect(spdxPackageVersion(SBOM, 'linux')).toBe('7.0.7')
+    expect(spdxPackageVersion(SBOM, 'mesa')).toBe('26.1.0')
+    expect(spdxPackageVersion(SBOM, 'systemd')).toBe('260.2')
+  })
+
+  it('ignores commit hashes and null versions', () => {
+    const hashOnly = { packages: [
+      { name: 'gnome-shell', versionInfo: 'c9372e733d75cf3c5197a0dd29f8a4a422e2dddb9020cab3c179a6f3df03d4be' },
+      { name: 'gnome-shell', versionInfo: null },
+    ] }
+    expect(spdxPackageVersion(hashOnly, 'gnome-shell')).toBeUndefined()
+  })
+
+  it('returns undefined for a package that is not in the SBOM', () => {
+    expect(spdxPackageVersion(SBOM, 'freedesktop-sdk')).toBeUndefined()
+    expect(spdxPackageVersion(SBOM, 'brew')).toBeUndefined()
+  })
+})
 
 describe('update-dakota-versions helpers', () => {
-  it('applies dakota and dakota-nvidia package versions from SBOM data', () => {
-    const updated = applySbomVersions({
-      packages: {
-        kernel: 'old-kernel',
-        nvidia: 'old-nvidia',
-        baseline: 'x86-64-v3',
-      },
-      generatedAt: 'old-date',
-    }, {
-      streams: {
-        'dakota-latest': {
-          releases: {
-            latest: {
-              packageVersions: {
-                kernel: '6.14.0',
-                gnome: '48.2',
-                mesa: '25.1.0',
-                systemd: '257.5',
-                podman: '5.5.0',
-                pipewire: '1.4.5',
-                flatpak: '1.16.1',
-                allPackages: {
-                  bootc: '1.2.3',
-                },
-              },
-            },
-          },
-        },
-        'dakota-nvidia-latest': {
-          releases: {
-            latest: {
-              packageVersions: {
-                nvidia: '570.124.06',
-              },
-            },
-          },
-        },
-      },
-    }, '2025-02-14T00:00:00.000Z')
-
-    expect(updated).toEqual({
-      packages: {
-        kernel: '6.14.0',
-        nvidia: '570.124.06',
-        baseline: 'x86-64-v3',
-        gnome: '48.2',
-        mesa: '25.1.0',
-        systemd: '257.5',
-        podman: '5.5.0',
-        pipewire: '1.4.5',
-        flatpak: '1.16.1',
-        bootc: '1.2.3',
-      },
-      generatedAt: '2025-02-14T00:00:00.000Z',
+  it('maps SBOM package names onto dakota-versions fields', () => {
+    expect(versionsFromSbom(SBOM, { kernel: 'linux', gnome: 'gnome-shell' })).toEqual({
+      kernel: '7.0.7',
+      gnome: '50.2',
     })
   })
 
-  it('keeps the current data when no dakota release is present', () => {
-    const current = {
-      packages: { kernel: 'existing' },
-      generatedAt: 'old-date',
-    }
-
-    expect(applySbomVersions(current, { streams: {} }, 'new-date')).toEqual(current)
+  it('omits fields the SBOM does not carry rather than inventing them', () => {
+    expect(versionsFromSbom(SBOM, { nvidia: 'NVIDIA-Linux-x86' })).toEqual({})
   })
 
-  it('decodes GitHub content payloads and extracts the freedesktop SDK version', () => {
-    const decoded = decodeGitHubContent(Buffer.from('ref: freedesktop-sdk-25.08.10-0-gdeadbeef\n').toString('base64'), 'base64')
-    expect(decoded).toBe('ref: freedesktop-sdk-25.08.10-0-gdeadbeef\n')
-    expect(extractFreedesktopSdkVersion(decoded)).toBe('25.08.10')
-    expect(extractFreedesktopSdkVersion('ref: missing')).toBeNull()
+  it('replaces derived versions, preserves metadata, and restamps generatedAt', () => {
+    const updated = applyVersions(
+      {
+        generatedAt: 'old-date',
+        isos: [{ label: 'Download ISO', filename: 'dakota-live-alpha4.iso' }],
+        packages: {
+          'kernel': 'old',
+          'baseline': 'x86-64-v3',
+          'ogc-kernel': '595.71.05',
+        },
+      },
+      { kernel: '7.0.7', gnome: '50.2' },
+      '2026-08-26T00:00:00.000Z',
+    )
+
+    expect(updated.generatedAt).toBe('2026-08-26T00:00:00.000Z')
+    expect(updated.packages).toEqual({
+      kernel: '7.0.7',
+      gnome: '50.2',
+      baseline: 'x86-64-v3',
+    })
+    expect(updated.isos).toHaveLength(1)
   })
 })
