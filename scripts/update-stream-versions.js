@@ -24,6 +24,7 @@
  */
 
 import { execFileSync } from 'node:child_process'
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -34,6 +35,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/stream-versions.yml')
 const SBOM_URL = 'https://docs.projectbluefin.io/data/sbom-attestations.json'
 const STABLE_IMAGE = 'ghcr.io/ublue-os/bluefin:stable'
+
+// Pinned cosign release used to verify the image before its SBOM is trusted.
+const COSIGN_VERSION = '3.1.3'
+// SHA-256 of cosign-linux-amd64 from the v3.1.3 release cosign_checksums.txt.
+const COSIGN_LINUX_AMD64_SHA256 = '4629c757b7618056f8ddd7e2625ae9fdd94c0372a65049520bc7d9df9efc7f71'
+const COSIGN_IDENTITY_REGEXP = '^https://github.com/(ublue-os|projectbluefin)/'
+const COSIGN_OIDC_ISSUER = 'https://token.actions.githubusercontent.com'
 
 export function latestPv(streams, name) {
   const stream = streams[name]
@@ -80,14 +88,68 @@ export function extractSbomPackageVersions(sbom) {
   }
 }
 
+/**
+ * Return a cosign binary path. Uses PATH when available; otherwise downloads
+ * the pinned release and verifies its SHA-256 before executing it.
+ */
+export function ensureCosign() {
+  try {
+    execFileSync('cosign', ['version'], { stdio: 'pipe' })
+    return 'cosign'
+  }
+  catch {
+    // fall through to pinned download
+  }
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cosign-pinned-'))
+  const bin = path.join(dir, 'cosign')
+  const url = `https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64`
+  execFileSync('curl', ['-sfL', url, '--output', bin], { stdio: 'pipe' })
+  const actual = crypto.createHash('sha256').update(fs.readFileSync(bin)).digest('hex')
+  if (actual !== COSIGN_LINUX_AMD64_SHA256) {
+    throw new Error(`cosign checksum mismatch: expected ${COSIGN_LINUX_AMD64_SHA256}, got ${actual}`)
+  }
+  fs.chmodSync(bin, 0o755)
+  return bin
+}
+
+/**
+ * Cosign-verify the stable image (keyless, GitHub Actions issuer) and return
+ * its manifest digest, so SBOM discovery runs against exactly what verified.
+ */
+export function verifyImageDigest(cosign, image = STABLE_IMAGE) {
+  const out = execFileSync(cosign, [
+    'verify',
+    image,
+    '--certificate-identity-regexp',
+    COSIGN_IDENTITY_REGEXP,
+    '--certificate-oidc-issuer',
+    COSIGN_OIDC_ISSUER,
+    '--output',
+    'json',
+  ], { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] })
+  const entries = JSON.parse(out)
+  if (!Array.isArray(entries) || entries.length === 0) {
+    throw new Error(`cosign verify returned no signatures for ${image}`)
+  }
+  const digest = entries[0]?.critical?.image?.['docker-manifest-digest']
+  if (!digest) {
+    throw new Error('cosign verify output has no docker-manifest-digest')
+  }
+  return digest
+}
+
 function pullStableSbom() {
+  const cosign = ensureCosign()
+  const verifiedDigest = verifyImageDigest(cosign)
+  const pinnedImage = `ghcr.io/ublue-os/bluefin@${verifiedDigest}`
+  console.info(`[stream-versions] cosign-verified ${STABLE_IMAGE} → ${pinnedImage}`)
   const discovery = JSON.parse(execFileSync('oras', [
     'discover',
     '--artifact-type',
     'application/vnd.spdx+json',
     '--format',
     'json',
-    STABLE_IMAGE,
+    pinnedImage,
   ], { encoding: 'utf8' }))
   const referrer = discovery.referrers?.find(item => item.artifactType === 'application/vnd.spdx+json')
   if (!referrer?.digest) {
