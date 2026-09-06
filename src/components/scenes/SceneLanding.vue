@@ -64,9 +64,9 @@ const { t } = useI18n<MessageSchema>({
             style="width: 100%; height: auto"
             width="105"
             height="43"
-            src="/brands/bluefin.svg"
+            src="/brands/bluefin-wordmark.svg"
             fetchpriority="high"
-            alt="Project Bluefin"
+            alt="Bluefin"
           >
           <p>{{ t("Landing.Title") }}</p>
 
