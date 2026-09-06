@@ -3,10 +3,13 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import {
+  BLUEFIN_EXTRA_WALLPAPERS,
   BLUEFIN_MONTHLY_WALLPAPERS,
   generateSocialCard,
   getAllowedWallpapers,
+  selectMonthlyWallpaper,
   selectRandomWallpaper,
+  selectRotatingWallpaper,
 } from '../generate-social-cards.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -16,17 +19,32 @@ const WALLPAPERS_DIR = path.join(PUBLIC_DIR, 'img/wallpapers')
 const TEMPLATE_PATH = path.join(ROOT_DIR, 'scripts/social-cards/template.html')
 
 describe('social cards wallpaper pool', () => {
-  it('contains exactly 22 first-party Bluefin monthly rotation files (11 pairs)', () => {
-    const pool = getAllowedWallpapers()
-    expect(pool).toHaveLength(22)
-
-    // Pair 11 is intentionally excluded because it duplicates pair 12
-    expect(pool.some(w => w.file.includes('bluefin-11'))).toBe(false)
+  it('contains exactly 24 monthly rotation files (all 12 months, day & night pairs)', () => {
+    expect(BLUEFIN_MONTHLY_WALLPAPERS).toHaveLength(24)
+    for (let m = 1; m <= 12; m++) {
+      const monthItems = BLUEFIN_MONTHLY_WALLPAPERS.filter(w => w.monthIndex === m)
+      expect(monthItems).toHaveLength(2)
+      expect(monthItems.some(w => w.time === 'Day')).toBe(true)
+      expect(monthItems.some(w => w.time === 'Night')).toBe(true)
+    }
   })
 
-  it('contains no Aurora artwork or Aurora-origin xe_* assets', () => {
-    const auroraPattern = /aurora|xe_/i
-    for (const item of BLUEFIN_MONTHLY_WALLPAPERS) {
+  it('contains 16 extra wallpapers (4 xe photography, 12 wolves story illustrations)', () => {
+    expect(BLUEFIN_EXTRA_WALLPAPERS).toHaveLength(16)
+    const xeCount = BLUEFIN_EXTRA_WALLPAPERS.filter(w => w.file.includes('bluefin-xe_')).length
+    expect(xeCount).toBe(4)
+    const wolvesCount = BLUEFIN_EXTRA_WALLPAPERS.filter(w => w.file.startsWith('wolves/')).length
+    expect(wolvesCount).toBe(12)
+  })
+
+  it('contains exactly 40 wallpapers total in the allowed pool', () => {
+    const pool = getAllowedWallpapers()
+    expect(pool).toHaveLength(40)
+  })
+
+  it('contains no Aurora artwork in any entry', () => {
+    const auroraPattern = /aurora/i
+    for (const item of getAllowedWallpapers()) {
       expect(item.file).not.toMatch(auroraPattern)
       expect(item.title).not.toMatch(auroraPattern)
     }
@@ -39,6 +57,30 @@ describe('social cards wallpaper pool', () => {
       const stats = fs.statSync(filePath)
       expect(stats.size, `file ${item.file} should be non-empty`).toBeGreaterThan(1000)
     }
+  })
+
+  it('rotates deterministically by day of year with selectRotatingWallpaper', () => {
+    const pool = getAllowedWallpapers()
+    const jan1 = new Date(Date.UTC(2026, 0, 1))
+    const jan2 = new Date(Date.UTC(2026, 0, 2))
+    const item1 = selectRotatingWallpaper(pool, jan1)
+    const item2 = selectRotatingWallpaper(pool, jan2)
+
+    expect(item1).toBeDefined()
+    expect(item2).toBeDefined()
+    expect(item1).not.toEqual(item2)
+  })
+
+  it('selects matching month and day/night with selectMonthlyWallpaper', () => {
+    const pool = getAllowedWallpapers()
+    const septDay = new Date(Date.UTC(2026, 8, 15, 12, 0, 0)) // September day
+    const septNight = new Date(Date.UTC(2026, 8, 15, 23, 0, 0)) // September night
+
+    const dayChoice = selectMonthlyWallpaper(pool, septDay)
+    const nightChoice = selectMonthlyWallpaper(pool, septNight)
+
+    expect(dayChoice.file).toBe('bluefin-09-day.webp')
+    expect(nightChoice.file).toBe('bluefin-09-night.webp')
   })
 
   it('selects a valid item with selectRandomWallpaper', () => {
@@ -64,7 +106,7 @@ describe('social cards wallpaper pool', () => {
 
   it('renders a valid social card with generateSocialCard', async () => {
     const testOutputPath = '/var/tmp/website-agent/test-social-card.webp'
-    const sample = BLUEFIN_MONTHLY_WALLPAPERS[0]
+    const sample = BLUEFIN_EXTRA_WALLPAPERS[0]
 
     await generateSocialCard({
       wallpaper: sample,

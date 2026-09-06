@@ -13,40 +13,106 @@ const WORDMARK_PATH = path.join(PUBLIC_DIR, 'brands/bluefin-wordmark.svg')
 
 /**
  * Curated allowlist of first-party Bluefin monthly rotation wallpapers.
- * Strict invariant: Aurora artwork and Aurora-origin xe_* assets are
- * permanently excluded per project policy.
+ * 12 months (01 through 12), Day and Night pairs.
  */
 export const BLUEFIN_MONTHLY_WALLPAPERS = [
-  { file: 'bluefin-01-day.webp', title: 'Bluefin 01 - January (Day)', month: 'January', time: 'Day' },
-  { file: 'bluefin-01-night.webp', title: 'Bluefin 01 - January (Night)', month: 'January', time: 'Night' },
-  { file: 'bluefin-02-day.webp', title: 'Bluefin 02 - February (Day)', month: 'February', time: 'Day' },
-  { file: 'bluefin-02-night.webp', title: 'Bluefin 02 - February (Night)', month: 'February', time: 'Night' },
-  { file: 'bluefin-03-day.webp', title: 'Bluefin 03 - March (Day)', month: 'March', time: 'Day' },
-  { file: 'bluefin-03-night.webp', title: 'Bluefin 03 - March (Night)', month: 'March', time: 'Night' },
-  { file: 'bluefin-04-day.webp', title: 'Bluefin 04 - April (Day)', month: 'April', time: 'Day' },
-  { file: 'bluefin-04-night.webp', title: 'Bluefin 04 - April (Night)', month: 'April', time: 'Night' },
-  { file: 'bluefin-05-day.webp', title: 'Bluefin 05 - May (Day)', month: 'May', time: 'Day' },
-  { file: 'bluefin-05-night.webp', title: 'Bluefin 05 - May (Night)', month: 'May', time: 'Night' },
-  { file: 'bluefin-06-day.webp', title: 'Bluefin 06 - June (Day)', month: 'June', time: 'Day' },
-  { file: 'bluefin-06-night.webp', title: 'Bluefin 06 - June (Night)', month: 'June', time: 'Night' },
-  { file: 'bluefin-07-day.webp', title: 'Bluefin 07 - July (Day)', month: 'July', time: 'Day' },
-  { file: 'bluefin-07-night.webp', title: 'Bluefin 07 - July (Night)', month: 'July', time: 'Night' },
-  { file: 'bluefin-08-day.webp', title: 'Bluefin 08 - August (Day)', month: 'August', time: 'Day' },
-  { file: 'bluefin-08-night.webp', title: 'Bluefin 08 - August (Night)', month: 'August', time: 'Night' },
-  { file: 'bluefin-09-day.webp', title: 'Bluefin 09 - September (Day)', month: 'September', time: 'Day' },
-  { file: 'bluefin-09-night.webp', title: 'Bluefin 09 - September (Night)', month: 'September', time: 'Night' },
-  { file: 'bluefin-10-day.webp', title: 'Bluefin 10 - October (Day)', month: 'October', time: 'Day' },
-  { file: 'bluefin-10-night.webp', title: 'Bluefin 10 - October (Night)', month: 'October', time: 'Night' },
-  { file: 'bluefin-12-day.webp', title: 'Bluefin 12 - December (Day)', month: 'December', time: 'Day' },
-  { file: 'bluefin-12-night.webp', title: 'Bluefin 12 - December (Night)', month: 'December', time: 'Night' },
+  { file: 'bluefin-01-day.webp', title: 'Bluefin 01 - January (Day)', month: 'January', monthIndex: 1, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-01-night.webp', title: 'Bluefin 01 - January (Night)', month: 'January', monthIndex: 1, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-02-day.webp', title: 'Bluefin 02 - February (Day)', month: 'February', monthIndex: 2, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-02-night.webp', title: 'Bluefin 02 - February (Night)', month: 'February', monthIndex: 2, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-03-day.webp', title: 'Bluefin 03 - March (Day)', month: 'March', monthIndex: 3, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-03-night.webp', title: 'Bluefin 03 - March (Night)', month: 'March', monthIndex: 3, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-04-day.webp', title: 'Bluefin 04 - April (Day)', month: 'April', monthIndex: 4, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-04-night.webp', title: 'Bluefin 04 - April (Night)', month: 'April', monthIndex: 4, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-05-day.webp', title: 'Bluefin 05 - May (Day)', month: 'May', monthIndex: 5, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-05-night.webp', title: 'Bluefin 05 - May (Night)', month: 'May', monthIndex: 5, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-06-day.webp', title: 'Bluefin 06 - June (Day)', month: 'June', monthIndex: 6, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-06-night.webp', title: 'Bluefin 06 - June (Night)', month: 'June', monthIndex: 6, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-07-day.webp', title: 'Bluefin 07 - July (Day)', month: 'July', monthIndex: 7, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-07-night.webp', title: 'Bluefin 07 - July (Night)', month: 'July', monthIndex: 7, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-08-day.webp', title: 'Bluefin 08 - August (Day)', month: 'August', monthIndex: 8, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-08-night.webp', title: 'Bluefin 08 - August (Night)', month: 'August', monthIndex: 8, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-09-day.webp', title: 'Bluefin 09 - September (Day)', month: 'September', monthIndex: 9, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-09-night.webp', title: 'Bluefin 09 - September (Night)', month: 'September', monthIndex: 9, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-10-day.webp', title: 'Bluefin 10 - October (Day)', month: 'October', monthIndex: 10, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-10-night.webp', title: 'Bluefin 10 - October (Night)', month: 'October', monthIndex: 10, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-11-day.webp', title: 'Bluefin 11 - November (Day)', month: 'November', monthIndex: 11, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-11-night.webp', title: 'Bluefin 11 - November (Night)', month: 'November', monthIndex: 11, time: 'Night', category: 'monthly' },
+  { file: 'bluefin-12-day.webp', title: 'Bluefin 12 - December (Day)', month: 'December', monthIndex: 12, time: 'Day', category: 'monthly' },
+  { file: 'bluefin-12-night.webp', title: 'Bluefin 12 - December (Night)', month: 'December', monthIndex: 12, time: 'Night', category: 'monthly' },
 ]
 
 /**
- * Returns the verified wallpaper pool, ensuring no Aurora or unapproved assets exist.
+ * Curated allowlist of first-party Bluefin extra wallpapers.
+ * Includes official photography and Wolves story illustrations.
+ * Strict invariant: Aurora artwork is permanently excluded.
+ */
+export const BLUEFIN_EXTRA_WALLPAPERS = [
+  // Photography by Xe Iaso
+  { file: 'bluefin-xe_clouds.webp', title: 'Bluefin Extra - Clouds by Xe Iaso', category: 'extra' },
+  { file: 'bluefin-xe_foothills.webp', title: 'Bluefin Extra - Foothills by Xe Iaso', category: 'extra' },
+  { file: 'bluefin-xe_space_needle.webp', title: 'Bluefin Extra - Space Needle by Xe Iaso', category: 'extra' },
+  { file: 'bluefin-xe_sunset.webp', title: 'Bluefin Extra - Sunset by Xe Iaso', category: 'extra' },
+
+  // Wolves story illustrations
+  { file: 'wolves/wolves/bluefin-chicken.webp', title: 'Bluefin Extra - Chicken by Andy Frazer and Jacob Schnurr', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-duality-day.webp', title: 'Bluefin Extra - Duality (Day) by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-duality-night.webp', title: 'Bluefin Extra - Duality (Night) by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-dusk-day.webp', title: 'Bluefin Extra - Dusk (Day) by Andy Frazer and Jacob Schnurr', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-dusk-night.webp', title: 'Bluefin Extra - Dusk (Night) by Andy Frazer and Jacob Schnurr', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-eyes.webp', title: 'Bluefin Extra - Eyes by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-huntress.webp', title: 'Bluefin Extra - Huntress by Andy Frazer and Jacob Schnurr', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-lazy-days.webp', title: 'Bluefin Extra - Lazy Days by Jay Balamurugan', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-prey-day.webp', title: 'Bluefin Extra - Prey (Day) by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-prey-night.webp', title: 'Bluefin Extra - Prey (Night) by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-tenacious-day.webp', title: 'Bluefin Extra - Tenacious Pterosaur (Day) by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
+  { file: 'wolves/wolves/bluefin-tenacious-night.webp', title: 'Bluefin Extra - Tenacious Pterosaur (Night) by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
+]
+
+/**
+ * Returns the verified wallpaper pool, ensuring no Aurora assets exist.
  */
 export function getAllowedWallpapers() {
-  const auroraPattern = /aurora|xe_/i
-  return BLUEFIN_MONTHLY_WALLPAPERS.filter(item => !auroraPattern.test(item.file))
+  const all = [...BLUEFIN_MONTHLY_WALLPAPERS, ...BLUEFIN_EXTRA_WALLPAPERS]
+  const auroraPattern = /aurora/i
+  return all.filter(item => !auroraPattern.test(item.file))
+}
+
+/**
+ * Calculates day of the year (1-366) in UTC.
+ */
+export function getDayOfYear(date = new Date()) {
+  const start = new Date(Date.UTC(date.getUTCFullYear(), 0, 0))
+  const diff = Number(date) - Number(start)
+  const oneDay = 1000 * 60 * 60 * 24
+  return Math.floor(diff / oneDay)
+}
+
+/**
+ * Selects a wallpaper rotated deterministically by day-of-year across the pool.
+ */
+export function selectRotatingWallpaper(pool = getAllowedWallpapers(), date = new Date()) {
+  if (!pool.length) {
+    throw new Error('Wallpaper pool is empty')
+  }
+  const day = getDayOfYear(date)
+  return pool[day % pool.length]
+}
+
+/**
+ * Selects a wallpaper matching the calendar month and day/night time.
+ */
+export function selectMonthlyWallpaper(pool = getAllowedWallpapers(), date = new Date()) {
+  const monthIdx = date.getUTCMonth() + 1
+  const hour = date.getUTCHours()
+  const timeOfDay = (hour >= 6 && hour < 18) ? 'Day' : 'Night'
+
+  const monthItems = pool.filter(w => w.monthIndex === monthIdx)
+  if (!monthItems.length) {
+    return pool[0]
+  }
+  const matchedTime = monthItems.find(w => w.time === timeOfDay)
+  return matchedTime || monthItems[0]
 }
 
 /**
@@ -146,46 +212,72 @@ export async function generateSocialCard({
 // CLI execution
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
   const args = process.argv.slice(2)
+  const pool = getAllowedWallpapers()
 
   if (args.includes('--list')) {
-    console.info('Allowed Bluefin Wallpaper Pool (22 items):')
-    for (const item of getAllowedWallpapers()) {
+    console.info(`Allowed Bluefin Wallpaper Pool (${pool.length} items):`)
+    console.info('\n-- Monthly Wallpapers (24 items):')
+    for (const item of pool.filter(w => w.category === 'monthly')) {
+      console.info(` - ${item.file}: ${item.title}`)
+    }
+    console.info('\n-- Extra Wallpapers (16 items):')
+    for (const item of pool.filter(w => w.category === 'extra')) {
       console.info(` - ${item.file}: ${item.title}`)
     }
     process.exit(0)
   }
 
   const wallpaperArgIdx = args.indexOf('--wallpaper')
+  const monthArgIdx = args.indexOf('--month')
+  const modeArgIdx = args.indexOf('--mode')
+  const mode = modeArgIdx !== -1 ? args[modeArgIdx + 1] : 'daily'
+
   let selectedWallpaper = null
 
   if (wallpaperArgIdx !== -1 && args[wallpaperArgIdx + 1]) {
     const targetFile = args[wallpaperArgIdx + 1]
-    selectedWallpaper = getAllowedWallpapers().find(w => w.file === targetFile)
+    selectedWallpaper = pool.find(w => w.file === targetFile || path.basename(w.file) === targetFile)
     if (!selectedWallpaper) {
       console.error(`Error: Wallpaper "${targetFile}" not in allowed pool`)
       process.exit(1)
     }
   }
+  else if (monthArgIdx !== -1 && args[monthArgIdx + 1]) {
+    const targetMonth = Number.parseInt(args[monthArgIdx + 1], 10)
+    const monthItems = pool.filter(w => w.monthIndex === targetMonth)
+    if (!monthItems.length) {
+      console.error(`Error: Invalid month index "${args[monthArgIdx + 1]}" (expected 1-12)`)
+      process.exit(1)
+    }
+    selectedWallpaper = monthItems[0]
+  }
+  else if (mode === 'monthly') {
+    selectedWallpaper = selectMonthlyWallpaper(pool)
+  }
+  else if (mode === 'random') {
+    selectedWallpaper = selectRandomWallpaper(pool)
+  }
   else {
-    selectedWallpaper = selectRandomWallpaper()
+    // Default: daily deterministic rotation across full pool
+    selectedWallpaper = selectRotatingWallpaper(pool)
   }
 
   if (args.includes('--all')) {
     const outDir = path.join(PUBLIC_DIR, 'cards')
     fs.mkdirSync(outDir, { recursive: true })
-    console.info(`Generating cards for all ${getAllowedWallpapers().length} wallpapers into public/cards/...`)
+    console.info(`Generating cards for all ${pool.length} wallpapers into public/cards/...`)
 
     const browser = await chromium.launch({ headless: true })
     try {
-      for (const item of getAllowedWallpapers()) {
-        const outPath = path.join(outDir, item.file)
+      for (const item of pool) {
+        const outName = path.basename(item.file)
+        const outPath = path.join(outDir, outName)
         await generateSocialCard({ wallpaper: item, outputPath: outPath, browser })
-        console.info(`  ✓ ${item.file}`)
+        console.info(`  ✓ ${outName}`)
       }
-      // Also write one random to public/meta.webp
-      const randomItem = selectRandomWallpaper()
-      await generateSocialCard({ wallpaper: randomItem, outputPath: path.join(PUBLIC_DIR, 'meta.webp'), browser })
-      console.info(`Selected ${randomItem.file} for public/meta.webp`)
+      // Also write active rotating card to public/meta.webp
+      await generateSocialCard({ wallpaper: selectedWallpaper, outputPath: path.join(PUBLIC_DIR, 'meta.webp'), browser })
+      console.info(`Selected ${selectedWallpaper.file} for public/meta.webp (${selectedWallpaper.title})`)
     }
     finally {
       await browser.close()

@@ -7,6 +7,7 @@
     "dev": "node scripts/generate-wallpapers.js && vite",
     "build": "node scripts/generate-wallpapers.js && node scripts/generate-social-cards.js && vue-tsc && vite build",
     "generate:social-cards": "node scripts/generate-social-cards.js",
+    "generate:social-cards:all": "node scripts/generate-social-cards.js --all",
     "preview": "vite preview",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

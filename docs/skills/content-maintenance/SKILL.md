@@ -166,19 +166,30 @@ during site builds (`npm run build`).
 
 - **Generator tooling**: `scripts/generate-social-cards.js` and
   `scripts/social-cards/template.html`.
-- **Allowed wallpaper pool**: The 22 first-party Bluefin monthly rotation
-  wallpapers from `ublue-os/artwork` (January through December day/night pairs,
-  omitting pair 11 which duplicates pair 12).
-- **Aurora invariant**: Aurora artwork and Aurora-origin `xe_*` assets are
-  strictly excluded from the social card pool.
+- **Allowed wallpaper pool (40 items)**:
+  - 24 first-party Bluefin monthly rotation wallpapers (January through December,
+    Day and Night pairs).
+  - 16 Bluefin extra wallpapers: 4 official photography wallpapers by Xe Iaso
+    (`bluefin-xe_*`) and 12 Wolves story illustrations (`wolves/wolves/bluefin-*`).
+- **Aurora invariant**: Aurora artwork and Aurora-origin assets are strictly
+  excluded from the social card pool.
+- **Card layout**: Wallpaper signature layout featuring a crisp, bold Bluefin
+  wordmark in the lower corner with a subtle localized vignette preserving
+  artwork vibrancy and ensuring high contrast across diverse wallpapers.
 - **Card geometry**: Rendered via Playwright at 1200×630 viewport with
   `deviceScaleFactor: 2`, producing a crisp 2400×1260 WebP image (standard
   1.91:1 Open Graph aspect ratio) encoded via `cwebp`.
-- **Command**:
+- **Rotation**:
+  - Daily rotation (default): rotates deterministically by day-of-year across
+    all 40 wallpapers.
+  - Monthly rotation (`--mode monthly`): matches current calendar month and
+    day/night time.
+- **Commands**:
   ```bash
-  npm run generate:social-cards              # Pick random wallpaper and write to public/meta.webp
-  node scripts/generate-social-cards.js --list # Print all allowed wallpapers in the pool
-  node scripts/generate-social-cards.js --all  # Generate cards for all wallpapers into public/cards/
+  npm run generate:social-cards               # Daily rotating wallpaper to public/meta.webp
+  node scripts/generate-social-cards.js --mode monthly # Match current month/time
+  node scripts/generate-social-cards.js --list  # Print all 40 allowed wallpapers in the pool
+  node scripts/generate-social-cards.js --all   # Pre-render all 40 cards into public/cards/
   ```
 
 ## Sources
