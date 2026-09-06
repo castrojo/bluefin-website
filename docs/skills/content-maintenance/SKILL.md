@@ -173,8 +173,11 @@ during site builds (`npm run build`).
 - **Aurora & Xe exclusion**: Aurora artwork and Xe assets are strictly
   excluded from the social card pool.
 - **Card layout**: Wallpaper signature layout featuring a crisp, bold Bluefin
-  wordmark in the lower corner with a subtle localized vignette preserving
-  artwork vibrancy and ensuring high contrast across diverse wallpapers.
+  wordmark in the lower corner with tight multi-layered letter drop-shadows (no
+  muddy background scrim), preserving full artwork vibrancy.
+- **CI fast-path**: `npm run build` copies from pre-rendered cards in
+  `public/cards/`, running in milliseconds without requiring Playwright browser
+  binaries in CI environments.
 - **Card geometry**: Rendered via Playwright at 1200×630 viewport with
   `deviceScaleFactor: 2`, producing a crisp 2400×1260 WebP image (standard
   1.91:1 Open Graph aspect ratio) encoded via `cwebp`.
