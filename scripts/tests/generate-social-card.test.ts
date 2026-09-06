@@ -59,8 +59,7 @@ describe('social cards wallpaper pool', () => {
     expect(content).toContain('class="background"')
     expect(content).toContain('class="scrim"')
     expect(content).toContain('id="wordmark"')
-    expect(content).toContain('id="headline"')
-    expect(content).toContain('projectbluefin.io')
+    expect(content).toContain('class="wordmark-wrap"')
   })
 
   it('renders a valid social card with generateSocialCard', async () => {

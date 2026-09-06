@@ -111,7 +111,6 @@ export async function generateSocialCard({
     templateHtml = templateHtml
       .replace('<div class="background" id="bg"></div>', `<div class="background" id="bg" style="background-image: url('${wallpaperDataUrl}')"></div>`)
       .replace('<div class="wordmark-wrap" id="wordmark"></div>', `<div class="wordmark-wrap" id="wordmark">${wordmarkSvg}</div>`)
-      .replace('<div class="wallpaper-credit" id="credit"></div>', `<div class="wallpaper-credit" id="credit">${wallpaper.title}</div>`)
 
     const page = await activeBrowser.newPage({
       viewport: { width: 1200, height: 630 },
