@@ -221,7 +221,7 @@ function closeMenu() {
 }
 
 .navbar__wordmark {
-  height: 28px;
+  height: 32px;
   width: auto;
   display: block;
   max-width: none;
