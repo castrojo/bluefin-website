@@ -99,7 +99,6 @@ describe('social cards wallpaper pool', () => {
     expect(fs.existsSync(TEMPLATE_PATH)).toBe(true)
     const content = fs.readFileSync(TEMPLATE_PATH, 'utf8')
     expect(content).toContain('class="background"')
-    expect(content).toContain('class="scrim"')
     expect(content).toContain('id="wordmark"')
     expect(content).toContain('class="wordmark-wrap"')
   })

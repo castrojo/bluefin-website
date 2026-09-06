@@ -61,7 +61,7 @@ const { t } = useI18n<MessageSchema>({
       <div class="title" :class="{ 'is-loaded': isLoaded }">
         <div class="text">
           <img
-            style="width: 100%; max-width: 437px; height: auto; display: block; margin: 0 auto 20px auto;"
+            style="width: 100%; max-width: 503px; height: auto; display: block; margin: 0 auto 20px auto;"
             width="105"
             height="43"
             src="/brands/bluefin-wordmark-light.svg"
