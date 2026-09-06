@@ -153,8 +153,24 @@ export async function generateSocialCard({
   deviceScaleFactor = 2,
   browser = null,
 }) {
+  const prebuiltPath = path.join(PUBLIC_DIR, 'cards', path.basename(wallpaper.file))
   const shouldCloseBrowser = !browser
-  const activeBrowser = browser ?? await chromium.launch({ headless: true })
+  let activeBrowser = browser
+
+  if (!activeBrowser) {
+    try {
+      activeBrowser = await chromium.launch({ headless: true })
+    }
+    catch (err) {
+      if (fs.existsSync(prebuiltPath)) {
+        console.warn(`Playwright browser unavailable (${err.message.split('\n')[0]}); using pre-rendered card: ${prebuiltPath}`)
+        fs.mkdirSync(path.dirname(outputPath), { recursive: true })
+        fs.copyFileSync(prebuiltPath, outputPath)
+        return outputPath
+      }
+      throw err
+    }
+  }
 
   try {
     const wallpaperPath = path.join(WALLPAPERS_DIR, wallpaper.file)
@@ -279,8 +295,17 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToP
   }
   else {
     const outPath = path.join(PUBLIC_DIR, 'meta.webp')
-    console.info(`Generating social preview card with ${selectedWallpaper.title} -> ${outPath}...`)
-    await generateSocialCard({ wallpaper: selectedWallpaper, outputPath: outPath })
-    console.info(`Successfully generated ${outPath} (${selectedWallpaper.title})`)
+    const prebuiltPath = path.join(PUBLIC_DIR, 'cards', path.basename(selectedWallpaper.file))
+
+    if (fs.existsSync(prebuiltPath)) {
+      console.info(`Selecting pre-rendered card ${path.basename(selectedWallpaper.file)} -> ${outPath}...`)
+      fs.copyFileSync(prebuiltPath, outPath)
+      console.info(`Successfully updated ${outPath} (${selectedWallpaper.title})`)
+    }
+    else {
+      console.info(`Generating social preview card with ${selectedWallpaper.title} -> ${outPath}...`)
+      await generateSocialCard({ wallpaper: selectedWallpaper, outputPath: outPath })
+      console.info(`Successfully generated ${outPath} (${selectedWallpaper.title})`)
+    }
   }
 }
