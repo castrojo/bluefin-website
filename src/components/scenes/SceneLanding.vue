@@ -61,7 +61,7 @@ const { t } = useI18n<MessageSchema>({
       <div class="title" :class="{ 'is-loaded': isLoaded }">
         <div class="text">
           <img
-            style="width: 100%; max-width: 437px; height: auto"
+            style="width: 100%; max-width: 437px; height: auto; display: block; margin: 0 auto 20px auto;"
             width="105"
             height="43"
             src="/brands/bluefin-wordmark-light.svg"
@@ -94,11 +94,12 @@ const { t } = useI18n<MessageSchema>({
             </select>
           </div>
         </div>
-        <img
-          class="sm:h-full sm:w-full object-contain my-3 w-1/2 h-1/2"
-          :src="imageToDisplay"
-          alt="Bluefin"
-        >
+        <div class="img-wrap">
+          <img
+            :src="imageToDisplay"
+            alt="Bluefin"
+          >
+        </div>
       </div>
     </div>
     <SceneVisibilityChecker name="null" />
