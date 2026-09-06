@@ -29,24 +29,24 @@ describe('social cards wallpaper pool', () => {
     }
   })
 
-  it('contains 16 extra wallpapers (4 xe photography, 12 wolves story illustrations)', () => {
-    expect(BLUEFIN_EXTRA_WALLPAPERS).toHaveLength(16)
-    const xeCount = BLUEFIN_EXTRA_WALLPAPERS.filter(w => w.file.includes('bluefin-xe_')).length
-    expect(xeCount).toBe(4)
+  it('contains 12 extra wallpapers (wolves story illustrations, no xe assets)', () => {
+    expect(BLUEFIN_EXTRA_WALLPAPERS).toHaveLength(12)
+    const xeCount = BLUEFIN_EXTRA_WALLPAPERS.filter(w => w.file.includes('xe_')).length
+    expect(xeCount).toBe(0)
     const wolvesCount = BLUEFIN_EXTRA_WALLPAPERS.filter(w => w.file.startsWith('wolves/')).length
     expect(wolvesCount).toBe(12)
   })
 
-  it('contains exactly 40 wallpapers total in the allowed pool', () => {
+  it('contains exactly 36 wallpapers total in the allowed pool', () => {
     const pool = getAllowedWallpapers()
-    expect(pool).toHaveLength(40)
+    expect(pool).toHaveLength(36)
   })
 
-  it('contains no Aurora artwork in any entry', () => {
-    const auroraPattern = /aurora/i
+  it('contains no Aurora artwork or Xe assets in any entry', () => {
+    const excludedPattern = /aurora|xe_/i
     for (const item of getAllowedWallpapers()) {
-      expect(item.file).not.toMatch(auroraPattern)
-      expect(item.title).not.toMatch(auroraPattern)
+      expect(item.file).not.toMatch(excludedPattern)
+      expect(item.title).not.toMatch(excludedPattern)
     }
   })
 

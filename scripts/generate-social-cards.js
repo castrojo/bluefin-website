@@ -44,16 +44,10 @@ export const BLUEFIN_MONTHLY_WALLPAPERS = [
 
 /**
  * Curated allowlist of first-party Bluefin extra wallpapers.
- * Includes official photography and Wolves story illustrations.
- * Strict invariant: Aurora artwork is permanently excluded.
+ * Official Wolves story illustrations.
+ * Strict invariant: Aurora artwork and xe_* assets are permanently excluded.
  */
 export const BLUEFIN_EXTRA_WALLPAPERS = [
-  // Photography by Xe Iaso
-  { file: 'bluefin-xe_clouds.webp', title: 'Bluefin Extra - Clouds by Xe Iaso', category: 'extra' },
-  { file: 'bluefin-xe_foothills.webp', title: 'Bluefin Extra - Foothills by Xe Iaso', category: 'extra' },
-  { file: 'bluefin-xe_space_needle.webp', title: 'Bluefin Extra - Space Needle by Xe Iaso', category: 'extra' },
-  { file: 'bluefin-xe_sunset.webp', title: 'Bluefin Extra - Sunset by Xe Iaso', category: 'extra' },
-
   // Wolves story illustrations
   { file: 'wolves/wolves/bluefin-chicken.webp', title: 'Bluefin Extra - Chicken by Andy Frazer and Jacob Schnurr', category: 'extra' },
   { file: 'wolves/wolves/bluefin-duality-day.webp', title: 'Bluefin Extra - Duality (Day) by Dr. Natalia Jagielska and Delphic Melody', category: 'extra' },
@@ -70,12 +64,12 @@ export const BLUEFIN_EXTRA_WALLPAPERS = [
 ]
 
 /**
- * Returns the verified wallpaper pool, ensuring no Aurora assets exist.
+ * Returns the verified wallpaper pool, ensuring no Aurora or Xe assets exist.
  */
 export function getAllowedWallpapers() {
   const all = [...BLUEFIN_MONTHLY_WALLPAPERS, ...BLUEFIN_EXTRA_WALLPAPERS]
-  const auroraPattern = /aurora/i
-  return all.filter(item => !auroraPattern.test(item.file))
+  const excludedPattern = /aurora|xe_/i
+  return all.filter(item => !excludedPattern.test(item.file))
 }
 
 /**
@@ -220,7 +214,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToP
     for (const item of pool.filter(w => w.category === 'monthly')) {
       console.info(` - ${item.file}: ${item.title}`)
     }
-    console.info('\n-- Extra Wallpapers (16 items):')
+    console.info('\n-- Extra Wallpapers (12 items):')
     for (const item of pool.filter(w => w.category === 'extra')) {
       console.info(` - ${item.file}: ${item.title}`)
     }
