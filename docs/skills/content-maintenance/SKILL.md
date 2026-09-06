@@ -179,14 +179,14 @@ during site builds (`npm run build`).
   `deviceScaleFactor: 2`, producing a crisp 2400×1260 WebP image (standard
   1.91:1 Open Graph aspect ratio) encoded via `cwebp`.
 - **Rotation**:
-  - Daily rotation (default): rotates deterministically by day-of-year across
+  - Monthly rotation (default): matches current calendar month (e.g. September)
+    and day/night time.
+  - Daily rotation (`--mode daily`): rotates deterministically by day-of-year across
     all 36 wallpapers.
-  - Monthly rotation (`--mode monthly`): matches current calendar month and
-    day/night time.
 - **Commands**:
   ```bash
-  npm run generate:social-cards               # Daily rotating wallpaper to public/meta.webp
-  node scripts/generate-social-cards.js --mode monthly # Match current month/time
+  npm run generate:social-cards               # Monthly rotating wallpaper to public/meta.webp
+  node scripts/generate-social-cards.js --mode daily   # Daily rotating across full pool
   node scripts/generate-social-cards.js --list  # Print all 36 allowed wallpapers in the pool
   node scripts/generate-social-cards.js --all   # Pre-render all 36 cards into public/cards/
   ```

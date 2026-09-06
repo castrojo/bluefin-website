@@ -240,7 +240,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToP
   const wallpaperArgIdx = args.indexOf('--wallpaper')
   const monthArgIdx = args.indexOf('--month')
   const modeArgIdx = args.indexOf('--mode')
-  const mode = modeArgIdx !== -1 ? args[modeArgIdx + 1] : 'daily'
+  const mode = modeArgIdx !== -1 ? args[modeArgIdx + 1] : 'monthly'
 
   let selectedWallpaper = null
 
@@ -261,15 +261,15 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToP
     }
     selectedWallpaper = monthItems[0]
   }
-  else if (mode === 'monthly') {
-    selectedWallpaper = selectMonthlyWallpaper(pool)
+  else if (mode === 'daily') {
+    selectedWallpaper = selectRotatingWallpaper(pool)
   }
   else if (mode === 'random') {
     selectedWallpaper = selectRandomWallpaper(pool)
   }
   else {
-    // Default: daily deterministic rotation across full pool
-    selectedWallpaper = selectRotatingWallpaper(pool)
+    // Default: monthly rotation matching calendar month and day/night
+    selectedWallpaper = selectMonthlyWallpaper(pool)
   }
 
   if (args.includes('--all')) {
