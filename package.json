@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/generate-wallpapers.js && vite",
-    "build": "node scripts/generate-wallpapers.js && vue-tsc && vite build",
+    "build": "node scripts/generate-wallpapers.js && node scripts/generate-social-cards.js && vue-tsc && vite build",
+    "generate:social-cards": "node scripts/generate-social-cards.js",
     "preview": "vite preview",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

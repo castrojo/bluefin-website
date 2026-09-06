@@ -158,6 +158,29 @@ the registry.
 cannot be verified does not display version data. This is intentional — showing
 unverifiable versions is worse than showing nothing.
 
+## Social preview cards
+
+The website's primary Open Graph and Twitter preview card (`public/meta.webp`)
+is dynamically generated from the official Bluefin desktop wallpaper pool
+during site builds (`npm run build`).
+
+- **Generator tooling**: `scripts/generate-social-cards.js` and
+  `scripts/social-cards/template.html`.
+- **Allowed wallpaper pool**: The 22 first-party Bluefin monthly rotation
+  wallpapers from `ublue-os/artwork` (January through December day/night pairs,
+  omitting pair 11 which duplicates pair 12).
+- **Aurora invariant**: Aurora artwork and Aurora-origin `xe_*` assets are
+  strictly excluded from the social card pool.
+- **Card geometry**: Rendered via Playwright at 1200×630 viewport with
+  `deviceScaleFactor: 2`, producing a crisp 2400×1260 WebP image (standard
+  1.91:1 Open Graph aspect ratio) encoded via `cwebp`.
+- **Command**:
+  ```bash
+  npm run generate:social-cards              # Pick random wallpaper and write to public/meta.webp
+  node scripts/generate-social-cards.js --list # Print all allowed wallpapers in the pool
+  node scripts/generate-social-cards.js --all  # Generate cards for all wallpapers into public/cards/
+  ```
+
 ## Sources
 
 - ORAS referrer discovery and JSON output: `/oras-project/oras`
