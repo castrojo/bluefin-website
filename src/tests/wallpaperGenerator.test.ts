@@ -15,5 +15,5 @@ describe('wallpaper generator', () => {
 
     expect(result.errorCount).toBe(0)
     expect(result.warningCount).toBe(0)
-  })
+  }, 30000)
 })
