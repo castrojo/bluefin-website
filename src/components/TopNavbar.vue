@@ -59,9 +59,14 @@ function closeMenu() {
       <div class="navbar__items">
         <a href="https://projectbluefin.io" class="navbar__brand">
           <div class="navbar__logo">
-            <img src="/img/logo.svg" alt="Bluefin" loading="eager">
+            <img src="/img/logo.svg" alt="Bluefin logo" loading="eager">
           </div>
-          <b class="navbar__title text--truncate">Bluefin</b>
+          <img
+            src="/brands/bluefin-wordmark.svg"
+            alt="Bluefin"
+            class="navbar__wordmark"
+            loading="eager"
+          >
         </a>
         <a
           v-for="link in leftNavLinks"
@@ -216,6 +221,13 @@ function closeMenu() {
     display: block;
     max-width: none;
   }
+}
+
+.navbar__wordmark {
+  height: 24px;
+  width: auto;
+  display: block;
+  max-width: none;
 }
 
 .navbar__title {

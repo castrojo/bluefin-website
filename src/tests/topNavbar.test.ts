@@ -21,7 +21,9 @@ describe('topNavbar.vue', () => {
 
     const brand = wrapper.get('a.navbar__brand')
     expect(brand.attributes('href')).toBe('https://projectbluefin.io')
-    expect(brand.get('b.navbar__title').text()).toBe('Bluefin')
+    const wordmark = brand.get('img.navbar__wordmark')
+    expect(wordmark.attributes('src')).toMatch(/^\/brands\/bluefin-wordmark\.svg|^data:image\/svg\+xml/)
+    expect(wordmark.attributes('alt')).toBe('Bluefin')
 
     const desktopGroups = wrapper.findAll('.navbar__items')
     expect(desktopGroups[0].findAll('a.navbar__link')).toHaveLength(2)
