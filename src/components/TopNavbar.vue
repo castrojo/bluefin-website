@@ -58,9 +58,6 @@ function closeMenu() {
     <div class="navbar__inner">
       <div class="navbar__items">
         <a href="https://projectbluefin.io" class="navbar__brand">
-          <div class="navbar__logo">
-            <img src="/img/logo.svg" alt="Bluefin logo" loading="eager">
-          </div>
           <img
             src="/brands/bluefin-wordmark.svg"
             alt="Bluefin"
@@ -224,7 +221,7 @@ function closeMenu() {
 }
 
 .navbar__wordmark {
-  height: 24px;
+  height: 28px;
   width: auto;
   display: block;
   max-width: none;
