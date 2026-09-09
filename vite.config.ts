@@ -74,7 +74,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         'main': resolve(__dirname, 'index.html'),
-        'testing': resolve(__dirname, 'public/testing.html'),
         'dakota': resolve(__dirname, 'dakota/index.html'),
         'server': resolve(__dirname, 'server/index.html'),
         'wolves': resolve(__dirname, 'wolves/index.html'),
