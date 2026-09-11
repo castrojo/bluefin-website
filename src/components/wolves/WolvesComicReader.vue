@@ -258,6 +258,7 @@ const currentTrack = computed<SoundtrackTrack | null>(() => {
     return null
   }
   return manifest.value.tracks[props.trackIndex] || null
+})
 
 const currentBeat = computed(() => {
   const bpm = currentTrack.value?.bpm
