@@ -210,22 +210,19 @@ wallpaper dissolves against a window the deck is not using.
 ## Albums borrow the Wolves manifest's tempo by index
 
 `currentTrack` resolves the Wolves show by **identity** (`trackId`), which is
-correct and load-bearing. Its fallback is `manifest.tracks[trackIndex]`, and
-that fallback is what every other album gets — so an unrelated album's track 3
-is paced by the BPM and `phraseBeats` of *Wolves* track 3, which is the only
-manifest ever loaded. It is clamped to 5.5–11.5 s by `laterTrackSlideHold`, so
-it degrades to a plausible-looking hold rather than an obvious break.
+correct and load-bearing. Previously, its fallback was `manifest.tracks[trackIndex]`,
+and that fallback was what every other album got — so an unrelated album's track 3
+was paced by the BPM and `phraseBeats` of *Wolves* track 3, which is the only
+manifest ever loaded.
 
-Two consequences worth knowing before touching slide pacing:
+Album experiences are now decoupled from the Wolves soundtrack manifest:
+`currentTrack` resolves only for `isWolvesExperience`, and `laterTrackSlideHold`
+uses the stable `[7, 8, 10][trackIndex % 3]` hold cadence for albums. This prevents
+two bugs:
 
-- Album slide pacing is not derived from the album. It is a foreign tempo.
-- `manifest` loads asynchronously, so `currentTrack` is null until it lands.
-  The hold therefore changes from the `[7, 8, 10]` fallback to the BPM-derived
-  value mid-track, and `activeFlickrIndex` is `floor(time / hold)` — a hold
-  that changes under a running clock moves the index discontinuously. That is a
-  one-time jump per run, not a steady drift, which is exactly the kind of
-  symptom that gets reported as "it skipped" and then fails to reproduce.
-
+1. Album slide pacing no longer borrows a foreign tempo from the Wolves manifest.
+2. Asynchronous loading of `manifest` no longer alters the hold divisor under a
+   running player clock, eliminating discontinuous jumps in `activeFlickrIndex`.
 ## WolvesComicReader serves more than Wolves
 
 `WolvesComicReader.vue` drives three different shows and only one is the

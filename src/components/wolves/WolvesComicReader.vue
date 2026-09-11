@@ -241,9 +241,12 @@ const currentTrack = computed<SoundtrackTrack | null>(() => {
   //
   // The lookup is confined to the Wolves experience because the other albums in
   // public/experiences/catalogue.json share youtube ids with unrelated entries
-  // further down this same playlist; for them a segment index is the intended
-  // addressing scheme and must keep working unchanged.
-  if (isWolvesExperience.value && props.trackId) {
+  // further down this same playlist; for them the Wolves soundtrack manifest is
+  // unrelated and must not be used to pace album slides.
+  if (!isWolvesExperience.value) {
+    return null
+  }
+  if (props.trackId) {
     const identified = manifest.value.tracks.find(
       track => track.youtubeVideoId === props.trackId || track.id === props.trackId,
     )
@@ -255,7 +258,6 @@ const currentTrack = computed<SoundtrackTrack | null>(() => {
     return null
   }
   return manifest.value.tracks[props.trackIndex] || null
-})
 
 const currentBeat = computed(() => {
   const bpm = currentTrack.value?.bpm
@@ -867,6 +869,13 @@ const laterTrackSlideHold = computed(() => {
   const trackIndex = props.trackIndex ?? 0
   if (trackIndex <= 0) {
     return null
+  }
+
+  // Generic album experiences do not load a soundtrack manifest and run on a
+  // fixed, stable slide cadence that does not borrow Wolves tempo or jump when
+  // manifest loads asynchronously.
+  if (!isWolvesExperience.value) {
+    return [7, 8, 10][trackIndex % 3]
   }
 
   const track = currentTrack.value

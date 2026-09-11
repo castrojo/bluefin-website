@@ -1306,22 +1306,22 @@ describe('wolves segment-to-playlist track identity', () => {
     expect(wrapper.props('trackIndex')).toBe(6)
   })
 
-  it('leaves the ten catalogue albums on index-addressed playlist metadata', async () => {
+  it('decouples catalogue album pacing from Wolves soundtrack manifest', async () => {
     const tracks: SoundtrackTrack[] = [
       coverTrack,
       {
-        id: 'album-track-one',
-        title: 'Album Track One',
+        id: 'wolves-track-one',
+        title: 'Wolves Track One',
         artist: 'Artist',
         artwork: 'wolves-artwork/album-one.jpg',
         youtubeVideoId: 'album-one',
-        bpm: 120,
+        bpm: 180,
         phraseBeats: 32,
         fadeDuration: 1500,
       },
       {
-        id: 'decoy',
-        title: 'Decoy',
+        id: 'wolves-track-two',
+        title: 'Wolves Track Two',
         artist: 'Artist',
         artwork: 'wolves-artwork/decoy.jpg',
         youtubeVideoId: 'decoy-id',
@@ -1332,8 +1332,8 @@ describe('wolves segment-to-playlist track identity', () => {
     ]
     mockGalleryData(tracks)
 
-    // A catalogue album's segment youtubeId can also appear elsewhere in this
-    // playlist, so identity resolution must not apply outside the Wolves show.
+    // Back-catalogue albums do not borrow the Wolves manifest BPM/metadata,
+    // keeping holds stable across async manifest loading.
     const wrapper = mount(WolvesComicReader, {
       props: {
         trackIndex: 1,
@@ -1345,8 +1345,65 @@ describe('wolves segment-to-playlist track identity', () => {
     })
     await flushPromises()
 
-    expect(((wrapper.vm as any).currentTrack as SoundtrackTrack).id).toBe('album-track-one')
-    expect((wrapper.vm as any).laterTrackSlideHold as number).toBeCloseTo(8, 4)
+    expect((wrapper.vm as any).currentTrack).toBeNull()
+    // trackIndex 1 -> [7, 8, 10][1 % 3] = 8
+    expect((wrapper.vm as any).laterTrackSlideHold as number).toBe(8)
+    expect((wrapper.vm as any).standardSlideHold as number).toBe(8)
+  })
+
+  it('ensures activeFlickrIndex never skips discontinuously across manifest resolution', async () => {
+    let resolveManifest: (value: any) => void = () => {}
+    const manifestPromise = new Promise((resolve) => {
+      resolveManifest = resolve
+    })
+
+    vi.stubGlobal('fetch', vi.fn((url: string) => {
+      if (url.includes('wolves-playlist.json')) {
+        return manifestPromise
+      }
+      if (url.includes('flickr-photos.json')) {
+        return Promise.resolve(new Response(JSON.stringify(galleryPhotos)))
+      }
+      return Promise.resolve(new Response(JSON.stringify({})))
+    }))
+
+    const wrapper = mount(WolvesComicReader, {
+      props: {
+        trackIndex: 1,
+        trackId: 'catalogue-video-id',
+        playlistCurrentTime: 10,
+        experienceId: 'album-test',
+        wolvesExperience: false,
+      },
+    })
+    await nextTick()
+
+    // Before manifest loads: hold is [7, 8, 10][1 % 3] = 8, at 10s -> Math.floor(10 / 8) = 1
+    const indexBefore = (wrapper.vm as any).activeFlickrIndex
+    expect(indexBefore).toBe(1)
+
+    // Resolve manifest with high BPM track that would produce a different hold if borrowed
+    resolveManifest(new Response(JSON.stringify({
+      source,
+      tracks: [
+        coverTrack,
+        {
+          id: 'wolves-high-bpm',
+          title: 'High BPM',
+          artist: 'Artist',
+          artwork: 'artwork.jpg',
+          youtubeVideoId: 'catalogue-video-id',
+          bpm: 180,
+          phraseBeats: 32,
+        },
+      ],
+    })))
+    await flushPromises()
+
+    // After manifest loads: hold must remain decoupled and stable
+    const indexAfter = (wrapper.vm as any).activeFlickrIndex
+    expect((wrapper.vm as any).laterTrackSlideHold).toBe(8)
+    expect(indexAfter).toBe(1)
   })
 
   it('keeps the non-Wolves albums on the mixedPhotos slideshow at index 0', async () => {
