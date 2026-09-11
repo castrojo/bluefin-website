@@ -59,6 +59,84 @@
       ]
     },
     {
+      "id": "PLhiPP9M5fgWETQZheRqv2ue5bv-zZNpK5",
+      "title": "The Gardener and the Winnower",
+      "subtitle": "[ Redacted ]",
+      "artwork": "experiences/PLhiPP9M5fgWETQZheRqv2ue5bv-zZNpK5.jpg",
+      "segments": [
+        {
+          "id": "LQitGdnXixk",
+          "kind": "youtube",
+          "youtubeId": "LQitGdnXixk",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Silence",
+          "artist": "OfficialDelerium",
+          "artwork": "https://i.ytimg.com/vi/LQitGdnXixk/hqdefault.jpg",
+          "durationSeconds": 401
+        },
+        {
+          "id": "aXYzFIdXeG8",
+          "kind": "youtube",
+          "youtubeId": "aXYzFIdXeG8",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Ghost Love Score",
+          "artist": "Nightwish",
+          "artwork": "https://i.ytimg.com/vi/aXYzFIdXeG8/hqdefault.jpg",
+          "durationSeconds": 603
+        },
+        {
+          "id": "iygUxUicjxY",
+          "kind": "youtube",
+          "youtubeId": "iygUxUicjxY",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Tears",
+          "artist": "Alice In Chains",
+          "artwork": "https://i.ytimg.com/vi/iygUxUicjxY/hqdefault.jpg",
+          "durationSeconds": 262
+        },
+        {
+          "id": "Xap3w_xP8CY",
+          "kind": "youtube",
+          "youtubeId": "Xap3w_xP8CY",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Juke-Joint Jezebel",
+          "artist": "KMFDM",
+          "artwork": "https://i.ytimg.com/vi/Xap3w_xP8CY/hqdefault.jpg",
+          "durationSeconds": 340
+        },
+        {
+          "id": "nOnYpmqTFzI",
+          "kind": "youtube",
+          "youtubeId": "nOnYpmqTFzI",
+          "chapter": "The Gardener and the Winnower",
+          "title": "1,000,000 Watts Of Love",
+          "artist": "Information Society",
+          "artwork": "https://i.ytimg.com/vi/nOnYpmqTFzI/hqdefault.jpg",
+          "durationSeconds": 264
+        },
+        {
+          "id": "Z8hK_8tq-kM",
+          "kind": "youtube",
+          "youtubeId": "Z8hK_8tq-kM",
+          "chapter": "The Gardener and the Winnower",
+          "title": "My Friend of Misery (June 2nd, 1991 Rough Mix)",
+          "artist": "Metallica",
+          "artwork": "https://i.ytimg.com/vi/Z8hK_8tq-kM/hqdefault.jpg",
+          "durationSeconds": 404
+        },
+        {
+          "id": "2idDr72FYA8",
+          "kind": "youtube",
+          "youtubeId": "2idDr72FYA8",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Breathe (Live from Pepsi Center CDMX)",
+          "artist": "The Warning",
+          "artwork": "https://i.ytimg.com/vi/2idDr72FYA8/hqdefault.jpg",
+          "durationSeconds": 235
+        }
+      ]
+    },
+    {
       "id": "PLhiPP9M5fgWE-xZ4l6hF_-3ESen1x-FNY",
       "title": "Harbringer: Requiem",
       "subtitle": "[ Redacted ]",
@@ -105,6 +183,16 @@
           "durationSeconds": 232
         },
         {
+          "id": "NQtUl7PfD28",
+          "kind": "youtube",
+          "youtubeId": "NQtUl7PfD28",
+          "chapter": "Harbringer: Requiem",
+          "title": "Alone",
+          "artist": "Exit Eden",
+          "artwork": "https://i.ytimg.com/vi/NQtUl7PfD28/hqdefault.jpg",
+          "durationSeconds": 218
+        },
+        {
           "id": "LU6ZN_CJICo",
           "kind": "youtube",
           "youtubeId": "LU6ZN_CJICo",
@@ -123,16 +211,6 @@
           "artist": "Metallica",
           "artwork": "https://i.ytimg.com/vi/dtHuqY679io/hqdefault.jpg",
           "durationSeconds": 270
-        },
-        {
-          "id": "NQtUl7PfD28",
-          "kind": "youtube",
-          "youtubeId": "NQtUl7PfD28",
-          "chapter": "Harbringer: Requiem",
-          "title": "Alone",
-          "artist": "Exit Eden",
-          "artwork": "https://i.ytimg.com/vi/NQtUl7PfD28/hqdefault.jpg",
-          "durationSeconds": 218
         }
       ]
     },
@@ -193,16 +271,6 @@
           "durationSeconds": 261
         },
         {
-          "id": "mlgdJjqFfjg",
-          "kind": "youtube",
-          "youtubeId": "mlgdJjqFfjg",
-          "chapter": "The Forbidden Factory",
-          "title": "JUKE JOINT JEZEBEL",
-          "artist": "KMFDM",
-          "artwork": "https://i.ytimg.com/vi/mlgdJjqFfjg/hqdefault.jpg",
-          "durationSeconds": 258
-        },
-        {
           "id": "TeJDIzPxd0M",
           "kind": "youtube",
           "youtubeId": "TeJDIzPxd0M",
@@ -218,7 +286,7 @@
           "youtubeId": "Sef7g0yESbA",
           "chapter": "The Forbidden Factory",
           "title": "Blur The Technicolor",
-          "artist": "Release",
+          "artist": "White Zombie",
           "artwork": "https://i.ytimg.com/vi/Sef7g0yESbA/hqdefault.jpg",
           "durationSeconds": 250
         },
@@ -434,7 +502,7 @@
           "youtubeId": "yUCTlqExGyo",
           "chapter": "Bluefin finds Her Way",
           "title": "The Mark Has Been Made",
-          "artist": "Release",
+          "artist": "Nine Inch Nails",
           "artwork": "https://i.ytimg.com/vi/yUCTlqExGyo/hqdefault.jpg",
           "durationSeconds": 316
         },
@@ -454,7 +522,7 @@
           "youtubeId": "UZ0M09LQTI4",
           "chapter": "Bluefin finds Her Way",
           "title": "Song And Emotion",
-          "artist": "Release",
+          "artist": "TESLA",
           "artwork": "https://i.ytimg.com/vi/UZ0M09LQTI4/hqdefault.jpg",
           "durationSeconds": 509
         },
@@ -522,7 +590,7 @@
           "youtubeId": "b612uztK8io",
           "chapter": "Bluefin and Achillobator",
           "title": "The Mercenary",
-          "artist": "Release",
+          "artist": "Iron Maiden",
           "artwork": "https://i.ytimg.com/vi/b612uztK8io/hqdefault.jpg",
           "durationSeconds": 283
         },
@@ -826,7 +894,7 @@
           "youtubeId": "ZP657058PbQ",
           "chapter": "Bluefin and the Children of Jensen",
           "title": "Unsung",
-          "artist": "Helmut",
+          "artist": "Helmet",
           "artwork": "https://i.ytimg.com/vi/ZP657058PbQ/hqdefault.jpg",
           "durationSeconds": 237
         },
