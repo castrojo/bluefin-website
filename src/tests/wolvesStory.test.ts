@@ -20,6 +20,7 @@ describe('wolves story manifest', () => {
         'forbidden-factory',
         'jordan-adrian',
         'arthur-c-clarke-3',
+        'arthur-c-clarke-4',
         'maintenance-window'
       ])
   })
