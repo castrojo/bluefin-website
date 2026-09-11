@@ -3,8 +3,8 @@ import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
-import { createVitestExclude } from './scripts/lib/vitest-exclude.js'
 import { createDirectoryEntryPaths, createRollupInput } from './scripts/lib/site-entries.js'
+import { createVitestExclude } from './scripts/lib/vitest-exclude.js'
 
 const directoryEntryPaths = createDirectoryEntryPaths()
 

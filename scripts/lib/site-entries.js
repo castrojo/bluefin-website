@@ -43,7 +43,7 @@ export function createDirectoryEntryPaths() {
   const paths = new Set()
   for (const entry of siteEntries) {
     if (entry.html !== 'index.html' && entry.html.endsWith('/index.html')) {
-      const dirPath = '/' + entry.html.slice(0, -'/index.html'.length)
+      const dirPath = `/${entry.html.slice(0, -'/index.html'.length)}`
       paths.add(dirPath)
     }
   }

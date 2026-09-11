@@ -29,7 +29,7 @@ describe('siteEntries', () => {
       'wolves',
       'wolves/experience',
     ])
-    expect(input['main']).toBe('/fake/root/index.html')
+    expect(input.main).toBe('/fake/root/index.html')
     expect(input['wolves/experience']).toBe('/fake/root/wolves/experience/index.html')
   })
 
