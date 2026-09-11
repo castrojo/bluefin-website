@@ -22,11 +22,14 @@ running. Any future PR restoring those imports should be rejected.
 Use when editing any of these files:
 
 - `scripts/lib/spdx-version-extractor.js`
+- `scripts/lib/image-sbom-registry.js`
 - `scripts/lib/bluefin-version-projection.js`
 - `scripts/lib/oci-sbom.js`
 - `scripts/update-dakota-versions.js`
 - `scripts/update-stream-versions.js`
 - `scripts/tests/spdx-version-extractor.test.ts`
+- `scripts/tests/image-sbom-registry.test.ts`
+- `scripts/tests/fixtures/bluefin-stable-catalogers.syft.json`
 - `scripts/tests/bluefin-version-projection.test.ts`
 - `scripts/tests/update-dakota-versions.test.ts`
 - `scripts/tests/update-stream-versions.test.ts`
@@ -121,6 +124,15 @@ Rules:
 - Strip trailing `.fcNN` / `.elNN` suffix (`7.1.6-201.fc44` → `7.1.6-201`)
 - Preserve RPM release segment (`-1`, `-201`)
 
+### Syft OSTree package records
+
+Syft's ELF cataloger can report the same package name from both the current
+rootfs and older objects retained in an OSTree repository, producing distinct
+versions that cannot be safely resolved by choosing the highest one. For
+Bluefin Mesa, use the installed `mesa-dri-drivers` record from
+`rpm-db-cataloger` as the authoritative representative of the Mesa source
+build; do not select between the ambiguous `mesa` ELF records.
+
 ### `versionInfo` takes precedence over `version`
 
 `extractMappedVersions` reads `pkg.versionInfo ?? pkg.version`. Syft SBOMs use
@@ -173,6 +185,9 @@ import('./scripts/lib/oci-sbom.js').then(({spdxPackageVersion}) => {
 # Verify fixture hash is valid SHA-256:
 echo -n '' | sha256sum
 # Expected: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  -
+
+# Verify the Bluefin Mesa selector against the live-evidence fixture:
+npx vitest run scripts/tests/image-sbom-registry.test.ts
 ```
 
 ## Common Rationalizations

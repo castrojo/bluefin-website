@@ -150,15 +150,18 @@ describe('registry selectors resolve known live ambiguities', () => {
     expect(result.values.podman).toBe('5:5.8.4-1.fc44')
   })
 
-  it('leaves Bluefin mesa optional and genuinely ambiguous', () => {
+  it('pins Bluefin mesa to the installed RPM database package', () => {
     const { packages } = recordFor('bluefin-stable')
     expect(packages.mesa.required).toBe(false)
+    expect(packages.mesa).toMatchObject({
+      name: 'mesa-dri-drivers',
+      type: 'rpm',
+      foundBy: 'rpm-db-cataloger',
+    })
 
     const result = extractMappedVersions(bluefinCatalogers, { mesa: packages.mesa })
-    // Two distinct mesa builds are reported by the same cataloger, so no
-    // selector can resolve it: the field must be omitted, not guessed.
-    expect(result.ambiguous).toEqual(['mesa'])
-    expect(result.values).not.toHaveProperty('mesa')
+    expect(result.ambiguous).toEqual([])
+    expect(result.values.mesa).toBe('1:26.1.4-4.fc44')
   })
 
   it('resolves Bluefin kernel-core and systemd unambiguously', () => {

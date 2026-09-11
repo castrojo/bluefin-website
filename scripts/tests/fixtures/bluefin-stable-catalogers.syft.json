@@ -25,6 +25,14 @@
       "purl": "pkg:rpm/fedora/mesa@26.1.5-1.fc44?distro=fedora-44"
     },
     {
+      "id": "3409c1392d3514d6",
+      "name": "mesa-dri-drivers",
+      "version": "1:26.1.4-4.fc44",
+      "type": "rpm",
+      "foundBy": "rpm-db-cataloger",
+      "purl": "pkg:rpm/mesa-dri-drivers@26.1.4-4.fc44?arch=x86_64&epoch=1&upstream=mesa-26.1.4-4.fc44.src.rpm"
+    },
+    {
       "id": "5fe6f6d522de43b7",
       "name": "podman",
       "version": "5.8.4-1.fc44",
