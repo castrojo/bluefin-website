@@ -27,7 +27,7 @@ const PACKAGE_LABELS: Record<string, string> = {
 }
 
 // Kernel/init first, then graphics, then desktop. Every key here must be
-// resolvable from the image SBOM — see scripts/update-dakota-versions.js.
+// resolvable from the image SBOM — see scripts/lib/image-sbom-registry.js.
 const DAKOTA_KEYS = ['kernel', 'systemd', 'bootc', 'mesa', 'nvidia', 'gnome', 'pipewire']
 
 async function loadVersions() {
