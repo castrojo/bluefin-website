@@ -1,12 +1,12 @@
 import type { Plugin } from 'vite'
-import { resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+import { createDirectoryEntryPaths, createRollupInput } from './scripts/lib/site-entries.js'
 import { createVitestExclude } from './scripts/lib/vitest-exclude.js'
 
-const directoryEntryPaths = new Set(['/dakota', '/server', '/wolves'])
+const directoryEntryPaths = createDirectoryEntryPaths()
 
 function redirectDirectoryEntries(): Plugin {
   return {
@@ -72,14 +72,7 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      input: {
-        'main': resolve(__dirname, 'index.html'),
-        'testing': resolve(__dirname, 'public/testing.html'),
-        'dakota': resolve(__dirname, 'dakota/index.html'),
-        'server': resolve(__dirname, 'server/index.html'),
-        'wolves': resolve(__dirname, 'wolves/index.html'),
-        'wolves/experience': resolve(__dirname, 'wolves/experience/index.html'),
-      },
+      input: createRollupInput(__dirname),
       output: {
         manualChunks: (id: string) => {
           if (['vue', 'vue-i18n'].some(mod => id.includes(`/node_modules/${mod}`))) {

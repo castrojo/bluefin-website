@@ -19,7 +19,7 @@ export const PROSE_PAGE_CHARACTERS = 190
  * the block gap, and the rounding of its last line. Counted per block so a page
  * budget predicts rendered height instead of raw character count.
  */
-const BLOCK_OVERHEAD_CHARACTERS = 40
+export const BLOCK_OVERHEAD_CHARACTERS = 40
 
 /** Floor for a page nobody in the back row should have to rush. */
 export const PAGE_MINIMUM_SECONDS = 6
