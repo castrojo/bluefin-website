@@ -353,6 +353,7 @@ const loreManifest = [
   { id: 'forbidden-factory', chapterId: 'prologue', relativePath: './lore/forbidden-factory.md' },
   { id: 'jordan-adrian', chapterId: 'prologue', relativePath: './lore/sidebar-comm-forbidden-factory-14.md' },
   { id: 'arthur-c-clarke-3', chapterId: 'prologue', relativePath: './lore/arthur-c-clarke-3.md' },
+  { id: 'arthur-c-clarke-4', chapterId: 'prologue', relativePath: './lore/arthur-c-clarke-4.md' },
   { id: 'maintenance-window', chapterId: 'prologue', relativePath: './lore/maintenance-window.md' },
   { id: 'quote-childhoods-end-future', chapterId: 'pursuit', relativePath: './lore/quote-childhoods-end-future.md' },
   { id: 'lorem-pursuit-1', chapterId: 'pursuit', relativePath: './lore/lorem-pursuit-1.md' },
