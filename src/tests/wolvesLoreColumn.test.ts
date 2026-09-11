@@ -5,6 +5,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { getChatlogLore, getQuoteLore, loreRecords } from '../components/wolves/lore'
 import {
+  BLOCK_OVERHEAD_CHARACTERS,
   CHAT_PAGE_CHARACTERS,
   estimatePageSeconds,
   estimatePagesSeconds,
@@ -385,7 +386,7 @@ describe('wolvesLoreColumn Logic', () => {
 
   it('never splits a quote that fits one page', () => {
     const shortQuotes = loreRecords.filter(record =>
-      record.kind === 'quote' && record.body.length <= PROSE_PAGE_CHARACTERS,
+      record.kind === 'quote' && record.body.length + BLOCK_OVERHEAD_CHARACTERS <= PROSE_PAGE_CHARACTERS,
     )
 
     expect(shortQuotes.length).toBeGreaterThan(0)
