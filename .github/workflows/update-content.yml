@@ -63,9 +63,7 @@ jobs:
         uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
 
       - name: Download Bluefin Growth Chart
-        run: |
-          curl https://raw.githubusercontent.com/ublue-os/countme/refs/heads/main/growth_bluefins.svg --output src/assets/svg/growth_bluefins.svg
-          sed -i 's/#ffffff/#0c1016/g; s/#cccccc/#272727/g; s/#616161/#bdbdbd/g; s/#77aadd/#4285f4/g; s/id="text_16">/id="text_16" style="fill: #bdbdbd">/' src/assets/svg/growth_bluefins.svg
+        run: node scripts/update-growth-chart.js
 
       - name: Verify image SBOMs and update version data
         run: npm run update:image-versions
