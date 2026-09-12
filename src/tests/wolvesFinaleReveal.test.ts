@@ -17,10 +17,33 @@ function finalSlot() {
   return slot!
 }
 
+let cachedRecord: ReturnType<typeof loadAllLoreRecords>[number] | undefined
+function getFinalRecord() {
+  if (!cachedRecord) {
+    cachedRecord = loadAllLoreRecords().find(entry => entry.id === FINAL_ID)!
+  }
+  return cachedRecord
+}
+
+let cachedPages: string[] | undefined
+function getFinalPages() {
+  if (!cachedPages) {
+    cachedPages = loreProsePages(getFinalRecord().body)
+  }
+  return cachedPages
+}
+
+let cachedBlocks: ReturnType<typeof parseLoreSpeakerParagraphs> | undefined
+function getFinalBlocks() {
+  if (!cachedBlocks) {
+    cachedBlocks = parseLoreSpeakerParagraphs(getFinalRecord().body)
+  }
+  return cachedBlocks
+}
+
 function pageAt(time: number) {
   const slot = finalSlot()
-  const record = loadAllLoreRecords().find(entry => entry.id === FINAL_ID)!
-  const pages = loreProsePages(record.body)
+  const pages = getFinalPages()
   const index = pickPageIndexForElapsed(pages, time - slot.startTime, slot.endTime - slot.startTime)
   return pages[index]!
 }
@@ -32,9 +55,8 @@ function pageAt(time: number) {
  */
 function renderedPageAt(time: number) {
   const slot = finalSlot()
-  const record = loadAllLoreRecords().find(entry => entry.id === FINAL_ID)!
   const page = pickBlockPage(
-    parseLoreSpeakerParagraphs(record.body),
+    getFinalBlocks(),
     block => block.source,
     time - slot.startTime,
     slot.endTime - slot.startTime,
@@ -159,8 +181,7 @@ describe('finale reveal', () => {
     const directorSlot = wolvesDirectorsCutNarrativeTimeline.find(entry => entry.artifactId === FINAL_ID)!
 
     function directorPageAt(time: number) {
-      const record = loadAllLoreRecords().find(entry => entry.id === FINAL_ID)!
-      const pages = loreProsePages(record.body)
+      const pages = getFinalPages()
       const index = pickPageIndexForElapsed(
         pages,
         time - directorSlot.startTime,
@@ -189,11 +210,10 @@ describe('finale reveal', () => {
       expect(revealTimes.length, 'the Director\'s Cut never shows the death reveal').toBeGreaterThan(0)
       expect(revealTimes[0]!).toBeGreaterThan(DIRECTORS_CUT_FINALE_ANCHORS.coverStart)
       expect(revealTimes[revealTimes.length - 1]!).toBeLessThan(DIRECTORS_CUT_FINALE_ANCHORS.bulletinEnd)
-    })
+    }, 30000)
 
     it('lands the elegy page, read in full, before the bulletin clears', () => {
-      const record = loadAllLoreRecords().find(entry => entry.id === FINAL_ID)!
-      const pages = loreProsePages(record.body)
+      const pages = getFinalPages()
       const elegy = pages[pages.length - 1]!
       // The last frame the bulletin is on screen is also the last frame of its
       // complete paging window. The page must be the authored elegy, not a

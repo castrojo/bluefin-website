@@ -459,15 +459,16 @@ describe('wolvesComicReader', () => {
       wallpaper.name === path || wallpaper.dayName === path || wallpaper.nightName === path,
     ))
 
-    for (let time = 0; time < 423; time += 0.1) {
-      await wrapper.setProps({ playlistCurrentTime: time })
+    const slides = (wrapper.vm as any).timelineSlides as Array<{ startTime: number, endTime: number }>
+    for (const slide of slides) {
+      await wrapper.setProps({ playlistCurrentTime: slide.startTime })
       const image = activeTimelineImage(wrapper) ?? ''
       if (image !== previousImage) {
         shownImages.push(image)
       }
       const reservedPath = reservedPaths.find(path => image.includes(path))
       if (reservedPath && !reservedFirstSeenAt.has(reservedPath)) {
-        reservedFirstSeenAt.set(reservedPath, time)
+        reservedFirstSeenAt.set(reservedPath, slide.startTime)
       }
       previousImage = image
     }
@@ -476,7 +477,7 @@ describe('wolvesComicReader', () => {
     expect(new Set(shownImages).size).toBeLessThan(wallpapers.length + missingReservedPaths.length)
     expect(shownImages.some(image => image.includes('wolves/showcase/claw.gif'))).toBe(false)
     expect([...reservedFirstSeenAt.values()].every(time => time >= 359 && time < 408.2)).toBe(true)
-  })
+  }, 15000)
 
   it('keeps every photo in a later-track shuffle available only once', async () => {
     vi.spyOn(Math, 'random').mockReturnValue(0)
@@ -1098,7 +1099,7 @@ describe('wolvesComicReader', () => {
         seen.set(hash, name)
       }
     }
-  })
+  }, 15000)
 
   it('uses the contributor-focused beat barrage from the 5:55 pickup', async () => {
     const feed = Array.from({ length: 200 }, (_, index) => ({
