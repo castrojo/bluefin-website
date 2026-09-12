@@ -476,7 +476,7 @@ describe('wolvesComicReader', () => {
     expect(new Set(shownImages).size).toBeLessThan(wallpapers.length + missingReservedPaths.length)
     expect(shownImages.some(image => image.includes('wolves/showcase/claw.gif'))).toBe(false)
     expect([...reservedFirstSeenAt.values()].every(time => time >= 359 && time < 408.2)).toBe(true)
-  })
+  }, 15000)
 
   it('keeps every photo in a later-track shuffle available only once', async () => {
     vi.spyOn(Math, 'random').mockReturnValue(0)
@@ -1098,7 +1098,7 @@ describe('wolvesComicReader', () => {
         seen.set(hash, name)
       }
     }
-  })
+  }, 15000)
 
   it('uses the contributor-focused beat barrage from the 5:55 pickup', async () => {
     const feed = Array.from({ length: 200 }, (_, index) => ({

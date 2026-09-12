@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import https from 'node:https'
 import { resolve } from 'node:path'
@@ -9,6 +10,18 @@ import { parseBackCatalogue } from '@/config/experience-manifest'
 import { resolveOverallRatioTarget, useCinematicStore, WOLVES_EXPERIENCE } from '@/stores/cinematic'
 // @ts-expect-error script module is intentionally plain Node ESM
 import * as catalogueGenerator from '../../scripts/update-back-catalogue.js'
+
+function hasBinary(name: string): boolean {
+  try {
+    const result = spawnSync(name, ['--version'], { stdio: 'ignore' })
+    return !result.error && result.status === 0
+  }
+  catch {
+    return false
+  }
+}
+
+const hasYtDlp = hasBinary('yt-dlp')
 
 const { auditExperience, buildExperience, buildSegments, cleanArtist, cleanTitle, readPlaylistEntries, shouldIncludeAlbum, stripArtistPrefix } = catalogueGenerator as typeof catalogueGenerator & {
   auditExperience: (album: { id: string, title: string }, entries: Array<{ id: string, title: string }>, experience: { segments: Array<{ id: string, durationSeconds: number, youtubeId: string }> }) => void
@@ -169,8 +182,9 @@ describe('back catalogue experiences', () => {
   })
 
   // This test exercises live YouTube and documentation data. Keep it manual;
-  // deterministic fixture coverage is above and CI has no external media contract.
-  it.skipIf(process.env.CI)('audits every non-featured album from the published playlist metadata', async () => {
+  // deterministic fixture coverage is above, CI has no external media contract,
+  // and clean environments without yt-dlp installed must degrade cleanly.
+  it.skipIf(Boolean(process.env.CI) || !hasYtDlp)('audits every non-featured album from the published playlist metadata', async () => {
     const albums = await new Promise<Array<{ id: string, title: string, playlistUrl: string }>>((resolve, reject) => {
       https.get('https://docs.projectbluefin.io/data/playlist-metadata.json', (response) => {
         if (response.statusCode && response.statusCode >= 400) {
