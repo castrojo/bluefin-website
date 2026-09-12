@@ -459,16 +459,15 @@ describe('wolvesComicReader', () => {
       wallpaper.name === path || wallpaper.dayName === path || wallpaper.nightName === path,
     ))
 
-    const slides = (wrapper.vm as any).timelineSlides as Array<{ startTime: number, endTime: number }>
-    for (const slide of slides) {
-      await wrapper.setProps({ playlistCurrentTime: slide.startTime })
+    for (let time = 0; time < 423; time += 0.1) {
+      await wrapper.setProps({ playlistCurrentTime: time })
       const image = activeTimelineImage(wrapper) ?? ''
       if (image !== previousImage) {
         shownImages.push(image)
       }
       const reservedPath = reservedPaths.find(path => image.includes(path))
       if (reservedPath && !reservedFirstSeenAt.has(reservedPath)) {
-        reservedFirstSeenAt.set(reservedPath, slide.startTime)
+        reservedFirstSeenAt.set(reservedPath, time)
       }
       previousImage = image
     }
