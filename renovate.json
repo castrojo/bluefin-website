@@ -10,48 +10,20 @@
   "minimumReleaseAge": "3 days",
   "packageRules": [
     {
-      "description": "Group and automerge every non-major update",
+      "description": "Automerge only pin/pinDigest updates: they record the exact ref of an already-referenced version and introduce no new upstream code. Every other update requires a human merge.",
       "matchUpdateTypes": [
-        "minor",
-        "patch",
         "pin",
-        "digest"
-      ],
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch",
-      "automerge": true,
-      "platformAutomerge": true
-    },
-    {
-      "description": "Automerge major devDependency bumps: they cannot reach production, and lint, typecheck, tests, and build all gate the merge",
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchUpdateTypes": [
-        "major"
+        "pinDigest"
       ],
       "automerge": true,
       "platformAutomerge": true
-    },
-    {
-      "description": "Major runtime dependency updates stay manual",
-      "matchDepTypes": [
-        "dependencies"
-      ],
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "automerge": false
     }
   ],
   "vulnerabilityAlerts": {
-    "enabled": true,
-    "automerge": true,
-    "minimumReleaseAge": null
+    "enabled": true
   },
   "lockFileMaintenance": {
     "enabled": true,
-    "automerge": true,
     "schedule": [
       "before 6am on Monday"
     ]
