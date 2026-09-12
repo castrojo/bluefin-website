@@ -17,9 +17,9 @@
  * THE CUT IS THREE SEGMENTS, NOT ONE VIDEO WITH OVERLAYS. The delivered
  * trailer leaves the picture at 88.2 s and never returns to it.
  *
- *   0      -> 88.2    the picture
- *   88.2   -> 102.2   day falling into night
- *   102.2  -> 115.02  the night scene as a poster end card
+ *   0       -> 88.2    the picture
+ *   88.2    -> 112.2   day falling into night
+ *   112.2   -> 127.02  the night scene as a poster end card
  *
  * Both day cards and the whole end card sit on the scene at FULL frame, with
  * no letterbox — which is also why they carry no scrim: the owner had it
@@ -31,22 +31,31 @@
  * The picture the teaser embeds: the owner's delivered 4K60 render of the
  * cut, "Wolves Trailer Final". NOT the destiny-vids ingest, and deliberately
  * left as it was found — the video is the owner's call, not this file's.
+ *
+ * # ponytail: still the pre-recut render. The 2:07 re-cut (destiny-vids#314)
+ * has no YouTube master until the owner uploads it, so there is no correct
+ * ID to port yet. Swap this to the new upload when it lands; everything above
+ * in this file is already ported to that cut's timings.
  */
 export const TRAILER_VIDEO_ID = 'u-ZWdKcHyXM'
 
-/** The source music stops after the howl and its approved fade. */
-export const TRAILER_MUSIC_END_SECONDS = 110.02
-/** The delivered picture holds the URL for five silent seconds after the music. */
-export const TRAILER_DURATION_SECONDS = 115.02
+/** The source music stops after the howl and its approved fade. (re-cut: 120.02) */
+export const TRAILER_MUSIC_END_SECONDS = 120.02
+/** The delivered picture holds the URL for seven silent seconds after the music. (re-cut: 127.02) */
+export const TRAILER_DURATION_SECONDS = 127.02
 /** Compatibility name for records that describe picture rather than transport. */
 export const TRAILER_CUT_DURATION_SECONDS = TRAILER_DURATION_SECONDS
 
 /**
  * Segment boundaries, from `scripts/build_trailer1.py`:
- * picture 88.200 + bridge 14.000 + end card 12.820 = 115.020.
+ * picture 88.200 + bridge 24.000 + end card 12.820 = 127.020.
+ *
+ * The bridge's five prologue legs were dropped (destiny-vids#314); the trailer
+ * bridge is now three legs summing to 24.000. The end card's nominal 12.820 is
+ * unchanged, so this boundary moves with the bridge: 88.2 + 24.0 = 112.2.
  */
 export const TRAILER_PICTURE_END_SECONDS = 88.2
-export const TRAILER_BRIDGE_END_SECONDS = 102.2
+export const TRAILER_BRIDGE_END_SECONDS = 112.2
 /** The source picture stays black until the explosion blooms out of it. */
 export const TRAILER_PICTURE_REVEAL_SECONDS = 12.2
 /** Two 59.94 fps frames, matching the delivered trailer's opening gate. */
@@ -56,22 +65,22 @@ export const TRAILER_PICTURE_REVEAL_FADE_SECONDS = 2 * 1001 / 60000
 export const TRAILER_BRIDGE_MONTH = '03'
 
 /**
- * The bridge's five legs, from `build_trailer1.py`. They sum to 14.000, and
- * the leg names are the build's own: the wallpaper rises out of black, holds
- * as day, turns to night, holds, then falls back to black before the end card.
+ * The bridge's three legs, post re-cut (destiny-vids#314). They sum to 24.000,
+ * and the leg names are the build's own: the wallpaper rises out of black and
+ * settles as day, turns to night, then holds as night into the end card. The
+ * old `up`/`dayHold`/`turn`/`nightHold`/`down` set was copied from the prologue
+ * and never described this trailer's filtergraph.
  */
 export const TRAILER_BRIDGE_LEGS = {
-  up: 1.4,
-  dayHold: 1.0,
-  turn: 4.4,
-  nightHold: 1.4,
-  down: 5.8,
+  daySettle: 4.0,
+  turn: 10.0,
+  nightTail: 10.0,
 } as const
 
-/** End card fades, relative to the end card's own start at 102.2. */
+/** End card fades, relative to the end card's own start at 112.2. */
 export const TRAILER_ENDCARD_EVENT_IN = 1.2
 export const TRAILER_ENDCARD_EVENT_FADE = 1.1
-export const TRAILER_ENDCARD_CTA_IN = 3.1
+export const TRAILER_ENDCARD_CTA_IN = 7.82
 export const TRAILER_ENDCARD_CTA_FADE = 0.6
 export const TRAILER_ENDCARD_FADE = 1.2
 /** Freeze the completed teaser immediately before the URL card fades out. */
@@ -87,7 +96,7 @@ export const TRAILER_CREDIT_JOIN_SECONDS = 12.2
 /** Authored casing preserved: the card uppercases in CSS, as the film does. */
 export const TRAILER_TITLE_LABEL = 'PROJECT BLUEFIN'
 export const TRAILER_TITLE_LINE = 'seven days to the wolves'
-export const TRAILER_CREDIT_LINE = 'Music by Nightwish | Action by Bungie'
+export const TRAILER_CREDIT_LINE = 'Music by Nightwish | Action by Destiny'
 
 /**
  * EVERY B AND EVERY F IS BLUE. Owner, 2026-08-15: "Ensure every b is blue, and
@@ -130,7 +139,7 @@ export const TRAILER_PLATES: readonly TrailerPlate[] = [
     start: 7.0,
     end: 22.6,
     title: TRAILER_TITLE_LINE,
-    lines: [TRAILER_CREDIT_LINE],
+    lines: [TRAILER_CREDIT_LINE, 'Open Source Fights Back'],
     // TITLE_FADE = 1.400, and TITLE_OUT = 22.600 is this plate's own end.
     fadeIn: 1.4,
     fadeOut: 1.4,
@@ -176,6 +185,16 @@ export const TRAILER_PLATES: readonly TrailerPlate[] = [
     title: 'Survival is the Exception',
     fadeIn: 0.5,
     fadeOut: 0.6,
+  },
+  {
+    // Third dramatic line of the re-cut, at 101.2. No glyph: one Kubernetes
+    // mark across the set, on daycard-extinction only. Ported verbatim from the
+    // manifest, which gives this card no authored fade.
+    id: 'daycard-takeback',
+    kind: 'daycard',
+    start: 101.2,
+    end: 107.6,
+    title: 'Take Back What is Yours',
   },
   {
     // Start is the build's ENDCARD_EVENT_IN (1.200 into the end card), which
@@ -258,14 +277,14 @@ export interface TrailerBridgeState {
 
 /** Where the bridge's day-to-night walk has got to at a given timestamp. */
 export function trailerBridgeState(timeSeconds: number): TrailerBridgeState {
-  const { up, dayHold, turn, nightHold } = TRAILER_BRIDGE_LEGS
+  const { daySettle, turn, nightTail } = TRAILER_BRIDGE_LEGS
   const t = timeSeconds - TRAILER_PICTURE_END_SECONDS
-  const turnStart = up + dayHold
+  const turnStart = daySettle
   const turnEnd = turnStart + turn
-  const fallStart = turnEnd + nightHold
+  const fallStart = turnEnd + nightTail
   const span = TRAILER_BRIDGE_END_SECONDS - TRAILER_PICTURE_END_SECONDS
   return {
-    opacity: Math.min(ramp(t, 0, up), 1 - ramp(t, fallStart, span)),
+    opacity: Math.min(ramp(t, 0, daySettle), 1 - ramp(t, fallStart, span)),
     nightMix: ramp(t, turnStart, turnEnd),
   }
 }
