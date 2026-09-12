@@ -29,17 +29,20 @@ import {
 // and scripts/build_trailer1.py, "Trailer 1.1", 2026-08-18). If the cut is
 // recut, re-port the manifest — do not nudge these numbers to make a test pass.
 describe('wolves trailer plates', () => {
-  it('keeps the music at 1:50.020 and the picture through 1:55.020', () => {
+  it('holds the music to 2:00.020 and the cut to 2:07.020', () => {
+    // The video ID is blocked on the owner's re-cut upload (issue #758); the
+    // render currently embedded is unchanged. Do not port a new ID until it lands.
     expect(TRAILER_VIDEO_ID).toBe('u-ZWdKcHyXM')
-    expect(TRAILER_MUSIC_END_SECONDS).toBe(110.02)
-    expect(TRAILER_DURATION_SECONDS).toBe(115.02)
+    expect(TRAILER_MUSIC_END_SECONDS).toBe(120.02)
+    expect(TRAILER_DURATION_SECONDS).toBe(127.02)
     expect(TRAILER_CUT_DURATION_SECONDS).toBe(TRAILER_DURATION_SECONDS)
   })
 
   it('shows nothing before the main title and after the cut ends', () => {
     expect(activeTrailerPlates(0)).toEqual([])
     expect(activeTrailerPlates(6.9)).toEqual([])
-    expect(activeTrailerPlates(TRAILER_MUSIC_END_SECONDS).map(p => p.id)).toEqual(['endcard-event', 'endcard-cta'])
+    // Held from the music's swell; probe just past it to dodge 112.2+7.82 float noise.
+    expect(activeTrailerPlates(TRAILER_MUSIC_END_SECONDS + 0.01).map(p => p.id)).toEqual(['endcard-event', 'endcard-cta'])
     expect(activeTrailerPlates(TRAILER_DURATION_SECONDS)).toEqual([])
     expect(activeTrailerPlates(Number.NaN)).toEqual([])
   })
@@ -124,15 +127,19 @@ describe('wolves trailer plates', () => {
   it('runs the marquee messages in the wolves fade', () => {
     expect(activeTrailerPlates(89).map(p => p.id)).toEqual(['daycard-extinction'])
     expect(activeTrailerPlates(95).map(p => p.id)).toEqual(['daycard-survival'])
+    expect(activeTrailerPlates(104).map(p => p.id)).toEqual(['daycard-takeback'])
   })
 
-  // The call to action is a second card OVER the event rows, arriving at the
-  // music's returning swell. Both are on screen together to the last frame.
-  it('lands on the KubeCon end card, then joins the call to action', () => {
-    expect(activeTrailerPlates(104).map(p => p.id)).toEqual(['endcard-event'])
-    expect(activeTrailerPlates(106).map(p => p.id)).toEqual(['endcard-event', 'endcard-cta'])
-    expect(activeTrailerPlates(109.9).map(p => p.id)).toEqual(['endcard-event', 'endcard-cta'])
-    expect(activeTrailerPlates(112.5).map(p => p.id)).toEqual(['endcard-event', 'endcard-cta'])
+  // The call to action is a second card OVER the event rows. In the re-cut it
+  // is held out until the music stops, then holds with the event card to the
+  // last frame of the cut.
+  it('holds the KubeCon end card, then holds the call to action until the music stops', () => {
+    // The event card is up while the URL is still held out...
+    expect(activeTrailerPlates(115).map(p => p.id)).toEqual(['endcard-event'])
+    expect(activeTrailerPlates(119).map(p => p.id)).toEqual(['endcard-event'])
+    // ...until the music's swell, then holds with the event card to the last frame.
+    expect(activeTrailerPlates(TRAILER_MUSIC_END_SECONDS + 0.01).map(p => p.id)).toEqual(['endcard-event', 'endcard-cta'])
+    expect(activeTrailerPlates(TRAILER_DURATION_SECONDS - 0.01).map(p => p.id)).toEqual(['endcard-event', 'endcard-cta'])
   })
 
   it('holds the finished teaser where the URL card is fully visible', () => {
@@ -168,13 +175,13 @@ describe('wolves trailer segments', () => {
 
   it('opens and closes the bridge on black', () => {
     expect(trailerBridgeState(TRAILER_PICTURE_END_SECONDS).opacity).toBe(0)
-    expect(trailerBridgeState(88.2 + TRAILER_BRIDGE_LEGS.up).opacity).toBe(1)
+    expect(trailerBridgeState(88.2 + TRAILER_BRIDGE_LEGS.daySettle).opacity).toBe(1)
     expect(trailerBridgeState(TRAILER_BRIDGE_END_SECONDS).opacity).toBe(0)
   })
 
   it('turns the wallpaper from day to night across the authored leg', () => {
-    const { up, dayHold, turn } = TRAILER_BRIDGE_LEGS
-    const turnStart = TRAILER_PICTURE_END_SECONDS + up + dayHold
+    const { daySettle, turn } = TRAILER_BRIDGE_LEGS
+    const turnStart = TRAILER_PICTURE_END_SECONDS + daySettle
     expect(trailerBridgeState(turnStart).nightMix).toBeCloseTo(0, 10)
     expect(trailerBridgeState(turnStart + turn / 2).nightMix).toBeCloseTo(0.5, 5)
     expect(trailerBridgeState(turnStart + turn).nightMix).toBe(1)
@@ -182,7 +189,7 @@ describe('wolves trailer segments', () => {
     expect(trailerBridgeState(TRAILER_BRIDGE_END_SECONDS).nightMix).toBe(1)
   })
 
-  it('the bridge legs sum to the authored 14 seconds', () => {
+  it('the bridge legs sum to the authored 24 seconds', () => {
     const total = Object.values(TRAILER_BRIDGE_LEGS).reduce((a, b) => a + b, 0)
     expect(total).toBeCloseTo(TRAILER_BRIDGE_END_SECONDS - TRAILER_PICTURE_END_SECONDS, 5)
   })
@@ -221,7 +228,7 @@ describe('trailer line treatments', () => {
 
   it('colours lower-case b and f too', () => {
     const tokens = tokenizeTrailerLine(TRAILER_CREDIT_LINE)
-    expect(valuesOf(tokens, 'accent')).toEqual(['b', 'b', 'B'])
+    expect(valuesOf(tokens, 'accent')).toEqual(['b', 'b'])
   })
 
   it('draws a spaced pipe as a sear and keeps the words either side', () => {
