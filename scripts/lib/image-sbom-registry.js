@@ -110,9 +110,12 @@ export const IMAGE_SBOM_REGISTRY = Object.freeze([
       base: { name: 'kernel-core', type: 'rpm', required: true },
       kernel: { name: 'kernel-core', type: 'rpm', required: true },
       gnome: { name: 'gnome-shell', type: 'rpm', required: true },
-      // The ELF cataloger sees both the current rootfs and an older Mesa build
-      // retained in the OSTree repository. Use the installed RPM database
-      // subpackage from the Mesa source build as the authoritative selector.
+      // The ELF cataloger reports builds from both the live rootfs and
+      // objects retained in the OSTree repository, and cannot distinguish
+      // them. The RPM database is the authority on what is installed, so
+      // mesa-dri-drivers from rpm-db-cataloger is used as the representative
+      // of the installed Mesa source build regardless of which ELF version
+      // is higher.
       mesa: { name: 'mesa-dri-drivers', type: 'rpm', foundBy: 'rpm-db-cataloger', required: false },
       systemd: { name: 'systemd', required: false },
       // The RPM database is the shipped-package authority; the ELF binary
