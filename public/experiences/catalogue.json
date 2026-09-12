@@ -1207,6 +1207,84 @@
           "durationSeconds": 385
         }
       ]
+    },
+    {
+      "id": "PLhiPP9M5fgWETQZheRqv2ue5bv-zZNpK5",
+      "title": "The Gardener and the Winnower",
+      "subtitle": "[ Redacted ]",
+      "artwork": "experiences/PLhiPP9M5fgWETQZheRqv2ue5bv-zZNpK5.jpg",
+      "segments": [
+        {
+          "id": "LQitGdnXixk",
+          "kind": "youtube",
+          "youtubeId": "LQitGdnXixk",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Silence",
+          "artist": "OfficialDelerium",
+          "artwork": "https://i.ytimg.com/vi/LQitGdnXixk/hqdefault.jpg",
+          "durationSeconds": 401
+        },
+        {
+          "id": "aXYzFIdXeG8",
+          "kind": "youtube",
+          "youtubeId": "aXYzFIdXeG8",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Ghost Love Score",
+          "artist": "Nightwish",
+          "artwork": "https://i.ytimg.com/vi/aXYzFIdXeG8/hqdefault.jpg",
+          "durationSeconds": 603
+        },
+        {
+          "id": "iygUxUicjxY",
+          "kind": "youtube",
+          "youtubeId": "iygUxUicjxY",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Tears",
+          "artist": "Alice In Chains",
+          "artwork": "https://i.ytimg.com/vi/iygUxUicjxY/hqdefault.jpg",
+          "durationSeconds": 262
+        },
+        {
+          "id": "Xap3w_xP8CY",
+          "kind": "youtube",
+          "youtubeId": "Xap3w_xP8CY",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Juke-Joint Jezebel",
+          "artist": "KMFDM",
+          "artwork": "https://i.ytimg.com/vi/Xap3w_xP8CY/hqdefault.jpg",
+          "durationSeconds": 340
+        },
+        {
+          "id": "nOnYpmqTFzI",
+          "kind": "youtube",
+          "youtubeId": "nOnYpmqTFzI",
+          "chapter": "The Gardener and the Winnower",
+          "title": "1,000,000 Watts Of Love",
+          "artist": "Information Society",
+          "artwork": "https://i.ytimg.com/vi/nOnYpmqTFzI/hqdefault.jpg",
+          "durationSeconds": 264
+        },
+        {
+          "id": "Z8hK_8tq-kM",
+          "kind": "youtube",
+          "youtubeId": "Z8hK_8tq-kM",
+          "chapter": "The Gardener and the Winnower",
+          "title": "My Friend of Misery (June 2nd, 1991 Rough Mix)",
+          "artist": "Metallica",
+          "artwork": "https://i.ytimg.com/vi/Z8hK_8tq-kM/hqdefault.jpg",
+          "durationSeconds": 404
+        },
+        {
+          "id": "2idDr72FYA8",
+          "kind": "youtube",
+          "youtubeId": "2idDr72FYA8",
+          "chapter": "The Gardener and the Winnower",
+          "title": "Breathe (Live from Pepsi Center CDMX)",
+          "artist": "The Warning",
+          "artwork": "https://i.ytimg.com/vi/2idDr72FYA8/hqdefault.jpg",
+          "durationSeconds": 235
+        }
+      ]
     }
   ]
 }
